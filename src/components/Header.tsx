@@ -9,7 +9,7 @@ const SHeader = styled.div`
 	height: 65px;
 	line-height: 65px;
 	color: #fff;
-	box-shadow: 0 4px 10px -6px #eee !important;
+	box-shadow: 0 4px 20px -20px #111 !important;
 	background-color: rgba(28, 63, 148, 1);
 	margin-bottom: 40px;
 `;
@@ -33,13 +33,13 @@ const SNav = styled.div`
 const Header: React.FC<{}> = () => {
 	return (
 		<SHeader>
-			<Container>
+			<Container fluid={true}>
 				<SLogo>
-					<Link to={'/'}>EVM-Lite Dashboard</Link>
+					<Link to={'/'}>Monet Explorer</Link>
 				</SLogo>
 				<SNav>
 					<Link to={'/explorer'}>
-						<Button color={'orange'} content={'Explorer'} />
+						<Button color={'orange'} content={'Network'} />
 					</Link>
 				</SNav>
 			</Container>

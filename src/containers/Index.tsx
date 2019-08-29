@@ -1,48 +1,85 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import styled from 'styled-components';
+import Node from 'evm-lite-core';
 
-import { Container, Grid, Table } from 'semantic-ui-react';
+import { Babble, IBabbleBlock } from 'evm-lite-consensus';
+import { Container, Form, Grid, Input, Table } from 'semantic-ui-react';
+
+import { HOST, PORT } from '../const';
 
 import Box from '../components/Box';
-import Network from '../components/Network';
-
-const SIndex = styled.div``;
 
 const Index: React.FC<{}> = () => {
+	// component scoped node
+	const b = new Babble(HOST, PORT);
+	const n = new Node(HOST, PORT, b);
+
+	const [lastBlockIndex, setLastBlockIndex] = useState(0);
+	const [blocks, setBlocks] = useState<IBabbleBlock[]>([] as IBabbleBlock[]);
+
+	const getLastBloxkIndex = async () => {
+		const res = await n.getInfo();
+
+		setLastBlockIndex(res.last_block_index);
+	};
+
+	const fetchBlocks = async (start: number, end: number) => {
+		const d = end - start;
+		const all: IBabbleBlock[] = [];
+
+		for (let i = start; i <= end; i++) {
+			const b = await n.consensus.getBlock(i);
+
+			all.push(b);
+		}
+
+		setBlocks(all);
+	};
+
+	useEffect(() => {
+		getLastBloxkIndex();
+	}, []);
+
+	useEffect(() => {
+		fetchBlocks(0, lastBlockIndex);
+	}, [lastBlockIndex]);
+
+	const renderBlock = (b: IBabbleBlock) => {
+		return (
+			<Table.Row>
+				<Table.Cell textAlign={'center'}>{b.Body.Index}</Table.Cell>
+				<Table.Cell>{b.Body.StateHash}</Table.Cell>
+				<Table.Cell>{b.Body.PeersHash}</Table.Cell>
+			</Table.Row>
+		);
+	};
+
 	return (
-		<SIndex>
-			<Container>
-				<Grid stackable={true} columns={'equal'}>
-					<Grid.Column>
-						<h1>Network Info</h1>
-						<Network />
-					</Grid.Column>
-					<Grid.Column width={4}>
-						<Box heading={'Other Content'}>
-							Suspendisse massa urna, sagittis vel commodo a,
-							vestibulum vel mauris. Quisque et venenatis ex.
-							Aenean ut neque pellentesque, commodo diam sit amet,
-							pharetra velit. Nunc vitae maximus elit. In
-							consequat eros diam, non laoreet libero lobortis ac.
-							Sed efficitur, tellus eget lacinia faucibus, orci
-							urna elementum nisi, nec tempus mauris est quis mi.
-							Nam facilisis mollis ultrices. Ut blandit enim in
-							condimentum tempor. Phasellus vitae hendrerit
-							mauris, quis tristique odio. Morbi feugiat diam non
-							sem rutrum porttitor. Praesent porttitor, elit quis
-							malesuada tristique, nulla odio sollicitudin massa,
-							eu consectetur erat turpis non nisi. Fusce facilisis
-							eros nibh, posuere pellentesque enim viverra eget.
-							Nam eu sem et arcu faucibus interdum. Pellentesque
-							habitant morbi tristique senectus et netus et
-							malesuada fames ac turpis egestas. Fusce vel sem
-							neque.
-						</Box>
-					</Grid.Column>
-				</Grid>
-			</Container>
-		</SIndex>
+		<Container fluid={true}>
+			<Grid stackable={true} columns={'equal'}>
+				<Grid.Column>
+					<h1>Blocks</h1>
+					<Table celled={true} fixed={true} striped={true}>
+						<Table.Header>
+							<Table.Row>
+								<Table.HeaderCell
+									textAlign={'center'}
+									width={1}
+								>
+									Index
+								</Table.HeaderCell>
+								<Table.HeaderCell>State Hash</Table.HeaderCell>
+								<Table.HeaderCell>Peers Hash</Table.HeaderCell>
+							</Table.Row>
+						</Table.Header>
+						<Table.Body>{blocks.map(renderBlock)}</Table.Body>
+					</Table>
+				</Grid.Column>
+				{/* <Grid.Column width={4}>
+					<Box heading={'Setting'}>{lastBlockIndex}</Box>
+				</Grid.Column> */}
+			</Grid>
+		</Container>
 	);
 };
 

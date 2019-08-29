@@ -5,8 +5,8 @@ import styled from 'styled-components';
 const SBox = styled.div`
 	background: #fff;
 	color: #111;
-	box-shadow: 0 4px 10px -6px #eee !important;
 	margin-bottom: 20px;
+	box-shadow: 0 4px 20px -18px #111 !important;
 `;
 
 const SHeading = styled.div`

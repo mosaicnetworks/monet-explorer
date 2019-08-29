@@ -79,7 +79,7 @@ const Network: React.FC<{}> = () => {
 						<Table.HeaderCell>State</Table.HeaderCell>
 					</Table.Row>
 				</Table.Header>
-				<Table.Body>{infos.map(info => renderRow(info))}</Table.Body>
+				<Table.Body>{infos.map(renderRow)}</Table.Body>
 			</Table>
 		</>
 	);
