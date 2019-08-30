@@ -1,53 +1,40 @@
 {
 	"name": "monet-explorer",
-	"version": "0.1.0",
 	"private": true,
-	"dependencies": {
-		"evm-lite-client": "^1.0.0",
-		"evm-lite-core": "^1.0.0",
-		"evm-lite-datadir": "^1.0.0",
-		"evm-lite-keystore": "^1.0.0",
-		"evm-lite-utils": "^1.0.0",
-		"react": "^16.9.0",
-		"react-dom": "^16.9.0",
-		"react-router-dom": "^5.0.1",
-		"react-scripts": "3.1.1",
-		"semantic-ui-css": "^2.4.1",
-		"semantic-ui-react": "^0.88.0",
-		"styled-components": "^4.3.2",
-		"typescript": "3.5.3"
+	"author": "Mosaic Networks",
+	"workspaces": [
+		"packages/*"
+	],
+	"authors": [
+		{
+			"name": "Danu Kumanan",
+			"email": "danu@appmaven.io",
+			"homepage": "https://github.com/danu30"
+		}
+	],
+	"scripts": {
+		"run:web": "lerna run start",
+		"postinstall": "yarn lint && yarn run build && lerna link",
+		"dev": "yarn run run:web",
+		"lint": "lerna run lint",
+		"clean": "lerna run clean && rm -rf node_modules",
+		"build": "lerna run build"
 	},
 	"devDependencies": {
 		"@types/jest": "24.0.18",
 		"@types/node": "12.7.2",
 		"@types/react": "16.9.2",
 		"@types/react-dom": "16.9.0",
+		"@types/react-redux": "^7.1.2",
 		"@types/react-router-dom": "^4.3.5",
+		"@types/redux-logger": "^3.0.7",
 		"@types/styled-components": "^4.1.18",
+		"concurrently": "^4.1.2",
+		"lerna": "^3.16.4",
+		"ts-node": "^8.3.0",
 		"tslint": "^5.19.0",
 		"tslint-config-prettier": "^1.18.0",
+		"typescript": "^3.5.3",
 		"tslint-react": "^4.0.0"
-	},
-	"scripts": {
-		"dev": "react-scripts start",
-		"build": "react-scripts build",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject",
-		"clean": "rm -rf node_modules build"
-	},
-	"eslintConfig": {
-		"extends": "react-app"
-	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
 	}
 }

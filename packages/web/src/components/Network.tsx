@@ -46,20 +46,20 @@ const Network: React.FC<{}> = () => {
 	};
 
 	const fetchInfos = async () => {
-		const infos: IInfo[] = [];
+		const nodeInfos: IInfo[] = [];
 
 		for (const socket of sockets) {
 			const l = socket.split(':');
 			const c = new Client(l[0], parseInt(l[1], 10));
 
 			try {
-				infos.push(await c.getInfo());
+				nodeInfos.push(await c.getInfo());
 			} catch (e) {
 				console.log(e);
 			}
 		}
 
-		setInfos(infos);
+		setInfos(nodeInfos);
 	};
 
 	useEffect(() => {

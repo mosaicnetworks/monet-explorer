@@ -23,9 +23,9 @@ const Index: React.FC<{}> = () => {
 
 	const fetchBlocks = async (start: number, end: number) => {
 		const d = end - start;
-		const blocks = await n.consensus.getBlocks(start, d);
+		const bs = await n.consensus.getBlocks(start, d);
 
-		setBlocks(blocks);
+		setBlocks(bs);
 	};
 
 	useEffect(() => {
@@ -33,15 +33,15 @@ const Index: React.FC<{}> = () => {
 	});
 
 	useEffect(() => {
-		fetchBlocks(0, lastBlockIndex);
+		fetchBlocks(0, 10);
 	}, [lastBlockIndex]);
 
-	const renderBlock = (b: IBabbleBlock) => {
+	const renderBlock = (block: IBabbleBlock) => {
 		return (
-			<Table.Row key={b.Body.Index}>
-				<Table.Cell textAlign={'center'}>{b.Body.Index}</Table.Cell>
-				<Table.Cell>{b.Body.StateHash}</Table.Cell>
-				<Table.Cell>{b.Body.PeersHash}</Table.Cell>
+			<Table.Row key={block.Body.Index}>
+				<Table.Cell textAlign={'center'}>{block.Body.Index}</Table.Cell>
+				<Table.Cell>{block.Body.StateHash}</Table.Cell>
+				<Table.Cell>{block.Body.PeersHash}</Table.Cell>
 			</Table.Row>
 		);
 	};
@@ -67,9 +67,6 @@ const Index: React.FC<{}> = () => {
 						<Table.Body>{blocks.map(renderBlock)}</Table.Body>
 					</Table>
 				</Grid.Column>
-				{/* <Grid.Column width={4}>
-					<Box heading={'Setting'}>{lastBlockIndex}</Box>
-				</Grid.Column> */}
 			</Grid>
 		</Container>
 	);
