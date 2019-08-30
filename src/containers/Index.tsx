@@ -3,11 +3,9 @@ import React, { useEffect, useState } from 'react';
 import Node from 'evm-lite-core';
 
 import { Babble, IBabbleBlock } from 'evm-lite-consensus';
-import { Container, Form, Grid, Input, Table } from 'semantic-ui-react';
+import { Container, Grid, Table } from 'semantic-ui-react';
 
 import { HOST, PORT } from '../const';
-
-import Box from '../components/Box';
 
 const Index: React.FC<{}> = () => {
 	// component scoped node
@@ -17,7 +15,7 @@ const Index: React.FC<{}> = () => {
 	const [lastBlockIndex, setLastBlockIndex] = useState(0);
 	const [blocks, setBlocks] = useState<IBabbleBlock[]>([] as IBabbleBlock[]);
 
-	const getLastBloxkIndex = async () => {
+	const getLastBlockIndex = async () => {
 		const res = await n.getInfo();
 
 		setLastBlockIndex(res.last_block_index);
@@ -25,20 +23,14 @@ const Index: React.FC<{}> = () => {
 
 	const fetchBlocks = async (start: number, end: number) => {
 		const d = end - start;
-		const all: IBabbleBlock[] = [];
+		const blocks = await n.consensus.getBlocks(start, d);
 
-		for (let i = start; i <= end; i++) {
-			const b = await n.consensus.getBlock(i);
-
-			all.push(b);
-		}
-
-		setBlocks(all);
+		setBlocks(blocks);
 	};
 
 	useEffect(() => {
-		getLastBloxkIndex();
-	}, []);
+		getLastBlockIndex();
+	});
 
 	useEffect(() => {
 		fetchBlocks(0, lastBlockIndex);
@@ -46,7 +38,7 @@ const Index: React.FC<{}> = () => {
 
 	const renderBlock = (b: IBabbleBlock) => {
 		return (
-			<Table.Row>
+			<Table.Row key={b.Body.Index}>
 				<Table.Cell textAlign={'center'}>{b.Body.Index}</Table.Cell>
 				<Table.Cell>{b.Body.StateHash}</Table.Cell>
 				<Table.Cell>{b.Body.PeersHash}</Table.Cell>
