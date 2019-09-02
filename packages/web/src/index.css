@@ -27,3 +27,8 @@ table tr {
 .container {
 	padding: 0 20px;
 }
+
+.ui.dropdown > .text,
+.ui.menu .item > i.dropdown.icon {
+	color: white !important;
+}
