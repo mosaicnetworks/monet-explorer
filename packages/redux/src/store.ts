@@ -7,7 +7,11 @@ import { PersistConfig, persistReducer, persistStore } from 'redux-persist';
 
 import rootReducer from './modules';
 
-export interface IStore {}
+import { IBlocksState } from './modules/blocks';
+
+export interface IStore {
+	blocks: IBlocksState;
+}
 
 const persistConfig: PersistConfig = {
 	key: 'root',

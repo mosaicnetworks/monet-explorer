@@ -3,15 +3,22 @@ import React, { useEffect, useState } from 'react';
 import Node from 'evm-lite-core';
 
 import { Babble, IBabbleBlock } from 'evm-lite-consensus';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Message, Pagination, PaginationProps } from 'semantic-ui-react';
 import { Container, Grid, Table } from 'semantic-ui-react';
+
+import { blocks as a, IStore } from '@monetexplorer/redux';
 
 import Box from '../components/Box';
 
 import { HOST, PORT } from '../const';
 
 const Index: React.FC<{}> = () => {
-	const blocksPerPage = 10;
+	const blocksPerPage = 50;
+
+	// dispatch
+	const dispatch = useDispatch();
 
 	// component scoped node
 	const b = new Babble(HOST, PORT);
@@ -19,8 +26,11 @@ const Index: React.FC<{}> = () => {
 
 	const [error, setError] = useState('');
 	const [lastBlockIndex, setLastBlockIndex] = useState(0);
-	const [blocks, setBlocks] = useState<IBabbleBlock[]>([] as IBabbleBlock[]);
 	const [activePage, setActivePage] = useState(1);
+
+	const blocks = useSelector<IStore, IBabbleBlock[]>(
+		store => store.blocks.all
+	);
 
 	const getLastBlockIndex = async () => {
 		const res = await n.getInfo();
@@ -28,27 +38,18 @@ const Index: React.FC<{}> = () => {
 		setLastBlockIndex(res.last_block_index);
 	};
 
-	const fetchBlocks = async (start: number, end: number) => {
-		const d = end - start;
+	const fetchBlocks = async (start: number, end: number) =>
+		dispatch(a.fetch(start, end - start));
 
-		try {
-			const bs = await n.consensus.getBlocks(start, d);
+	useEffect(() => {
+		getLastBlockIndex().then(() => fetchBlocks(0, 10));
+	}, []);
 
-			if (Array.isArray(bs)) {
-				setBlocks(bs);
-			}
-		} catch (e) {
-			setError(e);
-		}
+	/** Pagination Start */
+	const totalPages = Math.ceil(lastBlockIndex / blocksPerPage);
+	const onChangePage = (_: any, data: PaginationProps) => {
+		setActivePage(Number(data.activePage || 1));
 	};
-
-	useEffect(() => {
-		getLastBlockIndex();
-	});
-
-	useEffect(() => {
-		fetchBlocks(0, 10);
-	}, [lastBlockIndex]);
 
 	const renderBlocks = () => {
 		const start = (activePage - 1) * blocksPerPage;
@@ -59,32 +60,36 @@ const Index: React.FC<{}> = () => {
 		return pageBlocks.map(block => {
 			return (
 				<Table.Row key={block.Body.Index}>
-					<Table.Cell textAlign={'center'}>
-						{block.Body.Index}
+					<Table.Cell textAlign={'center'} selectable={true}>
+						<Link to={`/block/${block.Body.Index}`}>
+							{block.Body.Index}
+						</Link>
 					</Table.Cell>
-					<Table.Cell>{block.Body.StateHash}</Table.Cell>
-					<Table.Cell>{block.Body.PeersHash}</Table.Cell>
-					<Table.Cell>{block.Body.Transactions.length}</Table.Cell>
+					<Table.Cell selectable={true}>
+						<Link to={`/block/${block.Body.Index}`}>
+							{block.Body.StateHash}
+						</Link>
+					</Table.Cell>
+					<Table.Cell selectable={true}>
+						<Link to={`/block/${block.Body.Index}`}>
+							{block.Body.PeersHash}
+						</Link>
+					</Table.Cell>
+					<Table.Cell selectable={true}>
+						<Link to={`/block/${block.Body.Index}`}>
+							{block.Body.Transactions.length}
+						</Link>
+					</Table.Cell>
 				</Table.Row>
 			);
 		});
-	};
-
-	/** Pagination Start */
-	const totalPages = Math.ceil(lastBlockIndex / blocksPerPage);
-
-	const onChangePage = (
-		_: React.MouseEvent<HTMLAnchorElement>,
-		data: PaginationProps
-	) => {
-		setActivePage(Number(data.activePage || 1));
 	};
 
 	return (
 		<Container fluid={true}>
 			<Grid stackable={true} columns={'equal'}>
 				<Grid.Column>
-					<Box heading={'Blocks'}>
+					<Box padding={false} heading={'Blocks'}>
 						{error && (
 							<Message negative={true}>
 								<Message.Header>
@@ -130,7 +135,6 @@ const Index: React.FC<{}> = () => {
 						</Table>
 					</Box>
 				</Grid.Column>
-				{/* <Grid.Column width={4}></Grid.Column> */}
 			</Grid>
 		</Container>
 	);

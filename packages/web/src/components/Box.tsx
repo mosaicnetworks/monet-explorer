@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 
 const SBox = styled.div`
 	background: #fff;
@@ -22,23 +22,30 @@ const SHeading = styled.div`
 `;
 
 const SContent = styled.div`
-	padding: 20px;
+	padding: ${props => props.theme.padding};
 `;
 
 interface IProps {
 	heading: string;
 	extra?: string;
+	padding: boolean;
 }
 
 const Login: React.FC<IProps> = props => {
+	const theme = {
+		padding: props.padding ? '20px' : '0'
+	};
+
 	return (
-		<SBox>
-			<SHeading>
-				{props.heading}
-				<span>{props.extra}</span>
-			</SHeading>
-			<SContent>{props.children}</SContent>
-		</SBox>
+		<ThemeProvider theme={theme}>
+			<SBox>
+				<SHeading>
+					{props.heading}
+					<span>{props.extra}</span>
+				</SHeading>
+				<SContent>{props.children}</SContent>
+			</SBox>
+		</ThemeProvider>
 	);
 };
 
