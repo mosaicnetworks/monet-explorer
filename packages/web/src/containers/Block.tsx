@@ -83,17 +83,8 @@ const Index: React.FC<RouteComponentProps<IProps>> = props => {
 			<Grid stackable={true} columns={'equal'}>
 				<Grid.Column>
 					<h2>Block {index}</h2>
-					<Box padding={false} heading={`Body`}>
-						<Table>
-							<Table.Header>
-								<Table.HeaderCell>Key</Table.HeaderCell>
-								<Table.HeaderCell>Value</Table.HeaderCell>
-							</Table.Header>
-							<Table.Body>{renderBody()}</Table.Body>
-						</Table>
-					</Box>
 					<Box padding={true} heading={`Signatures`}>
-						<JsonToTable json={block.Signatures} />
+						<JsonToTable json={block} />
 					</Box>
 				</Grid.Column>
 			</Grid>
