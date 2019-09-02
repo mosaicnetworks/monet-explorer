@@ -62,7 +62,7 @@ export function register(config?: IConfig) {
 	}
 }
 
-function registerValidSW(swUrl: string, config?: Config) {
+function registerValidSW(swUrl: string, config?: IConfig) {
 	navigator.serviceWorker
 		.register(swUrl)
 		.then(registration => {

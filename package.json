@@ -13,7 +13,8 @@
 		}
 	],
 	"scripts": {
-		"run:web": "lerna run start",
+		"tx": "ts-node scripts/transfer",
+		"run:web": "lerna run dev",
 		"postinstall": "yarn lint && yarn run build && lerna link",
 		"dev": "yarn run run:web",
 		"lint": "lerna run lint",
