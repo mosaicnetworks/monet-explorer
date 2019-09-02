@@ -3,7 +3,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Link } from 'react-router-dom';
-import { Button, Container } from 'semantic-ui-react';
+import { Button, Container, Image } from 'semantic-ui-react';
+
+import logo from '../assets/logo.png';
 
 const SHeader = styled.div`
 	height: 65px;
@@ -11,12 +13,13 @@ const SHeader = styled.div`
 	color: #fff;
 	box-shadow: 0 4px 20px -20px #111 !important;
 	background-color: rgba(28, 63, 148, 1);
-	margin-bottom: 40px;
+	margin-bottom: 20px;
 `;
 
 const SLogo = styled.div`
 	float: left;
 	font-size: 20px;
+	margin-top: 25px;
 
 	& a {
 		color: #eee;
@@ -35,7 +38,12 @@ const Header: React.FC<{}> = () => {
 		<SHeader>
 			<Container fluid={true}>
 				<SLogo>
-					<Link to={'/'}>Monet Explorer</Link>
+					<Link to={'/'}>
+						<Image
+							src={'https://monet.network/app/images/logo.svg'}
+							width={160}
+						/>
+					</Link>
 				</SLogo>
 				<SNav>
 					<Link to={'/explorer'}>

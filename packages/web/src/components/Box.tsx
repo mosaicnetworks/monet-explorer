@@ -10,8 +10,8 @@ const SBox = styled.div`
 `;
 
 const SHeading = styled.div`
-	background: rgba(28, 63, 148, 0.9);
-	padding: 10px 20px;
+	background: rgba(28, 63, 148, 1);
+	padding: 13px 20px;
 	font-size: 15px;
 	color: #fff !important;
 
