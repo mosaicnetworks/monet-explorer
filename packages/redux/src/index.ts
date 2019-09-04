@@ -4,8 +4,8 @@ export { IStore } from './store';
 
 export default getStores;
 
-import { fetch } from './modules/blocks';
+import { getAll } from './modules/blocks';
 
 export const blocks = {
-	fetch
+	getAll
 };

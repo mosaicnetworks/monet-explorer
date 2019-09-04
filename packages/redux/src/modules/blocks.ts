@@ -4,13 +4,9 @@ import Node from 'evm-lite-core';
 
 import { IBaseAction, IResult } from './index';
 
-const FETCH_BLOCKS_INIT = '@monet/blocks/FETCH_ALL/INIT';
-const FETCH_BLOCKS_SUCCESS = '@monet/blocks/FETCH_ALL/SUCCESS';
-const FETCH_BLOCKS_ERROR = '@monet/blocks/FETCH_ALL/ERROR';
-
-const FETCH_BLOCK_INIT = '@monet/blocks/FETCH_ONE/INIT';
-const FETCH_BLOCK_SUCCESS = '@monet/blocks/FETCH_ONE/SUCCESS';
-const FETCH_BLOCK_ERROR = '@monet/blocks/FETCH_ONE/ERROR';
+const FETCH_BLOCKS_INIT = '@monet/blocks/ALL/INIT';
+const FETCH_BLOCKS_SUCCESS = '@monet/blocks/ALL/SUCCESS';
+const FETCH_BLOCKS_ERROR = '@monet/blocks/ALL/ERROR';
 
 import { HOST, PORT } from '../const';
 
@@ -22,10 +18,16 @@ const makeMonet = () => {
 };
 
 export interface IBlocksState {
+	// all the blocks on the node
 	all: IBabbleBlock[];
 
+	// last block index for node
+	lastBlockIndex: number;
+
+	// error message if any
 	error?: string;
 
+	// loading boolean
 	loading: {
 		fetch: boolean;
 	};
@@ -33,6 +35,7 @@ export interface IBlocksState {
 
 const initial: IBlocksState = {
 	all: [],
+	lastBlockIndex: 0,
 	loading: {
 		fetch: false
 	}
@@ -76,7 +79,16 @@ export default (state = initial, action: IBaseAction<any>) => {
 	}
 };
 
-export function fetchAll(
+export function getLastBlockIndex(
+	startIndex: number,
+	limit?: number
+): IResult<Promise<void>> {
+	return async dispatch => {
+		// pass
+	};
+}
+
+export function getAll(
 	startIndex: number,
 	limit?: number
 ): IResult<Promise<void>> {
@@ -95,31 +107,8 @@ export function fetchAll(
 			});
 		} catch (e) {
 			dispatch({
-				type: FETCH_BLOCKS_SUCCESS,
-				payload: e
-			});
-		}
-	};
-}
-
-export function fetchOne(startIndex: number): IResult<Promise<void>> {
-	return async dispatch => {
-		dispatch({
-			type: FETCH_BLOCK_INIT
-		});
-
-		try {
-			const n = makeMonet();
-			const blocks = await n.consensus.getBlocks(startIndex);
-
-			dispatch({
-				type: FETCH_BLOCK_SUCCESS,
-				payload: blocks
-			});
-		} catch (e) {
-			dispatch({
-				type: FETCH_BLOCK_ERROR,
-				payload: e
+				type: FETCH_BLOCKS_ERROR,
+				payload: e.toString()
 			});
 		}
 	};

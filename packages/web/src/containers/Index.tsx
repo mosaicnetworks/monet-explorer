@@ -1,49 +1,33 @@
 import React, { useEffect, useState } from 'react';
 
 import Node from 'evm-lite-core';
+import styled from 'styled-components';
 
 import { Babble, IBabbleBlock } from 'evm-lite-consensus';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Message, Pagination, PaginationProps } from 'semantic-ui-react';
 import { Container, Grid, Table } from 'semantic-ui-react';
-
-import { blocks as a, IStore } from '@monetexplorer/redux';
 
 import Box from '../components/Box';
 
 import { HOST, PORT } from '../const';
 
-const Index: React.FC<{}> = () => {
-	const blocksPerPage = 50;
+const Pages = styled(Pagination)`
+	margin: 10px !important;
+	float: right;
+`;
 
-	// dispatch
-	const dispatch = useDispatch();
+const Index: React.FC<{}> = () => {
+	const blocksPerPage = 10;
 
 	// component scoped node
 	const b = new Babble(HOST, PORT);
 	const n = new Node(HOST, PORT, b);
 
-	const [error, setError] = useState('');
 	const [lastBlockIndex, setLastBlockIndex] = useState(0);
 	const [activePage, setActivePage] = useState(1);
-
-	const blocks = useSelector<IStore, IBabbleBlock[]>(
-		store => store.blocks.all
-	);
-
-	const getLastBlockIndex = async () => {
-		const res = await n.getInfo();
-
-		setLastBlockIndex(res.last_block_index);
-	};
-
-	const fetchBlocks = async (start: number, end: number) =>
-		dispatch(a.fetch(start, end - start));
-
-	useEffect(() => {
-		getLastBlockIndex().then(() => fetchBlocks(0, 10));
-	}, []);
+	const [error, setError] = useState('');
+	const [blocks, setBlocks] = useState<IBabbleBlock[]>([]);
 
 	/** Pagination Start */
 	const totalPages = Math.ceil(lastBlockIndex / blocksPerPage);
@@ -51,13 +35,50 @@ const Index: React.FC<{}> = () => {
 		setActivePage(Number(data.activePage || 1));
 	};
 
-	const renderBlocks = () => {
-		const start = (activePage - 1) * blocksPerPage;
-		const end = activePage * blocksPerPage + 1;
+	const getCurrentPageBlockIndex = (l: number): number => {
+		const end = l - activePage * blocksPerPage;
 
-		const pageBlocks = blocks.reverse().slice(start, end);
+		return end < 0 ? 0 : end;
+	};
 
-		return pageBlocks.map(block => {
+	const fetchBlocks = async () => {
+		let l: number = 0;
+		try {
+			const i = await n.getInfo();
+
+			l = parseInt(i.last_block_index, 10);
+
+			setLastBlockIndex(l);
+		} catch (e) {
+			setError(e.toString());
+		}
+
+		const start = getCurrentPageBlockIndex(l);
+
+		try {
+			let bpp = blocksPerPage;
+			if (totalPages === activePage) {
+				bpp = lastBlockIndex - (totalPages - 1) * blocksPerPage;
+			}
+
+			const response = await n.consensus.getBlocks(start, bpp);
+
+			if (Array.isArray(response)) {
+				setBlocks(response.reverse());
+			} else {
+				throw Error('Response is not of expected type');
+			}
+		} catch (e) {
+			setError(e.toString());
+		}
+	};
+
+	useEffect(() => {
+		fetchBlocks();
+	}, [activePage]);
+
+	const renderBlocks = (items: IBabbleBlock[]) => {
+		return items.map(block => {
 			return (
 				<Table.Row key={block.Body.Index}>
 					<Table.Cell textAlign={'center'} selectable={true}>
@@ -92,14 +113,12 @@ const Index: React.FC<{}> = () => {
 					<Box padding={false} heading={'Blocks'}>
 						{error && (
 							<Message negative={true}>
-								<Message.Header>
-									Looks like something went wrong!
-								</Message.Header>
+								<Message.Header>Oops!</Message.Header>
 								<p>{error}</p>
 							</Message>
 						)}
-						{totalPages !== 1 && (
-							<Pagination
+						{totalPages !== 1 && !error && (
+							<Pages
 								boundaryRange={0}
 								defaultActivePage={1}
 								ellipsisItem={null}
@@ -131,7 +150,7 @@ const Index: React.FC<{}> = () => {
 									</Table.HeaderCell>
 								</Table.Row>
 							</Table.Header>
-							<Table.Body>{renderBlocks()}</Table.Body>
+							<Table.Body>{renderBlocks(blocks)}</Table.Body>
 						</Table>
 					</Box>
 				</Grid.Column>

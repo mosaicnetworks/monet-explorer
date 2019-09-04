@@ -32,3 +32,10 @@ table tr {
 .ui.menu .item > i.dropdown.icon {
 	color: white !important;
 }
+
+.ui.negative.message {
+	border: none !important;
+	box-shadow: none !important;
+	border-bottom: 1px solid #e0b4b4 !important;
+	border-radius: 0 !important;
+}
