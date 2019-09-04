@@ -84,7 +84,7 @@ const Index: React.FC<RouteComponentProps<IProps>> = props => {
 				<Grid.Column>
 					<Breadcrumb size={'huge'}>
 						<Breadcrumb.Section link={true}>
-							<Link to={'/'}>Blocks</Link>
+							<Link to={'/blocks'}>Blocks</Link>
 						</Breadcrumb.Section>
 						<Breadcrumb.Divider />
 						<Breadcrumb.Section>{index}</Breadcrumb.Section>

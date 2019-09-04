@@ -17,7 +17,11 @@ const Pages = styled(Pagination)`
 	float: right;
 `;
 
-const Index: React.FC<{}> = () => {
+const IndexCell = styled(Table.Cell)`
+	background: rgba(28, 63, 148, 0.1);
+`;
+
+const Blocks: React.FC<{}> = () => {
 	const blocksPerPage = 50;
 
 	// component scoped node
@@ -77,25 +81,30 @@ const Index: React.FC<{}> = () => {
 	const renderBlocks = () => {
 		return blocks.map(block => {
 			return (
-				<Table.Row key={block.Body.Index}>
+				<Table.Row selectable={true} key={block.Body.Index}>
+					<IndexCell textAlign={'center'} selectable={true}>
+						<Link to={`/blocks/${block.Body.Index}`}>
+							<b>{block.Body.Index}</b>
+						</Link>
+					</IndexCell>
 					<Table.Cell textAlign={'center'} selectable={true}>
-						<Link to={`/block/${block.Body.Index}`}>
-							{block.Body.Index}
+						<Link to={`/blocks/${block.Body.Index}`}>
+							{block.Body.Transactions.length}
+						</Link>
+					</Table.Cell>
+					<Table.Cell textAlign={'center'} selectable={true}>
+						<Link to={`/blocks/${block.Body.Index}`}>
+							{Object.keys(block.Signatures).length}
 						</Link>
 					</Table.Cell>
 					<Table.Cell selectable={true}>
-						<Link to={`/block/${block.Body.Index}`}>
+						<Link to={`/blocks/${block.Body.Index}`}>
 							{block.Body.StateHash}
 						</Link>
 					</Table.Cell>
 					<Table.Cell selectable={true}>
-						<Link to={`/block/${block.Body.Index}`}>
+						<Link to={`/blocks/${block.Body.Index}`}>
 							{block.Body.PeersHash}
-						</Link>
-					</Table.Cell>
-					<Table.Cell selectable={true}>
-						<Link to={`/block/${block.Body.Index}`}>
-							{block.Body.Transactions.length}
 						</Link>
 					</Table.Cell>
 				</Table.Row>
@@ -136,14 +145,23 @@ const Index: React.FC<{}> = () => {
 									>
 										Index
 									</Table.HeaderCell>
+									<Table.HeaderCell
+										textAlign={'center'}
+										width={1}
+									>
+										No. of Txs
+									</Table.HeaderCell>
+									<Table.HeaderCell
+										textAlign={'center'}
+										width={1}
+									>
+										No. of Sigs
+									</Table.HeaderCell>
 									<Table.HeaderCell>
 										State Hash
 									</Table.HeaderCell>
 									<Table.HeaderCell>
 										Peers Hash
-									</Table.HeaderCell>
-									<Table.HeaderCell>
-										No. of Txs
 									</Table.HeaderCell>
 								</Table.Row>
 							</Table.Header>
@@ -156,4 +174,4 @@ const Index: React.FC<{}> = () => {
 	);
 };
 
-export default Index;
+export default Blocks;
