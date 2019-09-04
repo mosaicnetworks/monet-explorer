@@ -7,12 +7,16 @@ import { PersistConfig, persistReducer, persistStore } from 'redux-persist';
 
 import rootReducer from './modules';
 
-export interface IStore {}
+import { IConfigState } from 'modules/config';
+
+export interface IStore {
+	config: IConfigState;
+}
 
 const persistConfig: PersistConfig = {
 	key: 'root',
 	storage: dynamicStorage,
-	whitelist: ['auth']
+	whitelist: ['config']
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 const middleware = [thunk, logger];

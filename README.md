@@ -4,4 +4,6 @@ The Monet Dashboard.
 
 ## Preview
 
-<img  alt="Monet Logo" src="./assets/blocks.png" title="Accounts Page"/>
+<img  alt="Blocks" src="./assets/blocks.png" title="Blocks Page"/>
+<img  alt="Block" src="./assets/block.png" title="Block Page"/>
+<img  alt="Networks" src="./assets/network.png" title="Networks Page"/>
