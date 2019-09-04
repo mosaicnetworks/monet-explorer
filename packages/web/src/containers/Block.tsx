@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 
 import { Babble, IBabbleBlock } from 'evm-lite-consensus';
 import { JsonToTable } from 'react-json-to-table';
+import { Link } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router-dom';
+import { Breadcrumb } from 'semantic-ui-react';
 import { Container, Grid, Table } from 'semantic-ui-react';
 
 import Node from 'evm-lite-core';
@@ -32,13 +34,11 @@ const Index: React.FC<RouteComponentProps<IProps>> = props => {
 
 		try {
 			const b = await n.consensus.getBlocks(index);
-
-			if (!Array.isArray(b)) {
-				setBlock(b);
+			if (b.length === 1) {
+				setBlock(b[0]);
 			}
 		} catch (e) {
 			console.log('ERROR: ', e);
-			// pass
 		}
 	};
 
@@ -82,8 +82,17 @@ const Index: React.FC<RouteComponentProps<IProps>> = props => {
 		<Container fluid={true}>
 			<Grid stackable={true} columns={'equal'}>
 				<Grid.Column>
-					<h2>Block {index}</h2>
-					<Box padding={true} heading={`Signatures`}>
+					<Breadcrumb size={'huge'}>
+						<Breadcrumb.Section link={true}>
+							<Link to={'/'}>Blocks</Link>
+						</Breadcrumb.Section>
+						<Breadcrumb.Divider />
+						<Breadcrumb.Section>{index}</Breadcrumb.Section>
+					</Breadcrumb>
+					<br />
+					<br />
+					{/* <h2>Block {index}</h2> */}
+					<Box padding={true} heading={`Details`}>
 						<JsonToTable json={block} />
 					</Box>
 				</Grid.Column>

@@ -18,7 +18,7 @@ const Pages = styled(Pagination)`
 `;
 
 const Index: React.FC<{}> = () => {
-	const blocksPerPage = 10;
+	const blocksPerPage = 50;
 
 	// component scoped node
 	const b = new Babble(HOST, PORT);
@@ -57,17 +57,14 @@ const Index: React.FC<{}> = () => {
 
 		try {
 			let bpp = blocksPerPage;
+
 			if (totalPages === activePage) {
 				bpp = lastBlockIndex - (totalPages - 1) * blocksPerPage;
 			}
 
 			const response = await n.consensus.getBlocks(start, bpp);
 
-			if (Array.isArray(response)) {
-				setBlocks(response.reverse());
-			} else {
-				throw Error('Response is not of expected type');
-			}
+			setBlocks(response.reverse());
 		} catch (e) {
 			setError(e.toString());
 		}
@@ -77,8 +74,8 @@ const Index: React.FC<{}> = () => {
 		fetchBlocks();
 	}, [activePage]);
 
-	const renderBlocks = (items: IBabbleBlock[]) => {
-		return items.map(block => {
+	const renderBlocks = () => {
+		return blocks.map(block => {
 			return (
 				<Table.Row key={block.Body.Index}>
 					<Table.Cell textAlign={'center'} selectable={true}>
@@ -150,7 +147,7 @@ const Index: React.FC<{}> = () => {
 									</Table.HeaderCell>
 								</Table.Row>
 							</Table.Header>
-							<Table.Body>{renderBlocks(blocks)}</Table.Body>
+							<Table.Body>{renderBlocks()}</Table.Body>
 						</Table>
 					</Box>
 				</Grid.Column>

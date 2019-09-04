@@ -51,7 +51,7 @@ const Header: React.FC<{}> = () => {
 					</Link>
 				</SLogo>
 				<SNav>
-					<Menu
+					{/* <Menu
 						compact={true}
 						color={'orange'}
 						style={{ color: '#FFF !important' }}
@@ -61,7 +61,7 @@ const Header: React.FC<{}> = () => {
 							options={options}
 							item={true}
 						/>
-					</Menu>
+					</Menu> */}
 				</SNav>
 			</Container>
 		</SHeader>
