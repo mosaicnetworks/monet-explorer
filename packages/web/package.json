@@ -4,7 +4,6 @@
 	"private": true,
 	"dependencies": {
 		"evm-lite-client": "^1.0.0",
-		"evm-lite-core": "^1.0.0",
 		"evm-lite-datadir": "^1.0.0",
 		"evm-lite-keystore": "^1.0.0",
 		"evm-lite-utils": "^1.0.0",
@@ -15,6 +14,7 @@
 		"react-router-dom": "^5.0.1",
 		"react-scripts": "3.1.1",
 		"react-table": "^6.10.0",
+		"react-toastify": "^5.3.2",
 		"redux": "^4.0.4",
 		"redux-logger": "^3.0.6",
 		"redux-persist": "^5.10.0",

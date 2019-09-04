@@ -2,24 +2,25 @@ import React, { useEffect, useState } from 'react';
 
 import { Babble, IBabbleBlock } from 'evm-lite-consensus';
 import { JsonToTable } from 'react-json-to-table';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router-dom';
 import { Breadcrumb } from 'semantic-ui-react';
 import { Container, Grid, Table } from 'semantic-ui-react';
 
+import { IConfigState, IStore } from '@monetexplorer/redux';
+
 import Node from 'evm-lite-core';
 
 import Box from '../components/Box';
-
-import { HOST, PORT } from '../const';
 
 interface IProps {
 	block?: string;
 }
 
-const makeMonet = () => {
-	const b = new Babble(HOST, PORT);
-	const n = new Node(HOST, PORT, b);
+const makeMonet = (h: string, p: number) => {
+	const b = new Babble(h, p);
+	const n = new Node(h, p, b);
 
 	return n;
 };
@@ -29,11 +30,13 @@ const Block: React.FC<RouteComponentProps<IProps>> = props => {
 
 	const [block, setBlock] = useState<IBabbleBlock>({} as IBabbleBlock);
 
+	const config = useSelector<IStore, IConfigState>(store => store.config);
+
 	const fetchBlock = async () => {
-		const n = makeMonet();
+		const n = makeMonet(config.host, config.port);
 
 		try {
-			const b = await n.consensus.getBlocks(index);
+			const b = await n.consensus!.getBlocks(index);
 			if (b.length === 1) {
 				setBlock(b[0]);
 			}

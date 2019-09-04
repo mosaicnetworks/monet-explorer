@@ -4,8 +4,9 @@ export { IStore } from './store';
 
 export default getStores;
 
-import { getAll } from './modules/blocks';
+export { IConfigState } from './modules/config';
+import { save } from './modules/config';
 
-export const blocks = {
-	getAll
+export const config = {
+	save
 };

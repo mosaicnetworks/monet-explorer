@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
 body {
 	margin: 0;
-	font-family: 'Lato', sans-serif !important;
+	font-family: 'Roboto', 'Verdana', sans-serif !important;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background: #f4f5f7 !important;
@@ -18,10 +20,23 @@ h5 {
 	background: #d15222 !important;
 }
 
+.green {
+	background: #00aa4f !important;
+}
+
+.ui.orange.button:hover,
+.ui.orange.buttons .button:hover {
+	background: #e55e2b !important;
+}
+
 table,
 table tr {
 	border-radius: 0 !important;
 	border: 1px solid #eee !important;
+}
+
+table thead {
+	font-family: 'Lato', 'Verdana', sans-serif !important;
 }
 
 .container {
@@ -38,4 +53,8 @@ table tr {
 	box-shadow: none !important;
 	border-bottom: 1px solid #e0b4b4 !important;
 	border-radius: 0 !important;
+}
+
+button {
+	border-radius: 2px !important;
 }

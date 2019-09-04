@@ -4,7 +4,7 @@ import { combineReducers } from 'redux';
 
 import { IStore } from '../store';
 
-import blocks from './blocks';
+import config from './config';
 
 export type IResult<R> = ThunkAction<R, IStore, undefined, IBaseAction<any>>;
 export interface IBaseAction<Payload> {
@@ -12,4 +12,4 @@ export interface IBaseAction<Payload> {
 	payload?: Payload;
 }
 
-export default combineReducers({ blocks });
+export default combineReducers({ config });

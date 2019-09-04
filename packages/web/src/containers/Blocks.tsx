@@ -4,13 +4,14 @@ import Node from 'evm-lite-core';
 import styled from 'styled-components';
 
 import { Babble, IBabbleBlock } from 'evm-lite-consensus';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Message, Pagination, PaginationProps } from 'semantic-ui-react';
 import { Container, Grid, Table } from 'semantic-ui-react';
 
-import Box from '../components/Box';
+import { IConfigState, IStore } from '@monetexplorer/redux';
 
-import { HOST, PORT } from '../const';
+import Box from '../components/Box';
 
 const Pages = styled(Pagination)`
 	margin: 10px !important;
@@ -22,9 +23,11 @@ const IndexCell = styled(Table.Cell)``;
 const Blocks: React.FC<{}> = () => {
 	const blocksPerPage = 50;
 
+	const config = useSelector<IStore, IConfigState>(store => store.config);
+
 	// component scoped node
-	const b = new Babble(HOST, PORT);
-	const n = new Node(HOST, PORT, b);
+	const b = new Babble(config.host, config.port);
+	const n = new Node(config.host, config.port, b);
 
 	const [lastBlockIndex, setLastBlockIndex] = useState(0);
 	const [activePage, setActivePage] = useState(1);
@@ -64,7 +67,7 @@ const Blocks: React.FC<{}> = () => {
 				bpp = lastBlockIndex - (totalPages - 1) * blocksPerPage;
 			}
 
-			const response = await n.consensus.getBlocks(start, bpp);
+			const response = await n.consensus!.getBlocks(start, bpp);
 
 			setBlocks(response.reverse());
 		} catch (e) {
