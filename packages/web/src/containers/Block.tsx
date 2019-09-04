@@ -24,7 +24,7 @@ const makeMonet = () => {
 	return n;
 };
 
-const Index: React.FC<RouteComponentProps<IProps>> = props => {
+const Block: React.FC<RouteComponentProps<IProps>> = props => {
 	const index = Number(props.match.params.block);
 
 	const [block, setBlock] = useState<IBabbleBlock>({} as IBabbleBlock);
@@ -101,4 +101,4 @@ const Index: React.FC<RouteComponentProps<IProps>> = props => {
 	);
 };
 
-export default Index;
+export default Block;

@@ -17,9 +17,7 @@ const Pages = styled(Pagination)`
 	float: right;
 `;
 
-const IndexCell = styled(Table.Cell)`
-	background: rgba(28, 63, 148, 0.1);
-`;
+const IndexCell = styled(Table.Cell)``;
 
 const Blocks: React.FC<{}> = () => {
 	const blocksPerPage = 50;

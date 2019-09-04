@@ -6,18 +6,20 @@ import { Link } from 'react-router-dom';
 import { Button, Container, Dropdown, Image, Menu } from 'semantic-ui-react';
 
 const SHeader = styled.div`
+	position: fixed !important;
 	height: 65px;
 	line-height: 65px;
 	color: #fff;
 	box-shadow: 0 4px 20px -20px #111 !important;
-	background-color: rgba(28, 63, 148, 1);
-	margin-bottom: 20px;
+	background-color: rgba(28, 63, 148, 0.95);
+	z-index: 100;
+	width: 100%;
 `;
 
 const SLogo = styled.div`
 	float: left;
 	font-size: 20px;
-	margin-top: 25px;
+	margin-top: 23px;
 
 	& a {
 		color: #eee;
@@ -40,18 +42,27 @@ const options = [
 
 const Header: React.FC<{}> = () => {
 	return (
-		<SHeader>
-			<Container fluid={true}>
-				<SLogo>
-					<Link to={'/'}>
-						<Image
-							src={'https://monet.network/app/images/logo.svg'}
-							width={160}
-						/>
-					</Link>
-				</SLogo>
-				<SNav>
-					{/* <Menu
+		<>
+			<SHeader>
+				<Container fluid={true}>
+					<SLogo>
+						<Link to={'/'}>
+							<Image
+								src={
+									'https://monet.network/app/images/logo.svg'
+								}
+								width={160}
+							/>
+						</Link>
+					</SLogo>
+					<SNav>
+						<Link to={'/blocks'}>
+							<Button color="orange" content={'Blocks'} />
+						</Link>
+						<Link to={'/validators'}>
+							<Button color="orange" content={'Validators'} />
+						</Link>
+						{/* <Menu
 						compact={true}
 						color={'orange'}
 						style={{ color: '#FFF !important' }}
@@ -62,9 +73,15 @@ const Header: React.FC<{}> = () => {
 							item={true}
 						/>
 					</Menu> */}
-				</SNav>
-			</Container>
-		</SHeader>
+					</SNav>
+				</Container>
+			</SHeader>
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+		</>
 	);
 };
 
