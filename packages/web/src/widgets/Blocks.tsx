@@ -111,6 +111,19 @@ const Blocks: React.FC<{}> = () => {
 		fetchBlocks();
 	}, [activePage]);
 
+	// Polling
+	let poller: any;
+
+	useEffect(() => {
+		poller = setInterval(() => {
+			fetchBlocks().then(() =>
+				console.log('Fetching pblockseers every 10s')
+			);
+		}, 10000);
+
+		return () => clearInterval(poller);
+	});
+
 	return (
 		<Box padding={false} heading={'Blocks'}>
 			{error && (

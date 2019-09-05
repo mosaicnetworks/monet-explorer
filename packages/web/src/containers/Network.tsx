@@ -74,6 +74,16 @@ const Network: React.FC<{}> = () => {
 		fetchInfos();
 	}, [peers]);
 
+	let poller: any;
+
+	useEffect(() => {
+		poller = setInterval(() => {
+			fetchPeers().then(() => console.log('Fetching peers every 10s'));
+		}, 10000);
+
+		return () => clearInterval(poller);
+	});
+
 	return (
 		<Container fluid={true}>
 			<Grid stackable={true} columns={'equal'}>
