@@ -3,20 +3,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Link } from 'react-router-dom';
-import {
-	Button,
-	Container,
-	Dropdown,
-	Icon,
-	Image,
-	Input,
-	Menu
-} from 'semantic-ui-react';
+import { Button, Container, Icon, Image, Input } from 'semantic-ui-react';
 
 const SHeader = styled.div`
 	position: fixed !important;
-	height: 65px;
-	line-height: 65px;
+	height: 50px;
+	line-height: 50px;
 	color: #fff;
 	box-shadow: 0 4px 20px -10px #111 !important;
 	background-color: rgba(28, 63, 148, 0.95);
@@ -27,7 +19,7 @@ const SHeader = styled.div`
 const SLogo = styled.div`
 	float: left;
 	font-size: 20px;
-	margin-top: 23px;
+	margin-top: 14px;
 
 	& a {
 		color: #eee;
@@ -54,7 +46,6 @@ const SSearch = styled.div`
 	& input {
 		color: #fff !important;
 		background: rgba(60, 120, 208, 0.7) !important;
-		width: 400px;
 	}
 `;
 
@@ -63,14 +54,8 @@ const SNav = styled.div`
 `;
 
 const SSpacer = styled.div`
-	height: 85px;
+	height: 70px;
 `;
-
-const options = [
-	{ key: 1, text: 'Choice 1', value: 1 },
-	{ key: 2, text: 'Choice 2', value: 2 },
-	{ key: 3, text: 'Choice 3', value: 3 }
-];
 
 const Header: React.FC<{}> = () => {
 	return (
@@ -101,17 +86,6 @@ const Header: React.FC<{}> = () => {
 						<SIcon to={'/config'}>
 							<Icon name={'cog'} content={'Settings'} />
 						</SIcon>
-						{/* <Menu
-						compact={true}
-						color={'orange'}
-						style={{ color: '#FFF !important' }}
-					>
-						<Dropdown
-							text="Networks"
-							options={options}
-							item={true}
-						/>
-					</Menu> */}
 					</SNav>
 				</Container>
 			</SHeader>

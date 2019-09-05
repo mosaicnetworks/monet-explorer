@@ -7,13 +7,16 @@ import { Table } from 'semantic-ui-react';
 interface IProps {
 	// blocks to render
 	blocks: IBabbleBlock[];
+
+	// animating
+	style?: any;
 }
 
 const Blocks: React.FC<IProps> = props => {
 	const renderBlocks = () => {
 		return props.blocks.map(block => {
 			return (
-				<Table.Row selectable={true} key={block.Body.Index}>
+				<Table.Row key={block.Body.Index}>
 					<Table.Cell textAlign={'center'} selectable={true}>
 						<Link to={`/blocks/${block.Body.Index}`}>
 							<b>{block.Body.Index}</b>
@@ -46,7 +49,12 @@ const Blocks: React.FC<IProps> = props => {
 
 	return (
 		<>
-			<Table celled={true} fixed={true} striped={true}>
+			<Table
+				style={props.style}
+				celled={true}
+				fixed={true}
+				striped={true}
+			>
 				<Table.Header>
 					<Table.Row>
 						<Table.HeaderCell textAlign={'center'} width={1}>

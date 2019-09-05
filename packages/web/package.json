@@ -3,12 +3,14 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
+		"lodash.debounce": "^4.0.8",
 		"react": "^16.9.0",
 		"react-dom": "^16.9.0",
 		"react-json-to-table": "^0.1.5",
 		"react-redux": "^7.1.1",
 		"react-router-dom": "^5.0.1",
 		"react-scripts": "3.1.1",
+		"react-spring": "^8.0.27",
 		"react-table": "^6.10.0",
 		"react-toastify": "^5.3.2",
 		"redux": "^4.0.4",
@@ -18,6 +20,7 @@
 		"semantic-ui-css": "^2.4.1",
 		"semantic-ui-react": "^0.88.0",
 		"styled-components": "^4.3.2",
+		"superagent": "^5.1.0",
 		"typescript": "3.5.3"
 	},
 	"scripts": {
