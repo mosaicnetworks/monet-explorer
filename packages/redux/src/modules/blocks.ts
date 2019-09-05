@@ -1,21 +1,11 @@
-import { Babble, IBabbleBlock } from 'evm-lite-consensus';
-
-import Node from 'evm-lite-core';
+import { IBabbleBlock } from 'evm-lite-consensus';
+import { Monet } from 'evm-lite-core';
 
 import { IBaseAction, IResult } from './index';
 
 const FETCH_BLOCKS_INIT = '@monet/blocks/ALL/INIT';
 const FETCH_BLOCKS_SUCCESS = '@monet/blocks/ALL/SUCCESS';
 const FETCH_BLOCKS_ERROR = '@monet/blocks/ALL/ERROR';
-
-import { HOST, PORT } from '../const';
-
-const makeMonet = () => {
-	const b = new Babble(HOST, PORT);
-	const n = new Node(HOST, PORT, b);
-
-	return n;
-};
 
 export interface IBlocksState {
 	// all the blocks on the node
@@ -98,8 +88,8 @@ export function getAll(
 		});
 
 		try {
-			const n = makeMonet();
-			const blocks = await n.consensus.getBlocks(startIndex, limit);
+			const n = new Monet('', 8080);
+			const blocks = await n.consensus!.getBlocks(startIndex, limit);
 
 			dispatch({
 				type: FETCH_BLOCKS_SUCCESS,
