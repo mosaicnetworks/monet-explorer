@@ -11,6 +11,8 @@ import { Container, Grid, Table } from 'semantic-ui-react';
 
 import { IConfigState, IStore } from '@monetexplorer/redux';
 
+import { IMonetInfo } from '../monet';
+
 import Box from '../components/Box';
 
 const Pages = styled(Pagination)`
@@ -49,7 +51,7 @@ const Blocks: React.FC<{}> = () => {
 	const fetchBlocks = async () => {
 		let l: number = 0;
 		try {
-			const i = await n.getInfo();
+			const i = await n.getInfo<IMonetInfo>();
 
 			l = parseInt(i.last_block_index, 10);
 

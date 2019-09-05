@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import Node from 'evm-lite-core';
 import styled from 'styled-components';
 
-import { Babble, IBabblePeer } from 'evm-lite-consensus';
+import { IBabblePeer } from 'evm-lite-consensus';
+import { Monet } from 'evm-lite-core';
 import { JsonToTable } from 'react-json-to-table';
 import { useSelector } from 'react-redux';
 import { Container, Grid, Table } from 'semantic-ui-react';
@@ -11,6 +12,8 @@ import { Container, Grid, Table } from 'semantic-ui-react';
 import { IConfigState, IStore } from '@monetexplorer/redux';
 
 import Box from '../components/Box';
+
+import { IMonetInfo } from '../monet';
 
 const SSelectableRow = styled(Table.Row)`
 	&:hover {
@@ -22,12 +25,11 @@ const Network: React.FC<{}> = () => {
 	const config = useSelector<IStore, IConfigState>(store => store.config);
 
 	// component scoped node
-	const b = new Babble(config.host, config.port);
-	const n = new Node(config.host, config.port, b);
+	const n = new Monet(config.host, config.port);
 
 	const [peers, setPeers] = useState<IBabblePeer[]>([]);
-	const [info, setInfo] = useState<any>();
-	const [infos, setInfos] = useState<any[]>([]);
+	const [info, setInfo] = useState<IMonetInfo>();
+	const [infos, setInfos] = useState<IMonetInfo[]>([]);
 
 	const fetchPeers = async () => {
 		try {
@@ -43,7 +45,7 @@ const Network: React.FC<{}> = () => {
 			const l = peer.NetAddr.split(':');
 			const node = new Node(l[0], 8080);
 
-			const i = await node.getInfo();
+			const i = await node.getInfo<IMonetInfo>();
 
 			setInfo(i);
 		} catch (e) {

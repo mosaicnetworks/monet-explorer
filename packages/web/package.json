@@ -3,10 +3,6 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
-		"evm-lite-client": "^1.0.0",
-		"evm-lite-datadir": "^1.0.0",
-		"evm-lite-keystore": "^1.0.0",
-		"evm-lite-utils": "^1.0.0",
 		"react": "^16.9.0",
 		"react-dom": "^16.9.0",
 		"react-json-to-table": "^0.1.5",

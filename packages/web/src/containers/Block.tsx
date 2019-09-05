@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import { Babble, IBabbleBlock } from 'evm-lite-consensus';
+import { IBabbleBlock } from 'evm-lite-consensus';
+import { Monet } from 'evm-lite-core';
 import { JsonToTable } from 'react-json-to-table';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -10,20 +11,11 @@ import { Container, Grid, Table } from 'semantic-ui-react';
 
 import { IConfigState, IStore } from '@monetexplorer/redux';
 
-import Node from 'evm-lite-core';
-
 import Box from '../components/Box';
 
 interface IProps {
 	block?: string;
 }
-
-const makeMonet = (h: string, p: number) => {
-	const b = new Babble(h, p);
-	const n = new Node(h, p, b);
-
-	return n;
-};
 
 const Block: React.FC<RouteComponentProps<IProps>> = props => {
 	const index = Number(props.match.params.block);
@@ -33,7 +25,7 @@ const Block: React.FC<RouteComponentProps<IProps>> = props => {
 	const config = useSelector<IStore, IConfigState>(store => store.config);
 
 	const fetchBlock = async () => {
-		const n = makeMonet(config.host, config.port);
+		const n = new Monet(config.host, config.port);
 
 		try {
 			const b = await n.consensus!.getBlocks(index);

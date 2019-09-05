@@ -7,10 +7,10 @@ import {
 	Button,
 	Container,
 	Dropdown,
+	Icon,
 	Image,
 	Input,
-	Menu,
-	Icon
+	Menu
 } from 'semantic-ui-react';
 
 const SHeader = styled.div`
