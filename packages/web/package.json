@@ -3,6 +3,13 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
+		"evm-lite-cli": "^1.0.3",
+		"evm-lite-client": "^1.1.0",
+		"evm-lite-consensus": "^1.1.0",
+		"evm-lite-core": "^1.1.0",
+		"evm-lite-datadir": "^1.1.0",
+		"evm-lite-keystore": "^1.1.0",
+		"evm-lite-utils": "^1.0.0",
 		"lodash.debounce": "^4.0.8",
 		"react": "^16.9.0",
 		"react-dom": "^16.9.0",

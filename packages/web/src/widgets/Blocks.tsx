@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { IConfigState, IStore } from '@monetexplorer/redux';
 import { Babble, IBabbleBlock } from 'evm-lite-consensus';
 import { useSelector } from 'react-redux';
-import { Transition } from 'react-spring/renderprops';
 import { Image, Message, Pagination, PaginationProps } from 'semantic-ui-react';
 
 import { IMonetInfo } from '../monet';
@@ -15,10 +14,6 @@ import BlocksTable from '../components/BlocksTable';
 import Box from '../components/Box';
 
 import * as loader from '../assets/loader.gif';
-
-function sleeper(ms: number) {
-	return new Promise(resolve => setTimeout(() => resolve(), ms));
-}
 
 const Pages = styled(Pagination)`
 	margin: 10px !important;
@@ -60,8 +55,7 @@ const Blocks: React.FC<{}> = () => {
 
 	const fetchBlocks = async () => {
 		setLoading(true);
-
-		// await sleeper(2000);
+		setError('');
 
 		let l: number = 0;
 		try {

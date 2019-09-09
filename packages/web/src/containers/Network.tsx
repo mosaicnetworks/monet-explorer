@@ -21,31 +21,8 @@ const Network: React.FC<{}> = () => {
 	// component scoped node
 	const n = new Monet(config.host, config.port);
 
-	const [peers, setPeers] = useState<IBabblePeer[]>([]);
-	const [info, setInfo] = useState<IMonetInfo>();
+	const [selectedPeer, setSelectedPeer] = useState<IBabblePeer>();
 	const [infos, setInfos] = useState<IMonetInfo[]>([]);
-
-	const fetchPeers = async () => {
-		try {
-			const p = await n.consensus!.getPeers();
-			setPeers(p);
-		} catch (e) {
-			console.log(e);
-		}
-	};
-
-	const fetchInfo = async (peer: IBabblePeer) => {
-		try {
-			const l = peer.NetAddr.split(':');
-			const node = new Node(l[0], 8080);
-
-			const i = await node.getInfo<IMonetInfo>();
-
-			setInfo(i);
-		} catch (e) {
-			console.log(e);
-		}
-	};
 
 	const fetchInfos = async () => {
 		const list: any[] = [];
@@ -66,23 +43,9 @@ const Network: React.FC<{}> = () => {
 		setInfos(list);
 	};
 
-	useEffect(() => {
-		fetchPeers();
-	}, []);
-
-	useEffect(() => {
-		fetchInfos();
-	}, [peers]);
-
-	let poller: any;
-
-	useEffect(() => {
-		poller = setInterval(() => {
-			fetchPeers().then(() => console.log('Fetching peers every 10s'));
-		}, 10000);
-
-		return () => clearInterval(poller);
-	});
+	const onClickPeer = (peer: IBabblePeer) => () => {
+		setSelectedPeer(peer);
+	};
 
 	return (
 		<Container fluid={true}>
@@ -91,8 +54,8 @@ const Network: React.FC<{}> = () => {
 					<NetworkStatsWidget infos={infos} />
 				</Grid.Column>
 				<Grid.Column width={6}>
-					<PeersWidget peers={peers} />
-					<StatsWidget info={info || ({} as IMonetInfo)} />
+					<PeersWidget onClickPeer={onClickPeer} />
+					<StatsWidget peer={selectedPeer} />
 				</Grid.Column>
 			</Grid>
 		</Container>
