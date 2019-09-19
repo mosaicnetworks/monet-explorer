@@ -1,18 +1,24 @@
 import React from 'react';
 
-import { Container, Grid } from 'semantic-ui-react';
+import Container from 'react-bootstrap/Container';
+import Jumbotron from 'react-bootstrap/Jumbotron';
 
-import Box from '../components/Box';
+import Blocks from '../widgets/Blocks';
 
 const Index: React.FC<{}> = () => {
 	return (
-		<Container fluid={true}>
-			<Grid stackable={true} columns={'equal'}>
-				<Grid.Column>
-					<h1>Index</h1>
-				</Grid.Column>
-			</Grid>
-		</Container>
+		<>
+			<Jumbotron>
+				<h1>64,123 Blocks</h1>
+				<p>
+					This figure is from the mainnet launch in 12 Septemeber
+					2019.
+				</p>
+			</Jumbotron>
+			<Container fluid={true}>
+				<Blocks />
+			</Container>
+		</>
 	);
 };
 

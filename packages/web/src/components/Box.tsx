@@ -6,15 +6,15 @@ const SBox = styled.div`
 	background: #fff;
 	color: #111;
 	margin-bottom: 20px;
-	box-shadow: 0 4px 20px -18px #111 !important;
+	border: none !important;
+	/* box-shadow: 0 4px 20px -18px #111 !important; */
 `;
 
 const SHeading = styled.div`
-	background: rgba(28, 63, 148, 1);
-	padding: 13px 20px;
+	background: rgba(31, 66, 146, 0.9) !important;
+	padding: 10px 20px;
 	font-size: 15px;
 	color: #fff !important;
-
 	& span {
 		padding-left: 15px;
 		font-size: 11px;

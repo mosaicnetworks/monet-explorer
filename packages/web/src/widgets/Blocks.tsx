@@ -1,38 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
+import Table from 'react-bootstrap/Table';
+
 import Node from 'evm-lite-core';
-import styled from 'styled-components';
 
 import { IConfigState, IStore } from '@monetexplorer/redux';
 import { Babble, IBabbleBlock } from 'evm-lite-consensus';
 import { useSelector } from 'react-redux';
-import { Transition } from 'react-spring/renderprops';
-import { Image, Message, Pagination, PaginationProps } from 'semantic-ui-react';
 
 import { IMonetInfo } from '../monet';
 
-import BlocksTable from '../components/BlocksTable';
-import Box from '../components/Box';
-
-import * as loader from '../assets/loader.gif';
-
-function sleeper(ms: number) {
-	return new Promise(resolve => setTimeout(() => resolve(), ms));
-}
-
-const Pages = styled(Pagination)`
-	margin: 10px !important;
-	float: right;
-`;
-
-const SCenter = styled.div`
-	text-align: center;
-	width: 100px;
-	margin: auto;
-`;
-
 const Blocks: React.FC<{}> = () => {
-	const blocksPerPage = 25;
+	const blocksPerPage = 50;
 
 	const config = useSelector<IStore, IConfigState>(store => store.config);
 
@@ -48,9 +27,6 @@ const Blocks: React.FC<{}> = () => {
 
 	/** Pagination Start */
 	const totalPages = Math.ceil(lastBlockIndex / blocksPerPage);
-	const onChangePage = (_: any, data: PaginationProps) => {
-		setActivePage(Number(data.activePage || 1));
-	};
 
 	const getCurrentPageBlockIndex = (l: number): number => {
 		const end = l - activePage * blocksPerPage;
@@ -116,42 +92,39 @@ const Blocks: React.FC<{}> = () => {
 
 	useEffect(() => {
 		poller = setInterval(() => {
-			fetchBlocks().then(() =>
-				console.log('Fetching pblockseers every 10s')
-			);
-		}, 10000);
+			fetchBlocks().then(() => console.log('Fetching blocks every 10s'));
+		}, 1000);
 
 		return () => clearInterval(poller);
 	});
 
 	return (
-		<Box padding={false} heading={'Blocks'}>
-			{error && (
-				<Message negative={true}>
-					<Message.Header>Oops!</Message.Header>
-					<p>{error}</p>
-				</Message>
-			)}
-			{totalPages !== 1 && !error && (
-				<Pages
-					boundaryRange={0}
-					defaultActivePage={1}
-					ellipsisItem={null}
-					firstItem={null}
-					lastItem={null}
-					siblingRange={1}
-					totalPages={totalPages}
-					onPageChange={onChangePage}
-					disabled={totalPages === 1 || loading}
-				/>
-			)}
-			{loading && (
-				<SCenter>
-					<Image size={'tiny'} src={loader} />
-				</SCenter>
-			)}
-			{!loading && <BlocksTable blocks={blocks} />}
-		</Box>
+		<>
+			<Table responsive={true} striped={true}>
+				<thead>
+					<tr>
+						<th>Index</th>
+						<th># of Txs</th>
+						<th># of Sigs</th>
+						<th>State Hash</th>
+						<th>Peers Hash</th>
+					</tr>
+				</thead>
+				<tbody>
+					{blocks.map(bl => {
+						return (
+							<tr key={bl.Body.Index}>
+								<td>{bl.Body.Index}</td>
+								<td>{bl.Body.Transactions.length}</td>
+								<td>{Object.keys(bl.Signatures).length}</td>
+								<td>{bl.Body.StateHash}</td>
+								<td>{bl.Body.PeersHash}</td>
+							</tr>
+						);
+					})}
+				</tbody>
+			</Table>
+		</>
 	);
 };
 
