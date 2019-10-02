@@ -63,7 +63,6 @@ const Blocks: React.FC<{}> = () => {
 
 	return (
 		<>
-			{<STopButton onClick={toTop}>T</STopButton>}
 			<Jumbotron>
 				<Container fluid={true}>
 					<Row>
@@ -79,7 +78,7 @@ const Blocks: React.FC<{}> = () => {
 				</Container>
 			</Jumbotron>
 			<Container fluid={true}>
-				<Row>
+				<Row noGutters={true}>
 					<Col>
 						<SBox>
 							<BlocksTable />

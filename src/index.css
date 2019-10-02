@@ -26,16 +26,15 @@ body {
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-	background-color: rgba(0, 0, 0, 0.02) !important;
+	background-color: rgba(0, 0, 0, 0.025) !important;
 }
 
 .table thead th {
 	border-bottom: none !important;
 }
 
-.table td,
-.table th {
-	border-top: 0px solid #FAFAFa !important;
+.table td {
+	border-top: 1px solid #f4f4f4 !important;
 }
 
 .table th {

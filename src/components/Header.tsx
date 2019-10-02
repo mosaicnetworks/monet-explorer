@@ -13,6 +13,10 @@ import Logo from '../assets/monet.svg';
 
 const SNetwork = styled.div`
 	color: white;
+
+	b {
+		letter-spacing: -1px;
+	}
 `;
 
 const SNav = styled(Nav)`
@@ -54,7 +58,9 @@ const Header: React.FC<{}> = () => {
 						</Nav.Item>
 					</SNav>
 				</Navbar.Collapse>
-				<SNetwork>Camille</SNetwork>
+				<SNetwork>
+					<b>Camille</b>
+				</SNetwork>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 			</Navbar>
 		</>
