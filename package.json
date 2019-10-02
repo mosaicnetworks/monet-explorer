@@ -41,6 +41,7 @@
 		"tslint-react": "^4.1.0"
 	},
 	"scripts": {
+		"tx": "ts-node scripts/transfer",
 		"lint": "tslint -p . -c ./tslint.json",
 		"dev": "react-scripts start",
 		"test": "react-scripts test",

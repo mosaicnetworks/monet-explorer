@@ -1,34 +1,71 @@
-@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Fira+Code&display=swap');
 
 body {
 	margin: 0;
-	font-family: 'Lato', 'Verdana', sans-serif !important;
+	font-family: 'Open Sans', sans-serif !important;
 	-webkit-font-smoothing: antialiased;
 	font-size: 15px !important;
-	background: #fff !important;
+	background: #f4f4f4 !important;
 }
 
 .bg-dark {
 	background: rgba(31, 66, 146, 1) !important;
-	box-shadow: 0 4px 20px -18px #111 !important;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-	margin-bottom: 20px;
+	/* box-shadow: 4px 0px 20px #999 !important; */
+	border-bottom: 1px solid rgb(46, 85, 158);
+	/* margin-bottom: 15px; */
 }
 
 .jumbotron {
-	background: rgba(31, 66, 146, 1) !important;
+	background: url('./assets/bg.png') !important;
+	background-size: cover !important;
+	background-position: 0px -2px !important;
 	border-radius: 0 !important;
 	color: #fff !important;
+	margin-bottom: 0 !important;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
 	background-color: rgba(0, 0, 0, 0.02) !important;
 }
+
 .table thead th {
-	border-bottom: 1px solid #FAFAFA !important;
+	border-bottom: none !important;
 }
 
 .table td,
 .table th {
-	border-top: 1px solid #FAFAFa !important;
+	border-top: 0px solid #FAFAFa !important;
+}
+
+.table th {
+	font-weight: bold;
+	letter-spacing: -1px;
+	text-transform: uppercase;
+	font-size: 13px;
+}
+
+.modal-content {
+	border: none !important;
+	border-radius: 0 !important;
+	outline: none !important;
+	box-shadow: none !important;
+}
+
+.modal-header {
+	border-bottom: 1px solid #f9f9f9 !important;
+}
+
+.modal-body {
+	padding: 30px 20px !important;
+}
+
+.modal-footer {
+	border-top: 1px solid #f9f9f9 !important;
+}
+
+pre,
+code {
+	font-family: 'Fira Code', monospace !important;
+	color: rgba(31, 66, 146, 1);
 }
