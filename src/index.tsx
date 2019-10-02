@@ -1,11 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-
-import stores from '@monetexplorer/redux';
-
 import App from './app/App';
 
 import * as serviceWorker from './serviceWorker';
@@ -13,15 +8,7 @@ import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
-const s = stores();
-
-const app = (
-	<Provider store={s.store}>
-		<PersistGate loading={null} persistor={s.persistor}>
-			<App />
-		</PersistGate>
-	</Provider>
-);
+const app = <App />;
 
 ReactDOM.render(app, document.getElementById('root'));
 
