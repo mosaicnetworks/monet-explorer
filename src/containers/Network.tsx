@@ -47,7 +47,7 @@ const Index: React.FC<{}> = () => {
 					<Col xs={12} md={true}>
 						<SStatistic>
 							<h1>Value</h1>
-							<h2>$4.23</h2>
+							<h2>$40.23</h2>
 						</SStatistic>
 					</Col>
 					<Col xs={12} md={true}>

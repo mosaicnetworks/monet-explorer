@@ -36,7 +36,11 @@ const STable = styled(Table)`
 	}
 `;
 
-const Blocks: React.FC<{}> = () => {
+type Props = {
+	lastBlockIndexIncreaseHook: (index: number) => any;
+};
+
+const Blocks: React.FC<Props> = props => {
 	const blocksPerPage = 50;
 
 	// component scoped node
@@ -55,6 +59,11 @@ const Blocks: React.FC<{}> = () => {
 		// Get last block index
 		const i = await n.getInfo<IMonetInfo>();
 		const l = lastFetchedBlockIndex || parseInt(i.last_block_index, 10);
+
+		// callback
+		if (!lastFetchedBlockIndex) {
+			props.lastBlockIndexIncreaseHook(parseInt(i.last_block_index, 10));
+		}
 
 		// Fetch blocks
 		let count = blocksPerPage;
@@ -92,7 +101,6 @@ const Blocks: React.FC<{}> = () => {
 
 	useEffect(() => {
 		if (loadMore) {
-			console.log('HELLo');
 			fetchBlocks();
 		}
 
@@ -100,14 +108,40 @@ const Blocks: React.FC<{}> = () => {
 	}, [loadMore]);
 
 	// Polling
-	// let poller: any;
-	// useEffect(() => {
-	// 	poller = setInterval(() => {
-	// 		fetchBlocks().then(() => console.log('Fetching blocks every 10s'));
-	// 	}, 1000);
+	let poller: any;
 
-	// 	return () => clearInterval(poller);
-	// });
+	const fetchNewBlocks = async () => {
+		const info = await n.getInfo<IMonetInfo>();
+
+		const nowLastBlockIndex = Number(info.last_block_index);
+		const lastBlockIndex = blocks[0].Body.Index;
+
+		if (nowLastBlockIndex > lastBlockIndex) {
+			// callback
+			props.lastBlockIndexIncreaseHook(nowLastBlockIndex);
+
+			const newBlocks = await n.consensus!.getBlocks(
+				lastBlockIndex + 1,
+				nowLastBlockIndex - lastBlockIndex - 1
+			);
+
+			const all = [...newBlocks.reverse(), ...blocks];
+
+			setBlocks(all);
+
+			return nowLastBlockIndex;
+		}
+
+		return 'No new blocks';
+	};
+
+	useEffect(() => {
+		poller = setInterval(() => {
+			fetchNewBlocks().then(console.log);
+		}, 1000);
+
+		return () => clearInterval(poller);
+	});
 
 	// Select block
 	const [selectedBlock, setSelectedBlock] = useState<IBabbleBlock>(
