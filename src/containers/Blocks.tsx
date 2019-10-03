@@ -18,30 +18,6 @@ const SBox = styled.div`
 	margin-bottom: 20px;
 `;
 
-const STopButton = styled.div`
-	position: fixed;
-	border-radius: 100% !important;
-	bottom: 50px;
-	right: 70px;
-	z-index: 10000000;
-	background: #fafafa !important;
-	color: black !important;
-	border: 1px solid #ddd !important;
-	padding: 10px;
-	cursor: pointer;
-`;
-
-const SStatistic = styled.div`
-	background: #fff;
-	margin-bottom: 20px;
-	box-shadow: 1px 0px 1px #eee !important;
-	padding: 40px 40px;
-
-	h1 {
-		color: rgba(31, 66, 146, 1) !important;
-	}
-`;
-
 const Blocks: React.FC<{}> = () => {
 	const [showTopButton, setShowTopButton] = useState(false);
 
@@ -69,10 +45,17 @@ const Blocks: React.FC<{}> = () => {
 						<Col md={8}>
 							<h1>Block Explorer</h1>
 							<p>
-								This is a simple hero unit, a simple
-								jumbotron-style component for calling extra
-								attention to featured content or information.
+								Camille testnet was released late September
+								2019.
 							</p>
+						</Col>
+						<Col>
+							<h2>Blocks</h2>
+							<h4>637</h4>
+						</Col>
+						<Col>
+							<h2>Blocks/s</h2>
+							<h4>23</h4>
 						</Col>
 					</Row>
 				</Container>

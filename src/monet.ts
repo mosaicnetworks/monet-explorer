@@ -16,3 +16,8 @@ export interface IMonetInfo extends IBaseInfo {
 	transaction_pool: string;
 	undetermined_events: string;
 }
+
+export const config = {
+	host: 'camille.monet.network',
+	port: 8080
+};

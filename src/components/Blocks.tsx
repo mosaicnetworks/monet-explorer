@@ -8,14 +8,9 @@ import Table from 'react-bootstrap/Table';
 import { IBabbleBlock } from 'evm-lite-consensus';
 import { Monet } from 'evm-lite-core';
 
-import { IMonetInfo } from '../monet';
+import { config, IMonetInfo } from '../monet';
 
 import Block from './Block';
-
-const config = {
-	host: 'camille.monet.network',
-	port: 8080
-};
 
 const STable = styled(Table)`
 	td {
