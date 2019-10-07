@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
-import { IBabblePeer } from 'evm-lite-consensus';
-import { Monet } from 'evm-lite-core';
-
 import Table from 'react-bootstrap/Table';
 
-import { config } from '../monet';
+import { monet } from '../monet';
+
+import POA, { WhitelistEntry } from '../poa';
 
 const STable = styled(Table)`
 	td {
@@ -29,27 +28,24 @@ const STable = styled(Table)`
 
 	tbody tr:hover {
 		cursor: pointer;
-		background: rgba(226, 110, 64, 0.1) !important;
 	}
 `;
 
-const Peers: React.FC<{}> = () => {
-	const n = new Monet(config.host, config.port);
+const Whitelist: React.FC<{}> = () => {
+	const [whitelist, setWhitelist] = useState<WhitelistEntry[]>([]);
 
-	const [peers, setPeers] = useState<IBabblePeer[]>([]);
+	const fetchWhitelist = async () => {
+		const poaData = await monet.getPOA();
+		const poa = new POA(poaData.address, JSON.parse(poaData.abi));
 
-	const fetchPeers = async () => {
-		try {
-			const p = await n.consensus!.getPeers();
-			setPeers(p);
-		} catch (e) {
-			console.log(e);
-		}
+		const wl = await poa.whitelist();
+
+		setWhitelist(wl);
 	};
 
 	useEffect(() => {
-		fetchPeers();
-	}, []);
+		fetchWhitelist();
+	});
 
 	return (
 		<>
@@ -63,16 +59,14 @@ const Peers: React.FC<{}> = () => {
 				<thead>
 					<tr>
 						<th>Moniker</th>
-						<th>Host</th>
-						<th>Public Key</th>
+						<th>Address</th>
 					</tr>
 				</thead>
 				<tbody>
-					{peers.map(peer => (
-						<tr key={peer.Moniker}>
-							<td>{peer.Moniker}</td>
-							<td>{peer.NetAddr.split(':')[0]}</td>
-							<td>{peer.PubKeyHex}</td>
+					{whitelist.map(wle => (
+						<tr key={wle.address}>
+							<td>{wle.moniker}</td>
+							<td>{wle.address}</td>
 						</tr>
 					))}
 				</tbody>
@@ -81,4 +75,4 @@ const Peers: React.FC<{}> = () => {
 	);
 };
 
-export default Peers;
+export default Whitelist;

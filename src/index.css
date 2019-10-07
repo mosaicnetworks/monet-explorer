@@ -3,7 +3,8 @@
 
 body {
 	margin: 0;
-	font-family: 'Open Sans', sans-serif !important;
+	font-family: 'lsSemilight', 'HelveticaNeue', 'Helvetica Neue', Helvetica,
+		Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	font-size: 15px !important;
 	background: #f4f4f4 !important;
@@ -23,6 +24,8 @@ body {
 	border-radius: 0 !important;
 	color: #fff !important;
 	margin-bottom: 0 !important;
+	padding: 30px !important;
+	padding-left: none !important;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
@@ -39,9 +42,9 @@ body {
 
 .table th {
 	font-weight: bold;
-	letter-spacing: -1px;
 	text-transform: uppercase;
 	font-size: 13px;
+	border: none !important;
 	color: rgba(31, 66, 146, 1);
 }
 
@@ -67,5 +70,9 @@ body {
 pre,
 code {
 	font-family: 'Fira Code', monospace !important;
-	color: rgba(31, 66, 146, 1);
+	/* color: rgba(31, 66, 146, 1); */
+}
+
+.badge {
+	text-shadow: none !important;
 }

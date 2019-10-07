@@ -7,6 +7,7 @@ import Table from 'react-bootstrap/Table';
 
 import { IBabbleBlock } from 'evm-lite-consensus';
 import { Monet } from 'evm-lite-core';
+import { Spring } from 'react-spring/renderprops';
 
 import { config, IMonetInfo } from '../monet';
 
@@ -128,16 +129,12 @@ const Blocks: React.FC<Props> = props => {
 			const all = [...newBlocks.reverse(), ...blocks];
 
 			setBlocks(all);
-
-			return nowLastBlockIndex;
 		}
-
-		return 'No new blocks';
 	};
 
 	useEffect(() => {
 		poller = setInterval(() => {
-			fetchNewBlocks().then(console.log);
+			fetchNewBlocks();
 		}, 1000);
 
 		return () => clearInterval(poller);
@@ -196,23 +193,40 @@ const Blocks: React.FC<Props> = props => {
 				<tbody>
 					{blocks.map(bl => {
 						return (
-							<tr
-								onClick={onBlockClickBind(bl)}
-								key={bl.Body.Index}
-							>
-								<td>{bl.Body.Index}</td>
-								<td>{bl.Body.Transactions.length}</td>
-								<td>{Object.keys(bl.Signatures).length}</td>
-								<td className="d-none d-lg-table-cell">
-									{bl.Body.StateHash}
-								</td>
-								<td className="d-none d-lg-table-cell">
-									{bl.Body.PeersHash}
-								</td>
-								<td className="d-none d-lg-table-cell">
-									{bl.Body.RoundReceived}
-								</td>
-							</tr>
+							<>
+								<Spring
+									from={{ opacity: 0 }}
+									to={{ opacity: 1 }}
+								>
+									{style => (
+										<tr
+											style={style}
+											onClick={onBlockClickBind(bl)}
+											key={bl.Body.Index}
+										>
+											<td>{bl.Body.Index}</td>
+											<td>
+												{bl.Body.Transactions.length}
+											</td>
+											<td>
+												{
+													Object.keys(bl.Signatures)
+														.length
+												}
+											</td>
+											<td className="d-none d-lg-table-cell">
+												{bl.Body.StateHash}
+											</td>
+											<td className="d-none d-lg-table-cell">
+												{bl.Body.PeersHash}
+											</td>
+											<td className="d-none d-lg-table-cell">
+												{bl.Body.RoundReceived}
+											</td>
+										</tr>
+									)}
+								</Spring>
+							</>
 						);
 					})}
 				</tbody>

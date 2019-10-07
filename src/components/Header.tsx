@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
 
@@ -13,10 +13,8 @@ import Logo from '../assets/monet.svg';
 
 const SNetwork = styled.div`
 	color: white;
-
-	b {
-		letter-spacing: -1px;
-	}
+	text-transform: uppercase;
+	font-size: 13px;
 `;
 
 const SNav = styled(Nav)`
@@ -31,30 +29,52 @@ const SNav = styled(Nav)`
 `;
 
 const Header: React.FC<{}> = () => {
+	const scrollToggleHeight = 300;
+	const [stickyHeader, setStickyHeader] = useState(false);
+
+	useEffect(() => {
+		window.addEventListener('scroll', () => {
+			if (window.scrollY > scrollToggleHeight) {
+				setStickyHeader(true);
+			}
+
+			if (window.scrollY <= scrollToggleHeight) {
+				setStickyHeader(false);
+			}
+		});
+	});
+
 	return (
 		<>
-			<Navbar bg="dark" expand="lg" variant="dark" sticky={'top'}>
+			<Navbar
+				bg={'dark'}
+				expand="lg"
+				variant="dark"
+				sticky={stickyHeader ? 'top' : undefined}
+			>
 				<Navbar.Brand href="#home">
-					<Image
-						width={150}
-						src={Logo}
-						className="d-inline-block align-middle"
-					/>
+					<Link to={'/'}>
+						<Image
+							width={150}
+							src={Logo}
+							className="d-inline-block align-middle"
+						/>
+					</Link>
 				</Navbar.Brand>
 				<Navbar.Collapse id="basic-navbar-nav">
 					<SNav activeKey="/">
 						<Nav.Item>
 							<Nav.Link eventKey="link-2">
-								<Link to={'/'}>Network</Link>
+								<Link to={'/'}>Dashboard</Link>
 							</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
 							<Nav.Link>
-								<Link to={'/blocks'}>Blocks</Link>
+								<Link to={'/blocks'}>Block Explorer</Link>
 							</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Nav.Link eventKey="link-2">Transactions</Nav.Link>
+							<Nav.Link eventKey="link-2">Addresses</Nav.Link>
 						</Nav.Item>
 					</SNav>
 				</Navbar.Collapse>

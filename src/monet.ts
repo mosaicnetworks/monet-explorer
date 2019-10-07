@@ -1,4 +1,5 @@
 import { IBaseInfo } from 'evm-lite-client';
+import { Monet } from 'evm-lite-core';
 
 export interface IMonetInfo extends IBaseInfo {
 	consensus_events: string;
@@ -21,3 +22,8 @@ export const config = {
 	host: 'camille.monet.network',
 	port: 8080
 };
+
+export const monet = new Monet(config.host, config.port);
+
+export const GAS = 100000000;
+export const GASPRICE = 0;

@@ -13,7 +13,7 @@ import BlocksTable from '../components/Blocks';
 import Promo from '../assets/promo.svg';
 
 const SBadge = styled(Badge)`
-	font-size: 15px !important;
+	font-size: 12px !important;
 	margin-left: 10px;
 `;
 
@@ -30,11 +30,8 @@ const Blocks: React.FC<{}> = () => {
 			<Jumbotron>
 				<Container fluid={true}>
 					<Row>
-						<Col md={8}>
-							<h1>
-								Block Explorer
-								<SBadge variant="success">Live*</SBadge>
-							</h1>
+						<Col md={10}>
+							<h1>Block Explorer</h1>
 							<p>
 								Camille testnet was released late September
 								2019.
@@ -42,26 +39,22 @@ const Blocks: React.FC<{}> = () => {
 						</Col>
 						<Col>
 							<h2>Blocks</h2>
-							<h4>{lastBlockIndex}</h4>
-						</Col>
-						<Col>
-							<h2>Blocks/s</h2>
-							<h4>0</h4>
+							<h3>{lastBlockIndex || '---'}</h3>
 						</Col>
 					</Row>
 				</Container>
 			</Jumbotron>
-			<Container fluid={true}>
-				<Row noGutters={true}>
-					<Col>
-						<SBox>
+			<Row noGutters={true}>
+				<Col>
+					<SBox>
+						<Container fluid={true}>
 							<BlocksTable
 								lastBlockIndexIncreaseHook={setLastBlockIndex}
 							/>
-						</SBox>
-					</Col>
-				</Row>
-			</Container>
+						</Container>
+					</SBox>
+				</Col>
+			</Row>
 		</>
 	);
 };

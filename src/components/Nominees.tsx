@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
-import { IBabblePeer } from 'evm-lite-consensus';
-import { Monet } from 'evm-lite-core';
-
 import Table from 'react-bootstrap/Table';
 
-import { config } from '../monet';
+import { monet } from '../monet';
+
+import POA, { NomineeEntry } from '../poa';
 
 const STable = styled(Table)`
 	td {
@@ -29,27 +28,24 @@ const STable = styled(Table)`
 
 	tbody tr:hover {
 		cursor: pointer;
-		background: rgba(226, 110, 64, 0.1) !important;
 	}
 `;
 
-const Network: React.FC<{}> = () => {
-	const n = new Monet(config.host, config.port);
+const Nominees: React.FC<{}> = () => {
+	const [nominees, setNominees] = useState<NomineeEntry[]>([]);
 
-	const [peers, setPeers] = useState<IBabblePeer[]>([]);
+	const fetchNominees = async () => {
+		const poaData = await monet.getPOA();
+		const poa = new POA(poaData.address, JSON.parse(poaData.abi));
 
-	const fetchPeers = async () => {
-		try {
-			const p = await n.consensus!.getPeers();
-			setPeers(p);
-		} catch (e) {
-			console.log(e);
-		}
+		const n = await poa.nominees();
+
+		setNominees(nominees);
 	};
 
 	useEffect(() => {
-		fetchPeers();
-	}, []);
+		fetchNominees();
+	});
 
 	return (
 		<>
@@ -63,14 +59,18 @@ const Network: React.FC<{}> = () => {
 				<thead>
 					<tr>
 						<th>Moniker</th>
-						<th>Net Addr</th>
+						<th>Address</th>
+						<th>Up Votes</th>
+						<th>Down Votes</th>
 					</tr>
 				</thead>
 				<tbody>
-					{peers.map(peer => (
-						<tr key={peer.Moniker}>
-							<td>{peer.Moniker}</td>
-							<td>{peer.NetAddr}</td>
+					{nominees.map(n => (
+						<tr key={n.address}>
+							<td>{n.moniker}</td>
+							<td>{n.address}</td>
+							<td>{n.upVotes}</td>
+							<td>{n.downVotes}</td>
 						</tr>
 					))}
 				</tbody>
@@ -79,4 +79,4 @@ const Network: React.FC<{}> = () => {
 	);
 };
 
-export default Network;
+export default Nominees;
