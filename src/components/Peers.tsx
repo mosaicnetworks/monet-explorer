@@ -5,7 +5,10 @@ import styled from 'styled-components';
 import { IBabblePeer } from 'evm-lite-consensus';
 import { Monet } from 'evm-lite-core';
 
+import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table';
+
+import Peer from '../components/Peer';
 
 import { config } from '../monet';
 
@@ -33,7 +36,11 @@ const STable = styled(Table)`
 	}
 `;
 
-const Peers: React.FC<{}> = () => {
+type Props = {
+	onPeersChangeHook: (peers: IBabblePeer[]) => any;
+};
+
+const Peers: React.FC<Props> = props => {
 	const n = new Monet(config.host, config.port);
 
 	const [peers, setPeers] = useState<IBabblePeer[]>([]);
@@ -51,8 +58,50 @@ const Peers: React.FC<{}> = () => {
 		fetchPeers();
 	}, []);
 
+	useEffect(() => {
+		props.onPeersChangeHook(peers);
+	}, [peers]);
+
+	// Polling
+	let poller: any;
+
+	useEffect(() => {
+		poller = setInterval(() => {
+			fetchPeers().then(() => console.log('(60s) Fetching Peers...'));
+		}, 60000);
+
+		return () => clearInterval(poller);
+	});
+
+	// Selec Peer
+	const [selectedPeer, setSelectedPeer] = useState<IBabblePeer>(
+		{} as IBabblePeer
+	);
+	const [show, setShow] = useState(false);
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
+	const onBlockClickBind = (peer: IBabblePeer) => (e: any) => {
+		setSelectedPeer(peer);
+		handleShow();
+	};
+
 	return (
 		<>
+			{Object.keys(selectedPeer).length > 0 && (
+				<Modal
+					size={'lg'}
+					centered={true}
+					show={show}
+					onHide={handleClose}
+				>
+					<Modal.Header closeButton={true}>
+						<Modal.Title>{selectedPeer.Moniker}</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<Peer peer={selectedPeer} />
+					</Modal.Body>
+				</Modal>
+			)}
 			<STable
 				id="blocksTable"
 				bordered={false}
@@ -64,15 +113,17 @@ const Peers: React.FC<{}> = () => {
 					<tr>
 						<th>Moniker</th>
 						<th>Host</th>
-						<th>Public Key</th>
+						<th className="d-none d-lg-table-cell">Public Key</th>
 					</tr>
 				</thead>
 				<tbody>
 					{peers.map(peer => (
-						<tr key={peer.Moniker}>
+						<tr onClick={onBlockClickBind(peer)} key={peer.Moniker}>
 							<td>{peer.Moniker}</td>
 							<td>{peer.NetAddr.split(':')[0]}</td>
-							<td>{peer.PubKeyHex}</td>
+							<td className="d-none d-lg-table-cell">
+								{peer.PubKeyHex}
+							</td>
 						</tr>
 					))}
 				</tbody>

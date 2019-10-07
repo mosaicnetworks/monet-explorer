@@ -1,7 +1,7 @@
 import { IBaseInfo } from 'evm-lite-client';
 import { Monet } from 'evm-lite-core';
 
-export interface IMonetInfo extends IBaseInfo {
+export type MonetInfo = IBaseInfo & {
 	consensus_events: string;
 	consensus_transactions: string;
 	events_per_second: string;
@@ -16,7 +16,7 @@ export interface IMonetInfo extends IBaseInfo {
 	sync_rate: string;
 	transaction_pool: string;
 	undetermined_events: string;
-}
+};
 
 export const config = {
 	host: 'camille.monet.network',

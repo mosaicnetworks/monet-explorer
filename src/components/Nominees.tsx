@@ -14,20 +14,8 @@ const STable = styled(Table)`
 		font-size: 14px;
 	}
 
-	tr {
-		transition: background 0.2s ease-in;
-	}
-
 	tbody tr:nth-of-type(odd) {
 		background-color: rgba(0, 0, 0, 0.02);
-	}
-
-	tbody tr:nth-of-type(odd):hover {
-		background: rgba(226, 110, 64, 0.1) !important;
-	}
-
-	tbody tr:hover {
-		cursor: pointer;
 	}
 `;
 
@@ -45,6 +33,19 @@ const Nominees: React.FC<{}> = () => {
 
 	useEffect(() => {
 		fetchNominees();
+	});
+
+	// Polling
+	let poller: any;
+
+	useEffect(() => {
+		poller = setInterval(() => {
+			fetchNominees().then(() =>
+				console.log('(60s) Fetching Nominees...')
+			);
+		}, 60000);
+
+		return () => clearInterval(poller);
 	});
 
 	return (

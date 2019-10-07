@@ -9,7 +9,7 @@ import { IBabbleBlock } from 'evm-lite-consensus';
 import { Monet } from 'evm-lite-core';
 import { Spring } from 'react-spring/renderprops';
 
-import { config, IMonetInfo } from '../monet';
+import { config, MonetInfo } from '../monet';
 
 import Block from './Block';
 
@@ -58,7 +58,7 @@ const Blocks: React.FC<Props> = props => {
 		}
 
 		// Get last block index
-		const i = await n.getInfo<IMonetInfo>();
+		const i = await n.getInfo<MonetInfo>();
 		const l = lastFetchedBlockIndex || parseInt(i.last_block_index, 10);
 
 		// callback
@@ -112,7 +112,7 @@ const Blocks: React.FC<Props> = props => {
 	let poller: any;
 
 	const fetchNewBlocks = async () => {
-		const info = await n.getInfo<IMonetInfo>();
+		const info = await n.getInfo<MonetInfo>();
 
 		const nowLastBlockIndex = Number(info.last_block_index);
 		const lastBlockIndex = blocks[0].Body.Index;
@@ -134,8 +134,8 @@ const Blocks: React.FC<Props> = props => {
 
 	useEffect(() => {
 		poller = setInterval(() => {
-			fetchNewBlocks();
-		}, 1000);
+			fetchNewBlocks().then(() => console.log('(5s) Fetching Blocks...'));
+		}, 5000);
 
 		return () => clearInterval(poller);
 	});

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
@@ -10,6 +10,7 @@ import Row from 'react-bootstrap/Row';
 import Nominees from '../components/Nominees';
 import Peers from '../components/Peers';
 import Whitelist from '../components/Whitelist';
+import { IBabblePeer } from 'evm-lite-consensus';
 
 const SContent = styled.div`
 	margin-top: 30px;
@@ -17,37 +18,70 @@ const SContent = styled.div`
 
 const SBox = styled.div`
 	background: #fff;
-	margin-bottom: 40px;
-	margin-top: 10px;
+`;
+
+const SHeading = styled.div`
+	background: rgba(31, 66, 146, 0.9) !important;
+	padding: 11px 13px;
+	font-size: 13px;
+	color: #fff !important;
+	text-transform: uppercase;
+	font-weight: bold;
+
+	& span {
+		padding-left: 15px;
+		font-size: 11px;
+	}
 `;
 
 const Index: React.FC<{}> = () => {
-	return (
-		<SContent>
-			<Container fluid={true}>
-				<h1>Network Statistics</h1>
-				<SBox>
-					<Peers />
-				</SBox>
-			</Container>
+	const [peers, setPeers] = useState<any>([]);
 
-			<Container fluid={true}>
-				<Row>
-					<Col>
-						<h2>Whitelist</h2>
-						<SBox>
-							<Whitelist />
-						</SBox>
-					</Col>
-					<Col>
-						<h2>Nominee List</h2>
-						<SBox>
-							<Nominees />
-						</SBox>
-					</Col>
-				</Row>
-			</Container>
-		</SContent>
+	const onPeerChange = (peers: IBabblePeer[]) => {
+		setPeers(peers);
+	};
+
+	return (
+		<>
+			<Jumbotron>
+				<Container fluid={true}>
+					<Row>
+						<Col md={10}>
+							<h1>Network Statistics</h1>
+							<p>Camille test network statistics.</p>
+						</Col>
+						<Col>
+							<h2>Peers</h2>
+							<h3>{peers.length || '---'}</h3>
+						</Col>
+					</Row>
+				</Container>
+			</Jumbotron>
+			<SBox>
+				<Container fluid={true}>
+					<Peers onPeersChangeHook={onPeerChange} />
+				</Container>
+			</SBox>
+
+			<SContent>
+				<Container fluid={true}>
+					<Row>
+						<Col>
+							<SHeading>Whitelist</SHeading>
+							<SBox>
+								<Whitelist />
+							</SBox>
+						</Col>
+						<Col>
+							<SHeading>Nominees</SHeading>
+							<SBox>
+								<Nominees />
+							</SBox>
+						</Col>
+					</Row>
+				</Container>
+			</SContent>
+		</>
 	);
 };
 
