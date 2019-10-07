@@ -193,40 +193,34 @@ const Blocks: React.FC<Props> = props => {
 				<tbody>
 					{blocks.map(bl => {
 						return (
-							<>
-								<Spring
-									from={{ opacity: 0 }}
-									to={{ opacity: 1 }}
-								>
-									{style => (
-										<tr
-											style={style}
-											onClick={onBlockClickBind(bl)}
-											key={bl.Body.Index}
-										>
-											<td>{bl.Body.Index}</td>
-											<td>
-												{bl.Body.Transactions.length}
-											</td>
-											<td>
-												{
-													Object.keys(bl.Signatures)
-														.length
-												}
-											</td>
-											<td className="d-none d-lg-table-cell">
-												{bl.Body.StateHash}
-											</td>
-											<td className="d-none d-lg-table-cell">
-												{bl.Body.PeersHash}
-											</td>
-											<td className="d-none d-lg-table-cell">
-												{bl.Body.RoundReceived}
-											</td>
-										</tr>
-									)}
-								</Spring>
-							</>
+							<Spring
+								from={{ opacity: 0 }}
+								to={{ opacity: 1 }}
+								key={bl.Body.Index + 'y'}
+							>
+								{style => (
+									<tr
+										style={style}
+										onClick={onBlockClickBind(bl)}
+										key={bl.Body.Index + 'x'}
+									>
+										<td>{bl.Body.Index}</td>
+										<td>{bl.Body.Transactions.length}</td>
+										<td>
+											{Object.keys(bl.Signatures).length}
+										</td>
+										<td className="d-none d-lg-table-cell">
+											{bl.Body.StateHash}
+										</td>
+										<td className="d-none d-lg-table-cell">
+											{bl.Body.PeersHash}
+										</td>
+										<td className="d-none d-lg-table-cell">
+											{bl.Body.RoundReceived}
+										</td>
+									</tr>
+								)}
+							</Spring>
 						);
 					})}
 				</tbody>

@@ -12,6 +12,8 @@ import Peer from '../components/Peer';
 
 import { config } from '../monet';
 
+const keccak256 = require('js-sha3').keccak256;
+
 const STable = styled(Table)`
 	td {
 		font-family: 'Fira Code', monospace;
@@ -85,6 +87,30 @@ const Peers: React.FC<Props> = props => {
 		handleShow();
 	};
 
+	const renderPeers = () => {
+		return peers.map(peer => {
+			// we slice the first 4 characters as all eth public keys start with 0x04
+			const pubKeyBuffer = Buffer.from(
+				peer.PubKeyHex.slice(4, peer.PubKeyHex.length),
+				'hex'
+			);
+			console.log(pubKeyBuffer);
+
+			return (
+				<tr onClick={onBlockClickBind(peer)} key={peer.Moniker}>
+					<td>{peer.Moniker}</td>
+					<td>{peer.NetAddr.split(':')[0]}</td>
+					<td>
+						0x
+						{Buffer.from(keccak256(pubKeyBuffer), 'hex')
+							.slice(-20)
+							.toString('hex')}
+					</td>
+					<td className="d-none d-lg-table-cell">{peer.PubKeyHex}</td>
+				</tr>
+			);
+		});
+	};
 	return (
 		<>
 			{Object.keys(selectedPeer).length > 0 && (
@@ -113,20 +139,11 @@ const Peers: React.FC<Props> = props => {
 					<tr>
 						<th>Moniker</th>
 						<th>Host</th>
+						<th>Address</th>
 						<th className="d-none d-lg-table-cell">Public Key</th>
 					</tr>
 				</thead>
-				<tbody>
-					{peers.map(peer => (
-						<tr onClick={onBlockClickBind(peer)} key={peer.Moniker}>
-							<td>{peer.Moniker}</td>
-							<td>{peer.NetAddr.split(':')[0]}</td>
-							<td className="d-none d-lg-table-cell">
-								{peer.PubKeyHex}
-							</td>
-						</tr>
-					))}
-				</tbody>
+				<tbody>{renderPeers()}</tbody>
 			</STable>
 		</>
 	);

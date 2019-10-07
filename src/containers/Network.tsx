@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
+import { IBabblePeer } from 'evm-lite-consensus';
+
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Jumbotron from 'react-bootstrap/Jumbotron';
@@ -10,7 +12,6 @@ import Row from 'react-bootstrap/Row';
 import Nominees from '../components/Nominees';
 import Peers from '../components/Peers';
 import Whitelist from '../components/Whitelist';
-import { IBabblePeer } from 'evm-lite-consensus';
 
 const SContent = styled.div`
 	margin-top: 30px;
@@ -37,8 +38,8 @@ const SHeading = styled.div`
 const Index: React.FC<{}> = () => {
 	const [peers, setPeers] = useState<any>([]);
 
-	const onPeerChange = (peers: IBabblePeer[]) => {
-		setPeers(peers);
+	const onPeerChange = (ps: IBabblePeer[]) => {
+		setPeers(ps);
 	};
 
 	return (
@@ -57,11 +58,13 @@ const Index: React.FC<{}> = () => {
 					</Row>
 				</Container>
 			</Jumbotron>
-			<SBox>
-				<Container fluid={true}>
+			<br />
+			<Container fluid={true}>
+				<SHeading>Validators</SHeading>
+				<SBox>
 					<Peers onPeersChangeHook={onPeerChange} />
-				</Container>
-			</SBox>
+				</SBox>
+			</Container>
 
 			<SContent>
 				<Container fluid={true}>

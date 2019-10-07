@@ -26,6 +26,10 @@ body {
 	padding-left: none !important;
 }
 
+.jumbotron h3 {
+	color: rgb(253, 118, 65);
+}
+
 .table-striped tbody tr:nth-of-type(odd) {
 	background-color: rgba(0, 0, 0, 0.025) !important;
 }
