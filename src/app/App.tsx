@@ -4,11 +4,9 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 import Wrapper from '../components/Wrapper';
 
-// import Block from '../containers/Block';
-// import Blocks from '../containers/Blocks';
-// import Config from '../containers/Config';
 import Blocks from '../containers/Blocks';
 import Network from '../containers/Network';
+import Search from '../containers/Search';
 
 const App: React.FC = () => {
 	return (
@@ -16,9 +14,7 @@ const App: React.FC = () => {
 			<Wrapper>
 				<Route exact={true} path="/" component={Network} />
 				<Route exact={true} path="/blocks" component={Blocks} />
-				{/* <Route exact={true} path="/blocks" component={Blocks} /> */}
-				{/* <Route exact={true} path="/blocks/:block" component={Block} /> */}
-				{/* <Route exact={true} path="/config" component={Config} /> */}
+				<Route exact={true} path="/search/:data" component={Search} />
 			</Wrapper>
 		</BrowserRouter>
 	);

@@ -27,3 +27,5 @@ export const monet = new Monet(config.host, config.port);
 
 export const GAS = 100000000;
 export const GASPRICE = 0;
+
+export default monet;

@@ -73,6 +73,7 @@ pre,
 code {
 	font-family: 'Fira Code', monospace !important;
 	/* color: rgba(31, 66, 146, 1); */
+	word-wrap: break-word;
 }
 
 .badge {

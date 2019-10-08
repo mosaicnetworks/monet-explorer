@@ -94,7 +94,6 @@ const Peers: React.FC<Props> = props => {
 				peer.PubKeyHex.slice(4, peer.PubKeyHex.length),
 				'hex'
 			);
-			console.log(pubKeyBuffer);
 
 			return (
 				<tr onClick={onBlockClickBind(peer)} key={peer.Moniker}>
