@@ -8,6 +8,10 @@ import Navbar from 'react-bootstrap/Navbar';
 
 import Logo from '../assets/monet.svg';
 
+const SNavbar = styled(Navbar)`
+	transition: background 0.3s cubic-bezier(1, 1, 1, 1);
+`;
+
 const SNetwork = styled.div`
 	color: white;
 	text-transform: uppercase;
@@ -43,7 +47,7 @@ const Header: React.FC<{}> = () => {
 
 	return (
 		<>
-			<Navbar
+			<SNavbar
 				bg={'dark'}
 				expand="lg"
 				variant="dark"
@@ -66,16 +70,16 @@ const Header: React.FC<{}> = () => {
 						<Nav.Item>
 							<Nav.Link href="/blocks">Block Explorer</Nav.Link>
 						</Nav.Item>
-						<Nav.Item>
+						{/* <Nav.Item>
 							<Nav.Link eventKey="link-2">Addresses</Nav.Link>
-						</Nav.Item>
+						</Nav.Item> */}
 					</SNav>
 				</Navbar.Collapse>
 				<SNetwork>
 					<b>Camille</b>
 				</SNetwork>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
-			</Navbar>
+			</SNavbar>
 		</>
 	);
 };
