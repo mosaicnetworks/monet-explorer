@@ -46,6 +46,7 @@
 	"scripts": {
 		"tx": "ts-node scripts/transfer",
 		"lint": "tslint -p . -c ./tslint.json",
+		"root80": "PORT=80 react-scripts start",
 		"dev": "react-scripts start",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
