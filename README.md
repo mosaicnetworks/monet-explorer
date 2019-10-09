@@ -12,6 +12,6 @@ $ npm install
 
 Once that has finished to run the react developement server
 
-```bash
+```bahs
 $ npm run dev
 ```
