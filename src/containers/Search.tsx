@@ -74,7 +74,6 @@ const Search: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 							</Col>
 						</Row>
 						<br />
-
 						<Row>
 							<Col>
 								<h3>Nonce: </h3>

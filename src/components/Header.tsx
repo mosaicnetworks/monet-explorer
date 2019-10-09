@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
+import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import FormControl from 'react-bootstrap/FormControl';
 
 import Logo from '../assets/monet.svg';
 
@@ -70,13 +68,6 @@ const Header: React.FC<{}> = () => {
 			}
 		});
 	});
-
-	const handleSearchKeyPress = (e: any) => {
-		console.log(e);
-		if (e.charCode === 13) {
-			alert('hello');
-		}
-	};
 
 	return (
 		<>
