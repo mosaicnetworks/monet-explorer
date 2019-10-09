@@ -15,9 +15,3 @@ Once that has finished to run the react developement server
 ```bash
 $ npm run dev
 ```
-
-## Preview
-
-<img  alt="Blocks" src="./assets/blocks.png" title="Blocks Page"/>
-<img  alt="Block" src="./assets/block.png" title="Block Page"/>
-<img  alt="Networks" src="./assets/network.png" title="Networks Page"/>
