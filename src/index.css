@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Code&display=swap');
+
+body {
+	margin: 0;
+	font-family: 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	font-size: 15px !important;
+	background: #f4f4f4 !important;
+}
+
+.bg-dark {
+	background: rgba(31, 66, 146, 1) !important;
+	box-shadow: 1px 0px 1px rgb(39, 79, 153) !important;
+	/* border-bottom: 1px solid rgb(46, 85, 158); */
+	/* margin-bottom: 15px; */
+}
+
+.jumbotron {
+	background: url('./assets/bg.png') !important;
+	background-size: cover !important;
+	background-position: 0px -2px !important;
+	border-radius: 0 !important;
+	color: #fff !important;
+	margin-bottom: 0 !important;
+	padding: 20px !important;
+	padding-left: none !important;
+}
+
+.jumbotron h3 {
+	color: rgb(253, 118, 65);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+	background-color: rgba(0, 0, 0, 0.025) !important;
+}
+
+.table thead th {
+	border-bottom: none !important;
+}
+
+.table td {
+	border-top: 1px solid #f4f4f4 !important;
+}
+
+.table th {
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 13px;
+	border: none !important;
+	color: rgba(31, 66, 146, 1);
+}
+
+.modal-content {
+	border: none !important;
+	border-radius: 0 !important;
+	outline: none !important;
+	box-shadow: none !important;
+}
+
+.modal-header {
+	border-bottom: 1px solid #f9f9f9 !important;
+}
+
+.modal-body {
+	padding: 30px 20px !important;
+}
+
+.modal-footer {
+	border-top: 1px solid #f9f9f9 !important;
+}
+
+pre,
+code {
+	font-family: 'Fira Code', monospace !important;
+	/* color: rgba(31, 66, 146, 1); */
+	word-wrap: break-word;
+}
+
+.badge {
+	text-shadow: none !important;
+}
