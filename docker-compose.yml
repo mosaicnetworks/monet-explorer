@@ -1,22 +1,12 @@
 version: '3.7'
 
 services:
-    nginx:
+    monetex-nginx:
         build:
             context: .
-            dockerfile: ./docker/Dockerfile
+            dockerfile: ./docker/nginx/Dockerfile
         image: nginx:1.15-alpine
         ports:
             - '80:80'
-            - '443:443'
         volumes:
-            - ./docker/nginx:/etc/nginx/conf.d
-            - ./docker/certbot/conf:/etc/letsencrypt
-            - ./docker/certbot/www:/var/www/certbot
-        # command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
-    certbot:
-        image: certbot/certbot
-        volumes:
-            - ./docker/certbot/conf:/etc/letsencrypt
-            - ./docker/certbot/www:/var/www/certbot
-        entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+            - ./docker/nginx/conf:/etc/nginx/conf.d
