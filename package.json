@@ -48,9 +48,12 @@
 		"lint": "tslint -p . -c ./tslint.json",
 		"root80": "PORT=80 react-scripts start",
 		"dev": "react-scripts start",
+		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"clean": "rm -rf node_modules build"
+		"clean": "rm -rf node_modules build",
+		"docker:build": "docker build --rm -f ./docker/Dockerfile -t monet-explorer:latest .",
+		"docker:run": "docker run --rm -it -p 80:80 monet-explorer:latest"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
