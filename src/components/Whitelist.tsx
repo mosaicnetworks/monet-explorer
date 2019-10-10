@@ -8,7 +8,11 @@ import { monet } from '../monet';
 
 import POA, { WhitelistEntry } from '../poa';
 
+import Avatar from '../components/Avatar';
+
 const STable = styled(Table)`
+	margin-bottom: 0px !important;
+
 	td {
 		font-family: 'Fira Code', monospace;
 		font-size: 14px;
@@ -59,6 +63,7 @@ const Whitelist: React.FC<{}> = () => {
 			>
 				<thead>
 					<tr>
+						<th>Avatar</th>
 						<th>Moniker</th>
 						<th>Address</th>
 					</tr>
@@ -66,6 +71,9 @@ const Whitelist: React.FC<{}> = () => {
 				<tbody>
 					{whitelist.map(wle => (
 						<tr key={wle.address}>
+							<td>
+								<Avatar address={wle.address} size={40} />
+							</td>
 							<td>{wle.moniker}</td>
 							<td>{wle.address}</td>
 						</tr>

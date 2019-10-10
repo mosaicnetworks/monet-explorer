@@ -8,6 +8,7 @@ import { Monet } from 'evm-lite-core';
 import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table';
 
+import Avatar from '../components/Avatar';
 import Peer from '../components/Peer';
 
 import { config } from '../monet';
@@ -15,8 +16,9 @@ import { config } from '../monet';
 const keccak256 = require('js-sha3').keccak256;
 
 const STable = styled(Table)`
+	margin-bottom: 0px !important;
+
 	td {
-		font-family: 'Fira Code', monospace;
 		font-size: 14px;
 	}
 
@@ -29,12 +31,12 @@ const STable = styled(Table)`
 	}
 
 	tbody tr:nth-of-type(odd):hover {
-		background: rgba(226, 110, 64, 0.1) !important;
+		background: rgba(226, 110, 64, 0.3) !important;
 	}
 
 	tbody tr:hover {
 		cursor: pointer;
-		background: rgba(226, 110, 64, 0.1) !important;
+		background: rgba(226, 110, 64, 0.3) !important;
 	}
 `;
 
@@ -95,17 +97,21 @@ const Peers: React.FC<Props> = props => {
 				'hex'
 			);
 
+			const address = Buffer.from(keccak256(pubKeyBuffer), 'hex')
+				.slice(-20)
+				.toString('hex');
+
 			return (
 				<tr onClick={onBlockClickBind(peer)} key={peer.Moniker}>
+					<td>
+						<Avatar address={address} size={40} />
+					</td>
 					<td>{peer.Moniker}</td>
-					<td>{peer.NetAddr.split(':')[0]}</td>
 					<td>
 						0x
-						{Buffer.from(keccak256(pubKeyBuffer), 'hex')
-							.slice(-20)
-							.toString('hex')}
+						{address}
 					</td>
-					<td className="d-none d-lg-table-cell">{peer.PubKeyHex}</td>
+					<td>Yes</td>
 				</tr>
 			);
 		});
@@ -136,10 +142,10 @@ const Peers: React.FC<Props> = props => {
 			>
 				<thead>
 					<tr>
+						<th>Avatar</th>
 						<th>Moniker</th>
-						<th>Host</th>
 						<th>Address</th>
-						<th className="d-none d-lg-table-cell">Public Key</th>
+						<th>Whitelisted</th>
 					</tr>
 				</thead>
 				<tbody>{renderPeers()}</tbody>

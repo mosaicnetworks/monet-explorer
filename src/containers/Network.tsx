@@ -2,89 +2,81 @@ import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
-import { IBabblePeer } from 'evm-lite-consensus';
-
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Row from 'react-bootstrap/Row';
-
-import Nominees from '../components/Nominees';
 import Peers from '../components/Peers';
 import Whitelist from '../components/Whitelist';
 
-const SContent = styled.div`
-	margin-top: 30px;
-`;
-
-const SBox = styled.div`
-	background: #fff;
-`;
-
-const SHeading = styled.div`
-	background: rgba(31, 66, 146, 0.9) !important;
-	padding: 11px 13px;
-	font-size: 13px;
-	color: #fff !important;
-	text-transform: uppercase;
-	font-weight: bold;
-
-	& span {
-		padding-left: 15px;
-		font-size: 11px;
+const SIndex = styled.div`
+	h4 {
+		margin-top: 15px;
 	}
 `;
 
+const SContentPadded = styled.div`
+	box-shadow: 1px 1px 1px #e0e0e0;
+	padding: 20px;
+	background: #fff;
+	text-align: center;
+`;
+
+const SContent = styled.div`
+	background: #fff;
+	box-shadow: 1px 1px 1px #e0e0e0;
+	margin-top: 15px;
+`;
+
 const Index: React.FC<{}> = () => {
-	const [peers, setPeers] = useState<any>([]);
-
-	const onPeerChange = (ps: IBabblePeer[]) => {
-		setPeers(ps);
-	};
-
 	return (
-		<>
-			<Jumbotron>
-				<Container fluid={true}>
-					<Row>
-						<Col md={10}>
-							<h1>Network Statistics</h1>
-							<p>Camille test network statistics.</p>
-						</Col>
-						<Col>
-							<h2>Peers</h2>
-							<h3>{peers.length || '---'}</h3>
-						</Col>
-					</Row>
-				</Container>
-			</Jumbotron>
+		<SIndex>
+			<Container fluid={true}>
+				<Row>
+					<Col>
+						<SContentPadded>
+							<h1>2423</h1>
+							<div>Total Blocks</div>
+						</SContentPadded>
+					</Col>
+					<Col>
+						<SContentPadded>
+							<h1>5123</h1>
+							<div>Total Transactions</div>
+						</SContentPadded>
+					</Col>
+					<Col>
+						<SContentPadded>
+							<h1>4 / 4</h1>
+							<div>Active Validators</div>
+						</SContentPadded>
+					</Col>
+					<Col>
+						<SContentPadded>
+							<h1>0</h1>
+							<div>Current Nominees</div>
+						</SContentPadded>
+					</Col>
+				</Row>
+			</Container>
 			<br />
 			<Container fluid={true}>
-				<SHeading>Validators</SHeading>
-				<SBox>
-					<Peers onPeersChangeHook={onPeerChange} />
-				</SBox>
+				<Row>
+					<Col xs={12} md={6}>
+						<h4>Current Validators</h4>
+						<SContent>
+							<Peers onPeersChangeHook={() => {}} />
+						</SContent>
+					</Col>
+					<Col>
+						<h4>Whitelist</h4>
+						<SContent>
+							<Whitelist />
+						</SContent>
+					</Col>
+				</Row>
 			</Container>
-
-			<SContent>
-				<Container fluid={true}>
-					<Row>
-						<Col>
-							<SHeading>Whitelist</SHeading>
-							<SBox>
-								<Whitelist />
-							</SBox>
-						</Col>
-						<Col>
-							<SHeading>Nominees</SHeading>
-							<SBox>
-								<Nominees />
-							</SBox>
-						</Col>
-					</Row>
-				</Container>
-			</SContent>
-		</>
+		</SIndex>
 	);
 };
 

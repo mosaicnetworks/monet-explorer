@@ -11,6 +11,8 @@ import Logo from '../assets/monet.svg';
 
 const SNavbar = styled(Navbar)`
 	transition: background 0.3s cubic-bezier(1, 1, 1, 1);
+
+	margin-bottom: 15px;
 `;
 
 const SNetwork = styled.div`
@@ -31,7 +33,7 @@ const SNav = styled(Nav)`
 `;
 
 const SSearch = styled.div`
-	margin-left: 20px;
+	margin-left: 10px;
 
 	@media (max-width: 575px) {
 		margin-left: 0;
@@ -87,14 +89,14 @@ const Header: React.FC<{}> = () => {
 				</Navbar.Brand>
 				<Navbar.Collapse id="basic-navbar-nav">
 					<SNav activeKey="/">
-						<Nav.Item>
+						{/* <Nav.Item>
 							<Nav.Link href="/" eventKey="link-2">
 								Dashboard
 							</Nav.Link>
 						</Nav.Item>
 						<Nav.Item>
 							<Nav.Link href="/blocks">Block Explorer</Nav.Link>
-						</Nav.Item>
+						</Nav.Item> */}
 						{/* <Nav.Item>
 							<Nav.Link eventKey="link-2">Addresses</Nav.Link>
 						</Nav.Item> */}
