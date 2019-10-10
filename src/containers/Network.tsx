@@ -8,10 +8,21 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Row from 'react-bootstrap/Row';
 import Peers from '../components/Peers';
 import Whitelist from '../components/Whitelist';
+import Nominees from '../components/Nominees';
+import Blocks from '../components/Blocks';
 
 const SIndex = styled.div`
 	h4 {
 		margin-top: 15px;
+	}
+
+	h4 {
+		color: rgba(31, 66, 146, 1) !important;
+		font-weght: bold;
+	}
+
+	.container-fluid {
+		margin-bottom: 15px !important;
 	}
 `;
 
@@ -33,25 +44,25 @@ const Index: React.FC<{}> = () => {
 		<SIndex>
 			<Container fluid={true}>
 				<Row>
-					<Col>
+					<Col xs={6} md={3}>
 						<SContentPadded>
 							<h1>2423</h1>
 							<div>Total Blocks</div>
 						</SContentPadded>
 					</Col>
-					<Col>
+					<Col xs={6} md={3}>
 						<SContentPadded>
 							<h1>5123</h1>
 							<div>Total Transactions</div>
 						</SContentPadded>
 					</Col>
-					<Col>
+					<Col xs={6} md={3}>
 						<SContentPadded>
 							<h1>4 / 4</h1>
 							<div>Active Validators</div>
 						</SContentPadded>
 					</Col>
-					<Col>
+					<Col xs={6} md={3}>
 						<SContentPadded>
 							<h1>0</h1>
 							<div>Current Nominees</div>
@@ -59,19 +70,39 @@ const Index: React.FC<{}> = () => {
 					</Col>
 				</Row>
 			</Container>
-			<br />
 			<Container fluid={true}>
 				<Row>
-					<Col xs={12} md={6}>
+					<Col xs={12}>
 						<h4>Current Validators</h4>
 						<SContent>
 							<Peers onPeersChangeHook={() => {}} />
 						</SContent>
 					</Col>
-					<Col>
+				</Row>
+			</Container>
+			<Container fluid={true}>
+				<Row>
+					<Col xs={12} md={12} lg={12} xl={6}>
 						<h4>Whitelist</h4>
 						<SContent>
 							<Whitelist />
+						</SContent>
+					</Col>
+					<Col xs={12} md={12} lg={12} xl={6}>
+						<h4>Nominees</h4>
+						<SContent>
+							<Nominees />
+						</SContent>
+					</Col>
+				</Row>
+			</Container>
+
+			<Container fluid={true}>
+				<Row>
+					<Col xs={12}>
+						<h4>Blocks</h4>
+						<SContent>
+							<Blocks lastBlockIndexIncreaseHook={() => {}} />
 						</SContent>
 					</Col>
 				</Row>

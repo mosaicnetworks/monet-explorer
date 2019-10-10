@@ -91,6 +91,7 @@ const Blocks: React.FC<Props> = props => {
 				window.scrollY + window.innerHeight >=
 				table!.clientHeight + table!.offsetTop
 			) {
+				console.log('true');
 				setLoadMore(true);
 			}
 		});

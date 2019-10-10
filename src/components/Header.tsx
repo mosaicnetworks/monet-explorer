@@ -54,7 +54,7 @@ const SSearch = styled.div`
 `;
 
 const Header: React.FC<{}> = () => {
-	const scrollToggleHeight = 300;
+	const scrollToggleHeight = 0;
 	const [stickyHeader, setStickyHeader] = useState(false);
 
 	const [search, setSearch] = useState('');

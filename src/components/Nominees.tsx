@@ -8,7 +8,11 @@ import { monet } from '../monet';
 
 import POA, { NomineeEntry } from '../poa';
 
+import Avatar from '../components/Avatar';
+
 const STable = styled(Table)`
+	margin-bottom: 0 !important;
+
 	td {
 		font-family: 'Fira Code', monospace;
 		font-size: 14px;
@@ -28,7 +32,7 @@ const Nominees: React.FC<{}> = () => {
 
 		const n = await poa.nominees();
 
-		setNominees(nominees);
+		setNominees(n);
 	};
 
 	useEffect(() => {
@@ -59,6 +63,7 @@ const Nominees: React.FC<{}> = () => {
 			>
 				<thead>
 					<tr>
+						<th>Avatar</th>
 						<th>Moniker</th>
 						<th>Address</th>
 						<th>Up Votes</th>
@@ -68,6 +73,9 @@ const Nominees: React.FC<{}> = () => {
 				<tbody>
 					{nominees.map(n => (
 						<tr key={n.address}>
+							<td>
+								<Avatar address={n.address} size={40} />
+							</td>
 							<td>{n.moniker}</td>
 							<td>{n.address}</td>
 							<td>{n.upVotes}</td>
