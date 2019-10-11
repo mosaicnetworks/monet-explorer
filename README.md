@@ -16,7 +16,9 @@ Once that has finished to run both the backend and the front end
 $ npm run dev
 ```
 
-You will then need to create a credential for the admin panel by following the prompts from `python3 server/src/manage.py createsuperuser`. Once completing that go `localhost:8000/admin` and add a `Network` using the dashboard.
+You will then need to create a credential for the admin panel by following the prompts from `python3 server/src/manage.py createsuperuser`.
+
+Once completing that go `localhost:8000/admin` and add a `Network` using the dashboard.
 
 Then in the root directory of this project run:
 
