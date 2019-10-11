@@ -1,0 +1,5 @@
+class ExplorerAPIClient {
+	constructor() {
+		// pass
+	}
+}
