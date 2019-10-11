@@ -6,10 +6,10 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Row from 'react-bootstrap/Row';
+import Blocks from '../components/Blocks';
+import Nominees from '../components/Nominees';
 import Peers from '../components/Peers';
 import Whitelist from '../components/Whitelist';
-import Nominees from '../components/Nominees';
-import Blocks from '../components/Blocks';
 
 const SIndex = styled.div`
 	h4 {
@@ -52,14 +52,14 @@ const Index: React.FC<{}> = () => {
 					</Col>
 					<Col xs={6} md={3}>
 						<SContentPadded>
-							<h1>5123</h1>
+							<h1>0</h1>
 							<div>Total Transactions</div>
 						</SContentPadded>
 					</Col>
 					<Col xs={6} md={3}>
 						<SContentPadded>
 							<h1>4 / 4</h1>
-							<div>Active Validators</div>
+							<div>Validators</div>
 						</SContentPadded>
 					</Col>
 					<Col xs={6} md={3}>
@@ -92,17 +92,6 @@ const Index: React.FC<{}> = () => {
 						<h4>Nominees</h4>
 						<SContent>
 							<Nominees />
-						</SContent>
-					</Col>
-				</Row>
-			</Container>
-
-			<Container fluid={true}>
-				<Row>
-					<Col xs={12}>
-						<h4>Blocks</h4>
-						<SContent>
-							<Blocks lastBlockIndexIncreaseHook={() => {}} />
 						</SContent>
 					</Col>
 				</Row>

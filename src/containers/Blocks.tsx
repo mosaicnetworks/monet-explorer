@@ -26,24 +26,7 @@ const Blocks: React.FC<{}> = () => {
 	const [lastBlockIndex, setLastBlockIndex] = useState(0);
 
 	return (
-		<>
-			<Jumbotron>
-				<Container fluid={true}>
-					<Row>
-						<Col md={10}>
-							<h1>Block Explorer</h1>
-							<p>
-								Camille testnet was released late September
-								2019.
-							</p>
-						</Col>
-						<Col>
-							<h2>Blocks</h2>
-							<h3>{lastBlockIndex || '---'}</h3>
-						</Col>
-					</Row>
-				</Container>
-			</Jumbotron>
+		<Container fluid={true}>
 			<Row noGutters={true}>
 				<Col>
 					<SBox>
@@ -55,7 +38,7 @@ const Blocks: React.FC<{}> = () => {
 					</SBox>
 				</Col>
 			</Row>
-		</>
+		</Container>
 	);
 };
 

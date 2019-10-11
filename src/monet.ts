@@ -19,7 +19,7 @@ export type MonetInfo = IBaseInfo & {
 };
 
 export const config = {
-	host: 'localhost',
+	host: 'camille.monet.network',
 	port: 8080
 };
 
