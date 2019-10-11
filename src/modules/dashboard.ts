@@ -6,8 +6,11 @@ const FETCH_NETWORKS_INIT = '@monet/dashboard/network/FETCH/INIT';
 const FETCH_NETWORKS_SUCCESS = '@monet/dashboard/network/FETCH/SUCCESS';
 const FETCH_NETWORKS_ERROR = '@monet/dashboard/network/FETCH/ERROR';
 
-type DashboardState = {
+const SELECT_NETWORK = '@monet/dashboard/network/SELECT';
+
+export type DashboardState = {
 	networks: Network[];
+	selectedNetwork?: Network;
 	error?: string;
 	loading: {
 		networks: boolean;
@@ -28,6 +31,12 @@ export default (
 	action: BaseAction<any>
 ): DashboardState => {
 	switch (action.type) {
+		case SELECT_NETWORK:
+			return {
+				...state,
+				selectedNetwork: action.payload
+			};
+
 		case FETCH_NETWORKS_INIT:
 			return {
 				...state,
@@ -61,6 +70,22 @@ export default (
 	}
 };
 
+export function selectNetwork(networkid: number): Result<Promise<Network>> {
+	return async (dispatch, getState) => {
+		const state = getState();
+
+		const network: Network = state.networks.filter(
+			n => n.id === networkid
+		)![0];
+
+		dispatch({
+			type: SELECT_NETWORK,
+			payload: network
+		});
+
+		return network;
+	};
+}
 export function fetchNetworks(): Result<Promise<Network[]>> {
 	return async dispatch => {
 		dispatch({

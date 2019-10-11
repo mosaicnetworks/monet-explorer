@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
 
+import { useDispatch, useSelector } from 'react-redux';
+
 import styled from 'styled-components';
 
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+
+import { Store } from '../store';
+
+import { Network } from '../client';
+import { selectNetwork } from '../modules/dashboard';
 
 import Logo from '../assets/monet.svg';
 
@@ -54,12 +61,22 @@ const SSearch = styled.div`
 `;
 
 const Header: React.FC<{}> = () => {
+	const dispatch = useDispatch();
+
 	const scrollToggleHeight = 0;
 	const [stickyHeader, setStickyHeader] = useState(false);
 
 	const [search, setSearch] = useState('');
 
+	const networks = useSelector<Store, Network[]>(store => store.networks);
+	const selectedNetwork = useSelector<Store, Network | undefined>(
+		store => store.selectedNetwork
+	);
+
 	useEffect(() => {
+		const camille = networks.filter(n => n.name === 'camille')[0];
+		dispatch(selectNetwork(camille.id));
+
 		window.addEventListener('scroll', () => {
 			if (window.scrollY > scrollToggleHeight) {
 				setStickyHeader(true);
@@ -117,7 +134,7 @@ const Header: React.FC<{}> = () => {
 					</SSearch>
 				</Navbar.Collapse>
 				<SNetwork>
-					<b>Camille</b>
+					<b>{selectedNetwork && selectedNetwork.name}</b>
 				</SNetwork>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 			</SNavbar>

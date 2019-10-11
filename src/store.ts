@@ -7,12 +7,13 @@ import { PersistConfig, persistReducer, persistStore } from 'redux-persist';
 
 import rootReducer from './modules';
 
-export type Store = {};
+import { DashboardState } from './modules/dashboard';
+
+export type Store = DashboardState;
 
 const persistConfig: PersistConfig<any> = {
 	key: 'root',
-	storage: dynamicStorage,
-	whitelist: []
+	storage: dynamicStorage
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 const middleware = [thunk, logger];
