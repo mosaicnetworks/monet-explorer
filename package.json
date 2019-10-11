@@ -41,20 +41,24 @@
 		"tslint": "^5.20.0",
 		"tslint-config-prettier": "^1.18.0",
 		"tslint-react": "^4.1.0",
-		"typescript": "^3.6.3"
+		"typescript": "^3.6.3",
+		"concurrently": "^4.1.1"
 	},
 	"scripts": {
+		"postinstall": "sh ./scripts/pre-django.sh",
 		"tx": "ts-node scripts/transfer",
 		"lint": "tslint -p . -c ./tslint.json",
 		"root80": "PORT=80 react-scripts start",
-		"dev": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"clean": "rm -rf node_modules build",
 		"docker:build:react": "docker build --rm -f ./docker/react/Dockerfile -t monet-explorer-react:latest .",
 		"docker:build": "docker build --rm -f ./docker/Dockerfile -t monet-explorer:latest .",
-		"docker:run": "docker run --rm -it -p 80:80 monet-explorer:latest"
+		"docker:run": "docker run --rm -it -p 80:80 monet-explorer:latest",
+		"dev:django": "cd server/src && python3 manage.py runserver",
+		"dev:react": "react-scripts start",
+		"dev": "concurrently --kill-others \"yarn dev:django\" \"yarn dev:react\""
 	},
 	"eslintConfig": {
 		"extends": "react-app"
