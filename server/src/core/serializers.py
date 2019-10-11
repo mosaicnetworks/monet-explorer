@@ -38,5 +38,5 @@ class InfoSerializer(ModelSerializer):
             'last_consensus_round', 'last_peer_change',
             'min_gas_price', 'num_peers', 'undetermined_events',
             'transaction_pool', 'sync_rate', 'events_per_second',
-            'rounds_per_second', 'validator'
+            'rounds_per_second', 'validator',
         ]

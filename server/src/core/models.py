@@ -6,6 +6,9 @@ from django.db import models
 class Network(models.Model):
     """ Network model """
 
+    class Meta:
+        unique_together = ['name']
+
     name = models.CharField(max_length=40)
     host = models.CharField(max_length=100)
     port = models.IntegerField()
@@ -18,7 +21,7 @@ class Validator(models.Model):
     """ Validator model """
 
     class Meta:
-        unique_together = ['moniker', 'network']
+        unique_together = ['public_key', 'network']
 
     host = models.CharField(max_length=100)
     port = models.IntegerField()
@@ -34,6 +37,9 @@ class Validator(models.Model):
 
 class Info(models.Model):
     """ Info model """
+
+    class Meta:
+        unique_together = ['validator']
 
     e_id = models.IntegerField()
 
@@ -63,6 +69,9 @@ class Info(models.Model):
 
 class Block(models.Model):
     """ Info model """
+
+    class Meta:
+        unique_together = ['index', 'network']
 
     index = models.IntegerField()
     round_received = models.IntegerField()

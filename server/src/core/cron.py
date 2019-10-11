@@ -7,7 +7,7 @@ from .models import Validator, Network, Info
 
 def fetch_blocks():
     """ 
-    Fetch all blocks for a given network. It will also pull new blocks if there 
+    Fetch all blocks for a given network. It will also pull new blocks if there
     are any.
     """
 
@@ -33,12 +33,12 @@ def fetch_validators():
             moniker = validator['Moniker']
 
             v_model, created = Validator.objects.get_or_create(
-                moniker=moniker,
+                public_key=public_key,
                 network=network,
                 defaults={
                     "host": host,
                     "port": port,
-                    "public_key": public_key,
+                    "moniker": moniker,
                 })
 
             if not created:

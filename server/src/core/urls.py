@@ -8,4 +8,6 @@ app_name = 'core'
 
 urlpatterns = [
     path('networks/', api.NetworkListAPIHandler.as_view()),
+    path('validators/', api.ValidatorListAPIHandler.as_view()),
+    path('infos/', api.InfoListAPIHandler.as_view()),
 ]
