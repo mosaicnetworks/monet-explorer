@@ -46,13 +46,13 @@ class ExplorerAPIClient extends AbstractClient {
 		return JSON.parse(await this.get('/api/networks/'));
 	}
 
-	public async getValidators(network: 'camille'): Promise<Validator[]> {
+	public async getValidators(network: string): Promise<Validator[]> {
 		return JSON.parse(
 			await this.get(`/api/validators/?network=${network}`)
 		);
 	}
 
-	public async getInfos(network: 'camille' | string): Promise<Info[]> {
+	public async getInfos(network: string): Promise<Info[]> {
 		return JSON.parse(await this.get(`/api/infos/?network=${network}`));
 	}
 }

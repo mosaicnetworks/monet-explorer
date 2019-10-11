@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
-import { IBabblePeer } from 'evm-lite-consensus';
-import { Monet } from 'evm-lite-core';
+import { useSelector } from 'react-redux';
 
 import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table';
 
-import Avatar from '../components/Avatar';
-import Peer from '../components/Peer';
+import Avatar from './Avatar';
+import CValidator from './Validator';
 
-import { config } from '../monet';
+import { Validator } from '../client';
+import { Store } from '../store';
 
 const keccak256 = require('js-sha3').keccak256;
 
@@ -41,60 +41,27 @@ const STable = styled(Table)`
 	}
 `;
 
-type Props = {
-	onPeersChangeHook: (peers: IBabblePeer[]) => any;
-};
+type Props = {};
 
-const Peers: React.FC<Props> = props => {
-	const n = new Monet(config.host, config.port);
-
-	const [peers, setPeers] = useState<IBabblePeer[]>([]);
-
-	const fetchPeers = async () => {
-		try {
-			const p = await n.consensus!.getPeers();
-			setPeers(p);
-		} catch (e) {
-			console.log(e);
-		}
-	};
-
-	useEffect(() => {
-		fetchPeers();
-	}, []);
-
-	useEffect(() => {
-		props.onPeersChangeHook(peers);
-	}, [peers]);
-
-	// Polling
-	let poller: any;
-
-	useEffect(() => {
-		poller = setInterval(() => {
-			fetchPeers().then(() => console.log('(60s) Fetching Peers...'));
-		}, 60000);
-
-		return () => clearInterval(poller);
-	});
-
-	// Selec Peer
-	const [selectedPeer, setSelectedPeer] = useState<IBabblePeer>(
-		{} as IBabblePeer
+const Validators: React.FC<Props> = props => {
+	const validators = useSelector<Store, Validator[]>(
+		store => store.networkValidators
 	);
+
+	// Selec validator
+	const [selectVal, setSelectedVal] = useState<Validator>({} as Validator);
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
-	const onBlockClickBind = (peer: IBabblePeer) => (e: any) => {
-		setSelectedPeer(peer);
+	const onBlockClickBind = (validator: Validator) => (e: any) => {
+		setSelectedVal(validator);
 		handleShow();
 	};
 
-	const renderPeers = () => {
-		return peers.map(peer => {
-			// we slice the first 4 characters as all eth public keys start with 0x04
+	const rendervalidators = () => {
+		return validators.map(v => {
 			const pubKeyBuffer = Buffer.from(
-				peer.PubKeyHex.slice(4, peer.PubKeyHex.length),
+				v.public_key.slice(4, v.public_key.length),
 				'hex'
 			);
 
@@ -103,11 +70,11 @@ const Peers: React.FC<Props> = props => {
 				.toString('hex');
 
 			return (
-				<tr onClick={onBlockClickBind(peer)} key={peer.Moniker}>
+				<tr onClick={onBlockClickBind(v)} key={v.moniker}>
 					<td>
 						<Avatar address={address} size={40} />
 					</td>
-					<td>{peer.Moniker}</td>
+					<td>{v.moniker}</td>
 					<td>
 						0x
 						{address}
@@ -119,7 +86,7 @@ const Peers: React.FC<Props> = props => {
 	};
 	return (
 		<>
-			{Object.keys(selectedPeer).length > 0 && (
+			{Object.keys(selectVal).length > 0 && (
 				<Modal
 					size={'lg'}
 					centered={true}
@@ -127,10 +94,10 @@ const Peers: React.FC<Props> = props => {
 					onHide={handleClose}
 				>
 					<Modal.Header closeButton={true}>
-						<Modal.Title>{selectedPeer.Moniker}</Modal.Title>
+						<Modal.Title>{selectVal.moniker}</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
-						<Peer peer={selectedPeer} />
+						<CValidator validator={selectVal} />
 					</Modal.Body>
 				</Modal>
 			)}
@@ -149,10 +116,10 @@ const Peers: React.FC<Props> = props => {
 						<th>Whitelisted</th>
 					</tr>
 				</thead>
-				<tbody>{renderPeers()}</tbody>
+				<tbody>{rendervalidators()}</tbody>
 			</STable>
 		</>
 	);
 };
 
-export default Peers;
+export default Validators;

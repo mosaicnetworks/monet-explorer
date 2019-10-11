@@ -4,11 +4,9 @@ import styled from 'styled-components';
 
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import Jumbotron from 'react-bootstrap/Jumbotron';
 import Row from 'react-bootstrap/Row';
-import Blocks from '../components/Blocks';
 import Nominees from '../components/Nominees';
-import Peers from '../components/Peers';
+import Validators from '../components/Validators';
 import Whitelist from '../components/Whitelist';
 
 const SIndex = styled.div`
@@ -75,7 +73,7 @@ const Index: React.FC<{}> = () => {
 					<Col xs={12}>
 						<h4>Current Validators</h4>
 						<SContent>
-							<Peers onPeersChangeHook={() => {}} />
+							<Validators />
 						</SContent>
 					</Col>
 				</Row>
