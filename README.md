@@ -28,4 +28,10 @@ python3 server/src/manage.py crontab add
 
 Then you should have set up the crontab to start and it will pull data from the `Network` defined every 5 mins.
 
-Alternativley you can run `python3 server/src/manage.py crontab run <HEX>` and replace `<HEX>` with the hex from the output of `python3 server/src/manage.py crontab add`
+Alternativley you can run `python3 server/src/manage.py crontab run <HEX>` and replace `<HEX>` with the hex from the output of `python3 server/src/manage.py crontab add`.
+
+You can vist the dashboard:
+
+```
+localhost:3000
+```
