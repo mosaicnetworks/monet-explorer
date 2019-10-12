@@ -1,7 +1,6 @@
 import Client, { Info, Network, Validator } from '../client';
 
 import { BaseAction, Result } from '.';
-import { validate } from '@babel/types';
 
 const FETCH_NETWORKS_INIT = '@monet/dashboard/network/FETCH/INIT';
 const FETCH_NETWORKS_SUCCESS = '@monet/dashboard/network/FETCH/SUCCESS';

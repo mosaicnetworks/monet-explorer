@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
+
+import { useSelector } from 'react-redux';
 
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -9,6 +11,8 @@ import Nominees from '../components/Nominees';
 import Validators from '../components/Validators';
 import Whitelist from '../components/Whitelist';
 
+import { networkValidators } from '../selectors';
+
 const SIndex = styled.div`
 	h4 {
 		margin-top: 15px;
@@ -16,7 +20,7 @@ const SIndex = styled.div`
 
 	h4 {
 		color: rgba(31, 66, 146, 1) !important;
-		font-weght: bold;
+		font-weight: bold;
 	}
 
 	.container-fluid {
@@ -38,6 +42,8 @@ const SContent = styled.div`
 `;
 
 const Index: React.FC<{}> = () => {
+	const validators = useSelector(networkValidators);
+
 	return (
 		<SIndex>
 			<Container fluid={true}>
@@ -56,7 +62,7 @@ const Index: React.FC<{}> = () => {
 					</Col>
 					<Col xs={6} md={3}>
 						<SContentPadded>
-							<h1>4 / 4</h1>
+							<h1>{validators.length}</h1>
 							<div>Validators</div>
 						</SContentPadded>
 					</Col>

@@ -30,7 +30,7 @@ Then you should have set up the crontab to start and it will pull data from the 
 
 Alternativley you can run `python3 server/src/manage.py crontab run <HEX>` and replace `<HEX>` with the hex from the output of `python3 server/src/manage.py crontab add`.
 
-You can vist the dashboard:
+You can visit the dashboard:
 
 ```
 localhost:3000

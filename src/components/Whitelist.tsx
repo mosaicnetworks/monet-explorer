@@ -72,7 +72,7 @@ const Whitelist: React.FC<{}> = () => {
 					{whitelist.map(wle => (
 						<tr key={wle.address}>
 							<td>
-								<Avatar address={wle.address} size={40} />
+								<Avatar address={wle.address} size={30} />
 							</td>
 							<td>{wle.moniker}</td>
 							<td>{wle.address}</td>

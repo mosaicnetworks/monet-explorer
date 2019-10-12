@@ -11,7 +11,7 @@ import Avatar from './Avatar';
 import CValidator from './Validator';
 
 import { Validator } from '../client';
-import { Store } from '../store';
+import { networkInfos, networkValidators } from '../selectors';
 
 const keccak256 = require('js-sha3').keccak256;
 
@@ -44,9 +44,8 @@ const STable = styled(Table)`
 type Props = {};
 
 const Validators: React.FC<Props> = props => {
-	const validators = useSelector<Store, Validator[]>(
-		store => store.networkValidators
-	);
+	const validators = useSelector(networkValidators);
+	const infos = useSelector(networkInfos);
 
 	// Selec validator
 	const [selectVal, setSelectedVal] = useState<Validator>({} as Validator);
@@ -60,6 +59,7 @@ const Validators: React.FC<Props> = props => {
 
 	const rendervalidators = () => {
 		return validators.map(v => {
+			const info = infos.filter(i => i.validator.id === v.id)[0];
 			const pubKeyBuffer = Buffer.from(
 				v.public_key.slice(4, v.public_key.length),
 				'hex'
@@ -72,18 +72,24 @@ const Validators: React.FC<Props> = props => {
 			return (
 				<tr onClick={onBlockClickBind(v)} key={v.moniker}>
 					<td>
-						<Avatar address={address} size={40} />
+						<Avatar address={address} size={30} />
 					</td>
 					<td>{v.moniker}</td>
 					<td>
 						0x
 						{address}
 					</td>
-					<td>Yes</td>
+					<td>{info.state}</td>
+					<td>{info.last_block_index}</td>
+					<td>{info.last_consensus_round}</td>
+					<td>{info.consensus_events}</td>
+					<td>{info.min_gas_price}</td>
+					<td>{info.undetermined_events}</td>
 				</tr>
 			);
 		});
 	};
+
 	return (
 		<>
 			{Object.keys(selectVal).length > 0 && (
@@ -113,7 +119,12 @@ const Validators: React.FC<Props> = props => {
 						<th>Avatar</th>
 						<th>Moniker</th>
 						<th>Address</th>
-						<th>Whitelisted</th>
+						<th>State</th>
+						<th>Last Block Index</th>
+						<th>Last Consensus Round</th>
+						<th>Consensus Events</th>
+						<th>Min Gas Price</th>
+						<th>Undetermined Events</th>
 					</tr>
 				</thead>
 				<tbody>{rendervalidators()}</tbody>
