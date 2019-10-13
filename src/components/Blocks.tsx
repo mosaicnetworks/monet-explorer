@@ -15,7 +15,6 @@ import Block from './Block';
 
 const STable = styled(Table)`
 	td {
-		font-family: 'Fira Code', monospace;
 		font-size: 14px;
 	}
 

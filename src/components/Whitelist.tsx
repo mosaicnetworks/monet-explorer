@@ -14,7 +14,6 @@ const STable = styled(Table)`
 	margin-bottom: 0px !important;
 
 	td {
-		font-family: 'Fira Code', monospace;
 		font-size: 14px;
 	}
 

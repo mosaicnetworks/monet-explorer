@@ -15,12 +15,8 @@ import { networkValidators } from '../selectors';
 
 const SIndex = styled.div`
 	h4 {
-		margin-top: 15px;
-	}
-
-	h4 {
+		margin-top: 30px;
 		color: rgba(31, 66, 146, 1) !important;
-		font-weight: bold;
 	}
 
 	.container-fluid {
@@ -29,7 +25,7 @@ const SIndex = styled.div`
 `;
 
 const SContentPadded = styled.div`
-	box-shadow: 1px 1px 1px #e0e0e0;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 	padding: 20px;
 	background: #fff;
 	text-align: center;
@@ -37,7 +33,7 @@ const SContentPadded = styled.div`
 
 const SContent = styled.div`
 	background: #fff;
-	box-shadow: 1px 1px 1px #e0e0e0;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 	margin-top: 15px;
 `;
 

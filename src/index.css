@@ -6,7 +6,7 @@ body {
 	font-family: 'Open Sans', sans-serif !important;
 	-webkit-font-smoothing: antialiased;
 	font-size: 15px !important;
-	background: #f4f4f4 !important;
+	background: rgba(248, 250, 251, 1) !important;
 }
 
 .bg-dark {

@@ -19,14 +19,15 @@ import Logo from '../assets/monet.svg';
 const SNavbar = styled(Navbar)`
 	transition: background 0.3s cubic-bezier(1, 1, 1, 1);
 
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 	margin-bottom: 30px;
 `;
 
 const SNetwork = styled.div`
 	color: white;
 	text-transform: capitalize;
-	font-size: 20px;
-	letter-spacing: -1px;
+	font-weight: 300 !important;
+	font-size: 18px;
 `;
 
 const SNav = styled(Nav)`

@@ -21,7 +21,6 @@ const STable = styled(Table)`
 	transition: background 0.3s cubic-bezier(1, 1, 1, 1);
 
 	td {
-		font-family: 'Fira Code', monospace;
 		font-size: 14px;
 	}
 
