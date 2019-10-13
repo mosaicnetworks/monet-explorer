@@ -13,6 +13,8 @@ class Network(models.Model):
     host = models.CharField(max_length=100)
     port = models.IntegerField()
 
+    active = models.BooleanField(default=True)
+
     def __str__(self):
         return self.name
 

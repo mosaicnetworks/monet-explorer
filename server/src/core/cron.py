@@ -11,13 +11,13 @@ def fetch_blocks():
     are any.
     """
 
-    for network in Network.objects.all():
+    for network in Network.objects.filter(active=True):
         current_blocks = Block.objects.filter(network=network).count()
         info = requests.get(
             url=f'http://{network.host}:{network.port}/info').json()
 
-        end = int(info['last_block_index'])
         start = current_blocks - 1
+        end = int(info['last_block_index'])
 
         if start < 0:
             start = 0
@@ -25,7 +25,9 @@ def fetch_blocks():
         print(start, end)
 
         while start <= end:
+
             print(start, end)
+
             new_blocks = requests.get(
                 url=f'http://{network.host}:8080/blocks/{start}?count=50').json()
 
@@ -77,7 +79,7 @@ def fetch_validators():
     already exists it will update the correspoinding values.
     """
 
-    for network in Network.objects.all():
+    for network in Network.objects.filter(active=True):
         validators = requests.get(
             url=f'http://{network.host}:{network.port}/validators').json()
 
