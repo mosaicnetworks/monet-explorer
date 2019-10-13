@@ -42,7 +42,7 @@ const SNav = styled(Nav)`
 `;
 
 const SSearch = styled.div`
-	margin-left: 30px;
+	margin-left: 20px;
 
 	@media (max-width: 575px) {
 		margin-left: 0;

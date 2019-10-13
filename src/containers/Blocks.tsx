@@ -19,22 +19,19 @@ const SBadge = styled(Badge)`
 
 const SBox = styled.div`
 	background: #fff;
-	margin-bottom: 20px;
 `;
 
 const Blocks: React.FC<{}> = () => {
 	const [lastBlockIndex, setLastBlockIndex] = useState(0);
 
 	return (
-		<Container fluid={true}>
+		<Container fluid={false}>
 			<Row noGutters={true}>
 				<Col>
 					<SBox>
-						<Container fluid={true}>
-							<BlocksTable
-								lastBlockIndexIncreaseHook={setLastBlockIndex}
-							/>
-						</Container>
+						<BlocksTable
+							lastBlockIndexIncreaseHook={setLastBlockIndex}
+						/>
 					</SBox>
 				</Col>
 			</Row>
