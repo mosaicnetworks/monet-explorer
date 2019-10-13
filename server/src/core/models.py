@@ -121,3 +121,4 @@ class Signature(models.Model):
 
     # Relational Fields
     validator = models.ForeignKey(Validator, on_delete=models.CASCADE)
+    block = models.ForeignKey(Block, on_delete=models.CASCADE)

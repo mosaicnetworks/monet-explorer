@@ -24,8 +24,9 @@ const SNavbar = styled(Navbar)`
 
 const SNetwork = styled.div`
 	color: white;
-	text-transform: uppercase;
-	font-size: 13px;
+	text-transform: capitalize;
+	font-size: 20px;
+	letter-spacing: -1px;
 `;
 
 const SNav = styled(Nav)`
@@ -40,7 +41,7 @@ const SNav = styled(Nav)`
 `;
 
 const SSearch = styled.div`
-	margin-left: 10px;
+	margin-left: 30px;
 
 	@media (max-width: 575px) {
 		margin-left: 0;
@@ -104,7 +105,14 @@ const Header: React.FC<{}> = () => {
 						className="d-inline-block align-middle"
 					/>
 				</Navbar.Brand>
-				<Navbar.Collapse id="basic-navbar-nav">
+				<SNetwork>
+					<b>{selectedNetwork && selectedNetwork.name}</b>
+				</SNetwork>
+				<Navbar.Toggle aria-controls="basic-navbar-nav" />
+				<Navbar.Collapse
+					id="basic-navbar-nav"
+					className="justify-content-end"
+				>
 					<SNav activeKey="/">
 						<Nav.Item>
 							<Nav.Link href="/" eventKey="link-2">
@@ -133,10 +141,6 @@ const Header: React.FC<{}> = () => {
 						/>
 					</SSearch>
 				</Navbar.Collapse>
-				<SNetwork>
-					<b>{selectedNetwork && selectedNetwork.name}</b>
-				</SNetwork>
-				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 			</SNavbar>
 		</>
 	);

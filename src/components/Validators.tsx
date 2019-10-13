@@ -18,6 +18,8 @@ const keccak256 = require('js-sha3').keccak256;
 const STable = styled(Table)`
 	margin-bottom: 0px !important;
 
+	transition: background 0.3s cubic-bezier(1, 1, 1, 1);
+
 	td {
 		font-family: 'Fira Code', monospace;
 		font-size: 14px;

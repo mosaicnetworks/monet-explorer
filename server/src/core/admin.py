@@ -30,6 +30,13 @@ class InfoAdmin(admin.ModelAdmin):
                     'events_per_second', 'rounds_per_second')
 
 
+class BlockAdmin(admin.ModelAdmin):
+    """ Admin config for Block model """
+
+    list_display = ('id', 'network', 'index', 'round_received',
+                    'state_hash', 'peers_hash', 'frame_hash')
+
+
 def _register(model, admin_class):
     admin.site.register(model, admin_class)
 
@@ -37,3 +44,4 @@ def _register(model, admin_class):
 _register(models.Validator, ValidatorAdmin)
 _register(models.Network, NetworkAdmin)
 _register(models.Info, InfoAdmin)
+_register(models.Block, BlockAdmin)

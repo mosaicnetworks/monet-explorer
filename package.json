@@ -53,12 +53,16 @@
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"clean": "rm -rf node_modules build",
+		"clean": "rm -rf node_modules build server/src/db.sqlite3 server/src/core/migrations",
 		"docker:build:react": "docker build --rm -f ./docker/react/Dockerfile -t monet-explorer-react:latest .",
 		"docker:build": "docker build --rm -f ./docker/Dockerfile -t monet-explorer:latest .",
 		"docker:run": "docker run --rm -it -p 80:80 monet-explorer:latest",
 		"dev:django": "cd server/src && python3 manage.py runserver",
 		"dev:react": "react-scripts start",
+		"cron:add": "python3 server/src/manage.py crontab add",
+		"run:blocks": "python3 server/src/manage.py crontab run 788ce65b788f26ca6bccb4bf3fac2c39",
+		"run:val": "python3 server/src/manage.py crontab run 044d31e5e577365ff6562d32f7a5af3b",
+		"populate-db": "yarn run:val && yarn run:blocks",
 		"dev": "concurrently --kill-others \"yarn dev:django\" \"yarn dev:react\""
 	},
 	"eslintConfig": {

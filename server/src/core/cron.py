@@ -2,16 +2,73 @@
 
 import requests
 
-from .models import Validator, Network, Info
+from .models import *
 
 
 def fetch_blocks():
-    """ 
-    Fetch all blocks for a given network. It will also pull new blocks if there
+    """
+    Fetch blocks for a given network. It will also pull new blocks if there
     are any.
     """
 
-    print('Should fetch blocks')
+    for network in Network.objects.all():
+        current_blocks = Block.objects.filter(network=network).count()
+        info = requests.get(
+            url=f'http://{network.host}:{network.port}/info').json()
+
+        end = int(info['last_block_index'])
+        start = current_blocks - 1
+
+        if start < 0:
+            start = 0
+
+        print(start, end)
+
+        while start <= end:
+            print(start, end)
+            new_blocks = requests.get(
+                url=f'http://{network.host}:8080/blocks/{start}?count=50').json()
+
+            for block in new_blocks:
+                m_block, _ = Block.objects.get_or_create(
+                    index=block['Body']['Index'],
+                    network=network,
+                    defaults={
+                        "round_received": block['Body']['RoundReceived'],
+                        "state_hash": block['Body']['StateHash'],
+                        "peers_hash": block['Body']['PeersHash'],
+                        "frame_hash": block['Body']['FrameHash']
+                    }
+                )
+
+                for tx_string in block['Body']['Transactions']:
+                    _, _ = Transaction.objects.get_or_create(
+                        block=m_block,
+                        data=tx_string
+                    )
+
+                for itx_string in block['Body']['InternalTransactions']:
+                    _, _ = InternalTransaction.objects.get_or_create(
+                        block=m_block,
+                        data=itx_string
+                    )
+
+                for itxr_string in block['Body']['InternalTransactionReceipts']:
+                    _, _ = InternalTransactionReceipt.objects.get_or_create(
+                        block=m_block,
+                        data=itxr_string
+                    )
+
+                for pub_key, sig in block['Signatures'].items():
+                    validator = Validator.objects.get(public_key=pub_key)
+
+                    _, _ = Signature.objects.get_or_create(
+                        block=m_block,
+                        validator=validator,
+                        signature=sig
+                    )
+
+            start = start + 50
 
 
 def fetch_validators():
