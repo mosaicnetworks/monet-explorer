@@ -37,6 +37,30 @@ class BlockAdmin(admin.ModelAdmin):
                     'state_hash', 'peers_hash', 'frame_hash')
 
 
+class BlockTransactionAdmin(admin.ModelAdmin):
+    """ Admin config for Transaction model """
+
+    list_display = ('id', 'block', 'data')
+
+
+class BlockInternalTransactionAdmin(admin.ModelAdmin):
+    """ Admin config for InternalTransaction model """
+
+    list_display = ('id', 'block', 'data')
+
+
+class BlockInternalTransactionReceiptAdmin(admin.ModelAdmin):
+    """ Admin config for InternalTransactionReceiptA model """
+
+    list_display = ('id', 'block', 'data')
+
+
+class BlockSignatureAdmin(admin.ModelAdmin):
+    """ Admin config for Siganture model """
+
+    list_display = ('id', 'block', 'validator', 'signature')
+
+
 def _register(model, admin_class):
     admin.site.register(model, admin_class)
 
@@ -45,3 +69,9 @@ _register(models.Validator, ValidatorAdmin)
 _register(models.Network, NetworkAdmin)
 _register(models.Info, InfoAdmin)
 _register(models.Block, BlockAdmin)
+_register(models.Transaction, BlockTransactionAdmin)
+_register(models.InternalTransaction, BlockInternalTransactionAdmin)
+_register(models.InternalTransactionReceipt,
+          BlockInternalTransactionReceiptAdmin)
+_register(models.Signature,
+          BlockSignatureAdmin)

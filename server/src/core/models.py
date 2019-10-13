@@ -101,6 +101,10 @@ class Transaction(models.Model):
 class InternalTransaction(models.Model):
     """ Internal Transaction model """
 
+    class Meta:
+        verbose_name = 'Internal Transaction'
+        verbose_name_plural = 'Internal Transactions'
+
     data = models.TextField()
 
     # Relational fields
@@ -109,6 +113,10 @@ class InternalTransaction(models.Model):
 
 class InternalTransactionReceipt(models.Model):
     """ Internal Transaction Receipt model """
+
+    class Meta:
+        verbose_name = 'Internal Transaction Receipt'
+        verbose_name_plural = 'Internal Transaction Receipts'
 
     data = models.TextField()
 
