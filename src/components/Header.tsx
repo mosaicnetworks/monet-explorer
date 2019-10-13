@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import Nav from 'react-bootstrap/Nav';
+import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 
 import { Store } from '../store';
@@ -20,7 +21,6 @@ const SNavbar = styled(Navbar)`
 	transition: background 0.3s cubic-bezier(1, 1, 1, 1);
 
 	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-	margin-bottom: 30px;
 `;
 
 const SNetwork = styled.div`
@@ -99,49 +99,54 @@ const Header: React.FC<{}> = () => {
 				className="justify-content-between"
 				sticky={stickyHeader ? 'top' : undefined}
 			>
-				<Navbar.Brand href="/">
-					<Image
-						width={150}
-						src={Logo}
-						className="d-inline-block align-middle"
-					/>
-				</Navbar.Brand>
-				<SNetwork>
-					<b>{selectedNetwork && selectedNetwork.name}</b>
-				</SNetwork>
-				<Navbar.Toggle aria-controls="basic-navbar-nav" />
-				<Navbar.Collapse
-					id="basic-navbar-nav"
-					className="justify-content-end"
-				>
-					<SNav activeKey="/">
-						<Nav.Item>
-							<Nav.Link href="/" eventKey="link-2">
-								Dashboard
-							</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link href="/blocks">Block Explorer</Nav.Link>
-						</Nav.Item>
-						{/* <Nav.Item>
+				<Container>
+					<Navbar.Brand href="/">
+						<Image
+							width={150}
+							src={Logo}
+							className="d-inline-block align-middle"
+						/>
+					</Navbar.Brand>
+					<SNetwork>
+						<b>{selectedNetwork && selectedNetwork.name}</b>
+					</SNetwork>
+					<Navbar.Toggle aria-controls="basic-navbar-nav" />
+					<Navbar.Collapse
+						id="basic-navbar-nav"
+						className="justify-content-end"
+					>
+						<SNav activeKey="/">
+							<Nav.Item>
+								<Nav.Link href="/" eventKey="link-2">
+									Dashboard
+								</Nav.Link>
+							</Nav.Item>
+							<Nav.Item>
+								<Nav.Link href="/blocks">
+									Block Explorer
+								</Nav.Link>
+							</Nav.Item>
+							{/* <Nav.Item>
 							<Nav.Link eventKey="link-2">Addresses</Nav.Link>
 						</Nav.Item> */}
-					</SNav>
-					<SSearch className="justify-content-end">
-						<Form.Control
-							type="text"
-							placeholder="Search"
-							onChange={(e: any) => setSearch(e.target.value)}
-							onKeyDown={(ev: any) => {
-								if (ev.key === 'Enter') {
-									window.location.href = '/search/' + search;
-									ev.preventDefault();
-								}
-							}}
-							className="mr-sm-2"
-						/>
-					</SSearch>
-				</Navbar.Collapse>
+						</SNav>
+						<SSearch className="justify-content-end">
+							<Form.Control
+								type="text"
+								placeholder="Search"
+								onChange={(e: any) => setSearch(e.target.value)}
+								onKeyDown={(ev: any) => {
+									if (ev.key === 'Enter') {
+										window.location.href =
+											'/search/' + search;
+										ev.preventDefault();
+									}
+								}}
+								className="mr-sm-2"
+							/>
+						</SSearch>
+					</Navbar.Collapse>
+				</Container>
 			</SNavbar>
 		</>
 	);

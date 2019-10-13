@@ -3,17 +3,18 @@
 
 body {
 	margin: 0;
-	font-family: 'Open Sans', sans-serif !important;
+	font-family: Helvetica Neue, Helvetica, Arial, sans-serif !important;
 	-webkit-font-smoothing: antialiased;
 	font-size: 15px !important;
-	background: rgba(248, 250, 251, 1) !important;
+	background: rgb(236, 242, 245) !important;
 }
 
 .bg-dark {
-	background: rgba(31, 66, 146, 1) !important;
-	box-shadow: 1px 0px 1px rgb(39, 79, 153) !important;
+	background: rgba(0, 0, 0, 1) !important;
+	box-shadow: 0 1px 10px rgba(151, 164, 175, 0.1) !important;
 	/* border-bottom: 1px solid rgb(46, 85, 158); */
 	/* margin-bottom: 15px; */
+	margin-bottom: 22px;
 }
 
 .jumbotron {
@@ -45,7 +46,7 @@ body {
 
 .table th {
 	font-weight: bold;
-	text-transform: uppercase;
+	/* text-transform: uppercase; */
 	font-size: 13px;
 	border: none !important;
 }
@@ -78,4 +79,9 @@ code {
 
 .badge {
 	text-shadow: none !important;
+}
+
+.mono {
+	font-family: 'Fira Code', monospace !important;
+	font-size: 13px !important;
 }

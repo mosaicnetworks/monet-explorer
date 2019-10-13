@@ -15,6 +15,19 @@ import { networkInfos, networkValidators } from '../selectors';
 
 const keccak256 = require('js-sha3').keccak256;
 
+const Green = styled.div`
+	color: darkgreen !important;
+`;
+
+const stateStyling = (state: string) => {
+	switch (state) {
+		case 'Babbling':
+			return <Green>Babbling</Green>;
+		default:
+			return state;
+	}
+};
+
 const STable = styled(Table)`
 	margin-bottom: 0px !important;
 
@@ -33,12 +46,12 @@ const STable = styled(Table)`
 	}
 
 	tbody tr:nth-of-type(odd):hover {
-		background: rgba(226, 110, 64, 0.3) !important;
+		background: rgba(226, 110, 64, 0.1) !important;
 	}
 
 	tbody tr:hover {
 		cursor: pointer;
-		background: rgba(226, 110, 64, 0.3) !important;
+		background: rgba(226, 110, 64, 0.1) !important;
 	}
 `;
 
@@ -76,16 +89,15 @@ const Validators: React.FC<Props> = props => {
 						<Avatar address={address} size={30} />
 					</td>
 					<td>{v.moniker}</td>
-					<td>
+					<td className="mono">
 						0x
 						{address}
 					</td>
-					<td>{info.state}</td>
+					<td>{stateStyling(info.state)}</td>
 					<td>{info.last_block_index}</td>
 					<td>{info.last_consensus_round}</td>
 					<td>{info.consensus_events}</td>
 					<td>{info.min_gas_price}</td>
-					<td>{info.undetermined_events}</td>
 				</tr>
 			);
 		});
@@ -121,11 +133,10 @@ const Validators: React.FC<Props> = props => {
 						<th>Moniker</th>
 						<th>Address</th>
 						<th>State</th>
-						<th>Last Block Index</th>
-						<th>Last Consensus Round</th>
-						<th>Consensus Events</th>
+						<th>Lastest Block</th>
+						<th>Last Round</th>
+						<th>Events</th>
 						<th>Min Gas Price</th>
-						<th>Undetermined Events</th>
 					</tr>
 				</thead>
 				<tbody>{rendervalidators()}</tbody>

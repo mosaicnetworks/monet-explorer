@@ -74,7 +74,7 @@ const Whitelist: React.FC<{}> = () => {
 								<Avatar address={wle.address} size={30} />
 							</td>
 							<td>{wle.moniker}</td>
-							<td>{wle.address}</td>
+							<td className="mono">{wle.address}</td>
 						</tr>
 					))}
 				</tbody>
