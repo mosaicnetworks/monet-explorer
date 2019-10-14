@@ -55,3 +55,23 @@ class InfoListAPIHandler(generics.ListAPIView):
                 validator__network__name=network.lower())
 
         return queryset
+
+
+class BlockListAPIHandler(generics.ListAPIView):
+    """
+    A ViewSet for listing Blocks
+    """
+
+    queryset = Block.objects.order_by('-index')
+    serializer_class = BlockSerializer
+
+    def get_queryset(self):
+        """ Get query set to be listed by Response """
+
+        queryset = Block.objects.order_by('-index')
+        network = self.request.query_params.get('network', None)
+
+        if network is not None:
+            queryset = queryset.filter(network__name=network.lower())
+
+        return queryset

@@ -37,30 +37,44 @@ export type Info = {
 	validator: Validator;
 };
 
+export type Block = {
+	id: number;
+	index: number;
+	round_received: number;
+	state_hash: string;
+	peers_hash: string;
+	frame_hash: string;
+	network: Network;
+};
+
 class ExplorerAPIClient extends AbstractClient {
 	constructor() {
 		super('localhost', 8000);
 	}
 
 	public async getNetworks(): Promise<Network[]> {
-		return JSON.parse(await this.get('/api/networks/'));
+		return JSON.parse(await this.get('/api/networks/')).results;
 	}
 
 	public async getValidators(network: string): Promise<Validator[]> {
-		return JSON.parse(
-			await this.get(`/api/validators/?network=${network}`)
-		);
+		return JSON.parse(await this.get(`/api/validators/?network=${network}`))
+			.results;
 	}
 
 	public async getInfos(network: string): Promise<Info[]> {
-		return JSON.parse(await this.get(`/api/infos/?network=${network}`));
+		return JSON.parse(await this.get(`/api/infos/?network=${network}`))
+			.results;
+	}
+
+	public async getBlocks(network: string, offset?: number): Promise<Block[]> {
+		let url = `/api/blocks/?network=${network}`;
+
+		if (offset) {
+			url += `&limit=100&offset=${offset}`;
+		}
+
+		return JSON.parse(await this.get(url)).results;
 	}
 }
 
 export default ExplorerAPIClient;
-
-const c = new ExplorerAPIClient();
-
-c.getInfos('camille')
-	.then(console.log)
-	.catch(console.log);

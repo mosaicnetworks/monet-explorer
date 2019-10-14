@@ -13,7 +13,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import { Store } from '../store';
 
 import { Network } from '../client';
-import { selectNetwork } from '../modules/dashboard';
+import { selectNetwork, fetchNetworks } from '../modules/dashboard';
+import { networksSelector, selectedNetwork } from '../selectors';
 
 import Logo from '../assets/monet.svg';
 
@@ -70,15 +71,10 @@ const Header: React.FC<{}> = () => {
 
 	const [search, setSearch] = useState('');
 
-	const networks = useSelector<Store, Network[]>(store => store.networks);
-	const selectedNetwork = useSelector<Store, Network | undefined>(
-		store => store.selectedNetwork
-	);
+	const networks = useSelector(networksSelector);
+	const selected = useSelector(selectedNetwork);
 
 	useEffect(() => {
-		const camille = networks.filter(n => n.name === 'camille')[0];
-		dispatch(selectNetwork(camille.id));
-
 		window.addEventListener('scroll', () => {
 			if (window.scrollY > scrollToggleHeight) {
 				setStickyHeader(true);
@@ -88,7 +84,14 @@ const Header: React.FC<{}> = () => {
 				setStickyHeader(false);
 			}
 		});
-	});
+	}, []);
+
+	useEffect(() => {
+		if (networks.length) {
+			const camille = networks[0];
+			dispatch(selectNetwork(camille.id));
+		}
+	}, [networks]);
 
 	return (
 		<>
@@ -108,7 +111,7 @@ const Header: React.FC<{}> = () => {
 						/>
 					</Navbar.Brand>
 					<SNetwork>
-						<b>{selectedNetwork && selectedNetwork.name}</b>
+						<b>{selected && selected.name}</b>
 					</SNetwork>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse

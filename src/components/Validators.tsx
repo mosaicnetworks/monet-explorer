@@ -62,13 +62,8 @@ const Validators: React.FC<Props> = props => {
 	const infos = useSelector(networkInfos);
 
 	// Selec validator
-	const [selectVal, setSelectedVal] = useState<Validator>({} as Validator);
-	const [show, setShow] = useState(false);
-	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
 	const onBlockClickBind = (validator: Validator) => (e: any) => {
-		setSelectedVal(validator);
-		handleShow();
+		window.location.href = '/validator/' + validator.id;
 	};
 
 	const rendervalidators = () => {
@@ -93,11 +88,11 @@ const Validators: React.FC<Props> = props => {
 						0x
 						{address}
 					</td>
-					<td>{stateStyling(info.state)}</td>
-					<td>{info.last_block_index}</td>
-					<td>{info.last_consensus_round}</td>
-					<td>{info.consensus_events}</td>
-					<td>{info.min_gas_price}</td>
+					<td>{stateStyling(info && info.state)}</td>
+					<td>{info && info.last_block_index}</td>
+					<td>{info && info.last_consensus_round}</td>
+					<td>{info && info.consensus_events}</td>
+					<td>{info && info.min_gas_price}</td>
 				</tr>
 			);
 		});
@@ -105,21 +100,6 @@ const Validators: React.FC<Props> = props => {
 
 	return (
 		<>
-			{Object.keys(selectVal).length > 0 && (
-				<Modal
-					size={'lg'}
-					centered={true}
-					show={show}
-					onHide={handleClose}
-				>
-					<Modal.Header closeButton={true}>
-						<Modal.Title>{selectVal.moniker}</Modal.Title>
-					</Modal.Header>
-					<Modal.Body>
-						<CValidator validator={selectVal} />
-					</Modal.Body>
-				</Modal>
-			)}
 			<STable
 				id="blocksTable"
 				bordered={false}

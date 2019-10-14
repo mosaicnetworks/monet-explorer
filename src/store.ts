@@ -13,8 +13,10 @@ export type Store = DashboardState;
 
 const persistConfig: PersistConfig<any> = {
 	key: 'root',
-	storage: dynamicStorage
+	storage: dynamicStorage,
+	whitelist: []
 };
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 const middleware = [thunk, logger];
 

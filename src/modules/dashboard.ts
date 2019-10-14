@@ -1,4 +1,4 @@
-import Client, { Info, Network, Validator } from '../client';
+import Client, { Block, Info, Network, Validator } from '../client';
 
 import { BaseAction, Result } from '.';
 
@@ -14,6 +14,11 @@ const FETCH_INFOS_INIT = '@monet/dashboard/infos/FETCH/INIT';
 const FETCH_INFOS_SUCCESS = '@monet/dashboard/infos/FETCH/SUCCESS';
 const FETCH_INFOS_ERROR = '@monet/dashboard/infos/FETCH/ERROR';
 
+const FETCH_BLOCKS_INIT = '@monet/dashboard/blocks/FETCH/INIT';
+// const FETCH_BLOCKS_NEXT = '@monet/dashboard/blocks/FETCH/NETXT';
+const FETCH_BLOCKS_SUCCESS = '@monet/dashboard/blocks/FETCH/SUCCESS';
+const FETCH_BLOCKS_ERROR = '@monet/dashboard/blocks/FETCH/ERROR';
+
 const SELECT_NETWORK = '@monet/dashboard/network/SELECT';
 
 export type DashboardState = {
@@ -22,12 +27,14 @@ export type DashboardState = {
 	selectedNetwork?: Network;
 	networkValidators: Validator[];
 	networkInfos: Info[];
+	networkBlocks: Block[];
 
 	error?: string;
 	loading: {
 		networks: boolean;
 		validators: boolean;
 		infos: boolean;
+		blocks: boolean;
 	};
 };
 
@@ -35,11 +42,13 @@ const initial: DashboardState = {
 	networks: [],
 	networkInfos: [],
 	networkValidators: [],
+	networkBlocks: [],
 
 	loading: {
 		networks: false,
 		validators: false,
-		infos: false
+		infos: false,
+		blocks: false
 	}
 };
 
@@ -93,7 +102,6 @@ export default (
 				error: undefined,
 				loading: {
 					...state.loading,
-					networks: true,
 					validators: true
 				}
 			};
@@ -105,7 +113,6 @@ export default (
 				error: undefined,
 				loading: {
 					...state.loading,
-					networks: false,
 					validators: false
 				}
 			};
@@ -116,7 +123,6 @@ export default (
 				error: action.payload,
 				loading: {
 					...state.loading,
-					networks: false,
 					validators: false
 				}
 			};
@@ -127,8 +133,6 @@ export default (
 				error: undefined,
 				loading: {
 					...state.loading,
-					networks: true,
-					validators: true,
 					infos: true
 				}
 			};
@@ -140,8 +144,6 @@ export default (
 				error: undefined,
 				loading: {
 					...state.loading,
-					networks: false,
-					validators: false,
 					infos: false
 				}
 			};
@@ -152,9 +154,38 @@ export default (
 				error: action.payload,
 				loading: {
 					...state.loading,
-					networks: false,
-					validators: false,
 					infos: false
+				}
+			};
+
+		case FETCH_BLOCKS_INIT:
+			return {
+				...state,
+				error: undefined,
+				loading: {
+					...state.loading,
+					blocks: true
+				}
+			};
+
+		case FETCH_BLOCKS_SUCCESS:
+			return {
+				...state,
+				networkBlocks: action.payload,
+				error: undefined,
+				loading: {
+					...state.loading,
+					blocks: false
+				}
+			};
+
+		case FETCH_BLOCKS_ERROR:
+			return {
+				...state,
+				error: action.payload,
+				loading: {
+					...state.loading,
+					blocks: false
 				}
 			};
 
@@ -204,6 +235,7 @@ export function selectNetwork(networkid: number): Result<Promise<Network>> {
 
 		dispatch(fetchNetworkValidators());
 		dispatch(fetchValidatorInfos());
+		dispatch(fetchNetworkBlocks());
 
 		return network;
 	};
@@ -259,6 +291,34 @@ export function fetchValidatorInfos(): Result<Promise<Info[]>> {
 		} catch (e) {
 			dispatch({
 				type: FETCH_INFOS_ERROR,
+				payload: e.toString()
+			});
+		}
+
+		return [];
+	};
+}
+
+export function fetchNetworkBlocks(): Result<Promise<Block[]>> {
+	return async (dispatch, getState) => {
+		const state = getState();
+
+		dispatch({
+			type: FETCH_BLOCKS_INIT
+		});
+
+		try {
+			const blocks = await c.getBlocks(state.selectedNetwork!.name);
+
+			dispatch({
+				type: FETCH_BLOCKS_SUCCESS,
+				payload: blocks
+			});
+
+			return blocks;
+		} catch (e) {
+			dispatch({
+				type: FETCH_BLOCKS_ERROR,
 				payload: e.toString()
 			});
 		}

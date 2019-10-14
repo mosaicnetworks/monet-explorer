@@ -60,9 +60,10 @@
 		"dev:django": "cd server/src && python3 manage.py runserver",
 		"dev:react": "react-scripts start",
 		"cron:add": "python3 server/src/manage.py crontab add",
-		"run:blocks": "python3 server/src/manage.py crontab run 788ce65b788f26ca6bccb4bf3fac2c39",
-		"run:val": "python3 server/src/manage.py crontab run 044d31e5e577365ff6562d32f7a5af3b",
-		"populate-db": "yarn run:val && yarn run:blocks",
+		"cron:remove": "python3 server/src/manage.py crontab remove",
+		"cron:blocks": "python3 server/src/manage.py crontab run 788ce65b788f26ca6bccb4bf3fac2c39",
+		"cron:val": "python3 server/src/manage.py crontab run 044d31e5e577365ff6562d32f7a5af3b",
+		"populate": "yarn cron:val && yarn cron:blocks",
 		"dev": "concurrently --kill-others \"yarn dev:django\" \"yarn dev:react\""
 	},
 	"eslintConfig": {

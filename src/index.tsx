@@ -15,9 +15,18 @@ import './index.css';
 
 const s = stores();
 
+const resetPersistor = () => {
+	s.persistor.flush();
+	s.persistor.purge();
+};
+
 const app = (
 	<Provider store={s.store}>
-		<PersistGate loading={null} persistor={s.persistor}>
+		<PersistGate
+			loading={null}
+			persistor={s.persistor}
+			onBeforeLift={resetPersistor}
+		>
 			<App />
 		</PersistGate>
 	</Provider>
