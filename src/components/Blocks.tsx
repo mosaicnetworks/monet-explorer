@@ -2,17 +2,11 @@ import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
-import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table';
 
-import { IBabbleBlock } from 'evm-lite-consensus';
-import { Monet } from 'evm-lite-core';
-import { useSelector } from 'react-redux';
-import { Spring } from 'react-spring/renderprops';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { config, MonetInfo } from '../monet';
-
-import { Block } from '../client';
+import { fetchNextBlocks } from '../modules/dashboard';
 import { networkBlocks } from '../selectors';
 
 const STable = styled(Table)`
@@ -38,12 +32,42 @@ const STable = styled(Table)`
 	}
 `;
 
-type Props = {
-	lastBlockIndexIncreaseHook: (index: number) => any;
-};
+type Props = {};
 
 const Blocks: React.FC<Props> = props => {
+	const dispatch = useDispatch();
+
 	const blocks = useSelector(networkBlocks);
+
+	const [loadMore, setLoadMore] = useState(false);
+
+	const fetchMoreBlocks = () => dispatch(fetchNextBlocks());
+
+	useEffect(() => {
+		const table = document.getElementById('blocksTable');
+
+		window.addEventListener('scroll', () => {
+			if (
+				window.scrollY + window.innerHeight >=
+				table!.clientHeight + table!.offsetTop
+			) {
+				setLoadMore(true);
+			} else {
+				setLoadMore(false);
+			}
+		});
+
+		return () =>
+			window.removeEventListener('scroll', () => {
+				// pass
+			});
+	}, []);
+
+	useEffect(() => {
+		if (loadMore) {
+			fetchMoreBlocks();
+		}
+	}, [loadMore]);
 
 	return (
 		<>
@@ -57,8 +81,8 @@ const Blocks: React.FC<Props> = props => {
 				<thead>
 					<tr>
 						<th>#</th>
-						<th># of Txs</th>
-						<th># of Sigs</th>
+						<th># Txs</th>
+						<th># Sigs</th>
 						<th className="d-none d-lg-table-cell">State Hash</th>
 						<th className="d-none d-lg-table-cell">Peers Hash</th>
 						<th className="d-none d-lg-table-cell">

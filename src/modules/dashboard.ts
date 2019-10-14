@@ -15,7 +15,7 @@ const FETCH_INFOS_SUCCESS = '@monet/dashboard/infos/FETCH/SUCCESS';
 const FETCH_INFOS_ERROR = '@monet/dashboard/infos/FETCH/ERROR';
 
 const FETCH_BLOCKS_INIT = '@monet/dashboard/blocks/FETCH/INIT';
-// const FETCH_BLOCKS_NEXT = '@monet/dashboard/blocks/FETCH/NETXT';
+const FETCH_BLOCKS_NEXT = '@monet/dashboard/blocks/FETCH/NETXT';
 const FETCH_BLOCKS_SUCCESS = '@monet/dashboard/blocks/FETCH/SUCCESS';
 const FETCH_BLOCKS_ERROR = '@monet/dashboard/blocks/FETCH/ERROR';
 
@@ -179,6 +179,17 @@ export default (
 				}
 			};
 
+		case FETCH_BLOCKS_NEXT:
+			return {
+				...state,
+				networkBlocks: [...state.networkBlocks, ...action.payload],
+				error: undefined,
+				loading: {
+					...state.loading,
+					blocks: false
+				}
+			};
+
 		case FETCH_BLOCKS_ERROR:
 			return {
 				...state,
@@ -312,6 +323,37 @@ export function fetchNetworkBlocks(): Result<Promise<Block[]>> {
 
 			dispatch({
 				type: FETCH_BLOCKS_SUCCESS,
+				payload: blocks
+			});
+
+			return blocks;
+		} catch (e) {
+			dispatch({
+				type: FETCH_BLOCKS_ERROR,
+				payload: e.toString()
+			});
+		}
+
+		return [];
+	};
+}
+
+export function fetchNextBlocks(): Result<Promise<Block[]>> {
+	return async (dispatch, getState) => {
+		const state = getState();
+
+		dispatch({
+			type: FETCH_BLOCKS_INIT
+		});
+
+		try {
+			const blocks = await c.getBlocks(
+				state.selectedNetwork!.name,
+				state.networkBlocks.length
+			);
+
+			dispatch({
+				type: FETCH_BLOCKS_NEXT,
 				payload: blocks
 			});
 

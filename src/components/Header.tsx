@@ -100,12 +100,12 @@ const Header: React.FC<{}> = () => {
 				expand="lg"
 				variant="dark"
 				className="justify-content-between"
-				sticky={stickyHeader ? 'top' : undefined}
+				// sticky={stickyHeader ? 'top' : undefined}
 			>
 				<Container>
 					<Navbar.Brand href="/">
 						<Image
-							width={150}
+							width={130}
 							src={Logo}
 							className="d-inline-block align-middle"
 						/>

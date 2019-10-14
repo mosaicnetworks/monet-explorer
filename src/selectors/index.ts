@@ -8,3 +8,6 @@ export const networkBlocks = (store: Store) => store.networkBlocks;
 
 export const validatorInfo = (validatorid: number) => (store: Store) =>
 	store.networkInfos.filter(i => i.validator.id === validatorid)[0];
+
+export const selectValidator = (validatorid: number) => (store: Store) =>
+	store.networkValidators.filter(i => i.id === validatorid)[0];

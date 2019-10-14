@@ -65,7 +65,7 @@ const Index: React.FC<{}> = () => {
 					</Col>
 					<Col xs={6} md={3}>
 						<SContentPadded>
-							<h1>0</h1>
+							<h1>---</h1>
 							<div>Total Transactions</div>
 						</SContentPadded>
 					</Col>
@@ -77,7 +77,7 @@ const Index: React.FC<{}> = () => {
 					</Col>
 					<Col xs={6} md={3}>
 						<SContentPadded>
-							<h1>0</h1>
+							<h1>---</h1>
 							<div>Current Nominees</div>
 						</SContentPadded>
 					</Col>

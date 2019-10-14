@@ -16,6 +16,7 @@ body {
 	/* border-bottom: 1px solid rgb(46, 85, 158); */
 	/* margin-bottom: 15px; */
 	margin-bottom: 22px;
+	font-size: 14px;
 }
 
 .jumbotron {
@@ -74,7 +75,7 @@ body {
 pre,
 code {
 	font-family: 'Fira Code', monospace !important;
-	/* color: rgba(31, 66, 146, 1); */
+	/* color: rgba(91, 54, 108, 1); */
 	word-wrap: break-word;
 }
 
