@@ -2,6 +2,6 @@ FROM node:10
 WORKDIR /app
 COPY . ./
 RUN ls -la .
-RUN npm
+RUN yarn
 
-CMD npm run dev:react
+CMD yarn run dev:react
