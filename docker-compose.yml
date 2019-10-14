@@ -5,7 +5,6 @@ services:
         build:
             context: .
             dockerfile: ./docker/nginx/Dockerfile
-        image: nginx:1.15-alpine
         ports:
             - '80:80'
             - '443:443'
@@ -13,7 +12,13 @@ services:
             - ./docker/nginx/conf:/etc/nginx/conf.d
             - ./docker/certbot/conf:/etc/letsencrypt
             - ./docker/certbot/www:/var/www/certbot
-    web:
+    react:
+        build:
+            context: .
+            dockerfile: ./docker/react/Dockerfile
+        ports:
+            - '3000:3000'
+    django:
         build:
             context: .
             dockerfile: ./docker/server/Dockerfile
