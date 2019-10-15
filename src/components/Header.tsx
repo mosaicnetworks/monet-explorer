@@ -111,7 +111,7 @@ const Header: React.FC<{}> = () => {
 				<Container>
 					<Navbar.Brand href="/">
 						<Image
-							width={130}
+							width={140}
 							src={Logo}
 							className="d-inline-block align-middle"
 						/>
@@ -126,12 +126,7 @@ const Header: React.FC<{}> = () => {
 					>
 						<SNav activeKey="/">
 							<Nav.Item>
-								<Nav.Link href="/faucet">
-									<img
-										src="https://monet.network/app/images/products/tenom.svg"
-										width={22}
-									/>
-								</Nav.Link>
+								<Nav.Link href="/faucet">Get Tokens!</Nav.Link>
 							</Nav.Item>
 							<Nav.Item>
 								<Nav.Link href="/" eventKey="link-2">

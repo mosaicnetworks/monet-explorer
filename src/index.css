@@ -82,3 +82,7 @@ code {
 	font-family: 'Fira Code', monospace !important;
 	font-size: 13px !important;
 }
+
+.navbar-toggler {
+	border: none;
+}
