@@ -2,18 +2,18 @@ import React, { useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 
+import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import Nav from 'react-bootstrap/Nav';
-import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 
 import { Store } from '../store';
 
 import { Network } from '../client';
-import { selectNetwork, fetchNetworks } from '../modules/dashboard';
+import { fetchNetworks, selectNetwork } from '../modules/dashboard';
 import { networksSelector, selectedNetwork } from '../selectors';
 
 import Logo from '../assets/monet.svg';
@@ -21,7 +21,9 @@ import Logo from '../assets/monet.svg';
 const SNavbar = styled(Navbar)`
 	transition: background 0.3s cubic-bezier(1, 1, 1, 1);
 
-	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+	${props =>
+		props.theme.enable &&
+		`box-shadow: 0 1px 50px rgba(151, 164, 175, 1) !important;`}
 `;
 
 const SNetwork = styled.div`
@@ -93,14 +95,18 @@ const Header: React.FC<{}> = () => {
 		}
 	}, [networks]);
 
+	const theme = {
+		enable: stickyHeader
+	};
+
 	return (
-		<>
+		<ThemeProvider theme={theme}>
 			<SNavbar
 				bg={'dark'}
 				expand="lg"
 				variant="dark"
 				className="justify-content-between"
-				// sticky={stickyHeader ? 'top' : undefined}
+				sticky={stickyHeader ? 'top' : undefined}
 			>
 				<Container>
 					<Navbar.Brand href="/">
@@ -120,6 +126,14 @@ const Header: React.FC<{}> = () => {
 					>
 						<SNav activeKey="/">
 							<Nav.Item>
+								<Nav.Link href="/faucet">
+									<img
+										src="https://monet.network/app/images/products/tenom.svg"
+										width={22}
+									/>
+								</Nav.Link>
+							</Nav.Item>
+							<Nav.Item>
 								<Nav.Link href="/" eventKey="link-2">
 									Dashboard
 								</Nav.Link>
@@ -129,9 +143,6 @@ const Header: React.FC<{}> = () => {
 									Block Explorer
 								</Nav.Link>
 							</Nav.Item>
-							{/* <Nav.Item>
-							<Nav.Link eventKey="link-2">Addresses</Nav.Link>
-						</Nav.Item> */}
 						</SNav>
 						<SSearch className="justify-content-end">
 							<Form.Control
@@ -151,7 +162,7 @@ const Header: React.FC<{}> = () => {
 					</Navbar.Collapse>
 				</Container>
 			</SNavbar>
-		</>
+		</ThemeProvider>
 	);
 };
 

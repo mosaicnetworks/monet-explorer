@@ -21,22 +21,24 @@ const SIndex = styled.div`
 `;
 
 const SContentPadded = styled.div`
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
 	padding: 10px;
 	background: #fff;
 	text-align: center;
 	margin-bottom: 15px;
 	border-radius: 5px;
+	font-size: 14px !important;
+	border: 1px solid #e5e5e5e5 !important;
 `;
 
 const SContent = styled.div`
 	background: #fff !important;
 	border-radius: 5px !important;
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+	/* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); */
 	margin-bottom: 15px !important;
+	border: 1px solid #e5e5e5e5 !important;
 
 	span {
-		background: #eee;
+		background: #f9f9f9 !important;
 		display: block;
 		border-radius: inherit !important;
 		background: #fff;
@@ -45,7 +47,9 @@ const SContent = styled.div`
 		font-size: 0.8125rem;
 		font-weight: 600;
 		margin-bottom: 0;
-		border-bottom: 1px solid #eee;
+		border-bottom-left-radius: 0 !important;
+		border-bottom-right-radius: 0 !important;
+		border-bottom: 1px solid #eee !important;
 	}
 `;
 
@@ -65,7 +69,7 @@ const Index: React.FC<{}> = () => {
 					</Col>
 					<Col xs={6} md={3}>
 						<SContentPadded>
-							<h1>---</h1>
+							<h1>-</h1>
 							<div>Total Transactions</div>
 						</SContentPadded>
 					</Col>
@@ -77,7 +81,7 @@ const Index: React.FC<{}> = () => {
 					</Col>
 					<Col xs={6} md={3}>
 						<SContentPadded>
-							<h1>---</h1>
+							<h1>-</h1>
 							<div>Current Nominees</div>
 						</SContentPadded>
 					</Col>

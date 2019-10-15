@@ -13,3 +13,4 @@ __pycache__
 __init__.py
 migrations
 db.sqlite3
+build*

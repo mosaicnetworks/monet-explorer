@@ -39,17 +39,17 @@ const Whitelist: React.FC<{}> = () => {
 	});
 
 	// Polling
-	let poller: any;
+	// let poller: any;
 
-	useEffect(() => {
-		poller = setInterval(() => {
-			fetchWhitelist().then(() =>
-				console.log('(60s) Fetching Whitelist...')
-			);
-		}, 60000);
+	// useEffect(() => {
+	// 	poller = setInterval(() => {
+	// 		fetchWhitelist().then(() =>
+	// 			console.log('(60s) Fetching Whitelist...')
+	// 		);
+	// 	}, 60000);
 
-		return () => clearInterval(poller);
-	});
+	// 	return () => clearInterval(poller);
+	// });
 
 	return (
 		<>

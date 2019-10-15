@@ -56,7 +56,7 @@ const Search: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 
 	return (
 		<SSearch>
-			<Container fluid={true}>
+			<Container fluid={false}>
 				<h1>
 					Search: <span>{props.match.params.data}</span>
 				</h1>
@@ -64,7 +64,7 @@ const Search: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 			{error && <SSuggestion>{error}</SSuggestion>}
 			{Object.keys(account).length > 0 && (
 				<SSuggestion>
-					<Container fluid={true}>
+					<Container fluid={false}>
 						<Row>
 							<Col>
 								<h3>Balance: </h3>
