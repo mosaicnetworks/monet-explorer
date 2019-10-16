@@ -1,5 +1,6 @@
-import { AbstractClient } from 'evm-lite-client';
-import { IBabblePeer } from 'evm-lite-consensus';
+import AbstractClient from './Client';
+
+import request from 'request';
 
 export type Network = {
 	id: number;
@@ -49,7 +50,7 @@ export type Block = {
 
 class ExplorerAPIClient extends AbstractClient {
 	constructor() {
-		super('dashboard.monet.network', 8000);
+		super('localhost', 8000);
 	}
 
 	public async getNetworks(): Promise<Network[]> {
@@ -66,6 +67,23 @@ class ExplorerAPIClient extends AbstractClient {
 			.results;
 	}
 
+	public async submitFaucetTx(address: string): Promise<string> {
+		return new Promise<string>((resolve, reject) => {
+			request.post(
+				`http://${this.host}:${this.port}/api/faucet/`,
+				{ json: { address } },
+				(error, response, body) => {
+					if (error) {
+						return reject(error);
+					}
+					if (!error && response.statusCode === 200) {
+						resolve(body);
+					}
+				}
+			);
+		});
+	}
+
 	public async getBlocks(network: string, offset?: number): Promise<Block[]> {
 		let url = `/api/blocks/?network=${network}`;
 
@@ -78,3 +96,9 @@ class ExplorerAPIClient extends AbstractClient {
 }
 
 export default ExplorerAPIClient;
+
+const c = new ExplorerAPIClient();
+
+c.submitFaucetTx('0xda37bd41430c3242423d155bbd9b0e535067bbb3').then(
+	console.log
+);

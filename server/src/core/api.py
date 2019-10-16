@@ -84,5 +84,5 @@ class FaucetAPIHandler(generics.CreateAPIView):
     """
 
     def post(self, request, *args, **kwargs):
-        print(request.data)
+        print("data", request.data)
         return Response(dict())
