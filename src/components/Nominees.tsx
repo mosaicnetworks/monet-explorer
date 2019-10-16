@@ -36,20 +36,20 @@ const Nominees: React.FC<{}> = () => {
 
 	useEffect(() => {
 		fetchNominees();
-	});
+	}, []);
 
 	// Polling
-	let poller: any;
+	// let poller: any;
 
-	useEffect(() => {
-		poller = setInterval(() => {
-			fetchNominees().then(() =>
-				console.log('(60s) Fetching Nominees...')
-			);
-		}, 60000);
+	// useEffect(() => {
+	// 	poller = setInterval(() => {
+	// 		fetchNominees().then(() =>
+	// 			console.log('(60s) Fetching Nominees...')
+	// 		);
+	// 	}, 60000);
 
-		return () => clearInterval(poller);
-	});
+	// 	return () => clearInterval(poller);
+	// });
 
 	return (
 		<>
