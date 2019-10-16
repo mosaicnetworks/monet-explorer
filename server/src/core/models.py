@@ -25,6 +25,8 @@ class Validator(models.Model):
     class Meta:
         unique_together = ['public_key', 'network']
 
+    updated = models.DateTimeField(auto_now=True)
+
     host = models.CharField(max_length=100)
     port = models.IntegerField()
     public_key = models.CharField(max_length=132)
@@ -39,6 +41,8 @@ class Validator(models.Model):
 
 class Info(models.Model):
     """ Info model """
+
+    updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together = ['validator']
@@ -132,3 +136,15 @@ class Signature(models.Model):
     # Relational Fields
     validator = models.ForeignKey(Validator, on_delete=models.CASCADE)
     block = models.ForeignKey(Block, on_delete=models.CASCADE)
+
+
+class FaucetTransaction(models.Model):
+    """ Faucet Transaction model """
+
+    created = models.DateTimeField(auto_now_add=True)
+
+    address = models.CharField(max_length=42)
+    amount = models.IntegerField(max_length=100, help_text="Amount in Tenom")
+
+    def __str__(self):
+        return f'{self.address} - {self.amount}'

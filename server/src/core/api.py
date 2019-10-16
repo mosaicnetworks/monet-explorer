@@ -1,6 +1,7 @@
 """ API endpoints for Monet Explorer """
 
 from rest_framework import generics
+from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from .models import *
@@ -75,3 +76,13 @@ class BlockListAPIHandler(generics.ListAPIView):
             queryset = queryset.filter(network__name=network.lower())
 
         return queryset
+
+
+class FaucetAPIHandler(generics.CreateAPIView):
+    """
+    Handles all faucet related api queries
+    """
+
+    def post(self, request, *args, **kwargs):
+        print(request.data)
+        return Response(dict())

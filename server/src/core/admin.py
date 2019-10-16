@@ -61,11 +61,18 @@ class BlockSignatureAdmin(admin.ModelAdmin):
     list_display = ('id', 'block', 'validator', 'signature')
 
 
+class FaucetTransactionAdmin(admin.ModelAdmin):
+    """ Admin config for Faucet Transaction model """
+
+    list_display = ('id', 'created', 'address', 'amount')
+
+
 def _register(model, admin_class):
     admin.site.register(model, admin_class)
 
 
 _register(models.Validator, ValidatorAdmin)
+_register(models.FaucetTransaction, FaucetTransactionAdmin)
 _register(models.Network, NetworkAdmin)
 _register(models.Info, InfoAdmin)
 _register(models.Block, BlockAdmin)

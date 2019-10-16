@@ -7,6 +7,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
+import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
@@ -19,11 +20,11 @@ import { networksSelector, selectedNetwork } from '../selectors';
 import Logo from '../assets/monet.svg';
 
 const SNavbar = styled(Navbar)`
-	transition: background 0.3s cubic-bezier(1, 1, 1, 1);
+	/* transition: box-shadow 0.1s linear; */
 
 	${props =>
 		props.theme.enable &&
-		`box-shadow: 0 1px 50px rgba(151, 164, 175, 1) !important;`}
+		`box-shadow: 0 1px 50px rgba(151, 164, 175, 2) !important;`}
 `;
 
 const SNetwork = styled.div`
@@ -63,6 +64,14 @@ const SSearch = styled.div`
 	& input::placeholder {
 		color: #fff;
 	}
+`;
+
+const STokenButton = styled(Button)`
+	/* background: rgba(226, 110, 64, 1) !important; */
+	/* border: none !important; */
+	color: white !important;
+	font-size: 13px !important;
+	margin-right: px;
 `;
 
 const Header: React.FC<{}> = () => {
@@ -125,9 +134,15 @@ const Header: React.FC<{}> = () => {
 						className="justify-content-end"
 					>
 						<SNav activeKey="/">
-							<Nav.Item>
+							<STokenButton href="/faucet" variant="">
+								<Image
+									src="https://monet.network/app/images/products/tenom.svg"
+									width="25"
+								/>
+							</STokenButton>
+							{/* <Nav.Item>
 								<Nav.Link href="/faucet">Get Tokens!</Nav.Link>
-							</Nav.Item>
+							</Nav.Item> */}
 							<Nav.Item>
 								<Nav.Link href="/" eventKey="link-2">
 									Dashboard

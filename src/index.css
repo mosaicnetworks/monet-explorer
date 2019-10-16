@@ -86,3 +86,9 @@ code {
 .navbar-toggler {
 	border: none;
 }
+
+@media (max-width: 575px) {
+	.navbar-dark .navbar-nav .nav-link {
+		border-bottom: 1px solid rgb(12, 51, 143) !important;
+	}
+}
