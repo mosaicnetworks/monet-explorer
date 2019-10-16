@@ -12,6 +12,8 @@ import Row from 'react-bootstrap/Row';
 
 import monet from '../monet';
 
+import POA from '../poa';
+
 const SSearch = styled.div`
 	margin-top: 30px;
 
@@ -40,7 +42,7 @@ const Search: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 
 	const fetchDataResponses = async () => {
 		if (utils.cleanAddress(data).length === 42) {
-			const a = await monet.getAccount(utils.cleanAddress(data));
+			const a = await POA.monet.getAccount(utils.cleanAddress(data));
 
 			setAccount(a);
 		} else {

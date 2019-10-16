@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import Table from 'react-bootstrap/Table';
 
-import { monet } from '../monet';
+// import { monet } from '../monet';
 
 import POA, { WhitelistEntry } from '../poa';
 

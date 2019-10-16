@@ -26,7 +26,7 @@ const Nominees: React.FC<{}> = () => {
 	const [nominees, setNominees] = useState<NomineeEntry[]>([]);
 
 	const fetchNominees = async () => {
-		const poaData = await monet.getPOA();
+		const poaData = await POA.monet.getPOA();
 		const poa = new POA(poaData.address, JSON.parse(poaData.abi));
 
 		const n = await poa.nominees();
