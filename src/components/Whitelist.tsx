@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
+import { useSelector } from 'react-redux';
+
 import Table from 'react-bootstrap/Table';
 
-// import { monet } from '../monet';
+import { monet } from '../monet';
 
 import POA, { WhitelistEntry } from '../poa';
 
 import Avatar from '../components/Avatar';
+import { selectedNetwork } from '../selectors';
 
 const STable = styled(Table)`
 	margin-bottom: 0px !important;
@@ -23,10 +26,15 @@ const STable = styled(Table)`
 `;
 
 const Whitelist: React.FC<{}> = () => {
+	const network = useSelector(selectedNetwork) || {
+		host: 'localhost',
+		port: 8080
+	};
 	const [whitelist, setWhitelist] = useState<WhitelistEntry[]>([]);
 
 	const fetchWhitelist = async () => {
-		const poaData = await POA.monet.getPOA();
+		const m = monet(network.host, network.port);
+		const poaData = await m.getPOA();
 		const poa = new POA(poaData.address, JSON.parse(poaData.abi));
 
 		const wl = await poa.whitelist();

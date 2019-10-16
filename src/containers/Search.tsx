@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import utils from 'evm-lite-utils';
 import styled from 'styled-components';
 
+import { useSelector } from 'react-redux';
 import { IEVMAccount } from 'evm-lite-core';
 import { RouteComponentProps } from 'react-router-dom';
 
@@ -13,6 +14,7 @@ import Row from 'react-bootstrap/Row';
 import monet from '../monet';
 
 import POA from '../poa';
+import { selectedNetwork } from '../selectors';
 
 const SSearch = styled.div`
 	margin-top: 30px;
@@ -35,6 +37,11 @@ type ReactRouterProps = {
 };
 
 const Search: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
+	const network = useSelector(selectedNetwork) || {
+		host: 'localhost',
+		port: 8080
+	};
+
 	const data = props.match.params.data;
 
 	const [account, setAccount] = useState<IEVMAccount>({} as IEVMAccount);
@@ -42,7 +49,8 @@ const Search: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 
 	const fetchDataResponses = async () => {
 		if (utils.cleanAddress(data).length === 42) {
-			const a = await POA.monet.getAccount(utils.cleanAddress(data));
+			const m = monet(network.host, network.port);
+			const a = await m.getAccount(utils.cleanAddress(data));
 
 			setAccount(a);
 		} else {
