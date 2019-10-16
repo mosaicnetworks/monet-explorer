@@ -46,7 +46,7 @@
 		"typescript": "^3.6.3"
 	},
 	"scripts": {
-		"postinstall": "./scripts/pre-django.sh",
+		"migrate": "./scripts/pre-django.sh",
 		"tx": "ts-node scripts/transfer",
 		"lint": "tslint -p . -c ./tslint.json",
 		"root80": "PORT=80 react-scripts start",

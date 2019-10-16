@@ -6,6 +6,7 @@ body {
 	font-family: 'Helvetica Neue', sans-serif !important;
 	-webkit-font-smoothing: antialiased;
 	background: rgb(236, 242, 245) !important;
+	font-size: 15px !important;
 }
 
 .bg-dark {
@@ -91,4 +92,25 @@ code {
 	.navbar-dark .navbar-nav .nav-link {
 		border-bottom: 1px solid rgb(12, 51, 143) !important;
 	}
+}
+
+.btn {
+	font-size: 15px;
+	border-radius: 5px !important;
+}
+
+.btn-warning {
+	background: #f26630 !important;
+	border: none !important;
+	color: white !important;
+}
+
+.btn-warning:hover {
+	background: #e55e2b !important;
+	border: none !important;
+	color: white !important;
+}
+
+label {
+	font-weight: 500 !important;
 }

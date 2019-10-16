@@ -134,12 +134,12 @@ const Header: React.FC<{}> = () => {
 						className="justify-content-end"
 					>
 						<SNav activeKey="/">
-							<STokenButton href="/faucet" variant="">
+							{/* <STokenButton href="/faucet" variant="">
 								<Image
 									src="https://monet.network/app/images/products/tenom.svg"
 									width="25"
 								/>
-							</STokenButton>
+							</STokenButton> */}
 							{/* <Nav.Item>
 								<Nav.Link href="/faucet">Get Tokens!</Nav.Link>
 							</Nav.Item> */}

@@ -144,7 +144,8 @@ class FaucetTransaction(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     address = models.CharField(max_length=42)
-    amount = models.IntegerField(max_length=100, help_text="Amount in Tenom")
+    amount = models.IntegerField(help_text="Amount in Tenom")
+    reason = models.TextField(default="N/A")
 
     def __str__(self):
         return f'{self.address} - {self.amount}'

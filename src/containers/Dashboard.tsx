@@ -7,9 +7,12 @@ import { useSelector } from 'react-redux';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+
 import Nominees from '../components/Nominees';
 import Validators from '../components/Validators';
 import Whitelist from '../components/Whitelist';
+
+import { SContent } from '../components/styles';
 
 import { networkBlocks, networkValidators } from '../selectors';
 
@@ -28,29 +31,6 @@ const SContentPadded = styled.div`
 	border-radius: 5px;
 	font-size: 14px !important;
 	border: 1px solid #e5e5e5e5 !important;
-`;
-
-const SContent = styled.div`
-	background: #fff !important;
-	border-radius: 5px !important;
-	/* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); */
-	margin-bottom: 15px !important;
-	border: 1px solid #e5e5e5e5 !important;
-
-	span {
-		background: #f9f9f9 !important;
-		display: block;
-		border-radius: inherit !important;
-		background: #fff;
-		padding: 10px 10px;
-		/* color: #4a4f55; */
-		font-size: 0.8125rem;
-		font-weight: 600;
-		margin-bottom: 0;
-		border-bottom-left-radius: 0 !important;
-		border-bottom-right-radius: 0 !important;
-		border-bottom: 1px solid #eee !important;
-	}
 `;
 
 const Index: React.FC<{}> = () => {
