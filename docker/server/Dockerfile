@@ -15,5 +15,7 @@ WORKDIR /server
 # Copy the current directory contents into the container at /music_service
 ADD ./server /server/
 
+RUN apt-get update && apt-get -y install cron
+
 # Install any needed packages specified in requirements.txt
 RUN pip install -r requirements.txt
