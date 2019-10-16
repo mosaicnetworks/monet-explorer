@@ -50,13 +50,14 @@ const network = useSelector(selectedNetwork) || {
 	port: 8080
 };
 
-const monet = monetfn(network.host, network.port);
-
 class POA {
+	public monet = monetfn(network.host, network.port);
+
 	private readonly contract: Contract<ISchema>;
 
 	constructor(address: string, abi: IContractABI) {
 		this.contract = Contract.load(abi, address);
+		console.log('NETWORK', network);
 	}
 
 	public async whitelist(): Promise<WhitelistEntry[]> {
@@ -65,7 +66,7 @@ class POA {
 			gasPrice: GASPRICE
 		});
 
-		const countRes: any = await monet.callTx(countTx);
+		const countRes: any = await this.monet.callTx(countTx);
 		const count = countRes.toNumber();
 
 		if (!count) {
@@ -88,7 +89,7 @@ class POA {
 				i
 			);
 
-			entry.address = await monet.callTx(addressTx);
+			entry.address = await this.monet.callTx(addressTx);
 
 			const monikerTx = this.contract.methods.getMoniker(
 				{
@@ -98,7 +99,7 @@ class POA {
 				entry.address
 			);
 
-			const hex = await monet.callTx<string>(monikerTx);
+			const hex = await this.monet.callTx<string>(monikerTx);
 			entry.moniker = utils.hexToString(hex);
 
 			entries.push(entry);
@@ -113,7 +114,7 @@ class POA {
 			gasPrice: GASPRICE
 		});
 
-		const countRes: any = await monet.callTx(countTx);
+		const countRes: any = await this.monet.callTx(countTx);
 		const count = countRes.toNumber();
 
 		if (!count) {
@@ -137,7 +138,7 @@ class POA {
 				i
 			);
 
-			entry.address = await monet.callTx(addressTx);
+			entry.address = await this.monet.callTx(addressTx);
 
 			const monikerTx = this.contract.methods.getMoniker(
 				{
@@ -147,7 +148,7 @@ class POA {
 				entry.address
 			);
 
-			const hex = await monet.callTx<string>(monikerTx);
+			const hex = await this.monet.callTx<string>(monikerTx);
 			entry.moniker = utils.hexToString(hex);
 
 			const votesTx = this.contract.methods.getCurrentNomineeVotes(
@@ -158,7 +159,7 @@ class POA {
 				utils.cleanAddress(entry.address)
 			);
 
-			const votes = await monet.callTx<[string, string]>(votesTx);
+			const votes = await this.monet.callTx<[string, string]>(votesTx);
 
 			entry.upVotes = parseInt(votes[0], 10);
 			entry.downVotes = parseInt(votes[1], 10);
