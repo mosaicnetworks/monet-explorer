@@ -26,7 +26,7 @@ const Whitelist: React.FC<{}> = () => {
 	const [whitelist, setWhitelist] = useState<WhitelistEntry[]>([]);
 
 	const fetchWhitelist = async () => {
-		const poaData = await monet.getPOA();
+		const poaData = await POA.monet.getPOA();
 		const poa = new POA(poaData.address, JSON.parse(poaData.abi));
 
 		const wl = await poa.whitelist();
@@ -36,7 +36,7 @@ const Whitelist: React.FC<{}> = () => {
 
 	useEffect(() => {
 		fetchWhitelist();
-	});
+	}, []);
 
 	// Polling
 	// let poller: any;
