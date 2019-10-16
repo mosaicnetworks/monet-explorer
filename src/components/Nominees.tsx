@@ -11,7 +11,7 @@ import POA, { NomineeEntry } from '../poa';
 
 import Avatar from '../components/Avatar';
 
-import { selectedNetwork } from '../selectors';
+import { LOCAL_NETWORK, selectedNetwork, selectNominees } from '../selectors';
 
 const STable = styled(Table)`
 	margin-bottom: 0 !important;
@@ -26,25 +26,7 @@ const STable = styled(Table)`
 `;
 
 const Nominees: React.FC<{}> = () => {
-	const network = useSelector(selectedNetwork) || {
-		host: 'localhost',
-		port: 8080
-	};
-	const [nominees, setNominees] = useState<NomineeEntry[]>([]);
-
-	const fetchNominees = async () => {
-		const m = monet(network.host, network.port);
-		const poaData = await m.getPOA();
-		const poa = new POA(poaData.address, JSON.parse(poaData.abi));
-
-		const n = await poa.nominees();
-
-		setNominees(n);
-	};
-
-	useEffect(() => {
-		fetchNominees();
-	}, []);
+	const nominees = useSelector(selectNominees);
 
 	// Polling
 	// let poller: any;

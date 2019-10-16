@@ -11,3 +11,11 @@ export const validatorInfo = (validatorid: number) => (store: Store) =>
 
 export const selectValidator = (validatorid: number) => (store: Store) =>
 	store.networkValidators.filter(i => i.id === validatorid)[0];
+
+export const selectWhitelist = (store: Store) => store.networkWhitelist;
+export const selectNominees = (store: Store) => store.networkNominees;
+
+export const LOCAL_NETWORK = {
+	host: 'localhost',
+	port: 8080
+};

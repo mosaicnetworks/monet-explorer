@@ -1,6 +1,7 @@
 import Client, { Block, Info, Network, Validator } from '../client';
 
 import { BaseAction, Result } from '.';
+import POA, { WhitelistEntry, NomineeEntry } from '../poa';
 
 const FETCH_NETWORKS_INIT = '@monet/dashboard/network/FETCH/INIT';
 const FETCH_NETWORKS_SUCCESS = '@monet/dashboard/network/FETCH/SUCCESS';
@@ -19,6 +20,14 @@ const FETCH_BLOCKS_NEXT = '@monet/dashboard/blocks/FETCH/NETXT';
 const FETCH_BLOCKS_SUCCESS = '@monet/dashboard/blocks/FETCH/SUCCESS';
 const FETCH_BLOCKS_ERROR = '@monet/dashboard/blocks/FETCH/ERROR';
 
+const FETCH_WHITELIST_INIT = '@monet/dashboard/whitelist/FETCH/INIT';
+const FETCH_WHITELIST_SUCCESS = '@monet/dashboard/whitelist/FETCH/SUCCESS';
+const FETCH_WHITELIST_ERROR = '@monet/dashboard/whitelist/FETCH/ERROR';
+
+const FETCH_NOMINEES_INIT = '@monet/dashboard/nominees/FETCH/INIT';
+const FETCH_NOMINEES_SUCCESS = '@monet/dashboard/nominees/FETCH/SUCCESS';
+const FETCH_NOMINEES_ERROR = '@monet/dashboard/nominees/FETCH/ERROR';
+
 const SELECT_NETWORK = '@monet/dashboard/network/SELECT';
 
 export type DashboardState = {
@@ -29,12 +38,18 @@ export type DashboardState = {
 	networkInfos: Info[];
 	networkBlocks: Block[];
 
+	networkWhitelist: WhitelistEntry[];
+	networkNominees: NomineeEntry[];
+
 	error?: string;
+
 	loading: {
 		networks: boolean;
 		validators: boolean;
 		infos: boolean;
 		blocks: boolean;
+		whitelist: boolean;
+		nominees: boolean;
 	};
 };
 
@@ -44,11 +59,16 @@ const initial: DashboardState = {
 	networkValidators: [],
 	networkBlocks: [],
 
+	networkWhitelist: [],
+	networkNominees: [],
+
 	loading: {
 		networks: false,
 		validators: false,
 		infos: false,
-		blocks: false
+		blocks: false,
+		whitelist: false,
+		nominees: false
 	}
 };
 
@@ -200,6 +220,68 @@ export default (
 				}
 			};
 
+		case FETCH_WHITELIST_INIT:
+			return {
+				...state,
+				error: undefined,
+				loading: {
+					...state.loading,
+					whitelist: true
+				}
+			};
+
+		case FETCH_WHITELIST_SUCCESS:
+			return {
+				...state,
+				networkWhitelist: action.payload,
+				error: undefined,
+				loading: {
+					...state.loading,
+					whitelist: false
+				}
+			};
+
+		case FETCH_WHITELIST_ERROR:
+			return {
+				...state,
+				error: action.payload,
+				loading: {
+					...state.loading,
+					whitelist: false
+				}
+			};
+
+		case FETCH_NOMINEES_INIT:
+			return {
+				...state,
+				error: undefined,
+				loading: {
+					...state.loading,
+					nominees: true
+				}
+			};
+
+		case FETCH_NOMINEES_SUCCESS:
+			return {
+				...state,
+				networkNominees: action.payload,
+				error: undefined,
+				loading: {
+					...state.loading,
+					nominees: false
+				}
+			};
+
+		case FETCH_NOMINEES_ERROR:
+			return {
+				...state,
+				error: action.payload,
+				loading: {
+					...state.loading,
+					nominees: false
+				}
+			};
+
 		default:
 			return state;
 	}
@@ -239,7 +321,7 @@ export function selectNetwork(networkid: number): Result<Promise<Network>> {
 			n => n.id === networkid
 		)![0];
 
-		dispatch({
+		await dispatch({
 			type: SELECT_NETWORK,
 			payload: network
 		});
@@ -247,6 +329,8 @@ export function selectNetwork(networkid: number): Result<Promise<Network>> {
 		dispatch(fetchNetworkValidators());
 		dispatch(fetchValidatorInfos());
 		dispatch(fetchNetworkBlocks());
+		dispatch(fetchWhitelist());
+		dispatch(fetchNominees());
 
 		return network;
 	};
@@ -366,5 +450,67 @@ export function fetchNextBlocks(): Result<Promise<Block[]>> {
 		}
 
 		return [];
+	};
+}
+
+export function fetchWhitelist(): Result<Promise<void>> {
+	return async (dispatch, getState) => {
+		const state = getState();
+
+		dispatch({
+			type: FETCH_WHITELIST_INIT
+		});
+
+		try {
+			const poa = new POA(
+				state.selectedNetwork!.host,
+				state.selectedNetwork!.port
+			);
+
+			await poa.init();
+
+			const whitelist = await poa.whitelist();
+
+			dispatch({
+				type: FETCH_WHITELIST_SUCCESS,
+				payload: whitelist
+			});
+		} catch (e) {
+			dispatch({
+				type: FETCH_WHITELIST_ERROR,
+				payload: e.toString()
+			});
+		}
+	};
+}
+
+export function fetchNominees(): Result<Promise<void>> {
+	return async (dispatch, getState) => {
+		const state = getState();
+
+		dispatch({
+			type: FETCH_NOMINEES_INIT
+		});
+
+		try {
+			const poa = new POA(
+				state.selectedNetwork!.host,
+				state.selectedNetwork!.port
+			);
+
+			await poa.init();
+
+			const whitelist = await poa.nominees();
+
+			dispatch({
+				type: FETCH_NOMINEES_SUCCESS,
+				payload: whitelist
+			});
+		} catch (e) {
+			dispatch({
+				type: FETCH_NOMINEES_ERROR,
+				payload: e.toString()
+			});
+		}
 	};
 }

@@ -3,14 +3,13 @@ import {
 	Contract,
 	IAbstractSchema,
 	ITransaction,
+	Monet,
 	Transaction
 } from 'evm-lite-core';
 
 import utils from 'evm-lite-utils';
 
-import { GAS, GASPRICE, monet as monetfn } from './monet';
-import { useSelector } from 'react-redux';
-import { selectedNetwork } from './selectors';
+import { GAS, GASPRICE } from './monet';
 
 interface ISchema extends IAbstractSchema {
 	checkAuthorised(tx: ITransaction, address: string): Transaction;
@@ -46,21 +45,22 @@ export type NomineeEntry = {
 };
 
 class POA {
-	public network = useSelector(selectedNetwork) || {
-		host: 'localhost',
-		port: 8080
-	};
+	public readonly monet: Monet;
+	public contract?: Contract<ISchema>;
 
-	public monet = monetfn(this.network.host, this.network.port);
+	constructor(host: string, port: number) {
+		this.monet = new Monet(host, port);
+	}
 
-	private readonly contract: Contract<ISchema>;
+	public async init() {
+		const json = await this.monet.getPOA();
+		const abi = json.abi;
 
-	constructor(address: string, abi: IContractABI) {
-		this.contract = Contract.load(abi, address);
+		this.contract = new Contract(JSON.parse(abi), json.address);
 	}
 
 	public async whitelist(): Promise<WhitelistEntry[]> {
-		const countTx = this.contract.methods.getWhiteListCount({
+		const countTx = this.contract!.methods.getWhiteListCount({
 			gas: GAS,
 			gasPrice: GASPRICE
 		});
@@ -80,7 +80,7 @@ class POA {
 				moniker: ''
 			};
 
-			const addressTx = this.contract.methods.getWhiteListAddressFromIdx(
+			const addressTx = this.contract!.methods.getWhiteListAddressFromIdx(
 				{
 					gas: GAS,
 					gasPrice: GASPRICE
@@ -90,7 +90,7 @@ class POA {
 
 			entry.address = await this.monet.callTx(addressTx);
 
-			const monikerTx = this.contract.methods.getMoniker(
+			const monikerTx = this.contract!.methods.getMoniker(
 				{
 					gas: GAS,
 					gasPrice: GASPRICE
@@ -108,7 +108,7 @@ class POA {
 	}
 
 	public async nominees(): Promise<NomineeEntry[]> {
-		const countTx = this.contract.methods.getNomineeCount({
+		const countTx = this.contract!.methods.getNomineeCount({
 			gas: GAS,
 			gasPrice: GASPRICE
 		});
@@ -129,7 +129,7 @@ class POA {
 				downVotes: 0
 			};
 
-			const addressTx = this.contract.methods.getNomineeAddressFromIdx(
+			const addressTx = this.contract!.methods.getNomineeAddressFromIdx(
 				{
 					gas: GAS,
 					gasPrice: GASPRICE
@@ -139,7 +139,7 @@ class POA {
 
 			entry.address = await this.monet.callTx(addressTx);
 
-			const monikerTx = this.contract.methods.getMoniker(
+			const monikerTx = this.contract!.methods.getMoniker(
 				{
 					gas: GAS,
 					gasPrice: GASPRICE
@@ -150,7 +150,7 @@ class POA {
 			const hex = await this.monet.callTx<string>(monikerTx);
 			entry.moniker = utils.hexToString(hex);
 
-			const votesTx = this.contract.methods.getCurrentNomineeVotes(
+			const votesTx = this.contract!.methods.getCurrentNomineeVotes(
 				{
 					gas: GAS,
 					gasPrice: GASPRICE
