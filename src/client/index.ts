@@ -96,9 +96,3 @@ class ExplorerAPIClient extends AbstractClient {
 }
 
 export default ExplorerAPIClient;
-
-const c = new ExplorerAPIClient();
-
-c.submitFaucetTx('0xda37bd41430c3242423d155bbd9b0e535067bbb3').then(
-	console.log
-);

@@ -32,7 +32,8 @@ class ValidatorListAPIHandler(generics.ListAPIView):
         network = self.request.query_params.get('network', None)
 
         if network is not None:
-            queryset = queryset.filter(network__name=network.lower())
+            queryset = queryset.filter(
+                network__name=network.lower(), active=True)
 
         return queryset
 

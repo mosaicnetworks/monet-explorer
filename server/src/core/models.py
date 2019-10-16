@@ -31,6 +31,7 @@ class Validator(models.Model):
     port = models.IntegerField()
     public_key = models.CharField(max_length=132)
     moniker = models.CharField(max_length=30)
+    active = models.BooleanField(default=True)
 
     # Relational fields
     network = models.ForeignKey(Network, on_delete=models.CASCADE)

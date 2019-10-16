@@ -16,7 +16,8 @@ class NetworkAdmin(admin.ModelAdmin):
 class ValidatorAdmin(admin.ModelAdmin):
     """ Admin config for Validator model """
 
-    list_display = ('id', 'network', 'moniker', 'host', 'port', 'public_key')
+    list_display = ('id', 'network', 'moniker', 'host',
+                    'port', 'public_key', 'active')
 
 
 class InfoAdmin(admin.ModelAdmin):
