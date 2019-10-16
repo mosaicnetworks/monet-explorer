@@ -133,8 +133,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CRONJOBS = [
-    ('*/10 * * * *', 'core.cron.fetch_validators'),
-    ('*/10 * * * *', 'core.cron.fetch_blocks')
+    ('* * * * *', 'core.cron.fetch_validators'),
+    ('* * * * *', 'core.cron.fetch_blocks')
 ]
 
 
