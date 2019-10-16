@@ -8,7 +8,9 @@ import {
 
 import utils from 'evm-lite-utils';
 
-import { GAS, GASPRICE, monet } from './monet';
+import { GAS, GASPRICE, monet as monetfn } from './monet';
+import { useSelector } from 'react-redux';
+import { selectedNetwork } from './selectors';
 
 interface ISchema extends IAbstractSchema {
 	checkAuthorised(tx: ITransaction, address: string): Transaction;
@@ -42,6 +44,13 @@ export type NomineeEntry = {
 	upVotes: number;
 	downVotes: number;
 };
+
+const network = useSelector(selectedNetwork) || {
+	host: 'localhost',
+	port: 8080
+};
+
+const monet = monetfn(network.host, network.port);
 
 class POA {
 	private readonly contract: Contract<ISchema>;
