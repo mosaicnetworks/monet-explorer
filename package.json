@@ -61,8 +61,8 @@
 		"dev:react": "react-scripts start",
 		"cron:add": "python3 server/src/manage.py crontab add",
 		"cron:remove": "python3 server/src/manage.py crontab remove",
-		"cron:blocks": "python3 server/src/manage.py crontab run 788ce65b788f26ca6bccb4bf3fac2c39",
-		"cron:val": "python3 server/src/manage.py crontab run 044d31e5e577365ff6562d32f7a5af3b",
+		"cron:blocks": "python3 server/src/manage.py crontab run 18b8625a42271369b5943727dc420503",
+		"cron:val": "python3 server/src/manage.py crontab run 01ad633e807c45168ca98bb36990c513",
 		"populate": "yarn cron:val && yarn cron:blocks",
 		"dev": "concurrently --kill-others \"yarn dev:django\" \"yarn dev:react\""
 	},

@@ -49,7 +49,7 @@ export type Block = {
 
 class ExplorerAPIClient extends AbstractClient {
 	constructor() {
-		super('3.10.141.15', 8000);
+		super('dashboard.monet.network', 8000);
 	}
 
 	public async getNetworks(): Promise<Network[]> {
