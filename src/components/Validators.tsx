@@ -69,6 +69,7 @@ const Validators: React.FC<Props> = props => {
 	const rendervalidators = () => {
 		return validators.map(v => {
 			const info = infos.filter(i => i.validator.id === v.id)[0];
+
 			const pubKeyBuffer = Buffer.from(
 				v.public_key.slice(4, v.public_key.length),
 				'hex'
@@ -80,6 +81,7 @@ const Validators: React.FC<Props> = props => {
 
 			return (
 				<tr onClick={onBlockClickBind(v)} key={v.moniker}>
+					{}
 					<td>
 						<Avatar address={address} size={30} />
 					</td>

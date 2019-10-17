@@ -38,7 +38,7 @@ class ValidatorListAPIHandler(generics.ListAPIView):
             queryset = queryset.filter(history__consensus_round=cns_round)
 
         if not cns_round:
-            latest_history = ValidatorHistory.objects.order_by(
+            latest_history = ValidatorHistory.objects.filter(network__name=network.lower()).order_by(
                 '-consensus_round').first()
 
             if not latest_history:
