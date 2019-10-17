@@ -1,7 +1,7 @@
-import Client, { Block, Info, Network, Validator } from '../client';
-
 import { BaseAction, Result } from '.';
-import POA, { WhitelistEntry, NomineeEntry } from '../poa';
+
+import Client, { Block, Info, Network, Validator } from '../client';
+import POA, { NomineeEntry, WhitelistEntry } from '../poa';
 
 const FETCH_NETWORKS_INIT = '@monet/dashboard/network/FETCH/INIT';
 const FETCH_NETWORKS_SUCCESS = '@monet/dashboard/network/FETCH/SUCCESS';

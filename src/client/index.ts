@@ -73,6 +73,11 @@ export type Block = {
 	signatures: Signature[];
 };
 
+export type ValidatorHistory = {
+	id: number;
+	consensus_round: number;
+};
+
 class ExplorerAPIClient extends AbstractClient {
 	constructor() {
 		super('dashboard.monet.network', 8000);
@@ -82,9 +87,18 @@ class ExplorerAPIClient extends AbstractClient {
 		return JSON.parse(await this.get('/api/networks/')).results;
 	}
 
-	public async getValidators(network: string): Promise<Validator[]> {
-		return JSON.parse(await this.get(`/api/validators/?network=${network}`))
-			.results;
+	public async getValidators(
+		network: string,
+		round?: number
+	): Promise<Validator[]> {
+		let url = `/api/validators/?network=${network}`;
+
+		if (round || round === 0) {
+			url += `&round=${round}`;
+		}
+
+		console.log(url);
+		return JSON.parse(await this.get(url)).results;
 	}
 
 	public async getInfos(network: string): Promise<Info[]> {
@@ -117,6 +131,13 @@ class ExplorerAPIClient extends AbstractClient {
 		}
 
 		return JSON.parse(await this.get(url)).results;
+	}
+
+	public async getValidatorHistory(
+		network: string
+	): Promise<ValidatorHistory[]> {
+		return JSON.parse(await this.get(`/api/history/?network=${network}`))
+			.results;
 	}
 }
 

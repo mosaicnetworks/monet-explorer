@@ -98,3 +98,22 @@ class FaucetAPIHandler(generics.CreateAPIView):
     def post(self, request, *args, **kwargs):
         print("data", request.data)
         return Response(dict())
+
+
+class ValidatorHistoryAPIHandler(generics.ListAPIView):
+    """
+    Handles all faucet related api queries
+    """
+    queryset = ValidatorHistory.objects.all()
+    serializer_class = ValidatorHistorySerializer
+
+    def get_queryset(self):
+        """ Get query set to be listed by Response """
+
+        queryset = ValidatorHistory.objects.all()
+        network = self.request.query_params.get('network', None)
+
+        if network is not None:
+            queryset = queryset.filter(network__name=network.lower())
+
+        return queryset

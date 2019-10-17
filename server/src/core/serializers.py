@@ -17,11 +17,10 @@ class NetworkSerializer(ModelSerializer):
 
 class ValidatorHistorySerializer(ModelSerializer):
     """ Validator model serializer """
-    network = NetworkSerializer()
 
     class Meta:
         model = ValidatorHistory
-        fields = ['id', 'consensus_round', 'network']
+        fields = ['id', 'consensus_round']
 
 
 class ValidatorSerializer(ModelSerializer):
