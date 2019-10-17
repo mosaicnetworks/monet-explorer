@@ -27,13 +27,24 @@ class ValidatorListAPIHandler(generics.ListAPIView):
 
     def get_queryset(self):
         """ Get query set to be listed by Response """
-
         queryset = Validator.objects.all()
-        network = self.request.query_params.get('network', None)
 
+        network = self.request.query_params.get('network', None)
         if network is not None:
-            queryset = queryset.filter(
-                network__name=network.lower(), active=True)
+            queryset = queryset.filter(network__name=network.lower())
+
+        cns_round = self.request.query_params.get('round', None)
+        if cns_round is not None:
+            queryset = queryset.filter(history__consensus_round=cns_round)
+
+        if not cns_round:
+            latest_history = ValidatorHistory.objects.order_by(
+                '-consensus_round').first()
+
+            if not latest_history:
+                return Validator.objects.none()
+
+            queryset = Validator.objects.filter(history=latest_history)
 
         return queryset
 

@@ -17,7 +17,7 @@ class ValidatorAdmin(admin.ModelAdmin):
     """ Admin config for Validator model """
 
     list_display = ('id', 'network', 'moniker', 'host',
-                    'port', 'public_key', 'active')
+                    'port', 'public_key', 'history')
 
 
 class InfoAdmin(admin.ModelAdmin):
@@ -68,6 +68,12 @@ class FaucetTransactionAdmin(admin.ModelAdmin):
     list_display = ('id', 'created', 'address', 'amount')
 
 
+class ValidatorHistoryAdmin(admin.ModelAdmin):
+    """ Admin config for Faucet Transaction model """
+
+    list_display = ('id', 'consensus_round', 'network')
+
+
 def _register(model, admin_class):
     admin.site.register(model, admin_class)
 
@@ -79,6 +85,7 @@ _register(models.Info, InfoAdmin)
 _register(models.Block, BlockAdmin)
 _register(models.Transaction, BlockTransactionAdmin)
 _register(models.InternalTransaction, BlockInternalTransactionAdmin)
+_register(models.ValidatorHistory, ValidatorHistoryAdmin)
 _register(models.InternalTransactionReceipt,
           BlockInternalTransactionReceiptAdmin)
 _register(models.Signature,

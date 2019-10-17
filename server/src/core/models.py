@@ -19,11 +19,65 @@ class Network(models.Model):
         return self.name
 
 
+class Block(models.Model):
+    """ Info model """
+
+    class Meta:
+        unique_together = ['index', 'network']
+
+    index = models.IntegerField()
+    round_received = models.IntegerField()
+
+    state_hash = models.CharField(max_length=44)
+    peers_hash = models.CharField(max_length=44)
+    frame_hash = models.CharField(max_length=44)
+
+    # Relational fields
+    network = models.ForeignKey(Network, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.network.name} - {self.index}'
+
+    @property
+    def transactions(self):
+        """ Block Transactions """
+        return Transaction.objects.filter(block=self)
+
+    @property
+    def internal_transactions(self):
+        """ Block Internal Transactions """
+        return InternalTransaction.objects.filter(block=self)
+
+    @property
+    def internal_transaction_receipts(self):
+        """ Block Internal Transaction Receipts """
+        return InternalTransactionReceipt.objects.filter(block=self)
+
+    @property
+    def signature(self):
+        """ Block Signatures """
+        return Signature.objects.filter(block=self)
+
+
+class ValidatorHistory(models.Model):
+    """ Validator History """
+
+    class Meta:
+        unique_together = ['consensus_round', 'network']
+
+    consensus_round = models.IntegerField()
+
+    network = models.ForeignKey(Network, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.network.name} - {self.consensus_round}'
+
+
 class Validator(models.Model):
     """ Validator model """
 
     class Meta:
-        unique_together = ['public_key', 'network']
+        unique_together = ['public_key', 'history']
 
     updated = models.DateTimeField(auto_now=True)
 
@@ -31,13 +85,13 @@ class Validator(models.Model):
     port = models.IntegerField()
     public_key = models.CharField(max_length=132)
     moniker = models.CharField(max_length=30)
-    active = models.BooleanField(default=True)
 
     # Relational fields
     network = models.ForeignKey(Network, on_delete=models.CASCADE)
+    history = models.ForeignKey(ValidatorHistory, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.moniker
+        return f'{self.moniker} - {self.history.consensus_round}'
 
 
 class Info(models.Model):
@@ -72,42 +126,6 @@ class Info(models.Model):
 
     def __str__(self):
         return f'{self.validator.moniker} - {self.type}'
-
-
-class Block(models.Model):
-    """ Info model """
-
-    class Meta:
-        unique_together = ['index', 'network']
-
-    index = models.IntegerField()
-    round_received = models.IntegerField()
-
-    state_hash = models.CharField(max_length=44)
-    peers_hash = models.CharField(max_length=44)
-    frame_hash = models.CharField(max_length=44)
-
-    # Relational fields
-    network = models.ForeignKey(Network, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.network.name} - {self.index}'
-
-    @property
-    def transactions(self):
-        return Transaction.objects.filter(block=self)
-
-    @property
-    def internal_transactions(self):
-        return InternalTransaction.objects.filter(block=self)
-
-    @property
-    def internal_transaction_receipts(self):
-        return InternalTransactionReceipt.objects.filter(block=self)
-
-    @property
-    def signature(self):
-        return Signature.objects.filter(block=self)
 
 
 class Transaction(models.Model):

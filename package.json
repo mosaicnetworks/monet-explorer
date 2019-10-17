@@ -63,6 +63,7 @@
 		"dev:react": "react-scripts start",
 		"superuser": "python3 server/src/manage.py createsuperuser",
 		"cron": "yarn cron:val && yarn cron:blocks",
+		"cron:run": "python3 server/src/manage.py crontab run",
 		"cron:add": "python3 server/src/manage.py crontab add",
 		"cron:remove": "python3 server/src/manage.py crontab remove",
 		"cron:blocks": "python3 server/src/manage.py crontab run 788ce65b788f26ca6bccb4bf3fac2c39",

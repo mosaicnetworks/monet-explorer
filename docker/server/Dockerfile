@@ -16,7 +16,8 @@ WORKDIR /server
 ADD ./server /server/
 
 RUN pip install requests
-RUN apt-get update && apt-get -y install cron
 
 # Install any needed packages specified in requirements.txt
 RUN pip install -r requirements.txt
+
+RUN apt-get update && apt-get -y install cron

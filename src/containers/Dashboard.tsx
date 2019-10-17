@@ -21,6 +21,9 @@ const SIndex = styled.div`
 		margin-top: 30px;
 		color: rgba(31, 66, 146, 1) !important;
 	}
+
+	.float-right {
+	}
 `;
 
 const SContentPadded = styled.div`
@@ -71,7 +74,16 @@ const Index: React.FC<{}> = () => {
 				<Row>
 					<Col xs={12}>
 						<SContent>
-							<span>Current Validators</span>
+							<span>
+								<Row>
+									<Col xs={6}>Current Validators</Col>
+									<Col className="align-content-end" xs={6}>
+										<div className="float-right">
+											980913
+										</div>
+									</Col>
+								</Row>
+							</span>
 							<Validators />
 						</SContent>
 					</Col>

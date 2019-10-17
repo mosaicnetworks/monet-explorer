@@ -4,7 +4,7 @@ Core models serializers
 
 from rest_framework.serializers import ModelSerializer
 
-from .models import Network, Validator, Info, Block, Transaction, InternalTransaction, InternalTransactionReceipt, Signature
+from .models import Network, Validator, Info, Block, Transaction, InternalTransaction, InternalTransactionReceipt, Signature, ValidatorHistory
 
 
 class NetworkSerializer(ModelSerializer):
@@ -15,12 +15,23 @@ class NetworkSerializer(ModelSerializer):
         fields = ['id', 'name', 'host', 'port']
 
 
+class ValidatorHistorySerializer(ModelSerializer):
+    """ Validator model serializer """
+    network = NetworkSerializer()
+
+    class Meta:
+        model = ValidatorHistory
+        fields = ['id', 'consensus_round', 'network']
+
+
 class ValidatorSerializer(ModelSerializer):
     """ Validator model serializer """
 
+    history = ValidatorHistorySerializer()
+
     class Meta:
         model = Validator
-        fields = ['id', 'moniker', 'host', 'port', 'public_key']
+        fields = ['id', 'moniker', 'host', 'port', 'public_key', 'history']
 
 
 class InfoSerializer(ModelSerializer):
