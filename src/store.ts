@@ -13,7 +13,15 @@ export type Store = DashboardState;
 
 const persistConfig: PersistConfig<any> = {
 	key: 'root',
-	storage: dynamicStorage
+	storage: dynamicStorage,
+	whitelist: [
+		'networks',
+		'selectedNetwork',
+		'networkValidators',
+		'networkInfos',
+		'networkWhitelist',
+		'networkNominees'
+	]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

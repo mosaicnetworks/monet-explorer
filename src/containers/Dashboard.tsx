@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Col from 'react-bootstrap/Col';
@@ -80,7 +80,9 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 									<Col xs={6}>Current Validators</Col>
 									<Col className="align-content-end" xs={6}>
 										<div className="float-right">
-											<a href="/history">View History</a>
+											<Link to="/history">
+												View History
+											</Link>
 										</div>
 									</Col>
 								</Row>

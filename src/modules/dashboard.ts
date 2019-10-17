@@ -16,7 +16,8 @@ const FETCH_INFOS_SUCCESS = '@monet/dashboard/infos/FETCH/SUCCESS';
 const FETCH_INFOS_ERROR = '@monet/dashboard/infos/FETCH/ERROR';
 
 const FETCH_BLOCKS_INIT = '@monet/dashboard/blocks/FETCH/INIT';
-const FETCH_BLOCKS_NEXT = '@monet/dashboard/blocks/FETCH/NETXT';
+const FETCH_BLOCKS_OLDER = '@monet/dashboard/blocks/FETCH/OLDER';
+const FETCH_BLOCKS_NEWER = '@monet/dashboard/blocks/FETCH/NEWER';
 const FETCH_BLOCKS_SUCCESS = '@monet/dashboard/blocks/FETCH/SUCCESS';
 const FETCH_BLOCKS_ERROR = '@monet/dashboard/blocks/FETCH/ERROR';
 
@@ -199,10 +200,21 @@ export default (
 				}
 			};
 
-		case FETCH_BLOCKS_NEXT:
+		case FETCH_BLOCKS_OLDER:
 			return {
 				...state,
 				networkBlocks: [...state.networkBlocks, ...action.payload],
+				error: undefined,
+				loading: {
+					...state.loading,
+					blocks: false
+				}
+			};
+
+		case FETCH_BLOCKS_OLDER:
+			return {
+				...state,
+				networkBlocks: [...action.payload, ...state.networkBlocks],
 				error: undefined,
 				loading: {
 					...state.loading,
@@ -326,7 +338,7 @@ export function selectNetwork(networkid: number): Result<Promise<Network>> {
 			payload: network
 		});
 
-		dispatch(fetchAll());
+		await dispatch(fetchAll());
 
 		return network;
 	};
@@ -409,12 +421,33 @@ export function fetchNetworkBlocks(): Result<Promise<Block[]>> {
 		});
 
 		try {
-			const blocks = await c.getBlocks(state.selectedNetwork!.name);
+			const currentBlocks = state.networkBlocks.length;
+			const blocks = await c.getBlocks(
+				state.selectedNetwork!.name,
+				currentBlocks
+			);
 
-			dispatch({
-				type: FETCH_BLOCKS_SUCCESS,
-				payload: blocks
-			});
+			if (currentBlocks) {
+				if (
+					state.networkBlocks[0].network.name ===
+					state.selectedNetwork!.name
+				) {
+					dispatch({
+						type: FETCH_BLOCKS_NEWER,
+						payload: blocks
+					});
+				} else {
+					dispatch({
+						type: FETCH_BLOCKS_SUCCESS,
+						payload: blocks
+					});
+				}
+			} else {
+				dispatch({
+					type: FETCH_BLOCKS_SUCCESS,
+					payload: blocks
+				});
+			}
 
 			return blocks;
 		} catch (e) {
@@ -443,7 +476,7 @@ export function fetchNextBlocks(): Result<Promise<Block[]>> {
 			);
 
 			dispatch({
-				type: FETCH_BLOCKS_NEXT,
+				type: FETCH_BLOCKS_OLDER,
 				payload: blocks
 			});
 
