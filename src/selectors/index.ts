@@ -7,13 +7,13 @@ export const networkInfos = (store: Store) => store.networkInfos;
 export const networkBlocks = (store: Store) => store.networkBlocks;
 
 export const validatorInfo = (validatorid: number) => (store: Store) =>
-	store.networkInfos.filter(i => i.validator.id === validatorid)[0];
+	store.networkInfos.find(i => i.validator.id === validatorid);
 
 export const selectValidator = (validatorid: number) => (store: Store) =>
-	store.networkValidators.filter(i => i.id === validatorid)[0];
+	store.networkValidators.find(v => v.id === validatorid);
 
 export const selectBlock = (blockid: number) => (store: Store) =>
-	store.networkBlocks.filter(i => i.id === blockid)[0];
+	store.networkBlocks.find(i => i.id === blockid);
 
 export const selectWhitelist = (store: Store) => store.networkWhitelist;
 export const selectNominees = (store: Store) => store.networkNominees;
