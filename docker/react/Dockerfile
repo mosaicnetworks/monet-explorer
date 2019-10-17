@@ -1,6 +1,5 @@
 FROM node:10
 WORKDIR /app
-COPY . ./
 RUN ls -la .
 RUN yarn
 

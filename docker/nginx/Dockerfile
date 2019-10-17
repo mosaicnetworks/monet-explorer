@@ -1,4 +1,4 @@
-# Build app
+# # Build app
 # FROM node:10 as react-build
 # WORKDIR /app
 # COPY . ./
@@ -9,7 +9,7 @@
 # Host on nginx
 FROM nginx:1.15.2-alpine
 
-# COPY --from=react-build /app/build /var/www
+RUN mkdir -p /var/www/static_django
 
 EXPOSE 80
 
