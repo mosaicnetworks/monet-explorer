@@ -67,6 +67,7 @@ class InfoListAPIHandler(generics.ListAPIView):
             queryset = queryset.filter(
                 validator__network__name=network.lower())
 
+        print("NETWORK: ", network)
         return queryset
 
 

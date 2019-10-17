@@ -123,18 +123,20 @@ def fetch_history():
                     v_model.public_key = public_key
 
                     v_model.save()
+        fetch_infos(network)
 
 
-def fetch_infos():
+def fetch_infos(network):
     """ Fetches info for all active validators """
 
-    history = ValidatorHistory.objects.order_by('-consensus_round').first()
+    history = ValidatorHistory.objects.filter(
+        network=network).order_by('-consensus_round').first()
 
     if not history:
         print("infos - Could not find latest history")
         return
 
-    for validator in Validator.objects.filter(history=history):
+    for validator in Validator.objects.filter(history=history, network=network):
         print(
             f'infos - Validator {validator.moniker} @ {history.consensus_round}')
         try:
@@ -187,11 +189,8 @@ def fetch_infos():
 def fetch_all():
     """ Fetch all required data """
 
-    print("Fetching History..")
+    print("Fetching History & Info...")
     fetch_history()
-
-    print("Fetching Information..")
-    fetch_infos()
 
     print("Fetching Blocks..")
     fetch_blocks()
