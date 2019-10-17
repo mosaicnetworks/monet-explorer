@@ -78,9 +78,7 @@ const Index: React.FC<{}> = () => {
 								<Row>
 									<Col xs={6}>Current Validators</Col>
 									<Col className="align-content-end" xs={6}>
-										<div className="float-right">
-											980913
-										</div>
+										<div className="float-right"></div>
 									</Col>
 								</Row>
 							</span>
