@@ -326,9 +326,9 @@ export function selectNetwork(networkid: number): Result<Promise<Network>> {
 			payload: network
 		});
 
+		dispatch(fetchNetworkBlocks());
 		dispatch(fetchNetworkValidators());
 		dispatch(fetchValidatorInfos());
-		dispatch(fetchNetworkBlocks());
 		dispatch(fetchWhitelist());
 		dispatch(fetchNominees());
 

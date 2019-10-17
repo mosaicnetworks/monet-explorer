@@ -38,6 +38,27 @@ export type Info = {
 	validator: Validator;
 };
 
+export type Transaction = {
+	id: number;
+	data: string;
+};
+
+export type InternalTransaction = {
+	id: number;
+	data: string;
+};
+
+export type InternalTransactionReceipt = {
+	id: number;
+	data: string;
+};
+
+export type Signature = {
+	id: number;
+	signature: string;
+	validator: Validator;
+};
+
 export type Block = {
 	id: number;
 	index: number;
@@ -46,11 +67,15 @@ export type Block = {
 	peers_hash: string;
 	frame_hash: string;
 	network: Network;
+	transactions: Transaction[];
+	internal_transactions: InternalTransaction[];
+	internal_transaction_receipts: InternalTransactionReceipt[];
+	signatures: Signature[];
 };
 
 class ExplorerAPIClient extends AbstractClient {
 	constructor() {
-		super('dashboard.monet.network', 8000);
+		super('localhost', 8000);
 	}
 
 	public async getNetworks(): Promise<Network[]> {

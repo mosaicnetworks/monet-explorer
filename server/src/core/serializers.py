@@ -4,7 +4,7 @@ Core models serializers
 
 from rest_framework.serializers import ModelSerializer
 
-from .models import Network, Validator, Info, Block, InternalTransaction
+from .models import Network, Validator, Info, Block, Transaction, InternalTransaction, InternalTransactionReceipt, Signature
 
 
 class NetworkSerializer(ModelSerializer):
@@ -18,11 +18,9 @@ class NetworkSerializer(ModelSerializer):
 class ValidatorSerializer(ModelSerializer):
     """ Validator model serializer """
 
-    network = NetworkSerializer()
-
     class Meta:
         model = Validator
-        fields = ['id', 'moniker', 'host', 'port', 'public_key', 'network']
+        fields = ['id', 'moniker', 'host', 'port', 'public_key']
 
 
 class InfoSerializer(ModelSerializer):
@@ -45,50 +43,56 @@ class InfoSerializer(ModelSerializer):
 class BlockSerializer(ModelSerializer):
     """ Block model serializer """
 
-    network = NetworkSerializer()
-
     class Meta:
         model = Block
         fields = ['id', 'index', 'round_received',
-                  'state_hash', 'peers_hash', 'frame_hash', 'network']
+                  'state_hash', 'peers_hash', 'frame_hash']
+
+    def to_representation(self, instance):
+        return {
+            'id': instance.id,
+            'index': instance.index,
+            'round_received': instance.round_received,
+            'state_hash': instance.state_hash,
+            'peers_hash': instance.peers_hash,
+            'frame_hash': instance.frame_hash,
+            'network': NetworkSerializer(instance.network).data,
+            'transactions': TransactionSerializer(instance.transactions, many=True).data,
+            'internal_transactions': InternalTransactionSerializer(instance.internal_transactions, many=True).data,
+            'internal_transaction_receipts': InternalTransactionReceiptSerializer(instance.internal_transaction_receipts, many=True).data,
+            'signatures': SignatureSerializer(instance.signature, many=True).data,
+        }
 
 
 class TransactionSerializer(ModelSerializer):
     """ Transaction model serializer """
 
-    block = BlockSerializer()
-
     class Meta:
-        model = Block
-        fields = ['id', 'data', 'block']
+        model = Transaction
+        fields = ['data']
 
 
 class InternalTransactionSerializer(ModelSerializer):
     """ Internal Transaction model serializer """
 
-    block = BlockSerializer()
-
     class Meta:
         model = InternalTransaction
-        fields = ['id', 'data', 'block']
+        fields = ['data']
 
 
 class InternalTransactionReceiptSerializer(ModelSerializer):
     """ Internal Transaction Receipt model serializer """
 
-    block = BlockSerializer()
-
     class Meta:
-        model = InternalTransaction
-        fields = ['id', 'data', 'block']
+        model = InternalTransactionReceipt
+        fields = ['data']
 
 
 class SignatureSerializer(ModelSerializer):
     """ Siganture model serializer """
 
-    block = BlockSerializer()
     validator = ValidatorSerializer()
 
     class Meta:
-        model = InternalTransaction
-        fields = ['id', 'signature', 'validator', 'block']
+        model = Signature
+        fields = ['signature', 'validator']

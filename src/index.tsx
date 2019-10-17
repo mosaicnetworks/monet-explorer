@@ -16,8 +16,8 @@ import './index.css';
 const s = stores();
 
 const resetPersistor = () => {
-	s.persistor.flush();
-	s.persistor.purge();
+	// s.persistor.flush();
+	// s.persistor.purge();
 };
 
 const app = (

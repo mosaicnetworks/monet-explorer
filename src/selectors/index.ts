@@ -12,6 +12,9 @@ export const validatorInfo = (validatorid: number) => (store: Store) =>
 export const selectValidator = (validatorid: number) => (store: Store) =>
 	store.networkValidators.filter(i => i.id === validatorid)[0];
 
+export const selectBlock = (blockid: number) => (store: Store) =>
+	store.networkBlocks.filter(i => i.id === blockid)[0];
+
 export const selectWhitelist = (store: Store) => store.networkWhitelist;
 export const selectNominees = (store: Store) => store.networkNominees;
 

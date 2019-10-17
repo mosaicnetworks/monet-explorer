@@ -65,7 +65,7 @@ class BlockSignatureAdmin(admin.ModelAdmin):
 class FaucetTransactionAdmin(admin.ModelAdmin):
     """ Admin config for Faucet Transaction model """
 
-    list_display = ('id', 'created', 'address', 'amount', 'reason')
+    list_display = ('id', 'created', 'address', 'amount')
 
 
 def _register(model, admin_class):

@@ -93,6 +93,22 @@ class Block(models.Model):
     def __str__(self):
         return f'{self.network.name} - {self.index}'
 
+    @property
+    def transactions(self):
+        return Transaction.objects.filter(block=self)
+
+    @property
+    def internal_transactions(self):
+        return InternalTransaction.objects.filter(block=self)
+
+    @property
+    def internal_transaction_receipts(self):
+        return InternalTransactionReceipt.objects.filter(block=self)
+
+    @property
+    def signature(self):
+        return Signature.objects.filter(block=self)
+
 
 class Transaction(models.Model):
     """ Transaction model """
@@ -146,7 +162,6 @@ class FaucetTransaction(models.Model):
 
     address = models.CharField(max_length=42)
     amount = models.IntegerField(help_text="Amount in Tenom")
-    reason = models.TextField(default="N/A")
 
     def __str__(self):
         return f'{self.address} - {self.amount}'

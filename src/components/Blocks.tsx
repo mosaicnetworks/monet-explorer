@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchNextBlocks } from '../modules/dashboard';
 import { networkBlocks } from '../selectors';
+import { Block } from '../client';
 
 const STable = styled(Table)`
 	td {
@@ -69,6 +70,11 @@ const Blocks: React.FC<Props> = props => {
 		}
 	}, [loadMore]);
 
+	// Selec block
+	const onBlockClickBind = (b: Block) => (e: any) => {
+		window.location.href = '/block/' + b.id;
+	};
+
 	return (
 		<>
 			<STable
@@ -91,12 +97,12 @@ const Blocks: React.FC<Props> = props => {
 					</tr>
 				</thead>
 				<tbody>
-					{blocks.map(b => {
+					{blocks.map((b, i) => {
 						return (
-							<tr key={b.index + 'x'}>
+							<tr key={i} onClick={onBlockClickBind(b)}>
 								<td>{b.index}</td>
-								<td>0</td>
-								<td>0</td>
+								<td>{b.transactions.length}</td>
+								<td>{b.signatures.length}</td>
 								<td className="d-none d-lg-table-cell">
 									{b.state_hash}
 								</td>

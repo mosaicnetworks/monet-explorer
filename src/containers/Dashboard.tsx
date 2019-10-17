@@ -43,7 +43,7 @@ const Index: React.FC<{}> = () => {
 				<Row>
 					<Col xs={6} md={3}>
 						<SContentPadded>
-							<h1>{blocks.length && blocks[0].index}</h1>
+							<h1>{blocks.length ? blocks[0].index : '-'}</h1>
 							<div>Block Height</div>
 						</SContentPadded>
 					</Col>

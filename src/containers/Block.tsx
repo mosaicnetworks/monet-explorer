@@ -9,7 +9,7 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
-import { selectValidator, validatorInfo } from '../selectors';
+import { selectBlock } from '../selectors';
 
 type ReactRouterProps = {
 	id: string;
@@ -41,24 +41,17 @@ const SContent = styled.div`
 `;
 
 const Validator: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
-	const validator = useSelector(
-		selectValidator(Number(props.match.params.id))
-	);
-
-	const info = useSelector(validatorInfo(Number(props.match.params.id)));
+	const block = useSelector(selectBlock(Number(props.match.params.id)));
 
 	return (
 		<Container fluid={false}>
 			<Row noGutters={true}>
 				<Col>
 					<SContent>
-						<span>
-							{validator && validator.moniker} -{' '}
-							{validator && <code>{validator.host}</code>}
-						</span>
+						<span>Block {(block && block.index) || 0}</span>
 						<div>
 							<code>
-								<pre>{JSON.stringify(info, null, 4)}</pre>
+								<pre>{JSON.stringify(block, null, 4)}</pre>
 							</code>
 						</div>
 					</SContent>
