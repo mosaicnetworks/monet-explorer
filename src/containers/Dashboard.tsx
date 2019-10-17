@@ -2,6 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
+import { RouteComponentProps } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Col from 'react-bootstrap/Col';
@@ -13,8 +14,8 @@ import Validators from '../components/Validators';
 import Whitelist from '../components/Whitelist';
 
 import { SContent } from '../components/styles';
-
 import { networkBlocks, networkValidators } from '../selectors';
+import Blocks from '../components/Blocks';
 
 const SIndex = styled.div`
 	h4 {
@@ -36,7 +37,7 @@ const SContentPadded = styled.div`
 	border: 1px solid #e5e5e5e5 !important;
 `;
 
-const Index: React.FC<{}> = () => {
+const Index: React.FC<RouteComponentProps<{}>> = props => {
 	const validators = useSelector(networkValidators);
 	const blocks = useSelector(networkBlocks);
 
@@ -84,7 +85,12 @@ const Index: React.FC<{}> = () => {
 									</Col>
 								</Row>
 							</span>
-							<Validators />
+							<Validators
+								onClickHandler={v => () => {
+									console.log(v);
+									props.history.push(`/validator/${v.id}`);
+								}}
+							/>
 						</SContent>
 					</Col>
 				</Row>

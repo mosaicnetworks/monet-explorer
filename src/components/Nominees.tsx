@@ -52,7 +52,7 @@ const Nominees: React.FC<{}> = () => {
 			>
 				<thead>
 					<tr>
-						<th>Avatar</th>
+						<th>Profile</th>
 						<th>Moniker</th>
 						<th>Address</th>
 						<th>Up Votes</th>

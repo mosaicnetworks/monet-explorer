@@ -38,7 +38,7 @@ const Whitelist: React.FC<{}> = () => {
 			>
 				<thead>
 					<tr>
-						<th>Avatar</th>
+						<th>Profile</th>
 						<th>Moniker</th>
 						<th>Address</th>
 					</tr>

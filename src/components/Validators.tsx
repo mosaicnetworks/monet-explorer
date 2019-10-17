@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table';
@@ -55,16 +56,13 @@ const STable = styled(Table)`
 	}
 `;
 
-type Props = {};
+type Props = {
+	onClickHandler: (v: Validator) => () => void;
+};
 
 const Validators: React.FC<Props> = props => {
 	const validators = useSelector(networkValidators);
 	const infos = useSelector(networkInfos);
-
-	// Selec validator
-	const onBlockClickBind = (validator: Validator) => (e: any) => {
-		window.location.href = '/validator/' + validator.id;
-	};
 
 	const rendervalidators = () => {
 		return validators.map(v => {
@@ -80,8 +78,7 @@ const Validators: React.FC<Props> = props => {
 				.toString('hex');
 
 			return (
-				<tr onClick={onBlockClickBind(v)} key={v.moniker}>
-					{}
+				<tr onClick={props.onClickHandler(v)} key={v.moniker}>
 					<td>
 						<Avatar address={address} size={30} />
 					</td>
@@ -111,7 +108,7 @@ const Validators: React.FC<Props> = props => {
 			>
 				<thead>
 					<tr>
-						<th>Avatar</th>
+						<th>Profile</th>
 						<th>Moniker</th>
 						<th>Address</th>
 						<th>State</th>

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
+import { RouteComponentProps } from 'react-router-dom';
+
 import Badge from 'react-bootstrap/Badge';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -19,14 +21,19 @@ const SBadge = styled(Badge)`
 	margin-left: 10px;
 `;
 
-const Blocks: React.FC<{}> = () => {
+const Blocks: React.FC<RouteComponentProps<{}>> = props => {
 	return (
 		<Container fluid={false}>
 			<Row noGutters={true}>
 				<Col>
 					<SContent>
 						<span>Blocks</span>
-						<BlocksTable />
+						<BlocksTable
+							onClickHandler={v => () => {
+								console.log(v);
+								props.history.push(`/block/${v.id}`);
+							}}
+						/>
 					</SContent>
 				</Col>
 			</Row>

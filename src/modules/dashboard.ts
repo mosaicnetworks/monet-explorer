@@ -298,7 +298,7 @@ export function fetchNetworks(): Result<Promise<Network[]>> {
 
 			dispatch({
 				type: FETCH_NETWORKS_SUCCESS,
-				payload: networks
+				payload: networks.reverse()
 			});
 
 			return networks;

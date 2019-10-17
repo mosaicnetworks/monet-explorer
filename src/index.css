@@ -47,6 +47,8 @@ body {
 	/* text-transform: uppercase; */
 	font-size: 13px;
 	border: none !important;
+	padding-top: 7px !important;
+	padding-bottom: 7px !important;
 }
 
 .modal-content {
@@ -117,4 +119,19 @@ label {
 
 a {
 	color: #f26630 !important;
+}
+
+.dropdown-menu {
+	border: 1px solid #eee !important;
+	border-radius: 5px !important;
+}
+
+.dropdown-item {
+	color: black !important;
+	font-size: 15px;
+	text-transform: capitalize !important;
+}
+
+.dropdown-item:active {
+	background: #f1f1f1;
 }

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
-
 import Table from 'react-bootstrap/Table';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,7 +32,9 @@ const STable = styled(Table)`
 	}
 `;
 
-type Props = {};
+type Props = {
+	onClickHandler: (b: Block) => () => void;
+};
 
 const Blocks: React.FC<Props> = props => {
 	const dispatch = useDispatch();
@@ -70,11 +71,6 @@ const Blocks: React.FC<Props> = props => {
 		}
 	}, [loadMore]);
 
-	// Selec block
-	const onBlockClickBind = (b: Block) => (e: any) => {
-		window.location.href = '/block/' + b.id;
-	};
-
 	return (
 		<>
 			<STable
@@ -99,7 +95,7 @@ const Blocks: React.FC<Props> = props => {
 				<tbody>
 					{blocks.map((b, i) => {
 						return (
-							<tr key={i} onClick={onBlockClickBind(b)}>
+							<tr onClick={props.onClickHandler(b)} key={i}>
 								<td>{b.index}</td>
 								<td>{b.transactions.length}</td>
 								<td>{b.signatures.length}</td>

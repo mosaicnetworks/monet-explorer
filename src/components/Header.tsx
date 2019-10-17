@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import styled, { ThemeProvider } from 'styled-components';
 
+import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
-import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
-import { Store } from '../store';
-
-import { Network } from '../client';
-import { fetchNetworks, selectNetwork, fetchAll } from '../modules/dashboard';
+import { fetchAll, selectNetwork } from '../modules/dashboard';
 import { networksSelector, selectedNetwork } from '../selectors';
 
 import Logo from '../assets/monet.svg';
@@ -25,6 +24,10 @@ const SNavbar = styled(Navbar)`
 	${props =>
 		props.theme.enable &&
 		`box-shadow: 0 1px 50px rgba(151, 164, 175, 2) !important;`}
+
+	#dropdownn {
+		color: #ddd !important;
+	}
 `;
 
 const SNetwork = styled.div`
@@ -35,11 +38,14 @@ const SNetwork = styled.div`
 `;
 
 const SNav = styled(Nav)`
-	a {
+	.nav-link a {
+		color: #ddd !important;
+	}
+	.nav-link {
 		color: #ddd !important;
 	}
 
-	a:hover {
+	.nav-link a:hover {
 		color: white !important;
 		text-decoration: none;
 	}
@@ -87,6 +93,9 @@ const Header: React.FC<{}> = () => {
 
 	const fetchAllData = () => dispatch(fetchAll());
 
+	const onClickNetworkBind = (id: number) => () =>
+		dispatch(selectNetwork(id));
+
 	useEffect(() => {
 		setInterval(() => {
 			fetchAllData();
@@ -102,19 +111,13 @@ const Header: React.FC<{}> = () => {
 				setStickyHeader(false);
 			}
 		});
+
+		return clearInterval();
 	}, []);
 
 	useEffect(() => {
 		if (networks.length) {
-			const camille = networks.filter(
-				n => n.name.toLowerCase() === 'camille-3'
-			);
-
-			if (camille.length) {
-				dispatch(selectNetwork(camille[0].id));
-			} else {
-				dispatch(selectNetwork(networks[0].id));
-			}
+			dispatch(selectNetwork(networks[0].id));
 		}
 	}, [networks]);
 
@@ -132,12 +135,14 @@ const Header: React.FC<{}> = () => {
 				sticky={stickyHeader ? 'top' : undefined}
 			>
 				<Container>
-					<Navbar.Brand href="/">
-						<Image
-							width={140}
-							src={Logo}
-							className="d-inline-block align-middle"
-						/>
+					<Navbar.Brand as="span">
+						<Link to={'/'}>
+							<Image
+								width={140}
+								src={Logo}
+								className="d-inline-block align-middle"
+							/>
+						</Link>
 					</Navbar.Brand>
 					<SNetwork>
 						<b>{selected && selected.name}</b>
@@ -158,15 +163,26 @@ const Header: React.FC<{}> = () => {
 								<Nav.Link href="/faucet">Get Tokens!</Nav.Link>
 							</Nav.Item> */}
 							<Nav.Item>
-								<Nav.Link href="/" eventKey="link-2">
-									Dashboard
+								<Nav.Link as="span" eventKey="link-2">
+									<Link to={'/'}>Dashboard</Link>
 								</Nav.Link>
 							</Nav.Item>
 							<Nav.Item>
-								<Nav.Link href="/blocks">
-									Block Explorer
+								<Nav.Link as="span">
+									<Link to={'/blocks'}>Block Explorer</Link>
 								</Nav.Link>
 							</Nav.Item>
+							<NavDropdown title="Networks" id="dropdownn">
+								{networks.map(n => (
+									<NavDropdown.Item
+										onClick={onClickNetworkBind(n.id)}
+										key={n.id}
+										href="#"
+									>
+										{n.name}
+									</NavDropdown.Item>
+								))}
+							</NavDropdown>
 						</SNav>
 						<SSearch className="justify-content-end">
 							<Form.Control
