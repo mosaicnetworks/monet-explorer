@@ -326,13 +326,19 @@ export function selectNetwork(networkid: number): Result<Promise<Network>> {
 			payload: network
 		});
 
+		dispatch(fetchAll());
+
+		return network;
+	};
+}
+
+export function fetchAll(): Result<Promise<void>> {
+	return async dispatch => {
 		dispatch(fetchNetworkBlocks());
 		dispatch(fetchNetworkValidators());
 		dispatch(fetchValidatorInfos());
 		dispatch(fetchWhitelist());
 		dispatch(fetchNominees());
-
-		return network;
 	};
 }
 

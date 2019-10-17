@@ -14,7 +14,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { Store } from '../store';
 
 import { Network } from '../client';
-import { fetchNetworks, selectNetwork } from '../modules/dashboard';
+import { fetchNetworks, selectNetwork, fetchAll } from '../modules/dashboard';
 import { networksSelector, selectedNetwork } from '../selectors';
 
 import Logo from '../assets/monet.svg';
@@ -85,7 +85,14 @@ const Header: React.FC<{}> = () => {
 	const networks = useSelector(networksSelector);
 	const selected = useSelector(selectedNetwork);
 
+	const fetchAllData = () => dispatch(fetchAll());
+
 	useEffect(() => {
+		setInterval(() => {
+			fetchAllData();
+			console.log('(5s) Fetching data...');
+		}, 5000);
+
 		window.addEventListener('scroll', () => {
 			if (window.scrollY > scrollToggleHeight) {
 				setStickyHeader(true);
