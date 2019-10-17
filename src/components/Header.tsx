@@ -99,8 +99,15 @@ const Header: React.FC<{}> = () => {
 
 	useEffect(() => {
 		if (networks.length) {
-			const camille = networks[0];
-			dispatch(selectNetwork(camille.id));
+			const camille = networks.filter(
+				n => n.name.toLowerCase() === 'camille-3'
+			);
+
+			if (camille.length) {
+				dispatch(selectNetwork(camille[0].id));
+			} else {
+				dispatch(selectNetwork(networks[0].id));
+			}
 		}
 	}, [networks]);
 
