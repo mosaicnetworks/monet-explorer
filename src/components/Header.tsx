@@ -172,7 +172,7 @@ const Header: React.FC<{}> = () => {
 									<Link to={'/blocks'}>Block Explorer</Link>
 								</Nav.Link>
 							</Nav.Item>
-							<NavDropdown title="Networks" id="dropdownn">
+							{/* <NavDropdown title="Networks" id="dropdownn">
 								{networks.map(n => (
 									<NavDropdown.Item
 										onClick={onClickNetworkBind(n.id)}
@@ -182,7 +182,7 @@ const Header: React.FC<{}> = () => {
 										{n.name}
 									</NavDropdown.Item>
 								))}
-							</NavDropdown>
+							</NavDropdown> */}
 						</SNav>
 						<SSearch className="justify-content-end">
 							<Form.Control
