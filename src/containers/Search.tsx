@@ -15,22 +15,9 @@ import monet from '../monet';
 
 import POA from '../poa';
 import { selectedNetwork } from '../selectors';
+import { SContent } from '../components/styles';
 
-const SSearch = styled.div`
-	margin-top: 30px;
-
-	span {
-		color: rgba(0, 0, 0, 0.6);
-	}
-`;
-
-const SSuggestion = styled.div`
-	margin: 10px;
-	padding: 20px;
-	background: #fff;
-	width: 100%;
-	border: 1px solid #eee;
-`;
+const SSearch = styled(Container)``;
 
 type ReactRouterProps = {
 	data: string;
@@ -66,44 +53,30 @@ const Search: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 
 	return (
 		<SSearch>
-			<Container fluid={false}>
-				<h1>
-					Search: <span>{props.match.params.data}</span>
-				</h1>
-			</Container>
-			{error && <SSuggestion>{error}</SSuggestion>}
-			{Object.keys(account).length > 0 && (
-				<SSuggestion>
-					<Container fluid={false}>
+			<SContent>
+				<span>Search: {props.match.params.data}</span>
+				{Object.keys(account).length > 0 && (
+					<p>
 						<Row>
 							<Col>
-								<h3>Balance: </h3>
-								<h4>
-									<span>{account.balance.format('T')}</span>
-								</h4>
+								<b>Balance:</b> {account.balance.format('T')}
 							</Col>
 						</Row>
 						<br />
 						<Row>
 							<Col>
-								<h3>Nonce: </h3>
-								<h4>
-									<span>{account.nonce}</span>
-								</h4>
+								<b>Nonce:</b> {account.nonce}
 							</Col>
 						</Row>
 						<br />
 						<Row>
 							<Col>
-								<h3>Bytecode: </h3>
-								<pre>
-									<code>{account.bytecode}</code>
-								</pre>
+								<b>Bytecode:</b> {account.bytecode || 'n/a'}
 							</Col>
 						</Row>
-					</Container>
-				</SSuggestion>
-			)}
+					</p>
+				)}
+			</SContent>
 		</SSearch>
 	);
 };
