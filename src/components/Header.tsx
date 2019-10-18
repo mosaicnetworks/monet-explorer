@@ -28,6 +28,10 @@ const SNavbar = styled(Navbar)`
 	#dropdownn {
 		color: #ddd !important;
 	}
+
+	.c {
+		color: white !important;
+	}
 `;
 
 const SNetwork = styled.div`
@@ -52,7 +56,8 @@ const SNav = styled(Nav)`
 `;
 
 const SSearch = styled.div`
-	margin-left: 20px;
+	margin-right: 20px;
+	margin-left: 10px;
 
 	@media (max-width: 575px) {
 		margin-left: 0;
@@ -87,6 +92,7 @@ const Header: React.FC<{}> = () => {
 	const [stickyHeader, setStickyHeader] = useState(false);
 
 	const [search, setSearch] = useState('');
+	const [counter, setCounter] = useState(5);
 
 	const networks = useSelector(networksSelector);
 	const selected = useSelector(selectedNetwork);
@@ -96,11 +102,24 @@ const Header: React.FC<{}> = () => {
 	const onClickNetworkBind = (id: number) => () =>
 		dispatch(selectNetwork(id));
 
+	let interval: any;
+	let counterInterval: any;
+
 	useEffect(() => {
-		setInterval(() => {
+		interval = setInterval(() => {
 			fetchAllData();
 			console.log('(5s) Fetching data...');
 		}, 5000);
+
+		counterInterval = setInterval(() => {
+			setCounter(c => {
+				if (c <= 0) {
+					return 5;
+				} else {
+					return c - 1;
+				}
+			});
+		}, 1000);
 
 		window.addEventListener('scroll', () => {
 			if (window.scrollY > scrollToggleHeight) {
@@ -112,7 +131,10 @@ const Header: React.FC<{}> = () => {
 			}
 		});
 
-		return clearInterval();
+		return () => {
+			clearInterval(interval);
+			clearInterval(counterInterval);
+		};
 	}, []);
 
 	useEffect(() => {
@@ -199,6 +221,9 @@ const Header: React.FC<{}> = () => {
 								className="mr-sm-2"
 							/>
 						</SSearch>
+						<span className="c" id="5">
+							{counter}
+						</span>
 					</Navbar.Collapse>
 				</Container>
 			</SNavbar>
