@@ -67,7 +67,14 @@ class InfoListAPIHandler(generics.ListAPIView):
             queryset = queryset.filter(
                 validator__network__name=network.lower())
 
-        print("NETWORK: ", network)
+        latest_history = ValidatorHistory.objects.filter(network__name=network.lower()).order_by(
+            '-consensus_round').first()
+
+        if not latest_history:
+            return Info.objects.none()
+
+        queryset = Info.objects.filter(validator__history=latest_history)
+
         return queryset
 
 

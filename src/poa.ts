@@ -44,6 +44,13 @@ export type NomineeEntry = {
 	downVotes: number;
 };
 
+export type EvicteeEntry = {
+	address: string;
+	moniker: string;
+	upVotes: number;
+	downVotes: number;
+};
+
 class POA {
 	public readonly monet: Monet;
 	public contract?: Contract<ISchema>;
@@ -151,6 +158,65 @@ class POA {
 			entry.moniker = utils.hexToString(hex);
 
 			const votesTx = this.contract!.methods.getCurrentNomineeVotes(
+				{
+					gas: GAS,
+					gasPrice: GASPRICE
+				},
+				utils.cleanAddress(entry.address)
+			);
+
+			const votes = await this.monet.callTx<[string, string]>(votesTx);
+
+			entry.upVotes = parseInt(votes[0], 10);
+			entry.downVotes = parseInt(votes[1], 10);
+
+			entries.push(entry);
+		}
+
+		return entries;
+	}
+
+	public async evictees(): Promise<EvicteeEntry[]> {
+		const transaction = this.contract!.methods.getEvictionCount({
+			gas: GAS,
+			gasPrice: GASPRICE
+		});
+
+		const countRes: any = await this.monet!.callTx(transaction);
+		const count = countRes.toNumber();
+
+		const entries: EvicteeEntry[] = [];
+
+		for (const i of Array.from(Array(count).keys())) {
+			const entry: EvicteeEntry = {
+				address: '',
+				moniker: '',
+				upVotes: 0,
+				downVotes: 0
+			};
+
+			const addressTx = this.contract!.methods.getEvictionAddressFromIdx(
+				{
+					gas: GAS,
+					gasPrice: GASPRICE
+				},
+				i
+			);
+
+			entry.address = await this.monet.callTx(addressTx);
+
+			const monikerTx = this.contract!.methods.getMoniker(
+				{
+					gas: GAS,
+					gasPrice: GASPRICE
+				},
+				entry.address
+			);
+
+			const hex = await this.monet.callTx<string>(monikerTx);
+			entry.moniker = utils.hexToString(hex);
+
+			const votesTx = this.contract!.methods.getCurrentEvictionVotes(
 				{
 					gas: GAS,
 					gasPrice: GASPRICE

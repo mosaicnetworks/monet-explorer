@@ -29,6 +29,10 @@ const FETCH_NOMINEES_INIT = '@monet/dashboard/nominees/FETCH/INIT';
 const FETCH_NOMINEES_SUCCESS = '@monet/dashboard/nominees/FETCH/SUCCESS';
 const FETCH_NOMINEES_ERROR = '@monet/dashboard/nominees/FETCH/ERROR';
 
+const FETCH_EVICTEES_INIT = '@monet/dashboard/nominees/FETCH/INIT';
+const FETCH_EVICTEES_SUCCESS = '@monet/dashboard/nominees/FETCH/SUCCESS';
+const FETCH_EVICTEES_ERROR = '@monet/dashboard/nominees/FETCH/ERROR';
+
 const SELECT_NETWORK = '@monet/dashboard/network/SELECT';
 
 export type DashboardState = {
@@ -40,6 +44,7 @@ export type DashboardState = {
 	networkBlocks: Block[];
 
 	networkWhitelist: WhitelistEntry[];
+	// networkEvictees: WhitelistEntry[];
 	networkNominees: NomineeEntry[];
 
 	error?: string;
