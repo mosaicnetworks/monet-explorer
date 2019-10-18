@@ -14,7 +14,7 @@ import Validators from '../components/Validators';
 import Whitelist from '../components/Whitelist';
 
 import { SContent } from '../components/styles';
-import { networkBlocks, networkValidators } from '../selectors';
+import { networkBlocks, networkValidators, selectNominees } from '../selectors';
 import Blocks from '../components/Blocks';
 
 const SIndex = styled.div`
@@ -39,7 +39,10 @@ const SContentPadded = styled.div`
 
 const Index: React.FC<RouteComponentProps<{}>> = props => {
 	const validators = useSelector(networkValidators);
+	const nominees = useSelector(selectNominees);
 	const blocks = useSelector(networkBlocks);
+
+	const transactions = blocks.map(item => item.transactions.length);
 
 	return (
 		<SIndex>
@@ -53,7 +56,7 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 					</Col>
 					<Col xs={6} md={3}>
 						<SContentPadded>
-							<h1>-</h1>
+							<h1>{'-'}</h1>
 							<div>Total Transactions</div>
 						</SContentPadded>
 					</Col>
@@ -65,7 +68,7 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 					</Col>
 					<Col xs={6} md={3}>
 						<SContentPadded>
-							<h1>-</h1>
+							<h1>{nominees.length}</h1>
 							<div>Current Nominees</div>
 						</SContentPadded>
 					</Col>
