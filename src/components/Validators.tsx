@@ -91,6 +91,7 @@ const Validators: React.FC<Props> = props => {
 					<td>{info && info.last_block_index}</td>
 					<td>{info && info.last_consensus_round}</td>
 					<td>{info && info.consensus_events}</td>
+					<td>{info && info.undetermined_events}</td>
 					<td>{info && info.min_gas_price}</td>
 				</tr>
 			);
@@ -112,9 +113,10 @@ const Validators: React.FC<Props> = props => {
 						<th>Moniker</th>
 						<th>Address</th>
 						<th>State</th>
-						<th>Lastest Block</th>
+						<th>Latest Block</th>
 						<th>Last Round</th>
 						<th>Events</th>
+						<th>Undetermined Events</th>
 						<th>Min Gas Price</th>
 					</tr>
 				</thead>
