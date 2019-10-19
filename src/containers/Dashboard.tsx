@@ -57,7 +57,7 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 	return (
 		<SIndex>
 			<Container>
-				<SAlert
+				{/* <SAlert
 					show={show}
 					variant="info"
 					dismissible={true}
@@ -95,7 +95,7 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 							/>
 						</Col>
 					</Row>
-				</SAlert>
+				</SAlert> */}
 			</Container>
 			<Container fluid={false}>
 				<Row>
