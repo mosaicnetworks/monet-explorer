@@ -72,8 +72,8 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 								If you are interested in participating in our
 								testnet by deploying smart contracts,
 								interacting with contracts or just curious to
-								try out our network - use the form to left to
-								receive some tokens to your address.
+								try out our network - use the form to the left
+								to receive some coins to your address.
 							</p>
 							<hr />
 							<p className="mb-0">
