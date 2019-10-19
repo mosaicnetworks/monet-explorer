@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-import styled from 'styled-components';
 import Table from 'react-bootstrap/Table';
+import styled from 'styled-components';
 
 import { useDispatch, useSelector } from 'react-redux';
 
+import { Block } from '../client';
 import { fetchNextBlocks } from '../modules/dashboard';
 import { networkBlocks } from '../selectors';
-import { Block } from '../client';
 
 const STable = styled(Table)`
 	td {

@@ -31,19 +31,6 @@ const STable = styled(Table)`
 const Nominees: React.FC<{}> = () => {
 	const nominees = useSelector(selectNominees);
 
-	// Polling
-	// let poller: any;
-
-	// useEffect(() => {
-	// 	poller = setInterval(() => {
-	// 		fetchNominees().then(() =>
-	// 			console.log('(60s) Fetching Nominees...')
-	// 		);
-	// 	}, 60000);
-
-	// 	return () => clearInterval(poller);
-	// });
-
 	return (
 		<>
 			<STable

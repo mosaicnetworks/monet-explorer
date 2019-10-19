@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import utils from 'evm-lite-utils';
 import styled from 'styled-components';
 
-import { useSelector } from 'react-redux';
 import { IEVMAccount } from 'evm-lite-core';
+import { useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
 import Col from 'react-bootstrap/Col';
@@ -13,9 +13,8 @@ import Row from 'react-bootstrap/Row';
 
 import monet from '../monet';
 
-import POA from '../poa';
-import { selectedNetwork } from '../selectors';
 import { SContent } from '../components/styles';
+import { selectedNetwork } from '../selectors';
 
 const SSearch = styled(Container)``;
 

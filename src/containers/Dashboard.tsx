@@ -2,8 +2,8 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { RouteComponentProps, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Link, RouteComponentProps } from 'react-router-dom';
 
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -15,7 +15,6 @@ import Whitelist from '../components/Whitelist';
 
 import { SContent } from '../components/styles';
 import { networkBlocks, networkValidators, selectNominees } from '../selectors';
-import Blocks from '../components/Blocks';
 
 const SIndex = styled.div`
 	h4 {

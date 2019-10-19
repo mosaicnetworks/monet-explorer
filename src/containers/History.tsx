@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
-import { IBabblePeer } from 'evm-lite-consensus';
 import { useSelector } from 'react-redux';
 
 import Container from 'react-bootstrap/Container';
@@ -11,11 +10,9 @@ import Tabs from 'react-bootstrap/Tabs';
 
 import Peers from '../components/Peers';
 
-import { SContent } from '../components/styles';
-
-import { selectedNetwork } from '../selectors';
-
 import ExplorerAPIClient, { Validator, ValidatorHistory } from '../client';
+import { SContent } from '../components/styles';
+import { selectedNetwork } from '../selectors';
 
 const SContainer = styled.div`
 	.nav-link.active {

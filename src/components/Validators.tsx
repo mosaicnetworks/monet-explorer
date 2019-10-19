@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 
-import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table';
 
 import Avatar from './Avatar';
-import CValidator from './Validator';
 
 import { Validator } from '../client';
 import { networkInfos, networkValidators } from '../selectors';

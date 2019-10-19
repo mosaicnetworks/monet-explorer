@@ -11,7 +11,7 @@ import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+// import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import { fetchAll, selectNetwork } from '../modules/dashboard';
 import { networksSelector, selectedNetwork } from '../selectors';
@@ -19,8 +19,6 @@ import { networksSelector, selectedNetwork } from '../selectors';
 import Logo from '../assets/monet.svg';
 
 const SNavbar = styled(Navbar)`
-	/* transition: box-shadow 0.1s linear; */
-
 	${props =>
 		props.theme.enable &&
 		`box-shadow: 0 1px 50px rgba(151, 164, 175, 2) !important;`}

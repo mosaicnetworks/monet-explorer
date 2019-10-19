@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
 
-import { useSelector, useDispatch } from 'react-redux';
-
 import Table from 'react-bootstrap/Table';
+
+import { useSelector } from 'react-redux';
 
 import Avatar from '../components/Avatar';
 
-import { fetchWhitelist } from '../modules/dashboard';
-import POA, { WhitelistEntry } from '../poa';
-import { LOCAL_NETWORK, selectedNetwork, selectWhitelist } from '../selectors';
+import { selectWhitelist } from '../selectors';
 
 const STable = styled(Table)`
 	margin-bottom: 0px !important;
