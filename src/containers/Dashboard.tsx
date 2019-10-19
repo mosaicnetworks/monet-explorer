@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 
+import Faucet from '../components/Faucet';
 import Nominees from '../components/Nominees';
 import Validators from '../components/Validators';
 import Whitelist from '../components/Whitelist';
@@ -36,15 +41,58 @@ const SContentPadded = styled.div`
 	border: 1px solid #e5e5e5e5 !important;
 `;
 
+const SAlert = styled(Alert)``;
+
 const Index: React.FC<RouteComponentProps<{}>> = props => {
 	const validators = useSelector(networkValidators);
 	const nominees = useSelector(selectNominees);
 	const blocks = useSelector(networkBlocks);
 
+	const [show, setShow] = useState(true);
+
 	const transactions = blocks.map(item => item.transactions.length);
 
 	return (
 		<SIndex>
+			<Container>
+				<SAlert
+					show={show}
+					variant="info"
+					dismissible={true}
+					onClose={() => setShow(false)}
+				>
+					<Alert.Heading>Interested in Participating?</Alert.Heading>
+					<Row>
+						<Col xs={12} md={5}>
+							<p>
+								If you are interested in participating in our
+								testnet by deploying smart contracts,
+								interacting with contracts or just curious to
+								try out our network - use the form to left to
+								receive some tokens to your address.
+							</p>
+							<hr />
+							<p className="mb-0">
+								If you do not have an address yet, you can
+								easily create one using{' '}
+								<a href="https://github.com/mosaicnetworks/monetcli">
+									MonetCLI
+								</a>
+								.
+							</p>
+						</Col>
+						<Col xs={12} md={5}>
+							<Faucet />
+						</Col>
+						<Col md={2} className="d-none d-sm-block text-center">
+							<Image
+								src="https://monet.network/app/images/illustrations/pages/token_sale.svg"
+								width={100}
+							/>
+						</Col>
+					</Row>
+				</SAlert>
+			</Container>
 			<Container fluid={false}>
 				<Row>
 					<Col xs={6} md={3}>

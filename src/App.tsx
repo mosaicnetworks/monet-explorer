@@ -8,7 +8,6 @@ import Wrapper from './components/Wrapper';
 import Block from './containers/Block';
 import Blocks from './containers/Blocks';
 import Dashboard from './containers/Dashboard';
-import Faucet from './containers/Faucet';
 import History from './containers/History';
 import Search from './containers/Search';
 import Validator from './containers/Validator';
@@ -29,7 +28,6 @@ const App: React.FC = () => {
 				<Route exact={true} path="/" component={Dashboard} />
 				<Route exact={true} path="/blocks" component={Blocks} />
 				<Route exact={true} path="/block/:id" component={Block} />
-				<Route exact={true} path="/faucet" component={Faucet} />
 				<Route exact={true} path="/history" component={History} />
 				<Route
 					exact={true}

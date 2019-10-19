@@ -58,19 +58,26 @@ const Search: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 					<p>
 						<Row>
 							<Col>
-								<b>Balance:</b> {account.balance.format('T')}
+								<b>Balance:</b>{' '}
+								<dt className="mono">
+									{account.balance.format('T')}
+								</dt>
 							</Col>
 						</Row>
 						<br />
 						<Row>
 							<Col>
-								<b>Nonce:</b> {account.nonce}
+								<b>Nonce:</b>{' '}
+								<dt className="mono">{account.nonce}</dt>
 							</Col>
 						</Row>
 						<br />
 						<Row>
 							<Col>
-								<b>Bytecode:</b> {account.bytecode || 'n/a'}
+								<b>Bytecode:</b>
+								<pre>
+									<code>{account.bytecode || 'n/a'}</code>
+								</pre>
 							</Col>
 						</Row>
 					</p>

@@ -1,5 +1,7 @@
 import AbstractClient from './Client';
 
+import { IReceipt } from 'evm-lite-client';
+
 import request from 'request';
 
 export type Network = {
@@ -106,8 +108,8 @@ class ExplorerAPIClient extends AbstractClient {
 			.results;
 	}
 
-	public async submitFaucetTx(address: string): Promise<string> {
-		return new Promise<string>((resolve, reject) => {
+	public async submitFaucetTx(address: string): Promise<IReceipt> {
+		return new Promise<IReceipt>((resolve, reject) => {
 			request.post(
 				`http://${this.host}:${this.port}/api/faucet/`,
 				{ json: { address } },

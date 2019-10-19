@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 import styled, { ThemeProvider } from 'styled-components';
 
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
@@ -28,6 +27,7 @@ const SNavbar = styled(Navbar)`
 	}
 
 	.c {
+		font-family: monospace !important;
 		color: white !important;
 	}
 `;
@@ -75,14 +75,6 @@ const SSearch = styled.div`
 	}
 `;
 
-const STokenButton = styled(Button)`
-	/* background: rgba(226, 110, 64, 1) !important; */
-	/* border: none !important; */
-	color: white !important;
-	font-size: 13px !important;
-	margin-right: px;
-`;
-
 const Header: React.FC<{}> = () => {
 	const dispatch = useDispatch();
 
@@ -97,17 +89,14 @@ const Header: React.FC<{}> = () => {
 
 	const fetchAllData = () => dispatch(fetchAll());
 
-	const onClickNetworkBind = (id: number) => () =>
-		dispatch(selectNetwork(id));
-
 	let interval: any;
 	let counterInterval: any;
 
 	useEffect(() => {
-		interval = setInterval(() => {
-			fetchAllData();
-			console.log('(5s) Fetching data...');
-		}, 5000);
+		// interval = setInterval(() => {
+		// 	fetchAllData();
+		// 	console.log('(5s) Fetching data...');
+		// }, 5000);
 
 		counterInterval = setInterval(() => {
 			setCounter(c => {
@@ -173,15 +162,6 @@ const Header: React.FC<{}> = () => {
 						className="justify-content-end"
 					>
 						<SNav activeKey="/">
-							{/* <STokenButton href="/faucet" variant="">
-								<Image
-									src="https://monet.network/app/images/products/tenom.svg"
-									width="25"
-								/>
-							</STokenButton> */}
-							{/* <Nav.Item>
-								<Nav.Link href="/faucet">Get Tokens!</Nav.Link>
-							</Nav.Item> */}
 							<Nav.Item>
 								<Nav.Link as="span" eventKey="link-2">
 									<Link to={'/'}>Dashboard</Link>

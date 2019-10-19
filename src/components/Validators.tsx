@@ -3,7 +3,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
+import Badge from 'react-bootstrap/Badge';
 import Table from 'react-bootstrap/Table';
 
 import Avatar from './Avatar';
@@ -15,6 +17,7 @@ const keccak256 = require('js-sha3').keccak256;
 
 const Green = styled.div`
 	color: darkgreen !important;
+	font-weight: bold !important;
 `;
 
 const stateStyling = (state: string) => {
@@ -33,6 +36,14 @@ const STable = styled(Table)`
 
 	td {
 		font-size: 14px;
+		a {
+			color: #444 !important;
+			text-decoration: none !important;
+		}
+
+		a:hover {
+			color: #000 !important;
+		}
 	}
 
 	tr {
@@ -40,16 +51,16 @@ const STable = styled(Table)`
 	}
 
 	tbody tr:nth-of-type(odd) {
-		background-color: rgba(0, 0, 0, 0.02);
+		/* background-color: rgba(0, 0, 0, 0.02); */
 	}
 
 	tbody tr:nth-of-type(odd):hover {
-		background: rgba(226, 110, 64, 0.1) !important;
+		/* background: rgba(226, 110, 64, 0.1) !important; */
 	}
 
 	tbody tr:hover {
-		cursor: pointer;
-		background: rgba(226, 110, 64, 0.1) !important;
+		/* cursor: pointer; */
+		/* background: rgba(226, 110, 64, 0.1) !important; */
 	}
 `;
 
@@ -75,17 +86,25 @@ const Validators: React.FC<Props> = props => {
 				.toString('hex');
 
 			return (
-				<tr onClick={props.onClickHandler(v)} key={v.moniker}>
+				<tr key={v.moniker}>
 					<td>
-						<Avatar address={address} size={30} />
+						<Link to={`/validator/${v.id}`}>
+							<Avatar address={address} size={30} />
+						</Link>
 					</td>
 					<td>{v.moniker}</td>
 					<td className="mono">
-						0x
-						{address}
+						<Link to={`/search/0x${address}`}>
+							0x
+							{address}
+						</Link>
 					</td>
 					<td>{stateStyling(info && info.state)}</td>
-					<td>{info && info.last_block_index}</td>
+					<td>
+						<Link to={`/block/${info.last_block_index}`}>
+							{info && info.last_block_index}
+						</Link>
+					</td>
 					<td>{info && info.last_consensus_round}</td>
 					<td>{info && info.consensus_events}</td>
 					<td>{info && info.undetermined_events}</td>

@@ -3,10 +3,10 @@
 
 body {
 	margin: 0;
-	font-family: 'Helvetica Neue', sans-serif !important;
+	/* font-family: 'Open', sans-serif !important; */
 	-webkit-font-smoothing: antialiased;
 	background: rgb(236, 242, 245) !important;
-	font-size: 15px !important;
+	font-size: 14px !important;
 }
 
 .bg-dark {
@@ -97,7 +97,7 @@ code {
 }
 
 .btn {
-	font-size: 15px;
+	font-size: 14px;
 	border-radius: 5px !important;
 }
 
@@ -134,4 +134,8 @@ a {
 
 .dropdown-item:active {
 	background: #f1f1f1;
+}
+
+input {
+	font-size: 14px !important;
 }
