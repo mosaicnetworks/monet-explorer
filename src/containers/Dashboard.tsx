@@ -41,7 +41,9 @@ const SContentPadded = styled.div`
 	border: 1px solid #e5e5e5e5 !important;
 `;
 
-const SAlert = styled(Alert)``;
+const SAlert = styled(Alert)`
+	padding: 30px !important;
+`;
 
 const Index: React.FC<RouteComponentProps<{}>> = props => {
 	const validators = useSelector(networkValidators);
@@ -61,9 +63,11 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 					dismissible={true}
 					onClose={() => setShow(false)}
 				>
-					<Alert.Heading>Interested in Participating?</Alert.Heading>
 					<Row>
 						<Col xs={12} md={5}>
+							<Alert.Heading>
+								Interested in Participating?
+							</Alert.Heading>
 							<p>
 								If you are interested in participating in our
 								testnet by deploying smart contracts,
@@ -87,7 +91,7 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 						<Col md={2} className="d-none d-sm-block text-center">
 							<Image
 								src="https://monet.network/app/images/illustrations/pages/token_sale.svg"
-								width={100}
+								width={130}
 							/>
 						</Col>
 					</Row>
