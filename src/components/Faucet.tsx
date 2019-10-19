@@ -46,7 +46,7 @@ const Faucet: React.FC<{}> = () => {
 			const data = await c.submitFaucetTx(address);
 
 			if (data.status === 1) {
-				setSuccess('We have transferred you 100 Tenom!');
+				setSuccess(`We've transferred you 100 Tenom!`);
 			} else {
 				setError('Something went wrong. Please try again later.');
 			}
