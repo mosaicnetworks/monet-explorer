@@ -83,7 +83,11 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 								If you are interested in participating in our
 								testnet, use the form to receive 100T (Tenom) to
 								your address. You can find libraries and tools
-								on our <a href="">GitHub</a>.
+								on our{' '}
+								<a href="https://github.com/mosaicnetworks">
+									GitHub
+								</a>
+								.
 							</p>
 							<hr />
 							<p className="mb-0">
