@@ -101,9 +101,9 @@ const Validators: React.FC<Props> = props => {
 					</td>
 					<td>{stateStyling(info && info.state)}</td>
 					<td>
-						<Link to={`/block/${info.last_block_index}`}>
-							{info && info.last_block_index}
-						</Link>
+						{/* <Link to={`/block/${info.last_block_index}`}> */}
+						{info && info.last_block_index}
+						{/* </Link> */}
 					</td>
 					<td>{info && info.last_consensus_round}</td>
 					<td>{info && info.consensus_events}</td>

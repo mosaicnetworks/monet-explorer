@@ -32,7 +32,7 @@ const SIndex = styled.div`
 `;
 
 const SContentPadded = styled.div`
-	padding: 10px;
+	padding: 7px;
 	background: #fff;
 	text-align: center;
 	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
@@ -43,12 +43,16 @@ const SContentPadded = styled.div`
 `;
 
 const SAlert = styled(Alert)`
-	display: none;
+	/* display: none; */
 	padding: 30px !important;
 
 	.alert-heading {
 		margin-top: 0px !important;
 		padding-top: 0 !important;
+	}
+
+	ul {
+		margin-top: 7px;
 	}
 `;
 
@@ -77,10 +81,30 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 							</Alert.Heading>
 							<p>
 								If you are interested in participating in our
-								testnet by deploying smart contracts,
-								interacting with contracts or just curious to
-								try out our network - use the form to the left
-								to receive some coins to your address.
+								test net use the form to receive{' '}
+								<code>100T</code> to your address. You can find
+								libraries and tools on our <a href="">GitHub</a>{' '}
+								or here are some useful links:
+								<ul>
+									<li>
+										<a
+											target="_blank"
+											href="https://github.com/mosaicnetworks/evm-lite-js"
+										>
+											EVM-Lite JS
+										</a>{' '}
+										- Javascript libraries
+									</li>
+									<li>
+										<a
+											target="_blank"
+											href="https://github.com/mosaicnetworks/monetcli"
+										>
+											MonetCLI
+										</a>{' '}
+										- A CLI Wallet
+									</li>
+								</ul>
 							</p>
 							<hr />
 							<p className="mb-0">

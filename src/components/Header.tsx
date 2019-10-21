@@ -37,6 +37,10 @@ const SNetwork = styled.div`
 	text-transform: capitalize;
 	font-weight: 300 !important;
 	font-size: 18px;
+
+	small {
+		text-transform: none !important;
+	}
 `;
 
 const SNav = styled(Nav)`
@@ -154,7 +158,12 @@ const Header: React.FC<{}> = () => {
 						</Link>
 					</Navbar.Brand>
 					<SNetwork>
-						<b>{selected && selected.name}</b>
+						<b>
+							{selected && selected.name.split('-')[0]}{' '}
+							<small>
+								{selected && selected.name.split('-')[1]}
+							</small>
+						</b>
 					</SNetwork>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse
