@@ -3,17 +3,15 @@ import styled from 'styled-components';
 export const SContent = styled.div`
 	background: #fff !important;
 	border-radius: 5px !important;
-	/* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); */
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
 	margin-bottom: 15px !important;
 	border: 1px solid #e5e5e5e5 !important;
 
 	span {
-		background: #f9f9f9 !important;
+		background: #f5f5f5 !important;
 		display: block;
 		border-radius: inherit !important;
-		background: #fff;
 		padding: 10px 10px;
-		/* color: #4a4f55; */
 		font-size: 0.8125rem;
 		font-weight: 600;
 		margin-bottom: 0;

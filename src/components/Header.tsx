@@ -93,10 +93,10 @@ const Header: React.FC<{}> = () => {
 	let counterInterval: any;
 
 	useEffect(() => {
-		// interval = setInterval(() => {
-		// 	fetchAllData();
-		// 	console.log('(5s) Fetching data...');
-		// }, 5000);
+		interval = setInterval(() => {
+			fetchAllData();
+			console.log('(5s) Fetching data...');
+		}, 5000);
 
 		counterInterval = setInterval(() => {
 			setCounter(c => {

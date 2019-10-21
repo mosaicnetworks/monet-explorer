@@ -35,6 +35,7 @@ const SContentPadded = styled.div`
 	padding: 10px;
 	background: #fff;
 	text-align: center;
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
 	margin-bottom: 15px;
 	border-radius: 5px;
 	font-size: 14px !important;
@@ -42,7 +43,13 @@ const SContentPadded = styled.div`
 `;
 
 const SAlert = styled(Alert)`
+	display: none;
 	padding: 30px !important;
+
+	.alert-heading {
+		margin-top: 0px !important;
+		padding-top: 0 !important;
+	}
 `;
 
 const Index: React.FC<RouteComponentProps<{}>> = props => {
@@ -57,13 +64,13 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 	return (
 		<SIndex>
 			<Container>
-				{/* <SAlert
+				<SAlert
 					show={show}
 					variant="info"
 					dismissible={true}
 					onClose={() => setShow(false)}
 				>
-					<Row>
+					<Row className="align-items-center">
 						<Col xs={12} md={5}>
 							<Alert.Heading>
 								Interested in Participating?
@@ -95,7 +102,7 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 							/>
 						</Col>
 					</Row>
-				</SAlert> */}
+				</SAlert>
 			</Container>
 			<Container fluid={false}>
 				<Row>
