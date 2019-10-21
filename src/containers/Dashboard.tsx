@@ -81,30 +81,9 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 							</Alert.Heading>
 							<p>
 								If you are interested in participating in our
-								test net use the form to receive{' '}
-								<code>100T</code> to your address. You can find
-								libraries and tools on our <a href="">GitHub</a>{' '}
-								or here are some useful links:
-								<ul>
-									<li>
-										<a
-											target="_blank"
-											href="https://github.com/mosaicnetworks/evm-lite-js"
-										>
-											EVM-Lite JS
-										</a>{' '}
-										- Javascript libraries
-									</li>
-									<li>
-										<a
-											target="_blank"
-											href="https://github.com/mosaicnetworks/monetcli"
-										>
-											MonetCLI
-										</a>{' '}
-										- A CLI Wallet
-									</li>
-								</ul>
+								testnet, use the form to receive 100T (Tenom) to
+								your address. You can find libraries and tools
+								on our <a href="">GitHub</a>.
 							</p>
 							<hr />
 							<p className="mb-0">

@@ -141,6 +141,22 @@ class ExplorerAPIClient extends AbstractClient {
 		return JSON.parse(await this.get(`/api/history/?network=${network}`))
 			.results;
 	}
+
+	public async getHashgraph(): Promise<any> {
+		return new Promise<any>((resolve, reject) => {
+			request.get(
+				`http://localhost:8080/graph`,
+				(error, response, body) => {
+					if (error) {
+						return reject(error);
+					}
+					if (!error && response.statusCode === 200) {
+						resolve(JSON.parse(body));
+					}
+				}
+			);
+		});
+	}
 }
 
 export default ExplorerAPIClient;
