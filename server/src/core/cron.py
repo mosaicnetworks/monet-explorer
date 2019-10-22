@@ -94,6 +94,8 @@ def fetch_history():
             return
 
         for cns_rnd, validators in history.items():
+            print(
+                f'Network: {network.name} - Round: {cns_rnd} - Validators: {len(validators)}')
             history, _ = ValidatorHistory.objects.get_or_create(
                 network=network,
                 consensus_round=cns_rnd,
@@ -106,6 +108,8 @@ def fetch_history():
                 port = splitted[1]
                 public_key = validator['PubKeyHex']
                 moniker = validator['Moniker']
+
+                print(f'Creating Validator: {moniker} - Round: {cns_rnd}')
 
                 v_model, created = Validator.objects.get_or_create(
                     public_key=public_key,
@@ -123,74 +127,77 @@ def fetch_history():
                     v_model.public_key = public_key
 
                     v_model.save()
-        fetch_infos(network)
 
 
-def fetch_infos(network):
+def fetch_infos():
     """ Fetches info for all active validators """
 
-    history = ValidatorHistory.objects.filter(
-        network=network).order_by('-consensus_round').first()
+    for network in Network.objects.filter(active=True):
+        history = ValidatorHistory.objects.filter(
+            network=network).order_by('-consensus_round').first()
 
-    if not history:
-        print("infos - Could not find latest history")
-        return
+        if not history:
+            print("infos - Could not find latest history")
+            return
 
-    for validator in Validator.objects.filter(history=history, network=network):
-        print(
-            f'infos - Validator {validator.moniker} @ {history.consensus_round}')
-        try:
+        for validator in Validator.objects.filter(history=history, network=network):
+            print(
+                f'Validator: {validator.moniker} @ {history.consensus_round} - {validator.host}:8080')
+            try:
 
-            info = requests.get(
-                url=f'http://{validator.host}:8080/info').json()
+                info = requests.get(
+                    url=f'http://{validator.host}:8080/info').json()
 
-            info_model, created = Info.objects.get_or_create(
-                validator=validator,
-                defaults={
-                    "e_id": info['id'],
-                    "type": info['type'],
-                    "state": info['state'],
-                    "consensus_events": info['consensus_events'],
-                    "consensus_transactions": info['consensus_transactions'],
-                    "last_block_index": info['last_block_index'],
-                    "last_consensus_round": info['last_consensus_round'],
-                    "last_peer_change": info['last_peer_change'],
-                    "min_gas_price": info['min_gas_price'],
-                    "num_peers": info['num_peers'],
-                    "undetermined_events": info['undetermined_events'],
-                    "sync_rate": info['sync_rate'],
-                    "transaction_pool": info['transaction_pool'],
-                    "rounds_per_second": info['rounds_per_second'],
-                    "events_per_second": info['events_per_second'],
-                })
+                info_model, created = Info.objects.get_or_create(
+                    validator=validator,
+                    defaults={
+                        "e_id": info['id'],
+                        "type": info['type'],
+                        "state": info['state'],
+                        "consensus_events": info['consensus_events'],
+                        "consensus_transactions": info['consensus_transactions'],
+                        "last_block_index": info['last_block_index'],
+                        "last_consensus_round": info['last_consensus_round'],
+                        "last_peer_change": info['last_peer_change'],
+                        "min_gas_price": info['min_gas_price'],
+                        "num_peers": info['num_peers'],
+                        "undetermined_events": info['undetermined_events'],
+                        "sync_rate": info['sync_rate'],
+                        "transaction_pool": info['transaction_pool'],
+                        "rounds_per_second": info['rounds_per_second'],
+                        "events_per_second": info['events_per_second'],
+                    })
 
-            if not created:
-                info_model.e_id = info['id']
-                info_model.type = info['type']
-                info_model.state = info['state']
-                info_model.consensus_events = info['consensus_events']
-                info_model.consensus_transactions = info['consensus_transactions']
-                info_model.last_block_index = info['last_block_index']
-                info_model.last_consensus_round = info['last_consensus_round']
-                info_model.last_peer_change = info['last_peer_change']
-                info_model.min_gas_price = info['min_gas_price']
-                info_model.num_peers = info['num_peers']
-                info_model.undetermined_events = info['undetermined_events']
-                info_model.sync_rate = info['sync_rate']
-                info_model.transaction_pool = info['transaction_pool']
-                info_model.rounds_per_second = info['rounds_per_second']
-                info_model.events_per_second = info['events_per_second']
+                if not created:
+                    info_model.e_id = info['id']
+                    info_model.type = info['type']
+                    info_model.state = info['state']
+                    info_model.consensus_events = info['consensus_events']
+                    info_model.consensus_transactions = info['consensus_transactions']
+                    info_model.last_block_index = info['last_block_index']
+                    info_model.last_consensus_round = info['last_consensus_round']
+                    info_model.last_peer_change = info['last_peer_change']
+                    info_model.min_gas_price = info['min_gas_price']
+                    info_model.num_peers = info['num_peers']
+                    info_model.undetermined_events = info['undetermined_events']
+                    info_model.sync_rate = info['sync_rate']
+                    info_model.transaction_pool = info['transaction_pool']
+                    info_model.rounds_per_second = info['rounds_per_second']
+                    info_model.events_per_second = info['events_per_second']
 
-                info_model.save()
-        except:
-            print(f'infos - Could not connect to: {validator.moniker}')
+                    info_model.save()
+            except:
+                print(f'infos - Could not connect to: {validator.moniker}')
 
 
 def fetch_all():
     """ Fetch all required data """
 
-    print("Fetching History & Info...")
+    print("Fetching History...")
     fetch_history()
+
+    print("Fetching Info...")
+    fetch_infos()
 
     print("Fetching Blocks..")
     fetch_blocks()

@@ -82,7 +82,7 @@ export type ValidatorHistory = {
 
 class ExplorerAPIClient extends AbstractClient {
 	constructor() {
-		super('dashboard.monet.network', 8000);
+		super('dasboard.monet.network', 8000);
 	}
 
 	public async getNetworks(): Promise<Network[]> {

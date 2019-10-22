@@ -102,7 +102,7 @@ class Info(models.Model):
     class Meta:
         unique_together = ['validator']
 
-    e_id = models.IntegerField()
+    e_id = models.TextField()
 
     type = models.CharField(max_length=30)
     state = models.CharField(max_length=50)
