@@ -7,6 +7,8 @@ import styled from 'styled-components';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
+import Loader from './Loader';
+
 import ExplorerAPIClient from '../client';
 
 const SError = styled.div`
@@ -43,12 +45,15 @@ const Faucet: React.FC<{}> = () => {
 		}
 
 		if (recaptcha) {
-			const data = await c.submitFaucetTx(address);
-
-			if (data.status === 1) {
-				setSuccess(`We've transferred you 100 Tenom!`);
-			} else {
-				setError('Something went wrong. Please try again later.');
+			try {
+				const data = await c.submitFaucetTx(address);
+				if (data.status === 1) {
+					setSuccess(`We've transferred you 100 Tenom!`);
+				} else {
+					setError('Something went wrong. Please try again later.');
+				}
+			} catch (e) {
+				throw e;
 			}
 		} else {
 			setError('Must complete the ReCAPTCHA!');
@@ -92,7 +97,8 @@ const Faucet: React.FC<{}> = () => {
 							variant="warning"
 						>
 							Receive Tokens
-						</Button>
+						</Button>{' '}
+						<Loader loading={loading} />
 					</Form.Group>
 				</>
 			)}

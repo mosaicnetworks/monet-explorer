@@ -131,8 +131,13 @@ class FaucetAPIHandler(generics.CreateAPIView):
             0xb775ba20836e4595aab3689c8b311e32b32d51522da7bb15ae627a25c8d5d829
         )
 
+        to = request.data['address']
+
+        if to.startswith('0x'):
+            to = request.data['address'][2:]
+
         tx = dict(
-            to=checksum_encode(bytes.fromhex(request.data['address'][2:])),
+            to=checksum_encode(bytes.fromhex(to)),
             value=100000000000000000000,
             chainId=1,
             gas=25000,
