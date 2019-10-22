@@ -170,3 +170,28 @@ class ValidatorHistoryAPIHandler(generics.ListAPIView):
             queryset = queryset.filter(network__name=network.lower())
 
         return queryset
+
+
+class StatisticsAPIHandler(APIView):
+    """ Statistics api handler """
+
+    def get(self, request, *args, **kwargs):
+        """ GET request handelr """
+        res = dict(
+            block_height=0,
+            tx_count=0,
+        )
+
+        network = self.request.query_params.get('network', None)
+
+        if network:
+            last_block = Block.objects.filter(
+                network__name=network.lower()).order_by('-index').first()
+
+            if last_block:
+                res['block_height'] = last_block.index
+
+            res['tx_count'] = Transaction.objects.filter(
+                block__network__name=network.lower()).count()
+
+        return Response(res)

@@ -75,6 +75,11 @@ export type Block = {
 	signatures: Signature[];
 };
 
+export type Stats = {
+	block_height: number;
+	tx_count: number;
+};
+
 export type ValidatorHistory = {
 	id: number;
 	consensus_round: number;
@@ -82,7 +87,7 @@ export type ValidatorHistory = {
 
 class ExplorerAPIClient extends AbstractClient {
 	constructor() {
-		super('dasboard.monet.network', 8000);
+		super('dashboard.monet.network', 8000);
 	}
 
 	public async getNetworks(): Promise<Network[]> {
@@ -140,6 +145,10 @@ class ExplorerAPIClient extends AbstractClient {
 	): Promise<ValidatorHistory[]> {
 		return JSON.parse(await this.get(`/api/history/?network=${network}`))
 			.results;
+	}
+
+	public async getStats(network: string): Promise<Stats> {
+		return JSON.parse(await this.get(`/api/stats/?network=${network}`));
 	}
 
 	public async getHashgraph(): Promise<any> {

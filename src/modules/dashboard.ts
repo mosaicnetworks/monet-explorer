@@ -216,7 +216,7 @@ export default (
 				}
 			};
 
-		case FETCH_BLOCKS_OLDER:
+		case FETCH_BLOCKS_NEWER:
 			return {
 				...state,
 				networkBlocks: [...action.payload, ...state.networkBlocks],

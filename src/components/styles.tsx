@@ -3,12 +3,12 @@ import styled from 'styled-components';
 export const SContent = styled.div`
 	background: #fff !important;
 	border-radius: 5px !important;
-	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+	/* box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08); */
 	margin-bottom: 15px !important;
 	border: 1px solid #e5e5e5e5 !important;
 
 	span {
-		background: #f5f5f5 !important;
+		background: #f9f9f9 !important;
 		display: block;
 		border-radius: inherit !important;
 		padding: 10px 10px;

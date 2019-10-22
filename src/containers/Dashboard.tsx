@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
@@ -18,8 +18,14 @@ import Nominees from '../components/Nominees';
 import Validators from '../components/Validators';
 import Whitelist from '../components/Whitelist';
 
+import ExplorerAPIClient from '../client';
 import { SContent } from '../components/styles';
-import { networkBlocks, networkValidators, selectNominees } from '../selectors';
+import {
+	networkBlocks,
+	networkValidators,
+	selectedNetwork,
+	selectNominees
+} from '../selectors';
 
 const SIndex = styled.div`
 	h4 {
@@ -35,7 +41,7 @@ const SContentPadded = styled.div`
 	padding: 7px;
 	background: #fff;
 	text-align: center;
-	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+	/* box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08); */
 	margin-bottom: 15px;
 	border-radius: 5px;
 	font-size: 14px !important;
@@ -57,13 +63,29 @@ const SAlert = styled(Alert)`
 `;
 
 const Index: React.FC<RouteComponentProps<{}>> = props => {
+	const network = useSelector(selectedNetwork);
 	const validators = useSelector(networkValidators);
 	const nominees = useSelector(selectNominees);
 	const blocks = useSelector(networkBlocks);
 
 	const [show, setShow] = useState(true);
+	const [blockHeight, setBlockHeight] = useState(0);
+	const [txCount, setTxCount] = useState(0);
 
-	const transactions = blocks.map(item => item.transactions.length);
+	const c = new ExplorerAPIClient();
+
+	const setStats = async () => {
+		if (network) {
+			const stats = await c.getStats(network.name.toLowerCase());
+
+			setBlockHeight(stats.block_height);
+			setTxCount(stats.tx_count);
+		}
+	};
+
+	useEffect(() => {
+		setStats();
+	}, [network]);
 
 	return (
 		<SIndex>
@@ -115,13 +137,13 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 				<Row>
 					<Col xs={6} md={3}>
 						<SContentPadded>
-							<h1>{blocks.length ? blocks[0].index : '-'}</h1>
+							<h1>{blockHeight || '-'}</h1>
 							<div>Block Height</div>
 						</SContentPadded>
 					</Col>
 					<Col xs={6} md={3}>
 						<SContentPadded>
-							<h1>{'-'}</h1>
+							<h1>{txCount || '-'}</h1>
 							<div>Total Transactions</div>
 						</SContentPadded>
 					</Col>

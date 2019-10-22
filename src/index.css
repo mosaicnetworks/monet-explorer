@@ -3,7 +3,7 @@
 
 body {
 	margin: 0;
-	font-family: 'Open Sans', sans-serif !important;
+	/* font-family: 'Open Sans', sans-serif !important; */
 	-webkit-font-smoothing: antialiased;
 	/* background: rgb(240, 247, 250) !important; */
 	background: #f8f9fa !important;
@@ -32,7 +32,7 @@ body {
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-	background-color: rgba(0, 0, 0, 0.025) !important;
+	background-color: rgba(0, 0, 0, 0.015) !important;
 }
 
 .table thead th {
