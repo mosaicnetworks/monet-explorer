@@ -82,6 +82,17 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 		}
 	};
 
+	let interval: any;
+	useEffect(() => {
+		interval = setInterval(() => {
+			setStats();
+		}, 5000);
+
+		return () => {
+			clearInterval(interval);
+		};
+	}, []);
+
 	useEffect(() => {
 		setStats();
 	}, [network]);
