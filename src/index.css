@@ -3,7 +3,7 @@
 
 body {
 	margin: 0;
-	/* font-family: 'Open', sans-serif !important; */
+	font-family: 'Open Sans', sans-serif !important;
 	-webkit-font-smoothing: antialiased;
 	/* background: rgb(240, 247, 250) !important; */
 	background: #f8f9fa !important;
