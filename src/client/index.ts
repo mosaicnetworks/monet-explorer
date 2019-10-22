@@ -75,14 +75,15 @@ export type Block = {
 	signatures: Signature[];
 };
 
-export type Stats = {
-	block_height: number;
-	tx_count: number;
-};
-
 export type ValidatorHistory = {
 	id: number;
 	consensus_round: number;
+};
+
+export type Stats = {
+	block_height: number;
+	tx_count: number;
+	int_tx_count: number;
 };
 
 class ExplorerAPIClient extends AbstractClient {

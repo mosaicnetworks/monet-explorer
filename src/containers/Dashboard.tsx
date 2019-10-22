@@ -70,6 +70,7 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 	const [show, setShow] = useState(true);
 	const [blockHeight, setBlockHeight] = useState(0);
 	const [txCount, setTxCount] = useState(0);
+	const [intTxCount, setIntTxCount] = useState(0);
 
 	const c = new ExplorerAPIClient();
 
@@ -79,6 +80,7 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 
 			setBlockHeight(stats.block_height);
 			setTxCount(stats.tx_count);
+			setIntTxCount(stats.int_tx_count);
 		}
 	};
 
@@ -153,8 +155,11 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 					</Col>
 					<Col xs={6} md={3}>
 						<SContentPadded>
-							<h1>{txCount || '-'}</h1>
-							<div>Total Transactions</div>
+							<h1>
+								{`${txCount + intTxCount} (${intTxCount})` ||
+									'-'}
+							</h1>
+							<div>Total Transactions (Internal)</div>
 						</SContentPadded>
 					</Col>
 					<Col xs={6} md={3}>

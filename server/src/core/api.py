@@ -180,6 +180,7 @@ class StatisticsAPIHandler(APIView):
         res = dict(
             block_height=0,
             tx_count=0,
+            int_tx_count=0,
         )
 
         network = self.request.query_params.get('network', None)
@@ -192,6 +193,9 @@ class StatisticsAPIHandler(APIView):
                 res['block_height'] = last_block.index
 
             res['tx_count'] = Transaction.objects.filter(
+                block__network__name=network.lower()).count()
+
+            res['int_tx_count'] = InternalTransaction.objects.filter(
                 block__network__name=network.lower()).count()
 
         return Response(res)
