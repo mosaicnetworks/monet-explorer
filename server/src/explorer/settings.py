@@ -93,9 +93,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'explorer',
-        'USER': 'root',
-        'PASSWORD': 'MonetExplorer123',
-        'HOST': 'localhost',
+        'USER': 'explorer_admin',
+        'PASSWORD': 'ExplorerAdminPassword',
+        'HOST': 'dashboard.monet.network',
         'PORT': '3306',
     }
 }
