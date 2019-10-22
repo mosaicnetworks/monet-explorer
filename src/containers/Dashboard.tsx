@@ -66,7 +66,6 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 	const network = useSelector(selectedNetwork);
 	const validators = useSelector(networkValidators);
 	const nominees = useSelector(selectNominees);
-	const blocks = useSelector(networkBlocks);
 
 	const [show, setShow] = useState(true);
 	const [blockHeight, setBlockHeight] = useState(0);
