@@ -13,6 +13,7 @@ import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 
+import Loader from '../components/Loader';
 import Faucet from '../components/Faucet';
 import Nominees from '../components/Nominees';
 import Validators from '../components/Validators';
@@ -68,6 +69,7 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 	const nominees = useSelector(selectNominees);
 
 	const [show, setShow] = useState(true);
+	const [statLoading, setStatLoading] = useState(true);
 	const [blockHeight, setBlockHeight] = useState(0);
 	const [txCount, setTxCount] = useState(0);
 	const [intTxCount, setIntTxCount] = useState(0);
@@ -76,11 +78,13 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 
 	const setStats = async () => {
 		if (network) {
+			setStatLoading(true);
 			const stats = await c.getStats(network.name.toLowerCase());
 
 			setBlockHeight(stats.block_height);
 			setTxCount(stats.tx_count);
 			setIntTxCount(stats.int_tx_count);
+			setStatLoading(false);
 		}
 	};
 
@@ -108,7 +112,7 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 					dismissible={true}
 					onClose={() => setShow(false)}
 				>
-					<Row className="align-items-center">
+					<Row className="">
 						<Col xs={12} md={5}>
 							<Alert.Heading>
 								Interested in Participating?
@@ -149,15 +153,21 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 				<Row>
 					<Col xs={6} md={3}>
 						<SContentPadded>
-							<h1>{blockHeight || '-'}</h1>
+							<h1>
+								{blockHeight || (
+									<Loader loading={statLoading} />
+								)}
+							</h1>
 							<div>Block Height</div>
 						</SContentPadded>
 					</Col>
 					<Col xs={6} md={3}>
 						<SContentPadded>
 							<h1>
-								{`${txCount + intTxCount} (${intTxCount})` ||
-									'-'}
+								{txCount + intTxCount || (
+									<Loader loading={statLoading} />
+								)}
+								<small>({intTxCount})</small>
 							</h1>
 							<div>Total Transactions (Internal)</div>
 						</SContentPadded>
