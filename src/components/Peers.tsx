@@ -7,6 +7,7 @@ import Table from 'react-bootstrap/Table';
 import Avatar from './Avatar';
 
 import { Validator } from '../client';
+// import { Link } from 'react-router-dom';
 
 const keccak256 = require('js-sha3').keccak256;
 
@@ -55,13 +56,19 @@ const Peers: React.FC<Props> = props => {
 			return (
 				<tr key={v.moniker}>
 					<td>
+						{/* <Link to={`/validator/${v.id}`}> */}
 						<Avatar address={address} size={30} />
+						{/* </Link> */}
 					</td>
 					<td>{v.moniker}</td>
 					<td className="mono">
 						0x
 						{address}
 					</td>
+					<td>{v.info.last_peer_change}</td>
+					<td>{v.info.last_block_index}</td>
+					<td>{v.info.last_consensus_round}</td>
+					<td>{v.info.min_gas_price}</td>
 				</tr>
 			);
 		});
@@ -81,6 +88,10 @@ const Peers: React.FC<Props> = props => {
 						<th>Avatar</th>
 						<th>Moniker</th>
 						<th>Address</th>
+						<th>Last Peer Change</th>
+						<th>Last Block Index</th>
+						<th>Last Consensus Round</th>
+						<th>Min Gas Price</th>
 					</tr>
 				</thead>
 				<tbody>{rendervalidators()}</tbody>

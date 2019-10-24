@@ -64,7 +64,7 @@ const Validator: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 					<Col md={12}>
 						<SContent>
 							<span>Validator</span>
-							<p>
+							<div className="padding">
 								<Media>
 									<Avatar address={address} />
 
@@ -99,20 +99,20 @@ const Validator: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 										</div>
 									</Media.Body>
 								</Media>
-							</p>
+							</div>
 						</SContent>
 					</Col>
 					<Col>
 						<SContent>
 							<span>Statistics</span>
-							<p>
+							<div className="padding">
 								<JsonToTable json={newInfo || info} />
-							</p>
+							</div>
 						</SContent>
 					</Col>
 				</Row>
 			</Container>
-		)) || <>No validator found.</>
+		)) || <Container>No validator found.</Container>
 	);
 };
 

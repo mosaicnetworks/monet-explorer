@@ -17,7 +17,7 @@ const Faucet: React.FC<{}> = props => {
 					<span>Faucet</span>
 					<Row>
 						<Col>
-							<p>
+							<div className="padding">
 								If you are interested in participating in our
 								testnet, use the form to receive 100T (Tenom) to
 								your address. You can find libraries and tools
@@ -34,15 +34,15 @@ const Faucet: React.FC<{}> = props => {
 								<br />
 								<br />
 								<FaucetComponent />
-							</p>
+							</div>
 						</Col>
 						<Col className="d-none d-sm-block text-center" md={4}>
-							<p>
+							<div className="padding">
 								<Image
 									src="https://monet.network/app/images/illustrations/pages/token_sale.svg"
 									width={180}
 								/>
-							</p>
+							</div>
 						</Col>
 					</Row>
 				</SContent>

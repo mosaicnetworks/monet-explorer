@@ -15,6 +15,14 @@ class NetworkSerializer(ModelSerializer):
         fields = ['id', 'name', 'host', 'port']
 
 
+class ValidatorHistoryWithoutValidatorsSerializer(ModelSerializer):
+    """ Validator model serializer """
+
+    class Meta:
+        model = ValidatorHistory
+        fields = ['id', 'consensus_round']
+
+
 class ValidatorHistorySerializer(ModelSerializer):
     """ Validator model serializer """
 
@@ -34,21 +42,12 @@ class ValidatorHistorySerializer(ModelSerializer):
 class ValidatorSerializer(ModelSerializer):
     """ Validator model serializer """
 
-    history = ValidatorHistorySerializer()
+    history = ValidatorHistoryWithoutValidatorsSerializer()
 
     class Meta:
         model = Validator
         fields = ['id', 'moniker', 'host', 'port',
                   'public_key', 'history', 'reachable']
-
-
-class ValidatorWithoutHistorySerializer(ModelSerializer):
-    """ Validator model serializer """
-
-    class Meta:
-        model = Validator
-        fields = ['id', 'moniker', 'host', 'port',
-                  'public_key', 'reachable']
 
 
 class InfoSerializer(ModelSerializer):
@@ -66,6 +65,39 @@ class InfoSerializer(ModelSerializer):
             'transaction_pool', 'sync_rate', 'events_per_second',
             'rounds_per_second', 'validator',
         ]
+
+
+class InfoWithoutValidatorSerializer(ModelSerializer):
+    """ Info model serializer """
+
+    class Meta:
+        model = Info
+        fields = [
+            'id', 'e_id', 'type', 'state', 'consensus_events',
+            'consensus_transactions', 'last_block_index',
+            'last_consensus_round', 'last_peer_change',
+            'min_gas_price', 'num_peers', 'undetermined_events',
+            'transaction_pool', 'sync_rate', 'events_per_second',
+            'rounds_per_second',
+        ]
+
+
+class ValidatorWithoutHistorySerializer(ModelSerializer):
+    """ Validator model serializer """
+
+    class Meta:
+        model = Validator
+        fields = ['id', 'moniker', 'host', 'port', 'public_key']
+
+    def to_representation(self, instance):
+        return dict(
+            id=instance.id,
+            moniker=instance.moniker,
+            host=instance.host,
+            port=instance.port,
+            public_key=instance.public_key,
+            info=InfoWithoutValidatorSerializer(instance.info).data,
+        )
 
 
 class BlockSerializer(ModelSerializer):

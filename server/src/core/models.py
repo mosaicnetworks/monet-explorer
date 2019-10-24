@@ -99,6 +99,15 @@ class Validator(models.Model):
     def __str__(self):
         return f'{self.moniker} - {self.history.consensus_round}'
 
+    @property
+    def info(self):
+        try:
+            info = Info.objects.get(validator=self)
+        except Info.DoesNotExist:
+            info = None
+
+        return info
+
 
 class Info(models.Model):
     """ Info model """

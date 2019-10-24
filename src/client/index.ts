@@ -20,6 +20,7 @@ export type Validator = {
 	network: Network;
 	reachable: boolean;
 	history: ValidatorHistory;
+	info: Info;
 };
 
 export type Info = {

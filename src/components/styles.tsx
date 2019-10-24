@@ -20,8 +20,7 @@ export const SContent = styled.div`
 		border-bottom: 1px solid #eee !important;
 	}
 
-	p {
-		padding: 20px;
-		padding-bottom: 1px !important;
+	div.padding {
+		padding: 20px !important;
 	}
 `;

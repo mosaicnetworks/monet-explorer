@@ -8,17 +8,18 @@ import Container from 'react-bootstrap/Container';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
+import Loader from '../components/Loader';
 import Peers from '../components/Peers';
 
 import ExplorerAPIClient, { Validator, ValidatorHistory } from '../client';
 import { SContent } from '../components/styles';
 import { selectedNetwork } from '../selectors';
-import Loader from '../components/Loader';
 
 const SContainer = styled.div`
 	.nav-link.active {
-		background: #fff !important;
+		background: #e55e2b !important;
 		border-bottom: 0px solid #eee !important;
+		color: #fff !important;
 	}
 
 	.nav-link {
@@ -72,11 +73,13 @@ const History: React.FC<{}> = () => {
 				<SContent>
 					<span>Validator History</span>
 					{loading && (
-						<p className="text-center">
-							<Loader loading={loading} size={40} />
-						</p>
+						<div className="text-center padding">
+							<Loader loading={loading} size={40} /> Loading,
+							please wait...
+						</div>
 					)}
 					<Tabs
+						variant="pills"
 						onSelect={onClickRound}
 						defaultActiveKey={0}
 						transition={false}
