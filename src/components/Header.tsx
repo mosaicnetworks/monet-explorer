@@ -173,6 +173,18 @@ const Header: React.FC<{}> = () => {
 						<SNav activeKey="/">
 							<Nav.Item>
 								<Nav.Link as="span" eventKey="link-2">
+									<Link to={'/faucet'}>
+										<Image
+											src={
+												'https://monet.network/app/images/products/tenom.svg'
+											}
+											width={25}
+										/>
+									</Link>
+								</Nav.Link>
+							</Nav.Item>
+							<Nav.Item>
+								<Nav.Link as="span" eventKey="link-2">
 									<Link to={'/'}>Dashboard</Link>
 								</Nav.Link>
 							</Nav.Item>

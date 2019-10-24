@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Block } from '../client';
-import { fetchNextBlocks } from '../modules/dashboard';
+import { fetchNetworkBlocks, fetchNextBlocks } from '../modules/dashboard';
 import { networkBlocks } from '../selectors';
 
 const STable = styled(Table)`
@@ -44,8 +44,11 @@ const Blocks: React.FC<Props> = props => {
 	const [loadMore, setLoadMore] = useState(false);
 
 	const fetchMoreBlocks = () => dispatch(fetchNextBlocks());
+	const fetchBlocks = () => dispatch(fetchNetworkBlocks());
 
 	useEffect(() => {
+		fetchBlocks();
+
 		const table = document.getElementById('blocksTable');
 
 		window.addEventListener('scroll', () => {

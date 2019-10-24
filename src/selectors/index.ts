@@ -22,3 +22,5 @@ export const LOCAL_NETWORK = {
 	host: 'localhost',
 	port: 8080
 };
+
+export const selectShowFaucetAlert = (store: Store) => store.showFaucetAlert;

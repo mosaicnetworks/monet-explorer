@@ -33,6 +33,9 @@ const FETCH_EVICTEES_INIT = '@monet/dashboard/nominees/FETCH/INIT';
 const FETCH_EVICTEES_SUCCESS = '@monet/dashboard/nominees/FETCH/SUCCESS';
 const FETCH_EVICTEES_ERROR = '@monet/dashboard/nominees/FETCH/ERROR';
 
+const SHOW_FAUCET_ALERT = '@monet/dashboard/faucet/ALERT/SHOW';
+const HIDE_FAUCET_ALERT = '@monet/dashboard/faucet/ALERT/HIDE';
+
 const SELECT_NETWORK = '@monet/dashboard/network/SELECT';
 
 export type DashboardState = {
@@ -57,6 +60,9 @@ export type DashboardState = {
 		whitelist: boolean;
 		nominees: boolean;
 	};
+
+	// misc
+	showFaucetAlert: boolean;
 };
 
 const initial: DashboardState = {
@@ -75,7 +81,9 @@ const initial: DashboardState = {
 		blocks: false,
 		whitelist: false,
 		nominees: false
-	}
+	},
+
+	showFaucetAlert: true
 };
 
 const c = new Client();
@@ -85,6 +93,18 @@ export default (
 	action: BaseAction<any>
 ): DashboardState => {
 	switch (action.type) {
+		case SHOW_FAUCET_ALERT:
+			return {
+				...state,
+				showFaucetAlert: true
+			};
+
+		case HIDE_FAUCET_ALERT:
+			return {
+				...state,
+				showFaucetAlert: false
+			};
+
 		case SELECT_NETWORK:
 			return {
 				...state,
@@ -304,6 +324,14 @@ export default (
 	}
 };
 
+export function hideFaucetAlert(): Result<void> {
+	return dispatch => {
+		dispatch({
+			type: HIDE_FAUCET_ALERT
+		});
+	};
+}
+
 export function fetchNetworks(): Result<Promise<Network[]>> {
 	return async dispatch => {
 		dispatch({
@@ -351,7 +379,7 @@ export function selectNetwork(networkid: number): Result<Promise<Network>> {
 
 export function fetchAll(): Result<Promise<void>> {
 	return async dispatch => {
-		dispatch(fetchNetworkBlocks());
+		// dispatch(fetchNetworkBlocks());
 		dispatch(fetchNetworkValidators());
 		dispatch(fetchValidatorInfos());
 		dispatch(fetchWhitelist());

@@ -2,31 +2,32 @@ import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 
 import Alert from 'react-bootstrap/Alert';
-import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 
-import Loader from '../components/Loader';
 import Faucet from '../components/Faucet';
+import Loader from '../components/Loader';
 import Nominees from '../components/Nominees';
 import Validators from '../components/Validators';
 import Whitelist from '../components/Whitelist';
 
 import ExplorerAPIClient from '../client';
+
 import { SContent } from '../components/styles';
 import {
-	networkBlocks,
 	networkValidators,
 	selectedNetwork,
-	selectNominees
+	selectNominees,
+	selectShowFaucetAlert
 } from '../selectors';
+
+import { hideFaucetAlert } from '../modules/dashboard';
 
 const SIndex = styled.div`
 	h4 {
@@ -64,11 +65,13 @@ const SAlert = styled(Alert)`
 `;
 
 const Index: React.FC<RouteComponentProps<{}>> = props => {
+	const dispatch = useDispatch();
+
 	const network = useSelector(selectedNetwork);
 	const validators = useSelector(networkValidators);
 	const nominees = useSelector(selectNominees);
+	const showFaucet = useSelector(selectShowFaucetAlert);
 
-	const [show, setShow] = useState(true);
 	const [statLoading, setStatLoading] = useState(true);
 	const [blockHeight, setBlockHeight] = useState(0);
 	const [txCount, setTxCount] = useState(0);
@@ -107,10 +110,10 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 		<SIndex>
 			<Container>
 				<SAlert
-					show={show}
+					show={showFaucet}
 					variant="info"
 					dismissible={true}
-					onClose={() => setShow(false)}
+					onClose={() => dispatch(hideFaucetAlert())}
 				>
 					<Row className="">
 						<Col xs={12} md={5}>
