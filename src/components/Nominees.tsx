@@ -55,7 +55,7 @@ const Nominees: React.FC<{}> = () => {
 								<Avatar address={n.address} size={30} />
 							</td>
 							<td style={{ padding: '0 !important' }}>
-								<Row noGutters={true}>
+								<Row>
 									<Col md={6}>
 										<Image width={10} src={GreenUp} />
 										{n.upVotes}

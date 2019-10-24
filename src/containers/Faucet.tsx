@@ -15,7 +15,7 @@ const Faucet: React.FC<{}> = props => {
 			<Container>
 				<SContent>
 					<span>Faucet</span>
-					<Row className="align-items-center">
+					<Row>
 						<Col>
 							<p>
 								If you are interested in participating in our
@@ -37,10 +37,12 @@ const Faucet: React.FC<{}> = props => {
 							</p>
 						</Col>
 						<Col className="d-none d-sm-block text-center" md={4}>
-							<Image
-								src="https://monet.network/app/images/illustrations/pages/token_sale.svg"
-								width={180}
-							/>
+							<p>
+								<Image
+									src="https://monet.network/app/images/illustrations/pages/token_sale.svg"
+									width={180}
+								/>
+							</p>
 						</Col>
 					</Row>
 				</SContent>
