@@ -12,7 +12,7 @@ const SAvatar = styled(Image)`
 
 type Props = {
 	address: string;
-	size: number;
+	size?: number;
 };
 
 const Avatar: React.FC<Props> = props => {
@@ -21,7 +21,7 @@ const Avatar: React.FC<Props> = props => {
 			src={`https://s.gravatar.com/avatar/${utils.trimHex(
 				props.address
 			)}?size=100&default=retro`}
-			width={props.size}
+			width={props.size || 50}
 		/>
 	);
 };

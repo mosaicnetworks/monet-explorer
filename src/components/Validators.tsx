@@ -12,11 +12,10 @@ import Avatar from './Avatar';
 
 import { Validator } from '../client';
 import { networkInfos, networkValidators } from '../selectors';
+import { pubKeyToAddress } from '../utils';
 
 import GreenDot from '../assets/green-dot.png';
 import RedDot from '../assets/red-dot.png';
-
-const keccak256 = require('js-sha3').keccak256;
 
 const Green = styled.div`
 	color: darkgreen !important;
@@ -78,15 +77,7 @@ const Validators: React.FC<Props> = props => {
 	const rendervalidators = () => {
 		return validators.map(v => {
 			const info = infos.filter(i => i.validator.id === v.id)[0];
-
-			const pubKeyBuffer = Buffer.from(
-				v.public_key.slice(4, v.public_key.length),
-				'hex'
-			);
-
-			const address = Buffer.from(keccak256(pubKeyBuffer), 'hex')
-				.slice(-20)
-				.toString('hex');
+			const address = pubKeyToAddress(v.public_key);
 
 			return (
 				<tr key={v.moniker}>

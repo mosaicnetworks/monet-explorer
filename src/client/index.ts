@@ -19,6 +19,7 @@ export type Validator = {
 	public_key: string;
 	network: Network;
 	reachable: boolean;
+	history: ValidatorHistory;
 };
 
 export type Info = {

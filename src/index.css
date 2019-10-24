@@ -32,7 +32,7 @@ body {
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-	background-color: rgba(0, 0, 0, 0.015) !important;
+	background-color: rgba(0, 0, 0, 0) !important;
 }
 
 .table thead th {
@@ -139,4 +139,16 @@ a {
 
 input {
 	font-size: 14px !important;
+}
+
+.json-to-table td,
+.json-to-table th {
+	padding: 7px !important;
+	border-color: #eee;
+	width: 400px !important;
+	font-size: 14px !important;
+}
+
+.json-to-table tr:nth-child(even) {
+	background-color: #fff;
 }
