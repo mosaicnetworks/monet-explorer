@@ -146,7 +146,7 @@ def fetch_infos():
             try:
 
                 info = requests.get(
-                    url=f'http://{validator.host}:8080/info').json()
+                    url=f'http://{validator.host}:8080/info', timeout=5).json()
 
                 info_model, created = Info.objects.get_or_create(
                     validator=validator,
