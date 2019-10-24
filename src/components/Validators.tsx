@@ -97,9 +97,9 @@ const Validators: React.FC<Props> = props => {
 					</td>
 					<td>
 						{v.reachable ? (
-							<Image src={GreenDot} width="15" />
+							<Image src={GreenDot} width="10" />
 						) : (
-							<Image src={RedDot} width="15" />
+							<Image src={RedDot} width="10" />
 						)}
 					</td>
 					<td>{v.moniker}</td>
