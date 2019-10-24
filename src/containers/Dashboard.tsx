@@ -170,7 +170,7 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 								{txCount + intTxCount || (
 									<Loader loading={statLoading} />
 								)}
-								<small>({intTxCount})</small>
+								{!statLoading && <small>({intTxCount})</small>}
 							</h1>
 							<div>Total Transactions (Internal)</div>
 						</SContentPadded>

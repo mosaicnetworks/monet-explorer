@@ -1,6 +1,9 @@
 import React from 'react';
 
+import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
+import Image from 'react-bootstrap/Image';
+import Row from 'react-bootstrap/Row';
 
 import FaucetComponent from '../components/Faucet';
 
@@ -12,21 +15,34 @@ const Faucet: React.FC<{}> = props => {
 			<Container>
 				<SContent>
 					<span>Faucet</span>
-					<p>
-						If you are interested in participating in our testnet,
-						use the form to receive 100T (Tenom) to your address.
-						You can find libraries and tools on our{' '}
-						<a href="https://github.com/mosaicnetworks">GitHub</a>.
-						If you do not have an address yet, you can easily create
-						one using{' '}
-						<a href="https://github.com/mosaicnetworks/monetcli">
-							MonetCLI
-						</a>
-						.
-						<br />
-						<br />
-						<FaucetComponent />
-					</p>
+					<Row className="align-items-center">
+						<Col>
+							<p>
+								If you are interested in participating in our
+								testnet, use the form to receive 100T (Tenom) to
+								your address. You can find libraries and tools
+								on our{' '}
+								<a href="https://github.com/mosaicnetworks">
+									GitHub
+								</a>
+								. If you do not have an address yet, you can
+								easily create one using{' '}
+								<a href="https://github.com/mosaicnetworks/monetcli">
+									MonetCLI
+								</a>
+								.
+								<br />
+								<br />
+								<FaucetComponent />
+							</p>
+						</Col>
+						<Col className="d-none d-sm-block text-center" md={4}>
+							<Image
+								src="https://monet.network/app/images/illustrations/pages/token_sale.svg"
+								width={180}
+							/>
+						</Col>
+					</Row>
 				</SContent>
 			</Container>
 		</>
