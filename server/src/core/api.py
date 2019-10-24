@@ -172,8 +172,8 @@ class ValidatorHistoryAPIHandler(generics.ListAPIView):
         network = self.request.query_params.get('network', None)
 
         if network is not None:
-            queryset = queryset.filter(network__name=network.lower())
-
+            queryset = queryset.filter(
+                network__name=network.lower()).order_by('-consensus_round')
         return queryset
 
 

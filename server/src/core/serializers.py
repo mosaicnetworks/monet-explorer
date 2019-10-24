@@ -22,6 +22,14 @@ class ValidatorHistorySerializer(ModelSerializer):
         model = ValidatorHistory
         fields = ['id', 'consensus_round']
 
+    def to_representation(self, instance):
+        return dict(
+            id=instance.id,
+            consensus_round=instance.consensus_round,
+            validators=ValidatorWithoutHistorySerializer(
+                instance.validators, many=True).data,
+        )
+
 
 class ValidatorSerializer(ModelSerializer):
     """ Validator model serializer """
@@ -32,6 +40,15 @@ class ValidatorSerializer(ModelSerializer):
         model = Validator
         fields = ['id', 'moniker', 'host', 'port',
                   'public_key', 'history', 'reachable']
+
+
+class ValidatorWithoutHistorySerializer(ModelSerializer):
+    """ Validator model serializer """
+
+    class Meta:
+        model = Validator
+        fields = ['id', 'moniker', 'host', 'port',
+                  'public_key', 'reachable']
 
 
 class InfoSerializer(ModelSerializer):
@@ -102,7 +119,7 @@ class InternalTransactionReceiptSerializer(ModelSerializer):
 class SignatureSerializer(ModelSerializer):
     """ Siganture model serializer """
 
-    validator = ValidatorSerializer()
+    validator = ValidatorWithoutHistorySerializer()
 
     class Meta:
         model = Signature

@@ -15,6 +15,8 @@ export const selectValidator = (validatorid: number) => (store: Store) =>
 export const selectBlock = (blockid: number) => (store: Store) =>
 	store.networkBlocks.find(i => i.id === blockid);
 
+export const selectBlocksLoading = (store: Store) => store.loading.blocks;
+
 export const selectWhitelist = (store: Store) => store.networkWhitelist;
 export const selectNominees = (store: Store) => store.networkNominees;
 

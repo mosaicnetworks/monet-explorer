@@ -119,7 +119,7 @@ label {
 }
 
 a {
-	color: #e55e2b !important;
+	color: rgba(31, 66, 146, 1) !important;
 }
 
 .dropdown-menu {

@@ -72,6 +72,10 @@ class ValidatorHistory(models.Model):
     def __str__(self):
         return f'{self.network.name} - {self.consensus_round}'
 
+    @property
+    def validators(self):
+        return Validator.objects.filter(history=self)
+
 
 class Validator(models.Model):
     """ Validator model """

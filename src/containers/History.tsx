@@ -13,6 +13,7 @@ import Peers from '../components/Peers';
 import ExplorerAPIClient, { Validator, ValidatorHistory } from '../client';
 import { SContent } from '../components/styles';
 import { selectedNetwork } from '../selectors';
+import Loader from '../components/Loader';
 
 const SContainer = styled.div`
 	.nav-link.active {
@@ -36,75 +37,56 @@ const SContainer = styled.div`
 const History: React.FC<{}> = () => {
 	const network = useSelector(selectedNetwork);
 
+	const [loading, setLoading] = useState(false);
 	const [history, setHistory] = useState<ValidatorHistory[]>([]);
-
-	const [selectedRound, setSelectedRound] = useState<number>(0);
 	const [validators, setValidators] = useState<Validator[]>([]);
 
 	const c = new ExplorerAPIClient();
 
-	const fetchValidators = async () => {
-		console.log('Fetching validators', selectedRound);
-		const v = await c.getValidators(network!.name, selectedRound);
-		setValidators(v);
-	};
-
 	const fetchHistory = async () => {
 		if (network) {
-			console.log('fetching....');
+			setLoading(true);
+
 			const h = await c.getValidatorHistory(network.name);
+			setHistory(h);
 
-			setHistory(
-				h.reverse().sort((a, b) => {
-					return b.consensus_round - a.consensus_round;
-				})
-			);
-
-			if (h.length) {
-				const first = h[0];
-				setSelectedRound(first.consensus_round);
+			if (h[0]) {
+				setValidators(h[0].validators);
 			}
+
+			setLoading(false);
 		}
 	};
 
 	const onClickRound = (e: any) => {
-		console.log(e);
-		if (e === 'initial') {
-			setSelectedRound(history[0].consensus_round);
-		} else {
-			setSelectedRound(Number(e));
-		}
+		setValidators(history[Number(e)].validators);
 	};
 
 	useEffect(() => {
 		fetchHistory();
 	}, [network]);
 
-	useEffect(() => {
-		if (network) {
-			fetchValidators();
-		}
-	}, [selectedRound]);
-
 	return (
 		<SContainer>
 			<Container>
 				<SContent>
-					<span>Validator History - by Round</span>
+					<span>Validator History</span>
+					{loading && (
+						<p className="text-center">
+							<Loader loading={loading} size={40} />
+						</p>
+					)}
 					<Tabs
 						onSelect={onClickRound}
-						defaultActiveKey="initial"
+						defaultActiveKey={0}
 						transition={false}
 						id="noanim-tab-example"
 					>
 						{history.map((h, i) => {
 							return (
 								<Tab
-									// onSelect={(k: any) => console.log}
 									key={i}
-									eventKey={
-										i === 0 ? 'initial' : h.consensus_round
-									}
+									eventKey={i}
 									title={h.consensus_round}
 								>
 									<Peers peers={validators} />
