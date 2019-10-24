@@ -13,7 +13,11 @@ import Navbar from 'react-bootstrap/Navbar';
 // import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import { fetchAll, selectNetwork } from '../modules/dashboard';
-import { networksSelector, selectedNetwork } from '../selectors';
+import {
+	networksSelector,
+	selectedNetwork,
+	selectShowFaucetAlert
+} from '../selectors';
 
 import Logo from '../assets/monet.svg';
 
@@ -90,6 +94,7 @@ const Header: React.FC<{}> = () => {
 
 	const networks = useSelector(networksSelector);
 	const selected = useSelector(selectedNetwork);
+	const showFaucet = useSelector(selectShowFaucetAlert);
 
 	const fetchAllData = () => dispatch(fetchAll());
 
@@ -171,18 +176,20 @@ const Header: React.FC<{}> = () => {
 						className="justify-content-end"
 					>
 						<SNav activeKey="/">
-							<Nav.Item>
-								<Nav.Link as="span" eventKey="link-2">
-									<Link to={'/faucet'}>
-										<Image
-											src={
-												'https://monet.network/app/images/products/tenom.svg'
-											}
-											width={25}
-										/>
-									</Link>
-								</Nav.Link>
-							</Nav.Item>
+							{!showFaucet && (
+								<Nav.Item>
+									<Nav.Link as="span" eventKey="link-2">
+										<Link to={'/faucet'}>
+											<Image
+												src={
+													'https://monet.network/app/images/products/tenom.svg'
+												}
+												width={25}
+											/>
+										</Link>
+									</Nav.Link>
+								</Nav.Item>
+							)}
 							<Nav.Item>
 								<Nav.Link as="span" eventKey="link-2">
 									<Link to={'/'}>Dashboard</Link>

@@ -187,6 +187,9 @@ def fetch_infos():
 
                     info_model.save()
             except:
+                validator.reachable = False
+                validator.save()
+
                 print(f'infos - Could not connect to: {validator.moniker}')
 
 

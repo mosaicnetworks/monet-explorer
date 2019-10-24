@@ -5,13 +5,16 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import Badge from 'react-bootstrap/Badge';
+import Image from 'react-bootstrap/Image';
 import Table from 'react-bootstrap/Table';
 
 import Avatar from './Avatar';
 
 import { Validator } from '../client';
 import { networkInfos, networkValidators } from '../selectors';
+
+import GreenDot from '../assets/green-dot.png';
+import RedDot from '../assets/red-dot.png';
 
 const keccak256 = require('js-sha3').keccak256;
 
@@ -92,6 +95,13 @@ const Validators: React.FC<Props> = props => {
 							<Avatar address={address} size={30} />
 						</Link>
 					</td>
+					<td>
+						{v.reachable ? (
+							<Image src={GreenDot} width="15" />
+						) : (
+							<Image src={RedDot} width="15" />
+						)}
+					</td>
 					<td>{v.moniker}</td>
 					<td className="mono">
 						<Link to={`/search/0x${address}`}>
@@ -126,6 +136,7 @@ const Validators: React.FC<Props> = props => {
 				<thead>
 					<tr>
 						<th>Profile</th>
+						<th>Status</th>
 						<th>Moniker</th>
 						<th>Address</th>
 						<th>State</th>

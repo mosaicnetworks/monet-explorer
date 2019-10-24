@@ -30,7 +30,8 @@ class ValidatorSerializer(ModelSerializer):
 
     class Meta:
         model = Validator
-        fields = ['id', 'moniker', 'host', 'port', 'public_key', 'history']
+        fields = ['id', 'moniker', 'host', 'port',
+                  'public_key', 'history', 'reachable']
 
 
 class InfoSerializer(ModelSerializer):

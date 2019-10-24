@@ -86,6 +86,8 @@ class Validator(models.Model):
     public_key = models.CharField(max_length=132)
     moniker = models.CharField(max_length=30)
 
+    reachable = models.BooleanField(default=False)
+
     # Relational fields
     network = models.ForeignKey(Network, on_delete=models.CASCADE)
     history = models.ForeignKey(ValidatorHistory, on_delete=models.CASCADE)

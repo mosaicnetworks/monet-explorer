@@ -18,6 +18,7 @@ export type Validator = {
 	port: number;
 	public_key: string;
 	network: Network;
+	reachable: boolean;
 };
 
 export type Info = {
