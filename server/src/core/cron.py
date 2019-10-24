@@ -186,6 +186,9 @@ def fetch_infos():
                     info_model.events_per_second = info['events_per_second']
 
                     info_model.save()
+
+                validator.reachable = True
+                validator.save()
             except:
                 validator.reachable = False
                 validator.save()
