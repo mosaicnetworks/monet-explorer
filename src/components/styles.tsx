@@ -22,5 +22,6 @@ export const SContent = styled.div`
 
 	div.padding {
 		padding: 20px !important;
+		overflow: scroll !important;
 	}
 `;

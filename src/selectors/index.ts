@@ -1,19 +1,16 @@
 import { Store } from '../store';
 
-export const networksSelector = (store: Store) => store.networks;
-export const selectedNetwork = (store: Store) => store.selectedNetwork;
-export const networkValidators = (store: Store) => store.networkValidators;
-export const networkInfos = (store: Store) => store.networkInfos;
-export const networkBlocks = (store: Store) => store.networkBlocks;
+export const selectAllNetworks = (store: Store) => store.networks;
+export const selectNetwork = (store: Store) => store.selectedNetwork;
+export const selectNetworkValidators = (store: Store) =>
+	store.networkValidators;
+export const selectNetworkBlocks = (store: Store) => store.networkBlocks;
 
-export const validatorInfo = (validatorid: number) => (store: Store) =>
-	store.networkInfos.find(i => i.validator.id === validatorid);
+export const selectValidator = (pubKey: string) => (store: Store) =>
+	store.networkValidators.find(v => v.public_key === pubKey);
 
-export const selectValidator = (validatorid: number) => (store: Store) =>
-	store.networkValidators.find(v => v.id === validatorid);
-
-export const selectBlock = (blockid: number) => (store: Store) =>
-	store.networkBlocks.find(i => i.id === blockid);
+export const selectBlock = (blockindex: number) => (store: Store) =>
+	store.networkBlocks.find(i => i.index === blockindex);
 
 export const selectBlocksLoading = (store: Store) => store.loading.blocks;
 

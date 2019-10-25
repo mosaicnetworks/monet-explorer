@@ -4,7 +4,11 @@ Core models serializers
 
 from rest_framework.serializers import ModelSerializer
 
-from .models import Network, Validator, Info, Block, Transaction, InternalTransaction, InternalTransactionReceipt, Signature, ValidatorHistory
+from .models import (
+    Network, Validator, Info, Block, Transaction,
+    InternalTransaction, InternalTransactionReceipt, Signature,
+    ValidatorHistory
+)
 
 
 class NetworkSerializer(ModelSerializer):
@@ -12,15 +16,7 @@ class NetworkSerializer(ModelSerializer):
 
     class Meta:
         model = Network
-        fields = ['id', 'name', 'host', 'port']
-
-
-class ValidatorHistoryWithoutValidatorsSerializer(ModelSerializer):
-    """ Validator model serializer """
-
-    class Meta:
-        model = ValidatorHistory
-        fields = ['id', 'consensus_round']
+        fields = ['name', 'host', 'port']
 
 
 class ValidatorHistorySerializer(ModelSerializer):
@@ -28,52 +24,39 @@ class ValidatorHistorySerializer(ModelSerializer):
 
     class Meta:
         model = ValidatorHistory
-        fields = ['id', 'consensus_round']
+        fields = ['consensus_round']
 
     def to_representation(self, instance):
         return dict(
-            id=instance.id,
             consensus_round=instance.consensus_round,
-            validators=ValidatorWithoutHistorySerializer(
-                instance.validators, many=True).data,
+            validators=ValidatorSerializer(
+                instance.validators,
+                many=True
+            ).data,
         )
 
 
 class ValidatorSerializer(ModelSerializer):
     """ Validator model serializer """
 
-    history = ValidatorHistoryWithoutValidatorsSerializer()
-
     class Meta:
         model = Validator
-        fields = ['id', 'moniker', 'host', 'port',
-                  'public_key', 'history', 'reachable']
+        fields = ['moniker', 'host', 'public_key', 'reachable']
+
+    def to_representation(self, instance):
+        json = super().to_representation(instance)
+        json['info'] = InfoSerializer(instance.info).data
+
+        return json
 
 
 class InfoSerializer(ModelSerializer):
     """ Info model serializer """
 
-    validator = ValidatorSerializer()
-
     class Meta:
         model = Info
         fields = [
-            'id', 'e_id', 'type', 'state', 'consensus_events',
-            'consensus_transactions', 'last_block_index',
-            'last_consensus_round', 'last_peer_change',
-            'min_gas_price', 'num_peers', 'undetermined_events',
-            'transaction_pool', 'sync_rate', 'events_per_second',
-            'rounds_per_second', 'validator',
-        ]
-
-
-class InfoWithoutValidatorSerializer(ModelSerializer):
-    """ Info model serializer """
-
-    class Meta:
-        model = Info
-        fields = [
-            'id', 'e_id', 'type', 'state', 'consensus_events',
+            'e_id', 'type', 'state', 'consensus_events',
             'consensus_transactions', 'last_block_index',
             'last_consensus_round', 'last_peer_change',
             'min_gas_price', 'num_peers', 'undetermined_events',
@@ -82,35 +65,16 @@ class InfoWithoutValidatorSerializer(ModelSerializer):
         ]
 
 
-class ValidatorWithoutHistorySerializer(ModelSerializer):
-    """ Validator model serializer """
-
-    class Meta:
-        model = Validator
-        fields = ['id', 'moniker', 'host', 'port', 'public_key']
-
-    def to_representation(self, instance):
-        return dict(
-            id=instance.id,
-            moniker=instance.moniker,
-            host=instance.host,
-            port=instance.port,
-            public_key=instance.public_key,
-            info=InfoWithoutValidatorSerializer(instance.info).data,
-        )
-
-
 class BlockSerializer(ModelSerializer):
     """ Block model serializer """
 
     class Meta:
         model = Block
-        fields = ['id', 'index', 'round_received',
+        fields = ['index', 'round_received',
                   'state_hash', 'peers_hash', 'frame_hash']
 
     def to_representation(self, instance):
         return {
-            'id': instance.id,
             'index': instance.index,
             'round_received': instance.round_received,
             'state_hash': instance.state_hash,
@@ -151,7 +115,7 @@ class InternalTransactionReceiptSerializer(ModelSerializer):
 class SignatureSerializer(ModelSerializer):
     """ Siganture model serializer """
 
-    validator = ValidatorWithoutHistorySerializer()
+    validator = ValidatorSerializer()
 
     class Meta:
         model = Signature

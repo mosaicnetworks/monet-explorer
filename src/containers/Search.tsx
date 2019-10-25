@@ -14,7 +14,7 @@ import Row from 'react-bootstrap/Row';
 import monet from '../monet';
 
 import { SContent } from '../components/styles';
-import { selectedNetwork } from '../selectors';
+import { selectNetwork } from '../selectors';
 
 const SSearch = styled(Container)``;
 
@@ -23,7 +23,7 @@ type ReactRouterProps = {
 };
 
 const Search: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
-	const network = useSelector(selectedNetwork) || {
+	const network = useSelector(selectNetwork) || {
 		host: 'localhost',
 		port: 8080
 	};
@@ -55,7 +55,7 @@ const Search: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 			<SContent>
 				<span>Search: {props.match.params.data}</span>
 				{Object.keys(account).length > 0 && (
-					<p>
+					<div className="padding">
 						<Row>
 							<Col>
 								<b>Balance:</b>{' '}
@@ -80,7 +80,7 @@ const Search: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 								</pre>
 							</Col>
 						</Row>
-					</p>
+					</div>
 				)}
 			</SContent>
 		</SSearch>

@@ -14,4 +14,5 @@ urlpatterns = [
     path('faucet/', api.FaucetAPIHandler.as_view()),
     path('history/', api.ValidatorHistoryAPIHandler.as_view()),
     path('stats/', api.StatisticsAPIHandler.as_view()),
+    path('transactions/', api.TransactionAPIHandler.as_view()),
 ]

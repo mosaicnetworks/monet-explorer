@@ -7,11 +7,9 @@ import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 
-import { useSelector } from 'react-redux';
-
 import Avatar from '../components/Avatar';
 
-import { selectNominees } from '../selectors';
+import { NomineeEntry } from '../poa';
 
 import GreenUp from '../assets/green-up.png';
 import RedDown from '../assets/red-down.png';
@@ -28,9 +26,11 @@ const STable = styled(Table)`
 	}
 `;
 
-const Nominees: React.FC<{}> = () => {
-	const nominees = useSelector(selectNominees);
+type Props = {
+	nominees: NomineeEntry[];
+};
 
+const Nominees: React.FC<Props> = props => {
 	return (
 		<>
 			<STable
@@ -49,7 +49,7 @@ const Nominees: React.FC<{}> = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{nominees.map(n => (
+					{props.nominees.map(n => (
 						<tr key={n.address}>
 							<td>
 								<Avatar address={n.address} size={30} />
