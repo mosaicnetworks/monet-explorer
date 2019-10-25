@@ -12,10 +12,13 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 // import NavDropdown from 'react-bootstrap/NavDropdown';
 
-import { fetchAll, selectNetwork } from '../modules/dashboard';
 import {
-	networksSelector,
-	selectedNetwork,
+	fetchAll,
+	selectNetwork as selectNetworkAction
+} from '../modules/dashboard';
+import {
+	selectAllNetworks,
+	selectNetwork,
 	selectShowFaucetAlert
 } from '../selectors';
 
@@ -92,8 +95,8 @@ const Header: React.FC<{}> = () => {
 	const [search, setSearch] = useState('');
 	const [counter, setCounter] = useState(5);
 
-	const networks = useSelector(networksSelector);
-	const selected = useSelector(selectedNetwork);
+	const networks = useSelector(selectAllNetworks);
+	const selected = useSelector(selectNetwork);
 	const showFaucet = useSelector(selectShowFaucetAlert);
 
 	const fetchAllData = () => dispatch(fetchAll());
@@ -135,7 +138,7 @@ const Header: React.FC<{}> = () => {
 
 	useEffect(() => {
 		if (networks.length) {
-			dispatch(selectNetwork(networks[0].id));
+			dispatch(selectNetworkAction(networks[0].name));
 		}
 	}, [networks]);
 
@@ -197,7 +200,7 @@ const Header: React.FC<{}> = () => {
 							</Nav.Item>
 							<Nav.Item>
 								<Nav.Link as="span">
-									<Link to={'/blocks'}>Block Explorer</Link>
+									<Link to={'/blocks'}>Blocks</Link>
 								</Nav.Link>
 							</Nav.Item>
 							{/* <NavDropdown title="Networks" id="dropdownn">

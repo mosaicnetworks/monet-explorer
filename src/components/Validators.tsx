@@ -2,7 +2,6 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Image from 'react-bootstrap/Image';
@@ -11,7 +10,6 @@ import Table from 'react-bootstrap/Table';
 import Avatar from './Avatar';
 
 import { Validator } from '../client';
-import { networkInfos, networkValidators } from '../selectors';
 import { pubKeyToAddress } from '../utils';
 
 import GreenDot from '../assets/green-dot.png';
@@ -67,32 +65,32 @@ const STable = styled(Table)`
 `;
 
 type Props = {
-	onClickHandler: (v: Validator) => () => void;
+	validators: Validator[];
+	hideStatus?: boolean;
 };
 
 const Validators: React.FC<Props> = props => {
-	const validators = useSelector(networkValidators);
-	const infos = useSelector(networkInfos);
-
 	const rendervalidators = () => {
-		return validators.map(v => {
-			const info = infos.filter(i => i.validator.id === v.id)[0];
+		return props.validators.map(v => {
 			const address = pubKeyToAddress(v.public_key);
 
 			return (
 				<tr key={v.moniker}>
 					<td>
-						<Link to={`/validator/${v.id}`}>
+						<Link to={`/validator/${v.public_key}`}>
 							<Avatar address={address} size={30} />
 						</Link>
 					</td>
-					<td>
-						{v.reachable ? (
-							<Image src={GreenDot} width="10" />
-						) : (
-							<Image src={RedDot} width="10" />
-						)}
-					</td>
+					{!props.hideStatus && (
+						<td>
+							{v.reachable ? (
+								<Image src={GreenDot} width="10" />
+							) : (
+								<Image src={RedDot} width="10" />
+							)}
+						</td>
+					)}
+
 					<td>{v.moniker}</td>
 					<td className="mono">
 						<Link to={`/search/0x${address}`}>
@@ -100,16 +98,16 @@ const Validators: React.FC<Props> = props => {
 							{address}
 						</Link>
 					</td>
-					<td>{stateStyling(info && info.state)}</td>
+					<td>{stateStyling(v.info.state)}</td>
 					<td>
 						{/* <Link to={`/block/${info.last_block_index}`}> */}
-						{info && info.last_block_index}
+						{v.info.last_block_index}
 						{/* </Link> */}
 					</td>
-					<td>{info && info.last_consensus_round}</td>
-					<td>{info && info.consensus_events}</td>
-					<td>{info && info.undetermined_events}</td>
-					<td>{info && info.min_gas_price}</td>
+					<td>{v.info.last_consensus_round}</td>
+					<td>{v.info.consensus_events}</td>
+					<td>{v.info.undetermined_events}</td>
+					<td>{v.info.min_gas_price}</td>
 				</tr>
 			);
 		});
@@ -127,7 +125,7 @@ const Validators: React.FC<Props> = props => {
 				<thead>
 					<tr>
 						<th>Profile</th>
-						<th>Status</th>
+						{!props.hideStatus && <th>Status</th>}
 						<th>Moniker</th>
 						<th>Address</th>
 						<th>State</th>

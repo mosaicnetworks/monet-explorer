@@ -152,3 +152,8 @@ input {
 .json-to-table tr:nth-child(even) {
 	background-color: #fff;
 }
+
+.badge {
+	padding: 5px !important;
+	font-size: 13px;
+}

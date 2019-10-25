@@ -2,6 +2,9 @@
 import requests
 import json
 
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -103,6 +106,10 @@ class BlockListAPIHandler(generics.ListAPIView):
     queryset = Block.objects.order_by('-index')
     serializer_class = BlockSerializer
 
+    @method_decorator(cache_page(60*60*2))
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
     def get_queryset(self):
         """ Get query set to be listed by Response """
 
@@ -165,6 +172,10 @@ class ValidatorHistoryAPIHandler(generics.ListAPIView):
     queryset = ValidatorHistory.objects.all()
     serializer_class = ValidatorHistorySerializer
 
+    @method_decorator(cache_page(60*60*2))
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
     def get_queryset(self):
         """ Get query set to be listed by Response """
 
@@ -204,3 +215,23 @@ class StatisticsAPIHandler(APIView):
                 block__network__name=network.lower()).count()
 
         return Response(res)
+
+
+class TransactionAPIHandler(generics.ListAPIView):
+    """ Statistics API handler """
+
+    model = Transaction
+    serializer_class = TransactionSerializer
+
+    def get_queryset(self):
+        """ Get query set to be listed by Response """
+
+        queryset = Transaction.objects.all()
+        network = self.request.query_params.get('network', None)
+
+        if network is not None:
+            queryset = queryset.filter(
+                block__network__name=network.lower()
+            ).order_by('-id')
+
+        return queryset

@@ -1,40 +1,59 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { useSelector } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
-import BlocksTable from '../components/Blocks';
+import Block from '../components/Block';
 import Loader from '../components/Loader';
 
 import { SContent } from '../components/styles';
 
-import { selectBlocksLoading } from '../selectors';
+import { fetchNetworkBlocks } from '../modules/dashboard';
+import { selectBlocksLoading, selectNetworkBlocks } from '../selectors';
 
-const Blocks: React.FC<RouteComponentProps<{}>> = props => {
+const Blocks: React.FC<{}> = props => {
+	const dispatch = useDispatch();
+
 	const loading = useSelector(selectBlocksLoading);
+	const blocks = useSelector(selectNetworkBlocks);
+
+	const fetchBlocks = () => dispatch(fetchNetworkBlocks());
+
+	useEffect(() => {
+		fetchBlocks();
+	}, []);
+
 	return (
 		<Container fluid={false}>
-			<Row noGutters={true}>
+			<Row>
 				<Col>
 					<SContent>
-						<span>Blocks</span>
-						<BlocksTable
-							onClickHandler={v => () => {
-								console.log(v);
-								props.history.push(`/block/${v.id}`);
-							}}
-						/>
-						{loading && (
-							<p className="text-center">
-								<Loader loading={loading} size={40} />
-							</p>
-						)}
+						<span>Lastest 30 Blocks</span>
+						<div className="padding">
+							{blocks.map(b => {
+								return (
+									<div key={b.index}>
+										<Block block={b} />
+									</div>
+								);
+							})}
+							{loading && (
+								<div className="padding text-center">
+									<Loader loading={loading} size={40} />
+								</div>
+							)}
+						</div>
 					</SContent>
 				</Col>
+				{/* <Col md={3}>
+					<SContent>
+						<span>Search</span>
+						<div className="padding"></div>
+					</SContent>
+				</Col> */}
 			</Row>
 		</Container>
 	);

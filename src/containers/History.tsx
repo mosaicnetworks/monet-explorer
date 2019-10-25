@@ -9,11 +9,11 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
 import Loader from '../components/Loader';
-import Peers from '../components/Peers';
+import Validators from '../components/Validators';
 
 import ExplorerAPIClient, { Validator, ValidatorHistory } from '../client';
 import { SContent } from '../components/styles';
-import { selectedNetwork } from '../selectors';
+import { selectNetwork } from '../selectors';
 
 const SContainer = styled.div`
 	.nav-link.active {
@@ -36,7 +36,7 @@ const SContainer = styled.div`
 `;
 
 const History: React.FC<{}> = () => {
-	const network = useSelector(selectedNetwork);
+	const network = useSelector(selectNetwork);
 
 	const [loading, setLoading] = useState(false);
 	const [history, setHistory] = useState<ValidatorHistory[]>([]);
@@ -92,7 +92,10 @@ const History: React.FC<{}> = () => {
 									eventKey={i}
 									title={h.consensus_round}
 								>
-									<Peers peers={validators} />
+									<Validators
+										hideStatus={true}
+										validators={validators}
+									/>
 								</Tab>
 							);
 						})}

@@ -5,26 +5,21 @@ import { IReceipt } from 'evm-lite-client';
 import request from 'request';
 
 export type Network = {
-	id: number;
 	name: string;
 	host: string;
 	port: number;
 };
 
 export type Validator = {
-	id: number;
 	moniker: string;
 	host: string;
-	port: number;
 	public_key: string;
 	network: Network;
 	reachable: boolean;
-	history: ValidatorHistory;
 	info: Info;
 };
 
 export type Info = {
-	id: number;
 	e_id: number;
 	type: string;
 	state: string;
@@ -40,32 +35,26 @@ export type Info = {
 	sync_rate: string;
 	events_per_second: string;
 	rounds_per_second: string;
-	validator: Validator;
 };
 
 export type Transaction = {
-	id: number;
 	data: string;
 };
 
 export type InternalTransaction = {
-	id: number;
 	data: string;
 };
 
 export type InternalTransactionReceipt = {
-	id: number;
 	data: string;
 };
 
 export type Signature = {
-	id: number;
 	signature: string;
 	validator: Validator;
 };
 
 export type Block = {
-	id: number;
 	index: number;
 	round_received: number;
 	state_hash: string;
@@ -79,7 +68,6 @@ export type Block = {
 };
 
 export type ValidatorHistory = {
-	id: number;
 	consensus_round: number;
 	validators: Validator[];
 };
@@ -170,6 +158,12 @@ class ExplorerAPIClient extends AbstractClient {
 				}
 			);
 		});
+	}
+
+	public async transactions(network: string): Promise<any> {
+		return JSON.parse(
+			await this.get(`/api/transactions/?network=${network}`)
+		).results;
 	}
 }
 

@@ -11,13 +11,7 @@ const FETCH_VALIDATORS_INIT = '@monet/dashboard/validators/FETCH/INIT';
 const FETCH_VALIDATORS_SUCCESS = '@monet/dashboard/validators/FETCH/SUCCESS';
 const FETCH_VALIDATORS_ERROR = '@monet/dashboard/validators/FETCH/ERROR';
 
-const FETCH_INFOS_INIT = '@monet/dashboard/infos/FETCH/INIT';
-const FETCH_INFOS_SUCCESS = '@monet/dashboard/infos/FETCH/SUCCESS';
-const FETCH_INFOS_ERROR = '@monet/dashboard/infos/FETCH/ERROR';
-
 const FETCH_BLOCKS_INIT = '@monet/dashboard/blocks/FETCH/INIT';
-const FETCH_BLOCKS_OLDER = '@monet/dashboard/blocks/FETCH/OLDER';
-// const FETCH_BLOCKS_NEWER = '@monet/dashboard/blocks/FETCH/NEWER';
 const FETCH_BLOCKS_SUCCESS = '@monet/dashboard/blocks/FETCH/SUCCESS';
 const FETCH_BLOCKS_ERROR = '@monet/dashboard/blocks/FETCH/ERROR';
 
@@ -173,37 +167,6 @@ export default (
 				}
 			};
 
-		case FETCH_INFOS_INIT:
-			return {
-				...state,
-				error: undefined,
-				loading: {
-					...state.loading,
-					infos: true
-				}
-			};
-
-		case FETCH_INFOS_SUCCESS:
-			return {
-				...state,
-				networkInfos: action.payload,
-				error: undefined,
-				loading: {
-					...state.loading,
-					infos: false
-				}
-			};
-
-		case FETCH_INFOS_ERROR:
-			return {
-				...state,
-				error: action.payload,
-				loading: {
-					...state.loading,
-					infos: false
-				}
-			};
-
 		case FETCH_BLOCKS_INIT:
 			return {
 				...state,
@@ -224,28 +187,6 @@ export default (
 					blocks: false
 				}
 			};
-
-		case FETCH_BLOCKS_OLDER:
-			return {
-				...state,
-				networkBlocks: [...state.networkBlocks, ...action.payload],
-				error: undefined,
-				loading: {
-					...state.loading,
-					blocks: false
-				}
-			};
-
-		// case FETCH_BLOCKS_NEWER:
-		// 	return {
-		// 		...state,
-		// 		networkBlocks: [...action.payload, ...state.networkBlocks],
-		// 		error: undefined,
-		// 		loading: {
-		// 			...state.loading,
-		// 			blocks: false
-		// 		}
-		// 	};
 
 		case FETCH_BLOCKS_ERROR:
 			return {
@@ -358,13 +299,13 @@ export function fetchNetworks(): Result<Promise<Network[]>> {
 	};
 }
 
-export function selectNetwork(networkid: number): Result<Promise<Network>> {
+export function selectNetwork(networkName: string): Result<Promise<Network>> {
 	return async (dispatch, getState) => {
 		const state = getState();
 
 		const network: Network = state.networks.filter(
-			n => n.id === networkid
-		)![0];
+			n => n.name.toLowerCase() === networkName.toLowerCase()
+		)[0];
 
 		await dispatch({
 			type: SELECT_NETWORK,
@@ -381,7 +322,6 @@ export function fetchAll(): Result<Promise<void>> {
 	return async dispatch => {
 		// dispatch(fetchNetworkBlocks());
 		dispatch(fetchNetworkValidators());
-		dispatch(fetchValidatorInfos());
 		dispatch(fetchWhitelist());
 		dispatch(fetchNominees());
 	};
@@ -417,34 +357,6 @@ export function fetchNetworkValidators(): Result<Promise<Validator[]>> {
 	};
 }
 
-export function fetchValidatorInfos(): Result<Promise<Info[]>> {
-	return async (dispatch, getState) => {
-		const state = getState();
-
-		dispatch({
-			type: FETCH_INFOS_INIT
-		});
-
-		try {
-			const infos = await c.getInfos(state.selectedNetwork!.name);
-
-			dispatch({
-				type: FETCH_INFOS_SUCCESS,
-				payload: infos
-			});
-
-			return infos;
-		} catch (e) {
-			dispatch({
-				type: FETCH_INFOS_ERROR,
-				payload: e.toString()
-			});
-		}
-
-		return [];
-	};
-}
-
 export function fetchNetworkBlocks(): Result<Promise<Block[]>> {
 	return async (dispatch, getState) => {
 		const state = getState();
@@ -454,33 +366,13 @@ export function fetchNetworkBlocks(): Result<Promise<Block[]>> {
 		});
 
 		try {
-			const currentBlocks = state.networkBlocks.length;
-			const blocks = await c.getBlocks(
-				state.selectedNetwork!.name,
-				currentBlocks
-			);
+			// const currentBlocks = state.networkBlocks.length;
+			const blocks = await c.getBlocks(state.selectedNetwork!.name);
 
-			// if (currentBlocks) {
-			// if (
-			// 	state.networkBlocks[0].network.name ===
-			// 	state.selectedNetwork!.name
-			// ) {
-			// 	dispatch({
-			// 		type: FETCH_BLOCKS_NEWER,
-			// 		payload: blocks
-			// 	});
-			// } else {
 			dispatch({
 				type: FETCH_BLOCKS_SUCCESS,
 				payload: blocks
 			});
-			// }
-			// } else {
-			// 	dispatch({
-			// 		type: FETCH_BLOCKS_SUCCESS,
-			// 		payload: blocks
-			// 	});
-			// }
 
 			return blocks;
 		} catch (e) {
@@ -494,36 +386,33 @@ export function fetchNetworkBlocks(): Result<Promise<Block[]>> {
 	};
 }
 
-export function fetchNextBlocks(): Result<Promise<Block[]>> {
-	return async (dispatch, getState) => {
-		const state = getState();
+// export function fetchNextBlocks(): Result<Promise<Block[]>> {
+// 	return async (dispatch, getState) => {
+// 		const state = getState();
 
-		dispatch({
-			type: FETCH_BLOCKS_INIT
-		});
+// 		dispatch({
+// 			type: FETCH_BLOCKS_INIT
+// 		});
 
-		try {
-			const blocks = await c.getBlocks(
-				state.selectedNetwork!.name,
-				state.networkBlocks.length
-			);
+// 		try {
+// 			const blocks = await c.getBlocks(state.selectedNetwork!.name);
 
-			dispatch({
-				type: FETCH_BLOCKS_OLDER,
-				payload: blocks
-			});
+// 			dispatch({
+// 				type: FETCH_BLOCKS_OLDER,
+// 				payload: blocks
+// 			});
 
-			return blocks;
-		} catch (e) {
-			dispatch({
-				type: FETCH_BLOCKS_ERROR,
-				payload: e.toString()
-			});
-		}
+// 			return blocks;
+// 		} catch (e) {
+// 			dispatch({
+// 				type: FETCH_BLOCKS_ERROR,
+// 				payload: e.toString()
+// 			});
+// 		}
 
-		return [];
-	};
-}
+// 		return [];
+// 	};
+// }
 
 export function fetchWhitelist(): Result<Promise<void>> {
 	return async (dispatch, getState) => {

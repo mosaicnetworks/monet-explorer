@@ -21,10 +21,11 @@ import ExplorerAPIClient from '../client';
 
 import { SContent } from '../components/styles';
 import {
-	networkValidators,
-	selectedNetwork,
+	selectNetwork,
+	selectNetworkValidators,
 	selectNominees,
-	selectShowFaucetAlert
+	selectShowFaucetAlert,
+	selectWhitelist
 } from '../selectors';
 
 import { hideFaucetAlert } from '../modules/dashboard';
@@ -67,9 +68,10 @@ const SAlert = styled(Alert)`
 const Index: React.FC<RouteComponentProps<{}>> = props => {
 	const dispatch = useDispatch();
 
-	const network = useSelector(selectedNetwork);
-	const validators = useSelector(networkValidators);
+	const network = useSelector(selectNetwork);
+	const validators = useSelector(selectNetworkValidators);
 	const nominees = useSelector(selectNominees);
+	const whitelist = useSelector(selectWhitelist);
 	const showFaucet = useSelector(selectShowFaucetAlert);
 
 	const [statLoading, setStatLoading] = useState(true);
@@ -207,12 +209,7 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 									</Col>
 								</Row>
 							</span>
-							<Validators
-								onClickHandler={v => () => {
-									console.log(v);
-									props.history.push(`/validator/${v.id}`);
-								}}
-							/>
+							<Validators validators={validators} />
 						</SContent>
 					</Col>
 				</Row>
@@ -222,13 +219,13 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 					<Col xs={12} md={12} lg={12} xl={6}>
 						<SContent>
 							<span>Whitelist</span>
-							<Whitelist />
+							<Whitelist whitelist={whitelist} />
 						</SContent>
 					</Col>
 					<Col xs={12} md={12} lg={12} xl={6}>
 						<SContent>
 							<span>Nominees</span>
-							<Nominees />
+							<Nominees nominees={nominees} />
 						</SContent>
 					</Col>
 				</Row>

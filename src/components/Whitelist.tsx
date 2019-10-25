@@ -4,11 +4,9 @@ import styled from 'styled-components';
 
 import Table from 'react-bootstrap/Table';
 
-import { useSelector } from 'react-redux';
-
 import Avatar from '../components/Avatar';
 
-import { selectWhitelist } from '../selectors';
+import { WhitelistEntry } from '../poa';
 
 const STable = styled(Table)`
 	margin-bottom: 0px !important;
@@ -22,9 +20,11 @@ const STable = styled(Table)`
 	}
 `;
 
-const Whitelist: React.FC<{}> = () => {
-	const whitelist = useSelector(selectWhitelist);
+type Props = {
+	whitelist: WhitelistEntry[];
+};
 
+const Whitelist: React.FC<Props> = props => {
 	return (
 		<>
 			<STable
@@ -42,7 +42,7 @@ const Whitelist: React.FC<{}> = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{whitelist.map(wle => (
+					{props.whitelist.map(wle => (
 						<tr key={wle.address}>
 							<td>
 								<Avatar address={wle.address} size={30} />
