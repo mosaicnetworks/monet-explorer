@@ -20,8 +20,7 @@ const persistConfig: PersistConfig<any> = {
 		'networkValidators',
 		'networkInfos',
 		'networkWhitelist',
-		'networkNominees',
-		'showFaucetAlert'
+		'networkNominees'
 	]
 };
 
