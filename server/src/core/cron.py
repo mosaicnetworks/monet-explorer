@@ -89,7 +89,7 @@ def fetch_history():
         history = requests.get(
             url=f'http://{network.host}:{network.port}/history').json()
 
-        if len(history) == ValidatorHistory.objects.filter(netowkr=network).count():
+        if len(history) == ValidatorHistory.objects.filter(network=network).count():
             print("history - Nothing to fetch...")
             return
 
