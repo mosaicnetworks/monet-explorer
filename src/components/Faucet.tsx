@@ -11,8 +11,9 @@ import Loader from './Loader';
 
 import ExplorerAPIClient from '../client';
 
-const SError = styled.div`
-	color: red;
+const SError = styled.span`
+	color: #ff0000;
+	margin-left: 5px;
 `;
 
 const SSuccess = styled.div`
@@ -75,7 +76,7 @@ const Faucet: React.FC<{}> = () => {
 						<Form.Control
 							onChange={(e: any) => setAddress(e.target.value)}
 							type="text"
-							placeholder="0xbca3ec820659ff257c0cc134bce65b2c429017d9"
+							placeholder="Enter your address"
 						/>
 					</Form.Group>
 					<Form.Group>
@@ -87,10 +88,6 @@ const Faucet: React.FC<{}> = () => {
 						/>
 					</Form.Group>
 					<Form.Group>
-						<SError>{error}</SError>
-					</Form.Group>
-
-					<Form.Group>
 						<Button
 							disabled={loading}
 							onClick={onSubmit}
@@ -98,7 +95,7 @@ const Faucet: React.FC<{}> = () => {
 						>
 							Receive Tokens
 						</Button>{' '}
-						<Loader loading={loading} />
+						<SError>{error}</SError> <Loader loading={loading} />
 					</Form.Group>
 				</>
 			)}

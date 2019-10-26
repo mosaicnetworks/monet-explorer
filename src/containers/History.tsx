@@ -17,9 +17,9 @@ import { selectNetwork } from '../selectors';
 
 const SContainer = styled.div`
 	.nav-link.active {
-		background: #e55e2b !important;
+		background: rgba(31, 66, 146, 0.1) !important;
 		border-bottom: 0px solid #eee !important;
-		color: #fff !important;
+		color: #000 !important;
 	}
 
 	.nav-link {

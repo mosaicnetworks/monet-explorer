@@ -1,5 +1,7 @@
 import React from 'react';
 
+import styled from 'styled-components';
+
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
@@ -9,12 +11,23 @@ import FaucetComponent from '../components/Faucet';
 
 import { SContent } from '../components/styles';
 
+import Background from '../assets/bg.png';
+import Logo from '../assets/monet.svg';
+
+const SBlue = styled.div`
+	background: url(${Background});
+	padding: 40px 15px;
+`;
+
 const Faucet: React.FC<{}> = props => {
 	return (
 		<>
 			<Container>
 				<SContent>
 					<span>Faucet</span>
+					<SBlue>
+						<Image src={Logo} />
+					</SBlue>
 					<Row>
 						<Col>
 							<div className="padding">

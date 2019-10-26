@@ -173,9 +173,6 @@ class ValidatorHistoryAPIHandler(generics.ListAPIView):
     serializer_class = ValidatorHistorySerializer
 
     @method_decorator(cache_page(60*60*2))
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
-
     def get_queryset(self):
         """ Get query set to be listed by Response """
 
