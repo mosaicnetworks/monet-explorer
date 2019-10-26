@@ -195,7 +195,7 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 						<Col xs={6} md={3}>
 							<SContentPadded>
 								<h1>
-									{blockHeight || (
+									{blockHeight || (!statLoading && '-') || (
 										<Loader loading={statLoading} />
 									)}
 								</h1>
@@ -205,9 +205,10 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 						<Col xs={6} md={3}>
 							<SContentPadded>
 								<h1>
-									{txCount + intTxCount || (
-										<Loader loading={statLoading} />
-									)}
+									{txCount + intTxCount ||
+										(!statLoading && '-') || (
+											<Loader loading={statLoading} />
+										)}
 									{intTxCount > 0 && (
 										<small>({intTxCount})</small>
 									)}
