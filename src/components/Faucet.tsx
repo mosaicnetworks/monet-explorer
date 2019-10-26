@@ -11,8 +11,9 @@ import Loader from './Loader';
 
 import ExplorerAPIClient from '../client';
 
-const SError = styled.span`
+const SError = styled.div`
 	color: #ff0000;
+	display: inline-block;
 	margin-left: 5px;
 `;
 
@@ -95,7 +96,8 @@ const Faucet: React.FC<{}> = () => {
 						>
 							Receive Tokens
 						</Button>{' '}
-						<SError>{error}</SError> <Loader loading={loading} />
+						<SError>{error}</SError>{' '}
+						<Loader loading={loading} size={50} />
 					</Form.Group>
 				</>
 			)}

@@ -74,8 +74,7 @@ const History: React.FC<{}> = () => {
 					<span>Validator History</span>
 					{loading && (
 						<div className="text-center padding">
-							<Loader loading={loading} size={40} /> Loading,
-							please wait...
+							<Loader loading={loading} size={50} />
 						</div>
 					)}
 					<Tabs

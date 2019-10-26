@@ -32,6 +32,7 @@ import {
 import { hideFaucetAlert } from '../modules/dashboard';
 
 import Background from '../assets/bg.png';
+import Icon from '../assets/icon.png';
 
 const SIndex = styled.div`
 	h4 {
@@ -100,6 +101,10 @@ const SAlert = styled(Alert)`
 	}
 `;
 
+const SIcon = styled(Image)`
+	margin-bottom: 20px;
+`;
+
 const Index: React.FC<RouteComponentProps<{}>> = props => {
 	const dispatch = useDispatch();
 
@@ -155,6 +160,7 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 					>
 						<Row className="align-items-center">
 							<Col xs={12} md={5}>
+								<SIcon src={Icon} width={'100'} />
 								<Alert.Heading as="h2">
 									Interested in Participating?
 								</Alert.Heading>

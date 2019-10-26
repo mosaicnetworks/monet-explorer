@@ -21,7 +21,7 @@ export const SContent = styled.div`
 	}
 
 	div.padding {
-		padding: 20px !important;
+		padding: 10px !important;
 		word-wrap: break-word !important;
 		overflow: auto !important;
 	}

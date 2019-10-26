@@ -13,8 +13,8 @@ const Loader: React.FC<Props> = props => {
 	return !!props.loading ? (
 		<Image
 			src={LoaderGif}
-			width={props.size || 30}
-			height={props.size || 30}
+			width={props.size || 35}
+			height={props.size || 35}
 		/>
 	) : (
 		<></>

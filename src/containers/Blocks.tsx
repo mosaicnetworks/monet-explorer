@@ -29,7 +29,7 @@ const Blocks: React.FC<{}> = props => {
 	return (
 		<Container fluid={false}>
 			<Row>
-				<Col>
+				<Col md={12} xs={12}>
 					<SContent>
 						<span>Lastest 30 Blocks</span>
 						<div className="padding">
@@ -40,12 +40,12 @@ const Blocks: React.FC<{}> = props => {
 									</div>
 								);
 							})}
-							{loading && (
-								<div className="padding text-center">
-									<Loader loading={loading} size={40} />
-								</div>
-							)}
 						</div>
+						{loading && (
+							<div className="padding text-center">
+								<Loader loading={loading} size={50} />
+							</div>
+						)}
 					</SContent>
 				</Col>
 				{/* <Col md={3}>

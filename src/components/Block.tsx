@@ -12,9 +12,10 @@ import Row from 'react-bootstrap/Row';
 import { Block as TBlock } from '../client';
 
 const SBlock = styled.div`
-	border-bottom: 1px solid #eee;
+	/* border-bottom: 1px solid #eee; */
 	padding-bottom: 20px;
-	margin-bottom: 20px;
+	background: white;
+	padding: 10px;
 
 	a:hover {
 		text-decoration: none !important;
@@ -24,7 +25,7 @@ const SBlock = styled.div`
 const SBlockAvatar = styled.div`
 	font-size: 25px;
 	background: #eee;
-	padding: 20px;
+	padding: 20px 25px;
 	border-radius: 5px !important;
 	color: black !important;
 	text-decoration: none !important;
@@ -43,24 +44,31 @@ const Block: React.FC<Props> = props => {
 		<SBlock>
 			<Media>
 				<Link to={`/block/${props.block.index}`}>
-					<SBlockAvatar className="mr-2">
-						{props.block.index}
+					<SBlockAvatar className="mr-2 align-items-center">
+						Bk
 					</SBlockAvatar>
 				</Link>
 				<Media.Body>
 					<h5>
 						<Link to={`/block/${props.block.index}`}>
-							{props.block.state_hash}
+							{props.block.index}
 						</Link>
 					</h5>
 					<div className="">
 						<Row>
+							<Col>
+								<div className="mono">
+									{props.block.state_hash}
+								</div>
+							</Col>
+						</Row>
+						<Row>
 							<Col xs={12} md={12}>
-								<Badge variant="info" as="div">
-									Tx: {props.block.transactions.length}
+								<Badge variant="primary" as="div">
+									Txns: {props.block.transactions.length}
 								</Badge>{' '}
-								<Badge variant="info" as="div">
-									Sig: {props.block.signatures.length}
+								<Badge variant="primary" as="div">
+									Signs: {props.block.signatures.length}
 								</Badge>
 							</Col>
 						</Row>
