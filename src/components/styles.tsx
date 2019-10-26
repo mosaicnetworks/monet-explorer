@@ -23,6 +23,6 @@ export const SContent = styled.div`
 	div.padding {
 		padding: 20px !important;
 		word-wrap: break-word !important;
-		overflow: scroll !important;
+		overflow: auto !important;
 	}
 `;
