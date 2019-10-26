@@ -56,6 +56,8 @@ const History: React.FC<{}> = () => {
 			}
 
 			setLoading(false);
+
+			console.log('HISTORYYYY', h);
 		}
 	};
 
