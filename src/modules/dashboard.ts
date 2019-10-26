@@ -223,6 +223,7 @@ export default (
 			return {
 				...state,
 				error: action.payload,
+				networkWhitelist: [],
 				loading: {
 					...state.loading,
 					whitelist: false
@@ -254,6 +255,7 @@ export default (
 			return {
 				...state,
 				error: action.payload,
+				networkNominees: [],
 				loading: {
 					...state.loading,
 					nominees: false
