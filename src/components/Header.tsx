@@ -22,25 +22,30 @@ import {
 	selectShowFaucetAlert
 } from '../selectors';
 
-import Logo from '../assets/monet.svg';
+import Logo from '../assets/monet2.png';
 
 const SNavbar = styled(Navbar)`
+	transition: background 0.2s cubic-bezier(1, 1, 1, 1);
 	${props =>
 		props.theme.enable &&
-		`box-shadow: 0 1px 50px rgba(151, 164, 175, 2) !important;`}
+		`box-shadow: 0 1px 50px rgba(151, 164, 175, 0.3) !important;`}
+
+	${props =>
+		!props.theme.enable && `border-bottom: 1px solid #f3f3f3;`}
+
 
 	#dropdownn {
-		color: #ddd !important;
+		color: #333 !important;
 	}
 
 	.c {
 		font-family: monospace !important;
-		color: white !important;
+		color: #333 !important;
 	}
 `;
 
 const SNetwork = styled.div`
-	color: white;
+	color: #000;
 	text-transform: capitalize;
 	font-weight: 300 !important;
 	font-size: 18px;
@@ -52,20 +57,20 @@ const SNetwork = styled.div`
 
 const SNav = styled(Nav)`
 	.nav-link a {
-		color: #ddd !important;
+		color: #666 !important;
+		font-weight: 500 !important;
 	}
 	.nav-link {
-		color: #ddd !important;
+		color: #222 !important;
 	}
 
 	.nav-link a:hover {
-		color: white !important;
+		color: #000 !important;
 		text-decoration: none;
 	}
 `;
 
 const SSearch = styled.div`
-	margin-right: 20px;
 	margin-left: 10px;
 
 	@media (max-width: 575px) {
@@ -77,12 +82,12 @@ const SSearch = styled.div`
 	& input {
 		font-size: 14px;
 		border: none !important;
-		color: #fff !important;
-		background: rgba(60, 120, 208, 0.7) !important;
+		color: #222 !important;
+		background: rgba(60, 120, 208, 0.1) !important;
 	}
 
 	& input::placeholder {
-		color: #fff;
+		color: #666;
 	}
 `;
 
@@ -93,7 +98,6 @@ const Header: React.FC<{}> = () => {
 	const [stickyHeader, setStickyHeader] = useState(false);
 
 	const [search, setSearch] = useState('');
-	const [counter, setCounter] = useState(5);
 
 	const networks = useSelector(selectAllNetworks);
 	const selected = useSelector(selectNetwork);
@@ -102,23 +106,12 @@ const Header: React.FC<{}> = () => {
 	const fetchAllData = () => dispatch(fetchAll());
 
 	let interval: any;
-	let counterInterval: any;
 
 	useEffect(() => {
 		interval = setInterval(() => {
 			fetchAllData();
 			console.log('(5s) Fetching data...');
 		}, 5000);
-
-		counterInterval = setInterval(() => {
-			setCounter(c => {
-				if (c <= 0) {
-					return 5;
-				} else {
-					return c - 1;
-				}
-			});
-		}, 1000);
 
 		window.addEventListener('scroll', () => {
 			if (window.scrollY > scrollToggleHeight) {
@@ -132,7 +125,6 @@ const Header: React.FC<{}> = () => {
 
 		return () => {
 			clearInterval(interval);
-			clearInterval(counterInterval);
 		};
 	}, []);
 
@@ -149,9 +141,9 @@ const Header: React.FC<{}> = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<SNavbar
-				bg={'dark'}
+				bg={'light'}
 				expand="lg"
-				variant="dark"
+				variant="light"
 				className="justify-content-between"
 				sticky={stickyHeader ? 'top' : undefined}
 			>
@@ -159,18 +151,16 @@ const Header: React.FC<{}> = () => {
 					<Navbar.Brand as="span">
 						<Link to={'/'}>
 							<Image
-								width={140}
+								width={90}
 								src={Logo}
 								className="d-inline-block align-middle"
-							/>
+							/>{' '}
 						</Link>
 					</Navbar.Brand>
 					<SNetwork>
 						<b>
-							{selected && selected.name.split('-')[0]}{' '}
-							<small>
-								{selected && selected.name.split('-')[1]}
-							</small>
+							{selected && selected.name.split('-')[0]} v
+							{selected && selected.name.split('-')[1]}
 						</b>
 					</SNetwork>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -179,20 +169,6 @@ const Header: React.FC<{}> = () => {
 						className="justify-content-end"
 					>
 						<SNav activeKey="/">
-							{!showFaucet && (
-								<Nav.Item>
-									<Nav.Link as="span" eventKey="link-2">
-										<Link to={'/faucet'}>
-											<Image
-												src={
-													'https://monet.network/app/images/products/tenom.svg'
-												}
-												width={25}
-											/>
-										</Link>
-									</Nav.Link>
-								</Nav.Item>
-							)}
 							<Nav.Item>
 								<Nav.Link as="span" eventKey="link-2">
 									<Link to={'/'}>Dashboard</Link>
@@ -230,9 +206,20 @@ const Header: React.FC<{}> = () => {
 								className="mr-sm-2"
 							/>
 						</SSearch>
-						<span className="c" id="5">
-							{counter}
-						</span>
+						{!showFaucet && (
+							<Nav.Item>
+								<Nav.Link as="span" eventKey="link-2">
+									<Link to={'/faucet'}>
+										<Image
+											src={
+												'https://monet.network/app/images/products/tenom.svg'
+											}
+											width={30}
+										/>
+									</Link>
+								</Nav.Link>
+							</Nav.Item>
+						)}
 					</Navbar.Collapse>
 				</Container>
 			</SNavbar>

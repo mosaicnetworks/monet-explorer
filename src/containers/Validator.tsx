@@ -25,13 +25,29 @@ const Validator: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 		(validator && (
 			<Container fluid={false}>
 				<Row>
-					<Col md={12}>
-						<SContent>
-							<span>Validator</span>
-							<div className="padding">
-								<ValidatorAvatar validator={validator} />
-							</div>
-						</SContent>
+					<Col md={5}>
+						<Row>
+							<Col>
+								<SContent>
+									<span>Validator</span>
+									<div className="padding">
+										<ValidatorAvatar
+											validator={validator}
+										/>
+									</div>
+								</SContent>
+							</Col>
+						</Row>
+						<Row>
+							<Col>
+								<SContent>
+									<span>Public Key</span>
+									<div className="padding mono">
+										{validator.public_key}
+									</div>
+								</SContent>
+							</Col>
+						</Row>
 					</Col>
 					<Col>
 						<SContent>

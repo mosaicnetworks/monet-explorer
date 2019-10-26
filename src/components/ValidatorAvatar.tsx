@@ -25,16 +25,18 @@ const ValidatorAvatar: React.FC<Props> = props => {
 			<Avatar address={address} />
 
 			<Media.Body>
-				<h5>
-					{props.validator.moniker} {' - '}
-					<code>{props.validator.host}</code>
+				<h6>
+					{props.validator.moniker} {'  '}
+					<code style={{ marginLeft: '10px' }}>
+						{props.validator.host}
+					</code>
 					{'  '}
 					{props.validator.reachable ? (
 						<Image src={GreenDot} width="10" />
 					) : (
 						<Image src={RedDot} width="10" />
 					)}
-				</h5>
+				</h6>
 				<div className="mono">{utils.cleanAddress(address)}</div>
 			</Media.Body>
 		</Media>

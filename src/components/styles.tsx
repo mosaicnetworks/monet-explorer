@@ -3,9 +3,9 @@ import styled from 'styled-components';
 export const SContent = styled.div`
 	background: #fff !important;
 	border-radius: 5px !important;
-	/* box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08); */
-	margin-bottom: 15px !important;
-	border: 1px solid #e5e5e5e5 !important;
+	margin-bottom: 30px !important;
+	box-shadow: 0 1px 20px rgba(31, 66, 146, 0.07);
+	border: 1px solid #f3f3f3 !important;
 
 	span {
 		background: #f9f9f9 !important;
@@ -22,6 +22,7 @@ export const SContent = styled.div`
 
 	div.padding {
 		padding: 20px !important;
+		word-wrap: break-word !important;
 		overflow: scroll !important;
 	}
 `;
