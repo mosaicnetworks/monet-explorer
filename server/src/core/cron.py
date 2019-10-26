@@ -89,7 +89,7 @@ def fetch_history():
         history = requests.get(
             url=f'http://{network.host}:{network.port}/history').json()
 
-        if len(history) == ValidatorHistory.objects.all().count():
+        if len(history) == ValidatorHistory.objects.filter(netowkr=network).count():
             print("history - Nothing to fetch...")
             return
 
@@ -109,7 +109,8 @@ def fetch_history():
                 public_key = validator['PubKeyHex']
                 moniker = validator['Moniker']
 
-                print(f'Creating Validator: {moniker} - Round: {cns_rnd}')
+                print(
+                    f'Creating/Saving Validator: {moniker} - Round: {cns_rnd}')
 
                 v_model, created = Validator.objects.get_or_create(
                     public_key=public_key,
