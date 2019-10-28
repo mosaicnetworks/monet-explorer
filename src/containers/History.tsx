@@ -91,7 +91,11 @@ const History: React.FC<{}> = () => {
 								<Tab
 									key={i}
 									eventKey={i}
-									title={h.consensus_round}
+									title={
+										i === 0
+											? `${h.consensus_round} (Current)`
+											: h.consensus_round
+									}
 								>
 									<Validators
 										hideStatus={true}

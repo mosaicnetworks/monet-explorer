@@ -12,12 +12,17 @@ def fetch_blocks():
     """
 
     for network in Network.objects.filter(active=True):
-        current_blocks = Block.objects.filter(network=network).count()
+        last_saved_block = Block.objects.filter(
+            network=network).order_by('-index').first()
+
         info = requests.get(
             url=f'http://{network.host}:{network.port}/info').json()
 
-        start = current_blocks - 1
+        start = 0
         end = int(info['last_block_index'])
+
+        if last_saved_block:
+            start = last_saved_block.index + 1
 
         if start < 0:
             start = 0
@@ -41,8 +46,12 @@ def fetch_blocks():
                 )
 
                 history = ValidatorHistory.objects.filter(
-                    consensus_round__lte=m_block.round_received
+                    consensus_round__lte=m_block.round_received,
+                    network=network
                 ).order_by('-consensus_round').first()
+
+                # print("History: ", history.consensus_round, " - Block: ",
+                #       m_block.index, " @ ", m_block.round_received)
 
                 for tx_string in block['Body']['Transactions']:
                     _, _ = Transaction.objects.get_or_create(
