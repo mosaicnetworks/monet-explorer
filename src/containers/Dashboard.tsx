@@ -34,6 +34,10 @@ import {
 import Background from '../assets/bg.png';
 import Icon from '../assets/icon.png';
 
+const STolerance = styled.div`
+	display: inline-block;
+`;
+
 const SGreen = styled.div`
 	color: darkgreen !important;
 	display: inline-block;
@@ -274,13 +278,22 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 									<Row>
 										<Col xs={6}>
 											Current Validators -{' '}
-											{getNetworkIntegrity()}
+											{getNetworkIntegrity()} (
+											<STolerance data-tip="Network Tolerance">
+												{Math.floor(
+													(1 / 3) * validators.length
+												)}
+											</STolerance>
+											)
 										</Col>
 										<Col
 											className="align-content-end"
 											xs={6}
 										>
-											<div className="float-right">
+											<div
+												data-tip={`View Entire History`}
+												className="float-right"
+											>
 												<Link to="/history">
 													View History
 												</Link>

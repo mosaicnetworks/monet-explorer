@@ -21,7 +21,11 @@ const ValidatorAvatar: React.FC<Props> = props => {
 	const address = pubKeyToAddress(props.validator.public_key || '');
 
 	return (
-		<Media>
+		<Media
+			data-tip={`${props.validator.moniker} - ${
+				props.validator.reachable ? 'Online' : 'False'
+			}`}
+		>
 			<Avatar address={address} />
 
 			<Media.Body>

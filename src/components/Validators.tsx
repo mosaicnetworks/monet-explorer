@@ -77,7 +77,12 @@ const Validators: React.FC<Props> = props => {
 			return (
 				<tr key={v.moniker}>
 					<td>
-						<Link to={`/validator/${v.public_key}`}>
+						<Link
+							data-tip={`${v.moniker} - ${
+								v.reachable ? 'Online' : 'False'
+							}`}
+							to={`/validator/${v.public_key}`}
+						>
 							<Avatar address={address} size={30} />
 						</Link>
 					</td>
@@ -93,7 +98,10 @@ const Validators: React.FC<Props> = props => {
 
 					<td>{v.moniker}</td>
 					<td className="mono">
-						<Link to={`/search/0x${address}`}>
+						<Link
+							data-tip={'View Address Details'}
+							to={`/search/0x${address}`}
+						>
 							0x
 							{address}
 						</Link>

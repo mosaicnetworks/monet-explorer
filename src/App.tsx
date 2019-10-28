@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
 
+import ReactTooltip from 'react-tooltip';
+
 import Wrapper from './components/Wrapper';
 
 import Block from './containers/Block';
@@ -27,6 +29,7 @@ const App: React.FC = () => {
 
 	return (
 		<BrowserRouter>
+			<ReactTooltip type="dark" />
 			<Wrapper>
 				<Route exact={true} path="/" component={Dashboard} />
 				<Route exact={true} path="/blocks" component={Blocks} />

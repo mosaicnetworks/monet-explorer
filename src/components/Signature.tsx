@@ -1,6 +1,6 @@
 import React from 'react';
 
-import utils from 'evm-lite-utils';
+import { Link } from 'react-router-dom';
 
 import Image from 'react-bootstrap/Image';
 import Media from 'react-bootstrap/Media';
@@ -23,8 +23,12 @@ const Signature: React.FC<Props> = props => {
 
 	return (
 		<Media>
-			<Avatar address={address} />
-
+			<Link
+				data-tip={`View Validator`}
+				to={`/validator/${props.validator.public_key}`}
+			>
+				<Avatar address={address} size={40} />
+			</Link>
 			<Media.Body>
 				<h6>
 					{props.validator.moniker} {'  '}
@@ -32,11 +36,11 @@ const Signature: React.FC<Props> = props => {
 						{props.validator.host}
 					</code>
 					{'  '}
-					{props.validator.reachable ? (
+					{/* {props.validator.reachable ? (
 						<Image src={GreenDot} width="10" />
 					) : (
 						<Image src={RedDot} width="10" />
-					)}
+					)} */}
 				</h6>
 				<div className="mono">{props.signature}</div>
 			</Media.Body>
