@@ -3,7 +3,7 @@
 
 @font-face {
 	font-family: 'MonetFont';
-	src: local('MonetFont'), url(./assets/fonts/monet3.ttf);
+	src: local('MonetFont'), url(./assets/fonts/monet.ttf);
 }
 
 body {
@@ -175,7 +175,14 @@ input {
 
 .monetfont {
 	font-family: MonetFont !important;
-	text-transform: uppercase !important;
-	letter-spacing: 1px;
+	letter-spacing: 4px;
 	font-size: 18px;
+	color: #000 !important;
+}
+
+.monetfont2 {
+	font-family: MonetFont !important;
+	letter-spacing: 2px;
+	font-size: 14px;
+	color: #000 !important;
 }

@@ -91,6 +91,16 @@ const SSearch = styled.div`
 	}
 `;
 
+const SBrand = styled(Navbar.Brand)`
+	a {
+		color: #000 !important;
+	}
+
+	a:hover {
+		text-decoration: none !important;
+	}
+`;
+
 const Header: React.FC<{}> = () => {
 	const dispatch = useDispatch();
 
@@ -148,19 +158,16 @@ const Header: React.FC<{}> = () => {
 				sticky={stickyHeader ? 'top' : undefined}
 			>
 				<Container>
-					<Navbar.Brand as="span">
+					<SBrand>
 						<Link to={'/'}>
-							<Image
-								width={90}
-								src={Logo}
-								className="d-inline-block align-middle"
-							/>{' '}
+							<span className="monetfont">Monet</span>{' '}
+							<span className="monetfont2 ">Testnet</span>
 							{/* <span className="monetfont">Explorer</span> */}
 						</Link>
-					</Navbar.Brand>
+					</SBrand>
 					<SNetwork>
 						<b>
-							<span className="monetfont">Testnet</span>{' '}
+							{' '}
 							{selected && selected.name.split('-')[0]} v
 							{selected && selected.name.split('-')[1]}
 						</b>
