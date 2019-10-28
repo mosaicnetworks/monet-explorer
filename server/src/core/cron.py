@@ -72,9 +72,6 @@ def fetch_blocks():
                     )
 
                 for pub_key, sig in block['Signatures'].items():
-                    if m_block.index == 52:
-                        print("Block: 52")
-
                     if not history:
                         print("something wrong!")
                         return
