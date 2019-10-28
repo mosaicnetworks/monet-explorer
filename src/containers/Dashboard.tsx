@@ -310,7 +310,6 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 					</Row>
 				</Container>
 			</SIndex>
-			<Footer />
 		</>
 	);
 };

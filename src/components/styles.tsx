@@ -20,9 +20,12 @@ export const SContent = styled.div`
 		border-bottom: 1px solid #eee !important;
 	}
 
-	div.padding {
-		padding: 10px !important;
+	div {
 		word-wrap: break-word !important;
 		overflow: auto !important;
+	}
+
+	div.padding {
+		padding: 10px !important;
 	}
 `;

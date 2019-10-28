@@ -84,7 +84,7 @@ const Footer: React.FC<{}> = props => {
 							</dd>
 							<dd>
 								<a href="https://mosaicnetworks.io">
-									Mosaic Network
+									Mosaic Networks
 								</a>
 							</dd>
 							<dd>
