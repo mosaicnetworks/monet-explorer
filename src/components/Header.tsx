@@ -155,10 +155,12 @@ const Header: React.FC<{}> = () => {
 								src={Logo}
 								className="d-inline-block align-middle"
 							/>{' '}
+							{/* <span className="monetfont">Explorer</span> */}
 						</Link>
 					</Navbar.Brand>
 					<SNetwork>
 						<b>
+							<span className="monetfont">Testnet</span>{' '}
 							{selected && selected.name.split('-')[0]} v
 							{selected && selected.name.split('-')[1]}
 						</b>
@@ -174,11 +176,11 @@ const Header: React.FC<{}> = () => {
 									<Link to={'/'}>Dashboard</Link>
 								</Nav.Link>
 							</Nav.Item>
-							<Nav.Item>
+							{/* <Nav.Item>
 								<Nav.Link as="span">
 									<Link to={'/blocks'}>Blocks</Link>
 								</Nav.Link>
-							</Nav.Item>
+							</Nav.Item> */}
 							{/* <NavDropdown title="Networks" id="dropdownn">
 								{networks.map(n => (
 									<NavDropdown.Item

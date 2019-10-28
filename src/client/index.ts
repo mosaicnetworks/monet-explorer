@@ -80,7 +80,7 @@ export type Stats = {
 
 class ExplorerAPIClient extends AbstractClient {
 	constructor() {
-		super('dashboard.monet.network', 8000);
+		super('localhost', 8000);
 	}
 
 	public async getNetworks(): Promise<Network[]> {

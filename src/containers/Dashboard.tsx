@@ -29,10 +29,20 @@ import {
 	selectWhitelist
 } from '../selectors';
 
-import { hideFaucetAlert } from '../modules/dashboard';
+// import { hideFaucetAlert } from '../modules/dashboard';
 
 import Background from '../assets/bg.png';
 import Icon from '../assets/icon.png';
+
+const SGreen = styled.div`
+	color: darkgreen !important;
+	display: inline-block;
+`;
+
+const SRed = styled.div`
+	color: darkred !important;
+	display: inline-block;
+`;
 
 const SIndex = styled.div`
 	h4 {
@@ -93,7 +103,8 @@ const SAlert = styled(Alert)`
 	}
 
 	a {
-		color: white !important;
+		color: #f26630 !important;
+		font-weight: bold;
 	}
 
 	ul {
@@ -106,8 +117,6 @@ const SIcon = styled(Image)`
 `;
 
 const Index: React.FC<RouteComponentProps<{}>> = props => {
-	const dispatch = useDispatch();
-
 	const network = useSelector(selectNetwork);
 	const validators = useSelector(selectNetworkValidators);
 	const nominees = useSelector(selectNominees);
@@ -120,6 +129,34 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 	const [intTxCount, setIntTxCount] = useState(0);
 
 	const c = new ExplorerAPIClient();
+
+	const getNetworkIntegrity = () => {
+		const total = validators.length;
+
+		let online = 0;
+
+		for (const val of validators) {
+			if (val.reachable) {
+				online += 1;
+			}
+		}
+
+		const d = online / total;
+		function trim(n: number) {
+			const l = n.toString().split('.');
+
+			if (l.length === 2) {
+				return Number(`${l[0]}.${l[1].slice(0, 2)}`);
+			}
+
+			return n;
+		}
+		if (d <= 2 / 3) {
+			return <SRed>{trim(d * 100)}%</SRed>;
+		} else {
+			return <SGreen>{trim(d * 100)}%</SGreen>;
+		}
+	};
 
 	const setStats = async () => {
 		if (network) {
@@ -165,14 +202,13 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 									Interested in Participating?
 								</Alert.Heading>
 								<p>
-									If you are interested in participating in
-									our testnet, use the form to receive 100T
-									(Tenom) to your address. You can find
-									libraries and tools on our{' '}
-									<a href="https://github.com/mosaicnetworks">
-										GitHub
-									</a>
-									.
+									Use our{' '}
+									<a href="https://github.com/mosaicnetworks/monet-wallet">
+										wallet
+									</a>{' '}
+									to generate a key and fill the form to
+									automatically receive 100 Tenom on the
+									testnet.
 								</p>
 							</Col>
 							<Col xs={12} md={5}>
@@ -236,7 +272,10 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 							<SContent>
 								<span>
 									<Row>
-										<Col xs={6}>Current Validators</Col>
+										<Col xs={6}>
+											Current Validators -{' '}
+											{getNetworkIntegrity()}
+										</Col>
 										<Col
 											className="align-content-end"
 											xs={6}

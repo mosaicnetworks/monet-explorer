@@ -34,7 +34,8 @@ const SFooter = styled.div`
 	}
 
 	a {
-		color: #fff !important;
+		color: #f26630 !important;
+		font-weight: 500 !important;
 	}
 `;
 
@@ -56,8 +57,16 @@ const Footer: React.FC<{}> = props => {
 						<br />
 						<br />
 						<p>
-							MONET is an open network architecture for mobile
-							blockchains on demand.
+							Camille is a public test version of the{' '}
+							<a href="https://monet.network/faq.html">
+								MONET Hub
+							</a>
+							, which is an important part of the{' '}
+							<a href="https://monet.network/about.html">
+								MONET project
+							</a>
+							. This is a dashboard to monitor the status of the
+							test network.
 						</p>
 						<p className="rights">
 							{/* <span>© </span> */}
@@ -71,13 +80,22 @@ const Footer: React.FC<{}> = props => {
 						<h5>Links</h5>
 						<dl className="contact-list">
 							<dd>
-								<Link to={'/blocks'}>Blocks</Link>
+								<a href={'https://monet.network'}>Monet</a>
 							</dd>
 							<dd>
-								<Link to="/history">Validator History</Link>
+								<a href="https://mosaicnetworks.io">
+									Mosaic Network
+								</a>
 							</dd>
 							<dd>
-								<Link to="/faucet">Faucet</Link>
+								<a href="http://docs.monet.network">
+									Documentation
+								</a>
+							</dd>
+							<dd>
+								<a href="https://github.com/mosaicnetworks">
+									Github
+								</a>
 							</dd>
 						</dl>
 						{/* <dl className="contact-list">
@@ -88,24 +106,28 @@ const Footer: React.FC<{}> = props => {
 						</dl> */}
 					</Col>
 					<Col md={4} xl={3}>
-						<h5>Github Links</h5>
+						<h5>Contact</h5>
 						<SLinks className="nav-list">
 							<dl className="contact-list">
 								<dd>
+									<dt>Email</dt>
 									<a
-										target="_blank"
-										href="https://github.com/mosaicnetworks/monetd"
+										target="_top"
+										href="mailto:ping@monet.network"
 									>
-										Monetd
+										ping@monet.network
 									</a>
 								</dd>
 								<dd>
-									<a
-										target="_blank"
-										href="https://github.com/mosaicnetworks/monetcli"
-									>
-										MonetCLI
-									</a>
+									<dt>Other</dt>
+									<dd>
+										<a
+											target="_blank"
+											href="https://babbleio.slack.com"
+										>
+											Slack
+										</a>
+									</dd>
 								</dd>
 							</dl>
 						</SLinks>

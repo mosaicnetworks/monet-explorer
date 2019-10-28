@@ -11,6 +11,7 @@ import stores from './store';
 import * as serviceWorker from './serviceWorker';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './assets/fonts/monet3.ttf';
 import './index.css';
 
 const s = stores();
