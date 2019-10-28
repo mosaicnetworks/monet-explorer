@@ -16,6 +16,7 @@ const SBlock = styled.div`
 	padding-bottom: 20px;
 	background: white;
 	padding: 10px;
+	display: inline-block;
 
 	a:hover {
 		text-decoration: none !important;
@@ -67,7 +68,7 @@ const Block: React.FC<Props> = props => {
 								<Badge variant="primary" as="div">
 									Txns: {props.block.transactions.length}
 								</Badge>{' '}
-								<Badge variant="primary" as="div">
+								<Badge variant="warning" as="div">
 									Signs: {props.block.signatures.length}
 								</Badge>
 							</Col>

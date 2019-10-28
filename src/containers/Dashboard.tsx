@@ -142,19 +142,19 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 		}
 
 		const d = online / total;
-		function trim(n: number) {
-			const l = n.toString().split('.');
 
-			if (l.length === 2) {
-				return Number(`${l[0]}.${l[1].slice(0, 2)}`);
-			}
-
-			return n;
-		}
 		if (d <= 2 / 3) {
-			return <SRed>{trim(d * 100)}%</SRed>;
+			return (
+				<SRed>
+					{online}/{total}
+				</SRed>
+			);
 		} else {
-			return <SGreen>{trim(d * 100)}%</SGreen>;
+			return (
+				<SGreen>
+					{online}/{total}
+				</SGreen>
+			);
 		}
 	};
 

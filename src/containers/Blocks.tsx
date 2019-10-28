@@ -34,11 +34,7 @@ const Blocks: React.FC<{}> = props => {
 						<span>Latest 30 Blocks</span>
 						<div className="padding">
 							{blocks.map(b => {
-								return (
-									<div key={b.index}>
-										<Block block={b} />
-									</div>
-								);
+								return <Block key={b.index} block={b} />;
 							})}
 						</div>
 						{loading && (
@@ -48,12 +44,6 @@ const Blocks: React.FC<{}> = props => {
 						)}
 					</SContent>
 				</Col>
-				{/* <Col md={3}>
-					<SContent>
-						<span>Search</span>
-						<div className="padding"></div>
-					</SContent>
-				</Col> */}
 			</Row>
 		</Container>
 	);

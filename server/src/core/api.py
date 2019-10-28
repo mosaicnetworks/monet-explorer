@@ -106,7 +106,7 @@ class BlockListAPIHandler(generics.ListAPIView):
     queryset = Block.objects.order_by('-index')
     serializer_class = BlockSerializer
 
-    # @method_decorator(cache_page(60*60*2))
+    @method_decorator(cache_page(60*60*0.5))
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
@@ -172,7 +172,7 @@ class ValidatorHistoryAPIHandler(generics.ListAPIView):
     queryset = ValidatorHistory.objects.all()
     serializer_class = ValidatorHistorySerializer
 
-    # @method_decorator(cache_page(60*60*2))
+    @method_decorator(cache_page(60*60*0.5))
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 

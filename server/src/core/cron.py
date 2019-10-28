@@ -22,7 +22,7 @@ def fetch_blocks():
         end = int(info['last_block_index'])
 
         if last_saved_block:
-            start = last_saved_block.index + 1
+            start = last_saved_block.index - 50
 
         if start < 0:
             start = 0
@@ -72,6 +72,9 @@ def fetch_blocks():
                     )
 
                 for pub_key, sig in block['Signatures'].items():
+                    if m_block.index == 52:
+                        print("Block: 52")
+
                     if not history:
                         print("something wrong!")
                         return
@@ -79,11 +82,15 @@ def fetch_blocks():
                     validator = Validator.objects.get(
                         public_key=pub_key, history=history)
 
-                    _, _ = Signature.objects.get_or_create(
+                    _, created = Signature.objects.get_or_create(
                         block=m_block,
                         validator=validator,
                         signature=sig
                     )
+
+                    if created:
+                        print("New Sig ", validator.moniker,
+                              " @ ", m_block.index)
 
             start = start + 50
 

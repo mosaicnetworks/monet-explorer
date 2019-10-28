@@ -176,11 +176,11 @@ const Header: React.FC<{}> = () => {
 									<Link to={'/'}>Dashboard</Link>
 								</Nav.Link>
 							</Nav.Item>
-							{/* <Nav.Item>
+							<Nav.Item>
 								<Nav.Link as="span">
 									<Link to={'/blocks'}>Blocks</Link>
 								</Nav.Link>
-							</Nav.Item> */}
+							</Nav.Item>
 							{/* <NavDropdown title="Networks" id="dropdownn">
 								{networks.map(n => (
 									<NavDropdown.Item
