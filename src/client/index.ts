@@ -127,7 +127,7 @@ class ExplorerAPIClient extends AbstractClient {
 		let url = `/api/blocks/?network=${network}`;
 
 		if (offset) {
-			url += `&limit=30&offset=${offset}`;
+			url += `&limit=10&offset=${offset}`;
 		}
 
 		return JSON.parse(await this.get(url)).results;

@@ -1,5 +1,7 @@
 """ Core models for Monet Explorer """
 
+from django.utils.functional import cached_property
+
 from django.db import models
 
 
@@ -38,17 +40,17 @@ class Block(models.Model):
     def __str__(self):
         return f'{self.network.name} - {self.index}'
 
-    @property
+    @cached_property
     def transactions(self):
         """ Block Transactions """
         return Transaction.objects.filter(block=self)
 
-    @property
+    @cached_property
     def internal_transactions(self):
         """ Block Internal Transactions """
         return InternalTransaction.objects.filter(block=self)
 
-    @property
+    @cached_property
     def internal_transaction_receipts(self):
         """ Block Internal Transaction Receipts """
         return InternalTransactionReceipt.objects.filter(block=self)
@@ -72,7 +74,7 @@ class ValidatorHistory(models.Model):
     def __str__(self):
         return f'{self.network.name} - {self.consensus_round}'
 
-    @property
+    @cached_property
     def validators(self):
         return Validator.objects.filter(history=self)
 
@@ -99,7 +101,7 @@ class Validator(models.Model):
     def __str__(self):
         return f'{self.moniker} - {self.history.consensus_round}'
 
-    @property
+    @cached_property
     def info(self):
         try:
             info = Info.objects.get(validator=self)

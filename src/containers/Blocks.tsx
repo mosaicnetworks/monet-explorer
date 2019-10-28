@@ -31,7 +31,7 @@ const Blocks: React.FC<{}> = props => {
 			<Row>
 				<Col md={12} xs={12}>
 					<SContent>
-						<span>Latest 30 Blocks</span>
+						<span>Latest 10 Blocks</span>
 						<div className="padding">
 							{blocks.map(b => {
 								return <Block key={b.index} block={b} />;
