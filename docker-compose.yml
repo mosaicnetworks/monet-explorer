@@ -17,7 +17,7 @@ services:
         build:
             context: .
             dockerfile: ./docker/server/Dockerfile
-        command: bash -c "python src/manage.py makemigrations && python src/manage.py makemigrations core && python src/manage.py migrate && python3 src/manage.py collectstatic && python3 src/manage.py runserver 0.0.0.0:8000"
+        command: bash -c "python src/manage.py makemigrations && python src/manage.py makemigrations core && python src/manage.py migrate && python3 src/manage.py collectstatic --noinput && python3 src/manage.py runserver 0.0.0.0:8000"
         volumes:
             - ./server:/server
         ports:
