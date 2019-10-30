@@ -118,10 +118,10 @@ const Header: React.FC<{}> = () => {
 	let interval: any;
 
 	useEffect(() => {
-		interval = setInterval(() => {
-			fetchAllData();
-			console.log('(5s) Fetching data...');
-		}, 5000);
+		// interval = setInterval(() => {
+		// 	fetchAllData();
+		// 	console.log('(5s) Fetching data...');
+		// }, 5000);
 
 		window.addEventListener('scroll', () => {
 			if (window.scrollY > scrollToggleHeight) {
@@ -161,13 +161,12 @@ const Header: React.FC<{}> = () => {
 					<SBrand>
 						<Link to={'/'}>
 							<span className="monetfont">Monet</span>{' '}
-							<span className="monetfont2 ">Testnet</span>
+							{/* <span className="monetfont2 ">Testnet</span> */}
 							{/* <span className="monetfont">Explorer</span> */}
 						</Link>
 					</SBrand>
 					<SNetwork>
 						<b>
-							{' '}
 							{selected && selected.name.split('-')[0]} v
 							{selected && selected.name.split('-')[1]}
 						</b>
@@ -186,6 +185,11 @@ const Header: React.FC<{}> = () => {
 							<Nav.Item>
 								<Nav.Link as="span">
 									<Link to={'/blocks'}>Blocks</Link>
+								</Nav.Link>
+							</Nav.Item>
+							<Nav.Item>
+								<Nav.Link as="span">
+									<Link to={'/downloads'}>Downloads</Link>
 								</Nav.Link>
 							</Nav.Item>
 							{/* <NavDropdown title="Networks" id="dropdownn">

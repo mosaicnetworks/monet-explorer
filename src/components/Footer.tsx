@@ -9,7 +9,7 @@ import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 
-import Background from '../assets/bg.png';
+import Background from '../assets/bg.svg';
 import Logo from '../assets/monet.svg';
 
 const SFooter = styled.div`

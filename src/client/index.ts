@@ -78,6 +78,12 @@ export type Stats = {
 	int_tx_count: number;
 };
 
+export type Application = {
+	id: number;
+	owner: string;
+	repository_name: string;
+};
+
 class ExplorerAPIClient extends AbstractClient {
 	constructor() {
 		super('dashboard.monet.network', 8000);
@@ -160,10 +166,31 @@ class ExplorerAPIClient extends AbstractClient {
 		});
 	}
 
+	public async getLatestRelease(owner: string, repo: string): Promise<any> {
+		return new Promise<any>((resolve, reject) => {
+			request.get(
+				`https://api.github.com/repos/${owner}/${repo}/releases/latest`,
+				(error, response, body) => {
+					if (error) {
+						return reject(error);
+					}
+					if (!error && response.statusCode === 200) {
+						resolve(JSON.parse(body));
+					}
+				}
+			);
+		});
+	}
+
 	public async transactions(network: string): Promise<any> {
 		return JSON.parse(
 			await this.get(`/api/transactions/?network=${network}`)
 		).results;
+	}
+
+	public async applications(): Promise<Application[]> {
+		return JSON.parse(await this.get(`/api/downloads/applications/`))
+			.results;
 	}
 }
 

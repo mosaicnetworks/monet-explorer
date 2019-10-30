@@ -23,7 +23,7 @@ body {
 }
 
 .jumbotron {
-	background: url('./assets/bg.png') !important;
+	background: url('./assets/bg.svg') !important;
 	background-size: cover !important;
 	background-position: 0px -2px !important;
 	border-radius: 0 !important;
@@ -185,4 +185,8 @@ input {
 	letter-spacing: 2px;
 	font-size: 14px;
 	color: #000 !important;
+}
+
+pre {
+	font-size: 15px;
 }

@@ -31,7 +31,7 @@ import {
 
 // import { hideFaucetAlert } from '../modules/dashboard';
 
-import Background from '../assets/bg.png';
+import Background from '../assets/bg.svg';
 import Icon from '../assets/icon.png';
 
 const STolerance = styled.div`

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # User defined
     'core',
+    'downloads',
 
     # Required Apps
     'django_crontab',

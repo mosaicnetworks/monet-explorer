@@ -11,7 +11,7 @@ import FaucetComponent from '../components/Faucet';
 
 import { SContent } from '../components/styles';
 
-import Background from '../assets/bg.png';
+import Background from '../assets/bg.svg';
 import Logo from '../assets/monet.svg';
 
 const SBlue = styled.div`
