@@ -22,7 +22,7 @@ export const SContent = styled.div`
 
 	div {
 		word-wrap: break-word !important;
-		overflow: auto !important;
+		/* overflow: auto !important; */
 	}
 
 	div.padding {

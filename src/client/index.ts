@@ -86,7 +86,7 @@ export type Application = {
 
 class ExplorerAPIClient extends AbstractClient {
 	constructor() {
-		super('dashboard.monet.network', 8000);
+		super('dashboard.monet.network', 80);
 	}
 
 	public async getNetworks(): Promise<Network[]> {
