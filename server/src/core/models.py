@@ -104,8 +104,7 @@ class Validator(models.Model):
     @cached_property
     def info(self):
         try:
-            info = Info.objects.filter(
-                validator=self).order_by('-created').first()
+            info = Info.objects.get(validator=self)
         except Info.DoesNotExist:
             info = None
 
