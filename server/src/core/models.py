@@ -116,9 +116,7 @@ class Info(models.Model):
     """ Info model """
 
     class Meta:
-        unique_together = ['validator', 'created']
-
-    created = models.DateTimeField(auto_now_add=True)
+        unique_together = ['validator']
 
     e_id = models.TextField()
 
