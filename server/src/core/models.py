@@ -1,4 +1,5 @@
 """ Core models for Monet Explorer """
+import datetime
 
 from django.utils.functional import cached_property
 
@@ -104,7 +105,8 @@ class Validator(models.Model):
     @cached_property
     def info(self):
         try:
-            info = Info.objects.get(validator=self)
+            info = Info.objects.filter(
+                validator=self).order_by('-created').first()
         except Info.DoesNotExist:
             info = None
 
@@ -114,10 +116,11 @@ class Validator(models.Model):
 class Info(models.Model):
     """ Info model """
 
-    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(
+        auto_now_add=True)
 
     class Meta:
-        unique_together = ['validator']
+        unique_together = ['created', 'validator']
 
     e_id = models.TextField()
 

@@ -85,9 +85,9 @@ def fetch_blocks():
                         signature=sig
                     )
 
-                    if created:
-                        print("New Sig ", validator.moniker,
-                              " @ ", m_block.index)
+                    # if created:
+                    #     print("New Sig ", validator.moniker,
+                    #           " @ ", m_block.index)
 
             start = start + 50
 
@@ -162,44 +162,24 @@ def fetch_infos():
                 info = requests.get(
                     url=f'http://{validator.host}:8080/info', timeout=5).json()
 
-                info_model, created = Info.objects.get_or_create(
+                info_model = Info.objects.create(
                     validator=validator,
-                    defaults={
-                        "e_id": info['id'],
-                        "type": info['type'],
-                        "state": info['state'],
-                        "consensus_events": info['consensus_events'],
-                        "consensus_transactions": info['consensus_transactions'],
-                        "last_block_index": info['last_block_index'],
-                        "last_consensus_round": info['last_consensus_round'],
-                        "last_peer_change": info['last_peer_change'],
-                        "min_gas_price": info['min_gas_price'],
-                        "num_peers": info['num_peers'],
-                        "undetermined_events": info['undetermined_events'],
-                        "sync_rate": info['sync_rate'],
-                        "transaction_pool": info['transaction_pool'],
-                        "rounds_per_second": info['rounds_per_second'],
-                        "events_per_second": info['events_per_second'],
-                    })
-
-                if not created:
-                    info_model.e_id = info['id']
-                    info_model.type = info['type']
-                    info_model.state = info['state']
-                    info_model.consensus_events = info['consensus_events']
-                    info_model.consensus_transactions = info['consensus_transactions']
-                    info_model.last_block_index = info['last_block_index']
-                    info_model.last_consensus_round = info['last_consensus_round']
-                    info_model.last_peer_change = info['last_peer_change']
-                    info_model.min_gas_price = info['min_gas_price']
-                    info_model.num_peers = info['num_peers']
-                    info_model.undetermined_events = info['undetermined_events']
-                    info_model.sync_rate = info['sync_rate']
-                    info_model.transaction_pool = info['transaction_pool']
-                    info_model.rounds_per_second = info['rounds_per_second']
-                    info_model.events_per_second = info['events_per_second']
-
-                    info_model.save()
+                    e_id=info['id'],
+                    type=info['type'],
+                    state=info['state'],
+                    consensus_events=info['consensus_events'],
+                    consensus_transactions=info['consensus_transactions'],
+                    last_block_index=info['last_block_index'],
+                    last_consensus_round=info['last_consensus_round'],
+                    last_peer_change=info['last_peer_change'],
+                    min_gas_price=info['min_gas_price'],
+                    num_peers=info['num_peers'],
+                    undetermined_events=info['undetermined_events'],
+                    sync_rate=info['sync_rate'],
+                    transaction_pool=info['transaction_pool'],
+                    rounds_per_second=info['rounds_per_second'],
+                    events_per_second=info['events_per_second'],
+                )
 
                 validator.reachable = True
                 validator.save()
