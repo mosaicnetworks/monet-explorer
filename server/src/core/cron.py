@@ -1,5 +1,6 @@
 """ Cron tasks related to core models of Monet Explorer """
 
+import datetime
 import requests
 
 from .models import *
@@ -22,7 +23,7 @@ def fetch_blocks():
         end = int(info['last_block_index'])
 
         if last_saved_block:
-            start = last_saved_block.index - 50
+            start = last_saved_block.index - 20
 
         if start < 0:
             start = 0
@@ -158,11 +159,12 @@ def fetch_infos():
             print(
                 f'Validator: {validator.moniker} @ {history.consensus_round} - {validator.host}:8080')
             try:
-
                 info = requests.get(
                     url=f'http://{validator.host}:8080/info', timeout=5).json()
+                # print(info)
 
                 info_model = Info.objects.create(
+                    created=datetime.datetime.now(),
                     validator=validator,
                     e_id=info['id'],
                     type=info['type'],
@@ -183,7 +185,9 @@ def fetch_infos():
 
                 validator.reachable = True
                 validator.save()
-            except:
+            except Exception as e:
+                print(e)
+
                 validator.reachable = False
                 validator.save()
 

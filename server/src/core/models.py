@@ -2,6 +2,7 @@
 import datetime
 
 from django.utils.functional import cached_property
+from django.utils.timezone import now
 
 from django.db import models
 
@@ -86,8 +87,6 @@ class Validator(models.Model):
     class Meta:
         unique_together = ['public_key', 'history']
 
-    updated = models.DateTimeField(auto_now=True)
-
     host = models.CharField(max_length=100)
     port = models.IntegerField()
     public_key = models.CharField(max_length=132)
@@ -116,11 +115,10 @@ class Validator(models.Model):
 class Info(models.Model):
     """ Info model """
 
-    created = models.DateTimeField(
-        auto_now_add=True)
-
     class Meta:
-        unique_together = ['created', 'validator']
+        unique_together = ['validator', 'created']
+
+    created = models.DateTimeField(auto_now_add=True)
 
     e_id = models.TextField()
 
