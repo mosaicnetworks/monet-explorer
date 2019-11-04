@@ -86,7 +86,7 @@ export type Application = {
 
 class ExplorerAPIClient extends AbstractClient {
 	constructor() {
-		super('dashboard.monet.network', 80);
+		super('localhost', 8000);
 	}
 
 	public async getNetworks(): Promise<Network[]> {
@@ -153,7 +153,7 @@ class ExplorerAPIClient extends AbstractClient {
 	public async getHashgraph(): Promise<any> {
 		return new Promise<any>((resolve, reject) => {
 			request.get(
-				`http://localhost:8080/graph`,
+				`http://camille.monet.network:8080/graph`,
 				(error, response, body) => {
 					if (error) {
 						return reject(error);

@@ -25,7 +25,7 @@ const App: React.FC = () => {
 	const listNetworks = () => dispatch(fetchNetworks());
 
 	useEffect(() => {
-		listNetworks();
+		// listNetworks();
 	}, []);
 
 	return (

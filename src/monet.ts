@@ -30,3 +30,27 @@ export const GAS = 100000000;
 export const GASPRICE = 0;
 
 export default monet;
+
+export type HashgraphEvent = {
+	Body: {
+		Transactions: any[];
+		InternalTransactions: any[];
+		Parents: string[];
+		Creator: string;
+		Index: number;
+		BlockSignatures: any[];
+	};
+	Signature: string;
+};
+
+export type ParticipantEvents = {
+	[publicKey: string]: {
+		[eventHash: string]: HashgraphEvent;
+	};
+};
+
+export type GraphInfo = {
+	ParticipantEvents: ParticipantEvents;
+	Blocks: any[];
+	Rounds: any[];
+};
