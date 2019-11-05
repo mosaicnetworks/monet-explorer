@@ -187,11 +187,11 @@ const Header: React.FC<{}> = () => {
 									<Link to={'/blocks'}>Blocks</Link>
 								</Nav.Link>
 							</Nav.Item>
-							{/* <Nav.Item>
+							<Nav.Item>
 								<Nav.Link as="span">
 									<Link to={'/downloads'}>Downloads</Link>
 								</Nav.Link>
-							</Nav.Item> */}
+							</Nav.Item>
 							{/* <NavDropdown title="Networks" id="dropdownn">
 								{networks.map(n => (
 									<NavDropdown.Item
