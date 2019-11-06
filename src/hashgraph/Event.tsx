@@ -9,14 +9,12 @@ type Props = {
 };
 
 const Event: React.FC<Props> = ({ node }) => {
-	const event = node.data;
-
 	return (
 		<Group>
 			<Text
 				x={node.x + CONSTANTS.EVENT_RADIUS}
 				y={node.y + 5}
-				text={`${event.Body.Index}`}
+				text={`${node.event.Body.Index} (${node.round})`}
 				fill={'black'}
 			/>
 			<Circle
@@ -25,15 +23,17 @@ const Event: React.FC<Props> = ({ node }) => {
 				fill={'rgb(12, 51, 143)'}
 				radius={CONSTANTS.EVENT_RADIUS}
 			/>
-			{node.parents.map(parent => (
-				<Line
-					key={`edge${parent.hash}`}
-					points={[parent.x, parent.y, node.x, node.y]}
-					stroke={'rgb(12, 51, 143)'}
-					strokeEnabled={true}
-					strokeWidth={3}
-				/>
-			))}
+			{node.parents
+				.filter(p => p.peer.publicKey !== node.peer.publicKey)
+				.map(parent => (
+					<Line
+						key={`edge${parent.hash}`}
+						points={[parent.x, parent.y + 3, node.x, node.y - 3]}
+						stroke={'rgb(12, 51, 143)'}
+						strokeEnabled={true}
+						strokeWidth={2}
+					/>
+				))}
 		</Group>
 	);
 };

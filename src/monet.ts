@@ -43,6 +43,16 @@ export type HashgraphEvent = {
 	Signature: string;
 };
 
+export type Round = {
+	CreatedEvents: {
+		[eventHash: string]: {
+			Witness: boolean;
+			Famous: number;
+		};
+	};
+	ReceivedEvents: any[];
+};
+
 export type ParticipantEvents = {
 	[publicKey: string]: {
 		[eventHash: string]: HashgraphEvent;
@@ -52,5 +62,5 @@ export type ParticipantEvents = {
 export type GraphInfo = {
 	ParticipantEvents: ParticipantEvents;
 	Blocks: any[];
-	Rounds: any[];
+	Rounds: Round[];
 };
