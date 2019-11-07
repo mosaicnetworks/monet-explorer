@@ -182,6 +182,30 @@ class ExplorerAPIClient extends AbstractClient {
 		});
 	}
 
+	public async getVersion(
+		host: string
+	): Promise<{
+		babble: string;
+		'evm-lite': string;
+		monetd: string;
+		solc: string;
+		'solc-os': string;
+	}> {
+		return new Promise<any>((resolve, reject) => {
+			request.get(
+				`http://${host}:8080/version`,
+				(error, response, body) => {
+					if (error) {
+						return reject(error);
+					}
+					if (!error && response.statusCode === 200) {
+						resolve(JSON.parse(body));
+					}
+				}
+			);
+		});
+	}
+
 	public async transactions(network: string): Promise<any> {
 		return JSON.parse(
 			await this.get(`/api/transactions/?network=${network}`)

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
 
@@ -9,7 +9,7 @@ import Table from 'react-bootstrap/Table';
 
 import Avatar from './Avatar';
 
-import { Validator } from '../client';
+import ExplorerAPIClient, { Validator } from '../client';
 import { pubKeyToAddress } from '../utils';
 
 import GreenDot from '../assets/green-dot.png';
@@ -70,6 +70,34 @@ type Props = {
 };
 
 const Validators: React.FC<Props> = props => {
+	const [valVersions, setValVersions] = useState<any>({} as any);
+
+	const fetchVersions = async () => {
+		const c = new ExplorerAPIClient();
+
+		for (const val of props.validators) {
+			try {
+				const version = await c.getVersion(val.host);
+
+				if (version) {
+					setValVersions((versions: any) => ({
+						...versions,
+						[val.public_key]: `v${version.monetd}`
+					}));
+				}
+			} catch (e) {
+				setValVersions((versions: any) => ({
+					...versions,
+					[val.public_key]: '< 0.3.2'
+				}));
+			}
+		}
+	};
+
+	useEffect(() => {
+		fetchVersions();
+	}, []);
+
 	const rendervalidators = () => {
 		return props.validators.map(v => {
 			const address = pubKeyToAddress(v.public_key);
@@ -113,9 +141,10 @@ const Validators: React.FC<Props> = props => {
 						{/* </Link> */}
 					</td>
 					<td>{v.info.last_consensus_round}</td>
-					<td>{v.info.consensus_events}</td>
-					<td>{v.info.undetermined_events}</td>
 					<td>{v.info.min_gas_price}</td>
+					<td className="mono">
+						{valVersions[v.public_key] || 'none'}
+					</td>
 				</tr>
 			);
 		});
@@ -139,9 +168,8 @@ const Validators: React.FC<Props> = props => {
 						<th>State</th>
 						<th>Latest Block</th>
 						<th>Last Round</th>
-						<th>Events</th>
-						<th>Undetermined Events</th>
 						<th>Min Gas Price</th>
+						<th>Version</th>
 					</tr>
 				</thead>
 				<tbody>{rendervalidators()}</tbody>

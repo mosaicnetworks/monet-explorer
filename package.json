@@ -64,7 +64,7 @@
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"clean": "rm -rf node_modules build server/src/db.sqlite3 server/src/core/migrations server/src/downloads/migrations",
+		"clean": "rm -rf node_modules build server/src/db.sqlite3",
 		"docker:build:react": "docker build --rm -f ./docker/react/Dockerfile -t monet-explorer-react:latest .",
 		"docker:build": "docker build --rm -f ./docker/Dockerfile -t monet-explorer:latest .",
 		"docker:run": "docker run --rm -it -p 80:80 monet-explorer:latest",
