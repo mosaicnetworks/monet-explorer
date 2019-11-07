@@ -47,6 +47,7 @@ body {
 
 .table td {
 	border-top: 1px solid #f4f4f4 !important;
+	word-wrap: break-word !important;
 }
 
 .table th {
@@ -189,4 +190,8 @@ input {
 
 pre {
 	font-size: 15px;
+}
+
+canvas {
+	border: none !important;
 }

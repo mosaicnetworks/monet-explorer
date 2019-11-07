@@ -27,7 +27,7 @@ const Node: React.FC<Props> = ({ node }) => {
 					node.x + CONSTANTS.NODE_WIDTH / 2,
 					node.y,
 					node.x + CONSTANTS.NODE_WIDTH / 2,
-					100 + node.eventsCount * 70
+					100 + node.eventsCount ** 2 * 70
 				]}
 				stroke={'bloack'}
 				strokeEnabled={true}

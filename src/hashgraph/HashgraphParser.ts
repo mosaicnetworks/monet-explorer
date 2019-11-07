@@ -6,24 +6,15 @@ class HashgraphParser {
 	public peerNodes: PeerNode[] = [];
 
 	constructor(public readonly graph: GraphInfo) {
-		console.log('Parsing...');
-
-		console.log('Creating nodes...');
 		this.createNodes();
 
-		console.log('Assigning parents & rounds...');
 		this.assignRounds();
 		this.assignParents();
 
-		this.eventNodes = this.eventNodes.sort(
-			(a, b) => a.event.Body.Index - b.event.Body.Index
-		);
-
-		console.log('Propegating...');
 		this.propagate();
 	}
 
-	public createNodes() {
+	public createNodes = () => {
 		const hg = this.graph.ParticipantEvents;
 
 		Object.keys(hg).map((publicKey, peerIndex) => {
@@ -39,7 +30,6 @@ class HashgraphParser {
 						hg[publicKey][a].Body.Index -
 						hg[publicKey][b].Body.Index
 				)
-				.slice(0, 30)
 				.map(eventHash => {
 					const event = hg[publicKey][eventHash];
 					const node: EventNode = new EventNode(
@@ -53,9 +43,9 @@ class HashgraphParser {
 
 			this.peerNodes.push(peerNode);
 		});
-	}
+	};
 
-	public assignParents() {
+	public assignParents = () => {
 		for (const node of this.eventNodes) {
 			const firstParentNode = this.eventNodes.find(
 				n => n.hash === node.event.Body.Parents[0]
@@ -74,9 +64,9 @@ class HashgraphParser {
 
 			node.setInitialPos();
 		}
-	}
+	};
 
-	public assignRounds() {
+	public assignRounds = () => {
 		const rounds = this.graph.Rounds;
 
 		for (const [i, round] of rounds.entries()) {
@@ -90,37 +80,51 @@ class HashgraphParser {
 				event.round = i;
 			});
 		}
-	}
+	};
 
-	public propagate() {
-		console.log('Propagating: ', this.eventNodes.length, ' nodes');
-		const firstNode = this.eventNodes.find(e => e.round === 0);
+	public propagate = () => {
+		let unsetEvents = this.eventNodes.filter(
+			e => e.parents.length && e.y === -1
+		);
 
-		if (firstNode) {
-			this.findChildren(firstNode);
+		while (unsetEvents.length) {
+			const evs = unsetEvents.map(this.setY).filter(e => e.y === -1);
+
+			if (evs.length === unsetEvents.length) {
+				return;
+			}
+
+			unsetEvents = evs;
 		}
+	};
 
-		console.log('Propagating finished...');
-	}
+	public setY = (event: EventNode) => {
+		const setParents = event.parents.filter(p => p.y !== -1);
 
-	// Private utility functions
-	private findChildren(parent: EventNode) {
-		const children: EventNode[] = [];
+		if (setParents.length === event.parents.length) {
+			const sortedParents = event.parents.sort((a, b) => b.y - a.y);
+			const higherParent = sortedParents[0];
 
-		for (const node of this.eventNodes) {
-			if (node.parents.find(p => p.hash === parent.hash)) {
-				children.push(node);
+			event.y =
+				higherParent.y +
+				CONSTANTS.EVENT_RADIUS * CONSTANTS.SPACING_MULT;
+
+			const neighbour = this.eventNodes.find(
+				n =>
+					n.hash !== event.hash &&
+					n.y >= event.y &&
+					n.round < event.round
+			);
+
+			if (neighbour) {
+				event.y =
+					neighbour.y +
+					CONSTANTS.EVENT_RADIUS * CONSTANTS.SPACING_MULT;
 			}
 		}
 
-		for (const child of children) {
-			child.y =
-				parent.y + CONSTANTS.EVENT_RADIUS * CONSTANTS.SPACING_MULT;
-
-			// recursion
-			this.findChildren(child);
-		}
-	}
+		return event;
+	};
 }
 
 export default HashgraphParser;
@@ -157,4 +161,79 @@ export default HashgraphParser;
 // 		return;
 // 	}
 // 	lastLength = unsetEvents;
+// }
+
+// public propagate() {
+// 	console.log('Propagating: ', this.eventNodes.length, ' nodes');
+// 	const firstNode = this.eventNodes.find(e => e.round === 0);
+
+// 	if (firstNode) {
+// 		this.findChildren(firstNode);
+// 	}
+
+// 	for (const node of this.eventNodes) {
+// 		node.findChildren(this.eventNodes);
+// 	}
+
+// 	for (const node of this.eventNodes) {
+// 		const neighbour = this.eventNodes.find(
+// 			n =>
+// 				n.y >= node.y &&
+// 				n.hash !== node.hash &&
+// 				n.round < node.round
+// 		);
+
+// 		if (neighbour) {
+// 			node.y =
+// 				neighbour.y +
+// 				CONSTANTS.EVENT_RADIUS * CONSTANTS.SPACING_MULT;
+// 		}
+// 	}
+
+// 	// for (const ev of this.eventNodes) {
+// 	// 	const neighbourIndex = this.eventNodes.find(
+// 	// 		n =>
+// 	// 			n.y >= ev.y &&
+// 	// 			n.hash !== ev.hash &&
+// 	// 			n.event.Body.Index < ev.event.Body.Index
+// 	// 	);
+
+// 	// 	if (neighbourIndex) {
+// 	// 		ev.y =
+// 	// 			neighbourIndex.y +
+// 	// 			CONSTANTS.EVENT_RADIUS * CONSTANTS.SPACING_MULT;
+// 	// 	}
+// 	// }
+
+// 	// console.log('Propagating finished...');
+// }
+
+// // Private utility functions
+// private findChildren(parent: EventNode) {
+// 	// const children = this.eventNodes.filter(e => {
+// 	// 	return (
+// 	// 		// e.hash !== parent.hash &&
+// 	// 		!!e.parents.find(p => p.hash === parent.hash)
+// 	// 	);
+// 	// });
+// 	// console.log(parent);
+// 	// console.log(children);
+// 	// for (const node of this.eventNodes) {
+// 	// 	if (node.parents.find(p => p.hash === parent.hash)) {
+// 	// 		node.y =
+// 	// 			parent.y + CONSTANTS.EVENT_RADIUS * CONSTANTS.SPACING_MULT;
+// 	// 		this.findChildren(node);
+// 	// 	}
+// 	// 	const neighbour = this.eventNodes.find(
+// 	// 		n =>
+// 	// 			n.y >= node.y &&
+// 	// 			n.hash !== node.hash &&
+// 	// 			n.round < node.round
+// 	// 	);
+// 	// 	if (neighbour) {
+// 	// 		node.y =
+// 	// 			neighbour.y +
+// 	// 			CONSTANTS.EVENT_RADIUS * CONSTANTS.SPACING_MULT;
+// 	// 	}
+// 	// }
 // }
