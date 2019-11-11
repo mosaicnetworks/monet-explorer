@@ -157,7 +157,7 @@ const Header: React.FC<{}> = () => {
 				className="justify-content-between"
 				sticky={stickyHeader ? 'top' : undefined}
 			>
-				<Container>
+				<Container fluid={true}>
 					<SBrand>
 						<Link to={'/'}>
 							<span className="monetfont">Monet</span>{' '}
@@ -185,6 +185,11 @@ const Header: React.FC<{}> = () => {
 							<Nav.Item>
 								<Nav.Link as="span">
 									<Link to={'/blocks'}>Blocks</Link>
+								</Nav.Link>
+							</Nav.Item>
+							<Nav.Item>
+								<Nav.Link as="span">
+									<Link to={'/hashgraph'}>Graph</Link>
 								</Nav.Link>
 							</Nav.Item>
 							{/* <Nav.Item>

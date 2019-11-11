@@ -73,6 +73,10 @@ const Hashgraph: React.FC<{}> = () => {
 
 		window.addEventListener('resize', checkSize);
 
+		const c: any = document.getElementById('#coll');
+
+		setWidth(400);
+
 		return window.removeEventListener('resize', checkSize);
 	}, []);
 
@@ -90,7 +94,7 @@ const Hashgraph: React.FC<{}> = () => {
 
 			console.log(w, h);
 
-			setWidth(w);
+			// setWidth(w);
 			setHeight(h);
 		}
 	}
@@ -239,9 +243,9 @@ const Hashgraph: React.FC<{}> = () => {
 	};
 
 	return (
-		<Container fluid={false}>
+		<Container fluid={true}>
 			<Row>
-				<Col>
+				<Col id="#coll">
 					<SContent
 						ref={node => {
 							container = node;
@@ -258,8 +262,8 @@ const Hashgraph: React.FC<{}> = () => {
 								// 		y: pos.y > 0 ? pos.y : 0
 								// 	};
 								// }}
-								width={650}
-								height={700}
+								width={1000}
+								height={window.innerHeight - 54}
 							>
 								<Layer>
 									{drawPeers()}
