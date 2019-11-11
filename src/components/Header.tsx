@@ -23,6 +23,7 @@ import {
 } from '../selectors';
 
 import Logo from '../assets/monet2.png';
+import Badge from 'react-bootstrap/Badge';
 
 const SNavbar = styled(Navbar)`
 	transition: background 0.2s cubic-bezier(1, 1, 1, 1);
@@ -169,7 +170,8 @@ const Header: React.FC<{}> = () => {
 						<b>
 							{selected && selected.name.split('-')[0]} v
 							{selected && selected.name.split('-')[1]}
-						</b>
+						</b>{' '}
+						<Badge variant="danger">test</Badge>
 					</SNetwork>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse

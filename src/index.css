@@ -164,6 +164,13 @@ input {
 	/* border-radius: 0px !important; */
 }
 
+.badge-danger {
+	padding: 2px 4px !important;
+	text-transform: lowercase;
+	position: relative;
+	top: -6px;
+}
+
 .badge-primary {
 	background-color: rgba(31, 66, 146, 1) !important;
 }
