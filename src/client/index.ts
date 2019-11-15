@@ -82,6 +82,7 @@ export type Application = {
 	id: number;
 	owner: string;
 	repository_name: string;
+	description: string;
 };
 
 class ExplorerAPIClient extends AbstractClient {

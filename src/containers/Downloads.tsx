@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
+import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -15,21 +16,29 @@ import ExplorerAPIClient, { Application } from '../client';
 
 import Background from '../assets/bg.svg';
 import Logo from '../assets/monet.svg';
+import ReactTooltip from 'react-tooltip';
 
-const Std = styled.td`
-	li {
-		list-style: none;
-		padding-bottom: 10px !important;
+const SContainer = styled.div`
+	.card {
+		margin-bottom: 20px !important;
 	}
 
-	li a {
-		/* padding: 10px !important; */
-		background: #f3f3f3;
+	a.card-link {
+		background: var(--orange) !important;
+		color: white !important;
+		font-weight: 600 !important;
+		background: red;
+		padding: 6px 10px;
 		border-radius: 5px;
 	}
 
-	img {
-		margin-right: 4px;
+	.card-link + .card-link {
+		margin-left: 10px;
+	}
+
+	.card-title {
+		font-size: 25px;
+		margin-bottom: 20px !important;
 	}
 `;
 
@@ -75,8 +84,54 @@ const Transactions: React.FC<{}> = () => {
 		fetchReleases();
 	}, [applications]);
 
+	const getAssetName = (asset: string) => {
+		if (asset.includes('mac') || asset.includes('darwin')) {
+			return 'Mac';
+		}
+
+		if (asset.includes('win') || asset.includes('windows')) {
+			return 'Windows';
+		}
+
+		if (asset.includes('linux') || asset.includes('lin')) {
+			return 'Linux';
+		}
+
+		return asset;
+	};
+
+	const parseAppName = (name: string) => {
+		switch (name) {
+			case 'monetd':
+				return 'Monet Daemon';
+			case 'monetcli':
+				return 'Monet CLI';
+			case 'monet-wallet':
+				return 'Monet Wallet';
+			default:
+				return name;
+		}
+	};
+
+	const getDescription = (name: string) => {
+		const app = applications.find(
+			a => a.repository_name === name.toLowerCase()
+		);
+
+		if (app) {
+			return app.description;
+		} else {
+			return 'None';
+		}
+	};
+
+	// console.log(
+	// 	document
+	// 		.createRange()
+	// 		.createContextualFragment(getDescription('monetd')).
+	// );
 	return (
-		<>
+		<SContainer>
 			<Container>
 				<SContent>
 					<SBlue>
@@ -87,74 +142,54 @@ const Transactions: React.FC<{}> = () => {
 						</Row>
 					</SBlue>
 					<div className="padding">
-						<Table>
-							<thead>
-								<th>Created</th>
-								<th>Name</th>
-								<th>Version</th>
-								<th>Assets</th>
-							</thead>
-							<tbody>
-								<Loader loading={loading} />
-								{Object.keys(releases).map(k => {
-									return (
-										<tr key={k}>
-											<td>
-												{new Date(
-													releases[k].created_at
-												).toDateString()}
-											</td>
-											<td>
-												<a href={releases[k].html_url}>
-													<code className="mono">
-														<pre>{k}</pre>
-													</code>
-												</a>
-											</td>
-											<td className="mono">
-												{releases[k].tag_name}
-											</td>
-											<Std>
-												{releases[k].assets.map(
-													(a: any, i: any) => {
-														return (
-															<li
-																className="mono"
-																key={i}
-															>
-																<a
-																	href={
-																		a.browser_download_url
-																	}
-																>
-																	{a.content_type ===
-																		'application/octet-stream' ||
-																	a ? (
-																		<img
-																			src="http://www.icons101.com/icon_png/size_256/id_82559/Terminal.png"
-																			width={
-																				20
-																			}
-																		/>
-																	) : (
-																		''
-																	)}{' '}
-																	{a.name}
-																</a>
-															</li>
-														);
+						{Object.keys(releases).map(appname => (
+							<Card key={appname}>
+								<Card.Body>
+									<Card.Title>
+										{parseAppName(appname)}
+									</Card.Title>
+									<Card.Subtitle className="mb-2 text-muted mono">
+										{releases[appname].tag_name} -{' '}
+										{new Date(
+											releases[appname].created_at
+										).toDateString()}
+									</Card.Subtitle>
+									<Card.Text
+										dangerouslySetInnerHTML={{
+											__html: getDescription(appname)
+										}}
+									>
+										{}
+									</Card.Text>
+									<br />
+									{releases[appname].assets.map(
+										(a: any, i: any) => {
+											ReactTooltip.rebuild();
+											return (
+												<Card.Link
+													data-tip={`Download ${parseAppName(
+														appname
+													)} - ${getAssetName(
+														a.name
+													)}`}
+													key={`${appname}/asset/${i}/`}
+													href={
+														a.browser_download_url
 													}
-												)}
-											</Std>
-										</tr>
-									);
-								})}
-							</tbody>
-						</Table>
+												>
+													{' '}
+													{getAssetName(a.name)}
+												</Card.Link>
+											);
+										}
+									)}
+								</Card.Body>
+							</Card>
+						))}
 					</div>
 				</SContent>
 			</Container>
-		</>
+		</SContainer>
 	);
 };
 

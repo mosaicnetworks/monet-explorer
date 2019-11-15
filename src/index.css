@@ -6,13 +6,21 @@
 	src: local('MonetFont'), url(./assets/fonts/monet.ttf);
 }
 
+* {
+	--blue: #253c99;
+	--orange: #f16622;
+	--green: #02a24b;
+	--red: #ec1c24;
+	--purple: #7f3b97;
+	--yellow: #ffe014;
+}
+
 body {
 	margin: 0;
 	/* font-family: 'Open Sans', sans-serif !important; */
 	-webkit-font-smoothing: antialiased;
 	/* background: rgb(240, 247, 250) !important; */
 	background: #f8f9fa !important;
-	font-size: 14px !important;
 }
 
 .bg-light {

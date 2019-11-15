@@ -10,4 +10,4 @@ class ApplicationSerializer(ModelSerializer):
 
     class Meta:
         model = Application
-        fields = ['id', 'owner', 'repository_name']
+        fields = ['id', 'owner', 'repository_name', 'description']

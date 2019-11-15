@@ -8,6 +8,7 @@ class Application(models.Model):
 
     owner = models.CharField(max_length=30, default="mosaicnetworks")
     repository_name = models.CharField(max_length=30)
+    description = models.TextField(default='')
 
     def __str__(self):
         return f'{self.owner}/{self.repository_name}'

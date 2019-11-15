@@ -8,7 +8,7 @@ from . import models
 class ApplicationAdmin(admin.ModelAdmin):
     """ Admin config for Apllication model """
 
-    list_display = ('id', 'owner', 'repository_name')
+    list_display = ('id', 'owner', 'repository_name', 'description')
 
 
 def _register(model, admin_class):

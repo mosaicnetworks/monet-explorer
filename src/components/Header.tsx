@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 
 import styled, { ThemeProvider } from 'styled-components';
 
+import Badge from 'react-bootstrap/Badge';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-// import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import {
 	fetchAll,
@@ -21,9 +21,6 @@ import {
 	selectNetwork,
 	selectShowFaucetAlert
 } from '../selectors';
-
-import Logo from '../assets/monet2.png';
-import Badge from 'react-bootstrap/Badge';
 
 const SNavbar = styled(Navbar)`
 	transition: background 0.2s cubic-bezier(1, 1, 1, 1);
