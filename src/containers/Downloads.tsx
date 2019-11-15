@@ -165,6 +165,14 @@ const Transactions: React.FC<{}> = () => {
 									{releases[appname].assets.map(
 										(a: any, i: any) => {
 											ReactTooltip.rebuild();
+
+											if (
+												getAssetName(a.name) ===
+												'Windows'
+											) {
+												return <></>;
+											}
+
 											return (
 												<Card.Link
 													data-tip={`Download ${parseAppName(
