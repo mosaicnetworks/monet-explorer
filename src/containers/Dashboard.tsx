@@ -207,10 +207,8 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 								</Alert.Heading>
 								<p>
 									Use our{' '}
-									<a href="https://github.com/mosaicnetworks/monet-wallet">
-										wallet
-									</a>{' '}
-									to generate a key and fill the form to
+									<Link to={'/downloads'}>wallet</Link> to
+									generate a key and fill the form to
 									automatically receive 100 Tenom on the
 									testnet.
 								</p>
