@@ -128,6 +128,8 @@ class FaucetAPIHandler(generics.CreateAPIView):
     Handles all faucet related api queries
     """
 
+    permission_classes = []
+
     def post(self, request, *args, **kwargs):
         f_tx = FaucetTransaction.objects.create(
             address=request.data['address'],
