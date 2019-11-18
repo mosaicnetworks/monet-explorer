@@ -10,6 +10,14 @@ export type Network = {
 	port: number;
 };
 
+export type Version = {
+	monetd: string;
+	babble: string;
+	evm_lite: string;
+	solc: string;
+	solc_os: string;
+};
+
 export type Validator = {
 	moniker: string;
 	host: string;
@@ -17,6 +25,7 @@ export type Validator = {
 	network: Network;
 	reachable: boolean;
 	info: Info;
+	version: Version;
 };
 
 export type Info = {
@@ -202,30 +211,6 @@ class ExplorerAPIClient extends AbstractClient {
 		return new Promise<any>((resolve, reject) => {
 			request.get(
 				`https://api.github.com/repos/${owner}/${repo}/releases/latest`,
-				(error, response, body) => {
-					if (error) {
-						return reject(error);
-					}
-					if (!error && response.statusCode === 200) {
-						resolve(JSON.parse(body));
-					}
-				}
-			);
-		});
-	}
-
-	public async getVersion(
-		host: string
-	): Promise<{
-		babble: string;
-		'evm-lite': string;
-		monetd: string;
-		solc: string;
-		'solc-os': string;
-	}> {
-		return new Promise<any>((resolve, reject) => {
-			request.get(
-				`http://${host}:8080/version`,
 				(error, response, body) => {
 					if (error) {
 						return reject(error);

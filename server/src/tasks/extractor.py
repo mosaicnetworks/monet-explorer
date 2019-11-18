@@ -24,8 +24,8 @@ class Extractor:
         """ Run extractor """
         self.extract_validator_history()
         self.extract_validator_info()
-        self.extract_blocks()
-        self.extract_poa()
+        # self.extract_blocks()
+        # self.extract_poa()
 
     def extract_poa(self):
         """ Pulls all required POA data """
@@ -190,6 +190,10 @@ class Extractor:
                     info = self.__get(
                         path=f'http://{validator.host}:8080/info')
 
+                    last_cns_round = info['last_consensus_round']
+                    if info['last_consensus_round'] == "nil":
+                        last_cns_round = 0
+
                     info_model, created = Info.objects.get_or_create(
                         validator=validator,
                         defaults={
@@ -199,7 +203,7 @@ class Extractor:
                             "consensus_events": info['consensus_events'],
                             "consensus_transactions": info['consensus_transactions'],
                             "last_block_index": info['last_block_index'],
-                            "last_consensus_round": info['last_consensus_round'],
+                            "last_consensus_round": last_cns_round,
                             "last_peer_change": info['last_peer_change'],
                             "min_gas_price": info['min_gas_price'],
                             "num_peers": info['num_peers'],
@@ -211,11 +215,6 @@ class Extractor:
                         })
 
                     if not created:
-                        last_cns_round = info['last_consensus_round']
-
-                        if info['last_consensus_round'] == "nil":
-                            last_cns_round = 0
-
                         info_model.e_id = info['id']
                         info_model.type = info['type']
                         info_model.state = info['state']
@@ -252,12 +251,35 @@ class Extractor:
                     print(
                         f'Could not connect to {validator.moniker} - {validator.host}:8080')
 
+                self.__fetch_version(validator)
+
     def __get_networks(self):
         """ Returns list of active network """
         return Network.objects.filter(active=True)
 
     def __get(self, *, path, timeout=5):
         return requests.get(url=path, timeout=timeout).json()
+
+    def __fetch_version(self, validator):
+        version_info = self.__get(
+            path=f'http://{validator.host}:8080/version')
+
+        version_model, created = Version.objects.get_or_create(validator=validator, defaults={
+            "monetd": version_info['monetd'],
+            "evm_lite": version_info['evm-lite'],
+            "babble": version_info['babble'],
+            "solc": version_info['solc'],
+            "solc_os": version_info['solc-os'],
+        })
+
+        if not created:
+            version_model.monetd = version_info['monetd']
+            version_model.babble = version_info['babble']
+            version_model.evm_lite = version_info['evm-lite']
+            version_model.solc = version_info['solc']
+            version_model.solc_os = version_info['solc-os']
+
+        version_model.save()
 
 
 def run():

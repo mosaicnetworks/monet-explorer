@@ -14,6 +14,13 @@ class NetworkAdmin(admin.ModelAdmin):
                     'active', 'whitelist', 'nominees', 'evictees')
 
 
+class VersionAdmin(admin.ModelAdmin):
+    """ Admin config for Version model """
+
+    list_display = ('id', 'validator', 'monetd', 'babble',
+                    'evm_lite', 'solc', 'solc_os')
+
+
 class ValidatorAdmin(admin.ModelAdmin):
     """ Admin config for Validator model """
 
@@ -80,6 +87,7 @@ def _register(model, admin_class):
 
 
 _register(models.Validator, ValidatorAdmin)
+_register(models.Version, VersionAdmin)
 _register(models.FaucetTransaction, FaucetTransactionAdmin)
 _register(models.Network, NetworkAdmin)
 _register(models.Info, InfoAdmin)

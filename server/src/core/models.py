@@ -113,6 +113,34 @@ class Validator(models.Model):
 
         return info
 
+    @property
+    def version(self):
+        try:
+            version = Version.objects.get(validator=self)
+        except Version.DoesNotExist:
+            version = None
+
+        return version
+
+
+class Version(models.Model):
+    """ Version data about validator node """
+
+    class Meta:
+        unique_together = ['validator']
+
+    validator = models.ForeignKey(Validator, on_delete=models.CASCADE)
+
+    babble = models.CharField(max_length=50)
+    evm_lite = models.CharField(max_length=50)
+    monetd = models.CharField(max_length=50)
+
+    solc = models.CharField(max_length=100)
+    solc_os = models.TextField()
+
+    def __str__(self):
+        return self.monetd
+
 
 class Info(models.Model):
     """ Info model """
