@@ -17,4 +17,5 @@ urlpatterns = [
     path('transactions/', api.TransactionAPIHandler.as_view()),
     path('whitelist/', api.WhitelistAPIHandler.as_view()),
     path('nominees/', api.NomineesAPIHandler.as_view()),
+    path('account/<str:address>/', api.AddressAPIHandler.as_view()),
 ]

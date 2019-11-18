@@ -20,7 +20,7 @@ body {
 	/* font-family: 'Open Sans', sans-serif !important; */
 	-webkit-font-smoothing: antialiased;
 	/* background: rgb(240, 247, 250) !important; */
-	background: #f8f9fa !important;
+	background: #fff url('./assets/square.png') !important;
 	font-size: 14px;
 }
 

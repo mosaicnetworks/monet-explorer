@@ -144,30 +144,12 @@ class ExplorerAPIClient extends AbstractClient {
 			url += `&round=${round}`;
 		}
 
-		console.log(url);
 		return JSON.parse(await this.get(url)).results;
 	}
 
 	public async getInfos(network: string): Promise<Info[]> {
 		return JSON.parse(await this.get(`/api/infos/?network=${network}`))
 			.results;
-	}
-
-	public async submitFaucetTx(address: string): Promise<IReceipt> {
-		return new Promise<IReceipt>((resolve, reject) => {
-			request.post(
-				`http://${this.host}:${this.port}/api/faucet/`,
-				{ json: { address } },
-				(error, response, body) => {
-					if (error) {
-						return reject(error);
-					}
-					if (!error && response.statusCode === 200) {
-						resolve(body);
-					}
-				}
-			);
-		});
 	}
 
 	public async getBlocks(network: string, offset?: number): Promise<Block[]> {
@@ -191,6 +173,30 @@ class ExplorerAPIClient extends AbstractClient {
 		return JSON.parse(await this.get(`/api/stats/?network=${network}`));
 	}
 
+	public async getApplications(): Promise<Application[]> {
+		return JSON.parse(await this.get(`/api/downloads/applications/`))
+			.results;
+	}
+
+	public async submitFaucetTx(address: string): Promise<IReceipt> {
+		return new Promise<IReceipt>((resolve, reject) => {
+			request.post(
+				`http://${this.host}:${this.port}/api/faucet/`,
+				{ json: { address } },
+				(error, response, body) => {
+					if (error) {
+						return reject(error);
+					}
+					if (!error && response.statusCode === 200) {
+						resolve(body);
+					}
+				}
+			);
+		});
+	}
+
+	// misc
+
 	public async getHashgraph(): Promise<any> {
 		return new Promise<any>((resolve, reject) => {
 			request.get(
@@ -205,33 +211,6 @@ class ExplorerAPIClient extends AbstractClient {
 				}
 			);
 		});
-	}
-
-	public async getLatestRelease(owner: string, repo: string): Promise<any> {
-		return new Promise<any>((resolve, reject) => {
-			request.get(
-				`https://api.github.com/repos/${owner}/${repo}/releases/latest`,
-				(error, response, body) => {
-					if (error) {
-						return reject(error);
-					}
-					if (!error && response.statusCode === 200) {
-						resolve(JSON.parse(body));
-					}
-				}
-			);
-		});
-	}
-
-	public async transactions(network: string): Promise<any> {
-		return JSON.parse(
-			await this.get(`/api/transactions/?network=${network}`)
-		).results;
-	}
-
-	public async applications(): Promise<Application[]> {
-		return JSON.parse(await this.get(`/api/downloads/applications/`))
-			.results;
 	}
 }
 

@@ -55,7 +55,7 @@ const Transactions: React.FC<{}> = () => {
 	const [applications, setApplications] = useState<Application[]>([]);
 
 	const fetchApps = async () => {
-		setApplications(await c.applications());
+		setApplications(await c.getApplications());
 	};
 
 	useEffect(() => {
