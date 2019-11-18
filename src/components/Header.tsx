@@ -16,6 +16,7 @@ import {
 	selectNetwork as selectNetworkAction
 } from '../modules/dashboard';
 import { selectAllNetworks, selectNetwork } from '../selectors';
+import { DEV } from '../const';
 
 const SNavbar = styled(Navbar)`
 	transition: background 0.2s cubic-bezier(1, 1, 1, 1);
@@ -110,10 +111,12 @@ const Header: React.FC<{}> = () => {
 	let interval: any;
 
 	useEffect(() => {
-		interval = setInterval(() => {
-			fetchAllData();
-			console.log('(5s) Fetching data...');
-		}, 5000);
+		if (!DEV) {
+			interval = setInterval(() => {
+				fetchAllData();
+				console.log('(5s) Fetching data...');
+			}, 5000);
+		}
 
 		window.addEventListener('scroll', () => {
 			if (window.scrollY > scrollToggleHeight) {

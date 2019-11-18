@@ -20,6 +20,7 @@ import Whitelist from '../components/Whitelist';
 import ExplorerAPIClient from '../client';
 
 import { SContent } from '../components/styles';
+import { DEV } from '../const';
 import {
 	selectNetwork,
 	selectNominees,
@@ -171,9 +172,11 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 
 	let interval: any;
 	useEffect(() => {
-		interval = setInterval(() => {
-			setStats();
-		}, 5000);
+		if (!DEV) {
+			interval = setInterval(() => {
+				setStats();
+			}, 5000);
+		}
 
 		return () => {
 			clearInterval(interval);

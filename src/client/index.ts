@@ -4,6 +4,8 @@ import { IReceipt } from 'evm-lite-client';
 
 import request from 'request';
 
+import { DEV } from '../const';
+
 export type Network = {
 	name: string;
 	host: string;
@@ -115,7 +117,11 @@ export type EvicteeEntry = {
 
 class ExplorerAPIClient extends AbstractClient {
 	constructor() {
-		super('dashboard.monet.network', 443);
+		if (DEV) {
+			super('localhost', 8000);
+		} else {
+			super('dashboard.monet.network', 443);
+		}
 	}
 
 	public async getNetworks(): Promise<Network[]> {
