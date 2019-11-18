@@ -14,11 +14,11 @@ const Wrapper: React.FC<{}> = props => {
 	return (
 		<>
 			<ScrollTop />
-			{/* <SWrapper> */}
-			{/* <Header /> */}
-			{props.children}
-			{/* </SWrapper> */}
-			{/* <Footer /> */}
+			<SWrapper>
+				<Header />
+				{props.children}
+			</SWrapper>
+			<Footer />
 		</>
 	);
 };

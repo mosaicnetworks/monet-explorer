@@ -12,7 +12,6 @@ import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 
 import Faucet from '../components/Faucet';
-import Footer from '../components/Footer';
 import Loader from '../components/Loader';
 import Nominees from '../components/Nominees';
 import Validators from '../components/Validators';
@@ -23,13 +22,10 @@ import ExplorerAPIClient from '../client';
 import { SContent } from '../components/styles';
 import {
 	selectNetwork,
-	selectNetworkValidators,
 	selectNominees,
-	selectShowFaucetAlert,
+	selectValidators,
 	selectWhitelist
 } from '../selectors';
-
-// import { hideFaucetAlert } from '../modules/dashboard';
 
 import Background from '../assets/bg.svg';
 import Icon from '../assets/icon.png';
@@ -122,10 +118,9 @@ const SIcon = styled(Image)`
 
 const Index: React.FC<RouteComponentProps<{}>> = props => {
 	const network = useSelector(selectNetwork);
-	const validators = useSelector(selectNetworkValidators);
+	const validators = useSelector(selectValidators);
 	const nominees = useSelector(selectNominees);
 	const whitelist = useSelector(selectWhitelist);
-	const showFaucet = useSelector(selectShowFaucetAlert);
 
 	const [statLoading, setStatLoading] = useState(true);
 	const [blockHeight, setBlockHeight] = useState(0);
@@ -194,7 +189,6 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 			<SIndex>
 				<Container>
 					<SAlert
-						show={showFaucet}
 						variant="info"
 						// dismissible={true}
 						// onClose={() => dispatch(hideFaucetAlert())}

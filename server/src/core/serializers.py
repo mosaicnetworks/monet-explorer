@@ -16,7 +16,7 @@ class NetworkSerializer(ModelSerializer):
 
     class Meta:
         model = Network
-        fields = ['name', 'host', 'port']
+        fields = ['name', 'host', 'port', 'whitelist', 'nominees', 'evictees']
 
 
 class ValidatorHistorySerializer(ModelSerializer):

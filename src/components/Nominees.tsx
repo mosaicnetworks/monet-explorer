@@ -9,7 +9,7 @@ import Table from 'react-bootstrap/Table';
 
 import Avatar from '../components/Avatar';
 
-import { NomineeEntry } from '../poa';
+import { NomineeEntry } from '../client';
 
 import GreenUp from '../assets/green-up.png';
 import RedDown from '../assets/red-down.png';

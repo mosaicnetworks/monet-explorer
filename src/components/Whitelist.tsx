@@ -6,7 +6,7 @@ import Table from 'react-bootstrap/Table';
 
 import Avatar from '../components/Avatar';
 
-import { WhitelistEntry } from '../poa';
+import { WhitelistEntry } from '../client';
 
 const STable = styled(Table)`
 	margin-bottom: 0px !important;

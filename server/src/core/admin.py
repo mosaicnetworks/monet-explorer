@@ -10,7 +10,8 @@ admin.site.site_header = 'Monet Explorer'
 class NetworkAdmin(admin.ModelAdmin):
     """ Admin config for Network model """
 
-    list_display = ('id', 'name', 'host', 'port', 'active')
+    list_display = ('id', 'name', 'host', 'port',
+                    'active', 'whitelist', 'nominees', 'evictees')
 
 
 class ValidatorAdmin(admin.ModelAdmin):

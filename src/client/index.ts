@@ -85,13 +85,44 @@ export type Application = {
 	description: string;
 };
 
+export type WhitelistEntry = {
+	address: string;
+	moniker: string;
+};
+
+export type NomineeEntry = {
+	address: string;
+	moniker: string;
+	upVotes: number;
+	downVotes: number;
+};
+
+export type EvicteeEntry = {
+	address: string;
+	moniker: string;
+	upVotes: number;
+	downVotes: number;
+};
+
 class ExplorerAPIClient extends AbstractClient {
 	constructor() {
-		super('localhost', 8000);
+		super('dashboard.monet.network', 443);
 	}
 
 	public async getNetworks(): Promise<Network[]> {
 		return JSON.parse(await this.get('/api/networks/')).results;
+	}
+
+	public async getWhitelist(network: string): Promise<WhitelistEntry[]> {
+		return JSON.parse(
+			await this.get(`/api/whitelist/?network=${network.toLowerCase()}`)
+		);
+	}
+
+	public async getNominees(network: string): Promise<NomineeEntry[]> {
+		return JSON.parse(
+			await this.get(`/api/nominees/?network=${network.toLowerCase()}`)
+		);
 	}
 
 	public async getValidators(
