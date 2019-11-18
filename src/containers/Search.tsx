@@ -4,6 +4,7 @@ import utils from 'evm-lite-utils';
 import styled from 'styled-components';
 
 import { IEVMAccount } from 'evm-lite-core';
+import { useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
 import Col from 'react-bootstrap/Col';
@@ -12,27 +13,21 @@ import Row from 'react-bootstrap/Row';
 
 import monet from '../monet';
 
-const SSearch = styled.div`
-	margin-top: 30px;
+import { SContent } from '../components/styles';
+import { selectNetwork } from '../selectors';
 
-	span {
-		color: rgba(0, 0, 0, 0.6);
-	}
-`;
-
-const SSuggestion = styled.div`
-	margin: 10px;
-	padding: 20px;
-	background: #fff;
-	width: 100%;
-	border: 1px solid #eee;
-`;
+const SSearch = styled(Container)``;
 
 type ReactRouterProps = {
 	data: string;
 };
 
 const Search: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
+	const network = useSelector(selectNetwork) || {
+		host: 'localhost',
+		port: 8080
+	};
+
 	const data = props.match.params.data;
 
 	const [account, setAccount] = useState<IEVMAccount>({} as IEVMAccount);
@@ -40,7 +35,8 @@ const Search: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 
 	const fetchDataResponses = async () => {
 		if (utils.cleanAddress(data).length === 42) {
-			const a = await monet.getAccount(utils.cleanAddress(data));
+			const m = monet(network.host, network.port);
+			const a = await m.getAccount(utils.cleanAddress(data));
 
 			setAccount(a);
 		} else {
@@ -56,44 +52,37 @@ const Search: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 
 	return (
 		<SSearch>
-			<Container fluid={true}>
-				<h1>
-					Search: <span>{props.match.params.data}</span>
-				</h1>
-			</Container>
-			{error && <SSuggestion>{error}</SSuggestion>}
-			{Object.keys(account).length > 0 && (
-				<SSuggestion>
-					<Container fluid={true}>
+			<SContent>
+				<span>Search: {props.match.params.data}</span>
+				{Object.keys(account).length > 0 && (
+					<div className="padding">
 						<Row>
 							<Col>
-								<h3>Balance: </h3>
-								<h4>
-									<span>{account.balance.format('T')}</span>
-								</h4>
+								<b>Balance:</b>{' '}
+								<dt className="mono">
+									{account.balance.format('T')}
+								</dt>
 							</Col>
 						</Row>
 						<br />
 						<Row>
 							<Col>
-								<h3>Nonce: </h3>
-								<h4>
-									<span>{account.nonce}</span>
-								</h4>
+								<b>Nonce:</b>{' '}
+								<dt className="mono">{account.nonce}</dt>
 							</Col>
 						</Row>
 						<br />
 						<Row>
 							<Col>
-								<h3>Bytecode: </h3>
+								<b>Bytecode:</b>
 								<pre>
-									<code>{account.bytecode}</code>
+									<code>{account.bytecode || 'n/a'}</code>
 								</pre>
 							</Col>
 						</Row>
-					</Container>
-				</SSuggestion>
-			)}
+					</div>
+				)}
+			</SContent>
 		</SSearch>
 	);
 };

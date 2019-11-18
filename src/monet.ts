@@ -19,11 +19,12 @@ export type MonetInfo = IBaseInfo & {
 };
 
 export const config = {
-	host: 'camille.monet.network',
+	host: 'localhost',
 	port: 8080
 };
 
-export const monet = new Monet(config.host, config.port);
+export const monet = (host: string, port: number = 8080) =>
+	new Monet(host, port);
 
 export const GAS = 100000000;
 export const GASPRICE = 0;

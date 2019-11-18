@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
 
 import Table from 'react-bootstrap/Table';
 
-import { monet } from '../monet';
+import Avatar from '../components/Avatar';
 
-import POA, { WhitelistEntry } from '../poa';
+import { WhitelistEntry } from '../poa';
 
 const STable = styled(Table)`
+	margin-bottom: 0px !important;
+
 	td {
-		font-family: 'Fira Code', monospace;
 		font-size: 14px;
 	}
 
@@ -19,35 +20,11 @@ const STable = styled(Table)`
 	}
 `;
 
-const Whitelist: React.FC<{}> = () => {
-	const [whitelist, setWhitelist] = useState<WhitelistEntry[]>([]);
+type Props = {
+	whitelist: WhitelistEntry[];
+};
 
-	const fetchWhitelist = async () => {
-		const poaData = await monet.getPOA();
-		const poa = new POA(poaData.address, JSON.parse(poaData.abi));
-
-		const wl = await poa.whitelist();
-
-		setWhitelist(wl);
-	};
-
-	useEffect(() => {
-		fetchWhitelist();
-	});
-
-	// Polling
-	let poller: any;
-
-	useEffect(() => {
-		poller = setInterval(() => {
-			fetchWhitelist().then(() =>
-				console.log('(60s) Fetching Whitelist...')
-			);
-		}, 60000);
-
-		return () => clearInterval(poller);
-	});
-
+const Whitelist: React.FC<Props> = props => {
 	return (
 		<>
 			<STable
@@ -59,15 +36,19 @@ const Whitelist: React.FC<{}> = () => {
 			>
 				<thead>
 					<tr>
+						<th>Profile</th>
 						<th>Moniker</th>
 						<th>Address</th>
 					</tr>
 				</thead>
 				<tbody>
-					{whitelist.map(wle => (
+					{props.whitelist.map(wle => (
 						<tr key={wle.address}>
+							<td>
+								<Avatar address={wle.address} size={30} />
+							</td>
 							<td>{wle.moniker}</td>
-							<td>{wle.address}</td>
+							<td className="mono">{wle.address}</td>
 						</tr>
 					))}
 				</tbody>

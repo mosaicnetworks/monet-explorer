@@ -1,16 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
 
+import Col from 'react-bootstrap/Col';
+import Image from 'react-bootstrap/Image';
+import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 
-import { monet } from '../monet';
+import Avatar from '../components/Avatar';
 
-import POA, { NomineeEntry } from '../poa';
+import { NomineeEntry } from '../poa';
+
+import GreenUp from '../assets/green-up.png';
+import RedDown from '../assets/red-down.png';
 
 const STable = styled(Table)`
+	margin-bottom: 0 !important;
+
 	td {
-		font-family: 'Fira Code', monospace;
 		font-size: 14px;
 	}
 
@@ -19,35 +26,11 @@ const STable = styled(Table)`
 	}
 `;
 
-const Nominees: React.FC<{}> = () => {
-	const [nominees, setNominees] = useState<NomineeEntry[]>([]);
+type Props = {
+	nominees: NomineeEntry[];
+};
 
-	const fetchNominees = async () => {
-		const poaData = await monet.getPOA();
-		const poa = new POA(poaData.address, JSON.parse(poaData.abi));
-
-		const n = await poa.nominees();
-
-		setNominees(nominees);
-	};
-
-	useEffect(() => {
-		fetchNominees();
-	});
-
-	// Polling
-	let poller: any;
-
-	useEffect(() => {
-		poller = setInterval(() => {
-			fetchNominees().then(() =>
-				console.log('(60s) Fetching Nominees...')
-			);
-		}, 60000);
-
-		return () => clearInterval(poller);
-	});
-
+const Nominees: React.FC<Props> = props => {
 	return (
 		<>
 			<STable
@@ -59,19 +42,32 @@ const Nominees: React.FC<{}> = () => {
 			>
 				<thead>
 					<tr>
+						<th>Profile</th>
+						<th>Votes</th>
 						<th>Moniker</th>
 						<th>Address</th>
-						<th>Up Votes</th>
-						<th>Down Votes</th>
 					</tr>
 				</thead>
 				<tbody>
-					{nominees.map(n => (
+					{props.nominees.map(n => (
 						<tr key={n.address}>
+							<td>
+								<Avatar address={n.address} size={30} />
+							</td>
+							<td style={{ padding: '0 !important' }}>
+								<Row>
+									<Col md={6}>
+										<Image width={10} src={GreenUp} />
+										{n.upVotes}
+									</Col>
+									<Col md={6}>
+										<Image width={10} src={RedDown} />
+										{n.downVotes}
+									</Col>
+								</Row>
+							</td>
 							<td>{n.moniker}</td>
-							<td>{n.address}</td>
-							<td>{n.upVotes}</td>
-							<td>{n.downVotes}</td>
+							<td className="mono">{n.address}</td>
 						</tr>
 					))}
 				</tbody>

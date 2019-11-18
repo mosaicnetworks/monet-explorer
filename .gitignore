@@ -8,3 +8,9 @@ coverage
 yarn-error.log
 certbot
 build
+
+__pycache__
+__init__.py
+migrations
+db.sqlite3
+build*
