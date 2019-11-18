@@ -9,6 +9,9 @@ import requests
 from core.models import *
 
 
+poa_api = "172.31.0.243"
+
+
 class Extractor:
     """
     Extractor is the core class to pull data from a Monet node to the database
@@ -31,11 +34,11 @@ class Extractor:
 
             # Whitelist
             whitelist = self.__get(
-                path=f'http://localhost:5000/api/whitelist/?host={network.host}&port={network.port}', timeout=20)
+                path=f'http://{poa_api}:5000/api/whitelist/?host={network.host}&port={network.port}', timeout=20)
 
             # Nominees
             nominees = self.__get(
-                path=f'http://localhost:5000/api/nominees/?host={network.host}&port={network.port}', timeout=20)
+                path=f'http://{poa_api}:5000/api/nominees/?host={network.host}&port={network.port}', timeout=20)
 
             network.whitelist = json.dumps(whitelist)
             network.nominees = json.dumps(nominees)
