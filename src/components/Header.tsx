@@ -116,10 +116,10 @@ const Header: React.FC<{}> = () => {
 	let interval: any;
 
 	useEffect(() => {
-		interval = setInterval(() => {
-			fetchAllData();
-			console.log('(5s) Fetching data...');
-		}, 5000);
+		// interval = setInterval(() => {
+		// 	fetchAllData();
+		// 	console.log('(5s) Fetching data...');
+		// }, 5000);
 
 		window.addEventListener('scroll', () => {
 			if (window.scrollY > scrollToggleHeight) {
@@ -155,7 +155,7 @@ const Header: React.FC<{}> = () => {
 				className="justify-content-between"
 				sticky={stickyHeader ? 'top' : undefined}
 			>
-				<Container>
+				<Container fluid={true}>
 					<SBrand>
 						<Link to={'/'}>
 							<span className="monetfont">Monet</span>{' '}

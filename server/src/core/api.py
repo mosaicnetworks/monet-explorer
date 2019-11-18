@@ -1,4 +1,5 @@
 """ API endpoints for Monet Explorer """
+
 import requests
 import json
 

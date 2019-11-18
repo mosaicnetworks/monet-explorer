@@ -41,7 +41,7 @@ const ValidatorAvatar: React.FC<Props> = props => {
 						<Image src={RedDot} width="10" />
 					)}
 				</h6>
-				<div className="mono">{utils.cleanAddress(address)}</div>
+				<code className="mono">{utils.cleanAddress(address)}</code>
 			</Media.Body>
 		</Media>
 	);

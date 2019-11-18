@@ -35,9 +35,9 @@ const App: React.FC = () => {
 				<Route exact={true} path="/" component={Dashboard} />
 				<Route exact={true} path="/blocks" component={Blocks} />
 				<Route exact={true} path="/block/:id" component={Block} />
-				<Route exact={true} path="/hashgraph" component={Hashgraph} />
 				<Route exact={true} path="/downloads" component={Downloads} />
 				<Route exact={true} path="/history" component={History} />
+				<Route exact={true} path="/hashgraph" component={Hashgraph} />
 				<Route
 					exact={true}
 					path="/transactions"
