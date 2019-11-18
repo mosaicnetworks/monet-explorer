@@ -87,7 +87,7 @@ const Faucet: React.FC<{}> = () => {
 						<ReCAPTCHA
 							type="image"
 							onChange={onChange}
-							theme={'dark'}
+							theme={'light'}
 							sitekey="6LdoMh4UAAAAAMSK7FUAUtfmkkLuLfyjC-5mxuNE"
 						/>
 					</Form.Group>
