@@ -31,11 +31,11 @@ class Extractor:
 
             # Whitelist
             whitelist = self.__get(
-                path=f'http://localhost:5000/api/whitelist/?host={network.host}&port={network.port}')
+                path=f'http://localhost:5000/api/whitelist/?host={network.host}&port={network.port}', timeout=20)
 
             # Nominees
             nominees = self.__get(
-                path=f'http://localhost:5000/api/nominees/?host={network.host}&port={network.port}')
+                path=f'http://localhost:5000/api/nominees/?host={network.host}&port={network.port}', timeout=20)
 
             network.whitelist = json.dumps(whitelist)
             network.nominees = json.dumps(nominees)
