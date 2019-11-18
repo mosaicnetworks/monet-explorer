@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
 
 import Card from 'react-bootstrap/Card';
@@ -16,7 +17,6 @@ import ExplorerAPIClient, { Application } from '../client';
 
 import Background from '../assets/bg.svg';
 import Logo from '../assets/monet.svg';
-import ReactTooltip from 'react-tooltip';
 
 const SContainer = styled.div`
 	.card {
@@ -51,54 +51,16 @@ const SBlue = styled.div`
 const Transactions: React.FC<{}> = () => {
 	const c = new ExplorerAPIClient();
 
-	const [loading, setLoading] = useState<boolean>(false);
+	const [os, setOS] = useState(['linux', 'mac']);
 	const [applications, setApplications] = useState<Application[]>([]);
-	const [releases, setReleases] = useState<any>({});
 
 	const fetchApps = async () => {
-		setLoading(true);
 		setApplications(await c.applications());
-	};
-
-	const fetchReleases = async () => {
-		const r: any = {};
-
-		for (const app of applications) {
-			const release = await c.getLatestRelease(
-				app.owner,
-				app.repository_name
-			);
-
-			r[app.repository_name] = release;
-		}
-
-		setReleases(r);
-		setLoading(false);
 	};
 
 	useEffect(() => {
 		fetchApps();
 	}, []);
-
-	useEffect(() => {
-		fetchReleases();
-	}, [applications]);
-
-	const getAssetName = (asset: string) => {
-		if (asset.includes('mac') || asset.includes('darwin')) {
-			return 'Mac';
-		}
-
-		if (asset.includes('win') || asset.includes('windows')) {
-			return 'Windows';
-		}
-
-		if (asset.includes('linux') || asset.includes('lin')) {
-			return 'Linux';
-		}
-
-		return asset;
-	};
 
 	const parseAppName = (name: string) => {
 		switch (name) {
@@ -113,23 +75,6 @@ const Transactions: React.FC<{}> = () => {
 		}
 	};
 
-	const getDescription = (name: string) => {
-		const app = applications.find(
-			a => a.repository_name === name.toLowerCase()
-		);
-
-		if (app) {
-			return app.description;
-		} else {
-			return 'None';
-		}
-	};
-
-	// console.log(
-	// 	document
-	// 		.createRange()
-	// 		.createContextualFragment(getDescription('monetd')).
-	// );
 	return (
 		<SContainer>
 			<Container>
@@ -142,55 +87,36 @@ const Transactions: React.FC<{}> = () => {
 						</Row>
 					</SBlue>
 					<div className="padding">
-						{Object.keys(releases).map(appname => (
-							<Card key={appname}>
+						{applications.map(app => (
+							<Card key={app.repository_name}>
 								<Card.Body>
 									<Card.Title>
-										{parseAppName(appname)}
+										{parseAppName(app.repository_name)}
 									</Card.Title>
-									<Card.Subtitle className="mb-2 text-muted mono">
-										{releases[appname].tag_name} -{' '}
-										{new Date(
-											releases[appname].created_at
-										).toDateString()}
-									</Card.Subtitle>
+
 									<Card.Text
 										dangerouslySetInnerHTML={{
-											__html: getDescription(appname)
+											__html: app.description
 										}}
 									>
 										{}
 									</Card.Text>
 									<br />
-									{releases[appname].assets.map(
-										(a: any, i: any) => {
-											ReactTooltip.rebuild();
+									{os.map((o: any, i: any) => {
+										ReactTooltip.rebuild();
 
-											if (
-												getAssetName(a.name) ===
-												'Windows'
-											) {
-												return <></>;
-											}
-
-											return (
-												<Card.Link
-													data-tip={`Download ${parseAppName(
-														appname
-													)} - ${getAssetName(
-														a.name
-													)}`}
-													key={`${appname}/asset/${i}/`}
-													href={
-														a.browser_download_url
-													}
-												>
-													{' '}
-													{getAssetName(a.name)}
-												</Card.Link>
-											);
-										}
-									)}
+										return (
+											<Card.Link
+												data-tip={`Download ${parseAppName(
+													app.repository_name
+												)}`}
+												key={`${app.repository_name}/asset/${o}/`}
+												href={`https://dashboard.monet.network/api/downloads/applications/${app.repository_name}/?os=${o}`}
+											>
+												{o}
+											</Card.Link>
+										);
+									})}
 								</Card.Body>
 							</Card>
 						))}

@@ -16,7 +16,12 @@ import GreenDot from '../assets/green-dot.png';
 import RedDot from '../assets/red-dot.png';
 
 const Green = styled.div`
-	color: darkgreen !important;
+	color: var(--green) !important;
+	font-weight: bold !important;
+`;
+
+const Orange = styled.div`
+	color: var(--orange) !important;
 	font-weight: bold !important;
 `;
 
@@ -24,6 +29,8 @@ const stateStyling = (state: string) => {
 	switch (state) {
 		case 'Babbling':
 			return <Green>Babbling</Green>;
+		case 'Suspended':
+			return <Orange>Suspended</Orange>;
 		default:
 			return state;
 	}
@@ -110,7 +117,10 @@ const Validators: React.FC<Props> = props => {
 					<td>{v.info.last_block_index}</td>
 					<td>{v.info.last_consensus_round}</td>
 					<td>{v.info.min_gas_price}</td>
-					<td className="mono">{v.version.monetd}</td>
+					<td className="mono">
+						{v.version.monetd && 'v'}
+						{v.version.monetd}
+					</td>
 				</tr>
 			);
 		});
@@ -128,7 +138,7 @@ const Validators: React.FC<Props> = props => {
 				<thead>
 					<tr>
 						<th>Profile</th>
-						{!props.hideStatus && <th>Status</th>}
+						{!props.hideStatus && <th>Service</th>}
 						<th>Moniker</th>
 						<th>Address</th>
 						<th>State</th>

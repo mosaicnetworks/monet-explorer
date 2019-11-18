@@ -188,11 +188,7 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 		<>
 			<SIndex>
 				<Container>
-					<SAlert
-						variant="info"
-						// dismissible={true}
-						// onClose={() => dispatch(hideFaucetAlert())}
-					>
+					<SAlert variant="info">
 						<Row className="align-items-center">
 							<Col xs={12} md={5}>
 								<SIcon src={Icon} width={'100'} />

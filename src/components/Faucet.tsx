@@ -48,7 +48,10 @@ const Faucet: React.FC<{}> = () => {
 
 		if (recaptcha) {
 			try {
-				const data = await c.submitFaucetTx(address);
+				const data = await c.submitFaucetTx(
+					utils.cleanAddress(address)
+				);
+
 				if (data.status === 1) {
 					setSuccess(`We've transferred you 100 Tenom!`);
 				} else {
@@ -84,7 +87,7 @@ const Faucet: React.FC<{}> = () => {
 						<ReCAPTCHA
 							type="image"
 							onChange={onChange}
-							theme={'light'}
+							theme={'dark'}
 							sitekey="6LdoMh4UAAAAAMSK7FUAUtfmkkLuLfyjC-5mxuNE"
 						/>
 					</Form.Group>

@@ -21,6 +21,7 @@ body {
 	-webkit-font-smoothing: antialiased;
 	/* background: rgb(240, 247, 250) !important; */
 	background: #f8f9fa !important;
+	font-size: 14px;
 }
 
 .bg-light {
