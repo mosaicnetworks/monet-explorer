@@ -7,7 +7,7 @@ from rest_framework.serializers import ModelSerializer
 from .models import (
     Network, Validator, Info, Block, Transaction,
     InternalTransaction, InternalTransactionReceipt, Signature,
-    ValidatorHistory
+    ValidatorHistory, Version
 )
 
 
@@ -16,7 +16,15 @@ class NetworkSerializer(ModelSerializer):
 
     class Meta:
         model = Network
-        fields = ['name', 'host', 'port']
+        fields = ['name', 'host', 'port', 'whitelist', 'nominees', 'evictees']
+
+
+class VersionSerializer(ModelSerializer):
+    """ Version model serializer  """
+
+    class Meta:
+        model = Version
+        fields = ['id', 'babble', 'monetd', 'solc', 'evm_lite', 'solc_os']
 
 
 class ValidatorHistorySerializer(ModelSerializer):
@@ -45,7 +53,9 @@ class ValidatorSerializer(ModelSerializer):
 
     def to_representation(self, instance):
         json = super().to_representation(instance)
+
         json['info'] = InfoSerializer(instance.info).data
+        json['version'] = VersionSerializer(instance.version).data
 
         return json
 

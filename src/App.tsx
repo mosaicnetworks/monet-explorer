@@ -12,7 +12,7 @@ import Blocks from './containers/Blocks';
 import Dashboard from './containers/Dashboard';
 import Downloads from './containers/Downloads';
 import Faucet from './containers/Faucet';
-import Hashgraph from './containers/Hashgraph';
+// import Hashgraph from './containers/Hashgraph';
 import History from './containers/History';
 import Search from './containers/Search';
 import Transactions from './containers/Transactions';
@@ -35,9 +35,9 @@ const App: React.FC = () => {
 				<Route exact={true} path="/" component={Dashboard} />
 				<Route exact={true} path="/blocks" component={Blocks} />
 				<Route exact={true} path="/block/:id" component={Block} />
-				<Route exact={true} path="/hashgraph" component={Hashgraph} />
 				<Route exact={true} path="/downloads" component={Downloads} />
 				<Route exact={true} path="/history" component={History} />
+				{/* <Route exact={true} path="/hashgraph" component={Hashgraph} /> */}
 				<Route
 					exact={true}
 					path="/transactions"

@@ -9,7 +9,7 @@ import Table from 'react-bootstrap/Table';
 
 import Avatar from '../components/Avatar';
 
-import { NomineeEntry } from '../poa';
+import { NomineeEntry } from '../client';
 
 import GreenUp from '../assets/green-up.png';
 import RedDown from '../assets/red-down.png';
@@ -55,7 +55,7 @@ const Nominees: React.FC<Props> = props => {
 								<Avatar address={n.address} size={30} />
 							</td>
 							<td style={{ padding: '0 !important' }}>
-								<Row>
+								<Row noGutters={true}>
 									<Col md={6}>
 										<Image width={10} src={GreenUp} />
 										{n.upVotes}

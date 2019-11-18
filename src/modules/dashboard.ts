@@ -1,7 +1,12 @@
 import { BaseAction, Result } from '.';
 
-import Client, { Block, Info, Network, Validator } from '../client';
-import POA, { NomineeEntry, WhitelistEntry } from '../poa';
+import Client, {
+	Block,
+	Network,
+	NomineeEntry,
+	Validator,
+	WhitelistEntry
+} from '../client';
 
 const FETCH_NETWORKS_INIT = '@monet/dashboard/network/FETCH/INIT';
 const FETCH_NETWORKS_SUCCESS = '@monet/dashboard/network/FETCH/SUCCESS';
@@ -15,20 +20,9 @@ const FETCH_BLOCKS_INIT = '@monet/dashboard/blocks/FETCH/INIT';
 const FETCH_BLOCKS_SUCCESS = '@monet/dashboard/blocks/FETCH/SUCCESS';
 const FETCH_BLOCKS_ERROR = '@monet/dashboard/blocks/FETCH/ERROR';
 
-const FETCH_WHITELIST_INIT = '@monet/dashboard/whitelist/FETCH/INIT';
-const FETCH_WHITELIST_SUCCESS = '@monet/dashboard/whitelist/FETCH/SUCCESS';
-const FETCH_WHITELIST_ERROR = '@monet/dashboard/whitelist/FETCH/ERROR';
-
-const FETCH_NOMINEES_INIT = '@monet/dashboard/nominees/FETCH/INIT';
-const FETCH_NOMINEES_SUCCESS = '@monet/dashboard/nominees/FETCH/SUCCESS';
-const FETCH_NOMINEES_ERROR = '@monet/dashboard/nominees/FETCH/ERROR';
-
-const FETCH_EVICTEES_INIT = '@monet/dashboard/nominees/FETCH/INIT';
-const FETCH_EVICTEES_SUCCESS = '@monet/dashboard/nominees/FETCH/SUCCESS';
-const FETCH_EVICTEES_ERROR = '@monet/dashboard/nominees/FETCH/ERROR';
-
-const SHOW_FAUCET_ALERT = '@monet/dashboard/faucet/ALERT/SHOW';
-const HIDE_FAUCET_ALERT = '@monet/dashboard/faucet/ALERT/HIDE';
+const FETCH_POA_INIT = '@monet/dashboard/POA/FETCH/INIT';
+const FETCH_POA_SUCCESS = '@monet/dashboard/POA/FETCH/SUCCESS';
+const FETCH_POA_ERROR = '@monet/dashboard/POA/FETCH/ERROR';
 
 const SELECT_NETWORK = '@monet/dashboard/network/SELECT';
 
@@ -36,13 +30,12 @@ export type DashboardState = {
 	networks: Network[];
 
 	selectedNetwork?: Network;
-	networkValidators: Validator[];
-	networkInfos: Info[];
-	networkBlocks: Block[];
 
-	networkWhitelist: WhitelistEntry[];
-	// networkEvictees: WhitelistEntry[];
-	networkNominees: NomineeEntry[];
+	validators: Validator[];
+	blocks: Block[];
+
+	whitelist: WhitelistEntry[];
+	nominees: NomineeEntry[];
 
 	error?: string;
 
@@ -51,33 +44,25 @@ export type DashboardState = {
 		validators: boolean;
 		infos: boolean;
 		blocks: boolean;
-		whitelist: boolean;
-		nominees: boolean;
+		poa: boolean;
 	};
-
-	// misc
-	showFaucetAlert: boolean;
 };
 
 const initial: DashboardState = {
 	networks: [],
-	networkInfos: [],
-	networkValidators: [],
-	networkBlocks: [],
+	validators: [],
+	blocks: [],
 
-	networkWhitelist: [],
-	networkNominees: [],
+	whitelist: [],
+	nominees: [],
 
 	loading: {
 		networks: false,
 		validators: false,
 		infos: false,
 		blocks: false,
-		whitelist: false,
-		nominees: false
-	},
-
-	showFaucetAlert: true
+		poa: false
+	}
 };
 
 const c = new Client();
@@ -87,18 +72,6 @@ export default (
 	action: BaseAction<any>
 ): DashboardState => {
 	switch (action.type) {
-		case SHOW_FAUCET_ALERT:
-			return {
-				...state,
-				showFaucetAlert: true
-			};
-
-		case HIDE_FAUCET_ALERT:
-			return {
-				...state,
-				showFaucetAlert: false
-			};
-
 		case SELECT_NETWORK:
 			return {
 				...state,
@@ -149,7 +122,7 @@ export default (
 		case FETCH_VALIDATORS_SUCCESS:
 			return {
 				...state,
-				networkValidators: action.payload,
+				validators: action.payload,
 				error: undefined,
 				loading: {
 					...state.loading,
@@ -180,7 +153,7 @@ export default (
 		case FETCH_BLOCKS_SUCCESS:
 			return {
 				...state,
-				networkBlocks: action.payload,
+				blocks: action.payload,
 				error: undefined,
 				loading: {
 					...state.loading,
@@ -198,67 +171,37 @@ export default (
 				}
 			};
 
-		case FETCH_WHITELIST_INIT:
+		case FETCH_POA_INIT:
 			return {
 				...state,
 				error: undefined,
 				loading: {
 					...state.loading,
-					whitelist: true
+					poa: true
 				}
 			};
 
-		case FETCH_WHITELIST_SUCCESS:
+		case FETCH_POA_SUCCESS:
 			return {
 				...state,
-				networkWhitelist: action.payload,
+				whitelist: action.payload.whitelist,
+				nominees: action.payload.nominees,
 				error: undefined,
 				loading: {
 					...state.loading,
-					whitelist: false
+					poa: false
 				}
 			};
 
-		case FETCH_WHITELIST_ERROR:
+		case FETCH_POA_ERROR:
 			return {
 				...state,
 				error: action.payload,
-				networkWhitelist: [],
+				whitelist: [],
+				nominees: [],
 				loading: {
 					...state.loading,
-					whitelist: false
-				}
-			};
-
-		case FETCH_NOMINEES_INIT:
-			return {
-				...state,
-				error: undefined,
-				loading: {
-					...state.loading,
-					nominees: true
-				}
-			};
-
-		case FETCH_NOMINEES_SUCCESS:
-			return {
-				...state,
-				networkNominees: action.payload,
-				error: undefined,
-				loading: {
-					...state.loading,
-					nominees: false
-				}
-			};
-
-		case FETCH_NOMINEES_ERROR:
-			return {
-				...state,
-				error: action.payload,
-				networkNominees: [],
-				loading: {
-					...state.loading,
-					nominees: false
+					poa: false
 				}
 			};
 
@@ -266,14 +209,6 @@ export default (
 			return state;
 	}
 };
-
-export function hideFaucetAlert(): Result<void> {
-	return dispatch => {
-		dispatch({
-			type: HIDE_FAUCET_ALERT
-		});
-	};
-}
 
 export function fetchNetworks(): Result<Promise<Network[]>> {
 	return async dispatch => {
@@ -322,14 +257,12 @@ export function selectNetwork(networkName: string): Result<Promise<Network>> {
 
 export function fetchAll(): Result<Promise<void>> {
 	return async dispatch => {
-		// dispatch(fetchNetworkBlocks());
-		dispatch(fetchNetworkValidators());
-		dispatch(fetchWhitelist());
-		dispatch(fetchNominees());
+		dispatch(fetchValidators());
+		dispatch(fetchPOA());
 	};
 }
 
-export function fetchNetworkValidators(): Result<Promise<Validator[]>> {
+export function fetchValidators(): Result<Promise<Validator[]>> {
 	return async (dispatch, getState) => {
 		const state = getState();
 
@@ -368,7 +301,6 @@ export function fetchNetworkBlocks(): Result<Promise<Block[]>> {
 		});
 
 		try {
-			// const currentBlocks = state.networkBlocks.length;
 			const blocks = await c.getBlocks(state.selectedNetwork!.name);
 
 			dispatch({
@@ -388,90 +320,29 @@ export function fetchNetworkBlocks(): Result<Promise<Block[]>> {
 	};
 }
 
-// export function fetchNextBlocks(): Result<Promise<Block[]>> {
-// 	return async (dispatch, getState) => {
-// 		const state = getState();
-
-// 		dispatch({
-// 			type: FETCH_BLOCKS_INIT
-// 		});
-
-// 		try {
-// 			const blocks = await c.getBlocks(state.selectedNetwork!.name);
-
-// 			dispatch({
-// 				type: FETCH_BLOCKS_OLDER,
-// 				payload: blocks
-// 			});
-
-// 			return blocks;
-// 		} catch (e) {
-// 			dispatch({
-// 				type: FETCH_BLOCKS_ERROR,
-// 				payload: e.toString()
-// 			});
-// 		}
-
-// 		return [];
-// 	};
-// }
-
-export function fetchWhitelist(): Result<Promise<void>> {
+export function fetchPOA(): Result<Promise<void>> {
 	return async (dispatch, getState) => {
 		const state = getState();
+		const network = state.selectedNetwork;
 
 		dispatch({
-			type: FETCH_WHITELIST_INIT
+			type: FETCH_POA_INIT
 		});
 
 		try {
-			const poa = new POA(
-				state.selectedNetwork!.host,
-				state.selectedNetwork!.port
-			);
-
-			await poa.init();
-
-			const whitelist = await poa.whitelist();
+			const whitelist = await c.getWhitelist(network!.name.toLowerCase());
+			const nominees = await c.getNominees(network!.name.toLowerCase());
 
 			dispatch({
-				type: FETCH_WHITELIST_SUCCESS,
-				payload: whitelist
+				type: FETCH_POA_SUCCESS,
+				payload: {
+					whitelist,
+					nominees
+				}
 			});
 		} catch (e) {
 			dispatch({
-				type: FETCH_WHITELIST_ERROR,
-				payload: e.toString()
-			});
-		}
-	};
-}
-
-export function fetchNominees(): Result<Promise<void>> {
-	return async (dispatch, getState) => {
-		const state = getState();
-
-		dispatch({
-			type: FETCH_NOMINEES_INIT
-		});
-
-		try {
-			const poa = new POA(
-				state.selectedNetwork!.host,
-				state.selectedNetwork!.port
-			);
-
-			await poa.init();
-
-			const whitelist = await poa.nominees();
-
-			dispatch({
-				type: FETCH_NOMINEES_SUCCESS,
-				payload: whitelist
-			});
-		} catch (e) {
-			dispatch({
-				type: FETCH_NOMINEES_ERROR,
+				type: FETCH_POA_ERROR,
 				payload: e.toString()
 			});
 		}

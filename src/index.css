@@ -20,13 +20,14 @@ body {
 	/* font-family: 'Open Sans', sans-serif !important; */
 	-webkit-font-smoothing: antialiased;
 	/* background: rgb(240, 247, 250) !important; */
-	background: #f8f9fa !important;
+	background: #fff url('./assets/square.png') !important;
+	font-size: 14px;
 }
 
 .bg-light {
 	/* background: rgba(31, 66, 146, 1) !important; */
 	background: white !important;
-	margin-bottom: 40px !important;
+	margin-bottom: 30px !important;
 	font-size: 14px;
 }
 
@@ -55,6 +56,7 @@ body {
 
 .table td {
 	border-top: 1px solid #f4f4f4 !important;
+	word-wrap: break-word !important;
 }
 
 .table th {
@@ -204,4 +206,8 @@ input {
 
 pre {
 	font-size: 15px;
+}
+
+canvas {
+	border: none !important;
 }

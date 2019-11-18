@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
 
@@ -9,14 +9,19 @@ import Table from 'react-bootstrap/Table';
 
 import Avatar from './Avatar';
 
-import ExplorerAPIClient, { Validator } from '../client';
+import { Validator } from '../client';
 import { pubKeyToAddress } from '../utils';
 
 import GreenDot from '../assets/green-dot.png';
 import RedDot from '../assets/red-dot.png';
 
 const Green = styled.div`
-	color: darkgreen !important;
+	color: var(--green) !important;
+	font-weight: bold !important;
+`;
+
+const Orange = styled.div`
+	color: var(--orange) !important;
 	font-weight: bold !important;
 `;
 
@@ -24,6 +29,8 @@ const stateStyling = (state: string) => {
 	switch (state) {
 		case 'Babbling':
 			return <Green>Babbling</Green>;
+		case 'Suspended':
+			return <Orange>Suspended</Orange>;
 		default:
 			return state;
 	}
@@ -70,34 +77,6 @@ type Props = {
 };
 
 const Validators: React.FC<Props> = props => {
-	const [valVersions, setValVersions] = useState<any>({} as any);
-
-	const fetchVersions = async () => {
-		const c = new ExplorerAPIClient();
-
-		for (const val of props.validators) {
-			try {
-				const version = await c.getVersion(val.host);
-
-				if (version) {
-					setValVersions((versions: any) => ({
-						...versions,
-						[val.public_key]: `v${version.monetd}`
-					}));
-				}
-			} catch (e) {
-				setValVersions((versions: any) => ({
-					...versions,
-					[val.public_key]: '< 0.3.2'
-				}));
-			}
-		}
-	};
-
-	useEffect(() => {
-		fetchVersions();
-	}, []);
-
 	const rendervalidators = () => {
 		return props.validators.map(v => {
 			const address = pubKeyToAddress(v.public_key);
@@ -117,9 +96,9 @@ const Validators: React.FC<Props> = props => {
 					{!props.hideStatus && (
 						<td>
 							{v.reachable ? (
-								<Image src={GreenDot} width="10" />
+								<Image src={GreenDot} width="15" />
 							) : (
-								<Image src={RedDot} width="10" />
+								<Image src={RedDot} width="15" />
 							)}
 						</td>
 					)}
@@ -135,15 +114,12 @@ const Validators: React.FC<Props> = props => {
 						</Link>
 					</td>
 					<td>{stateStyling(v.info.state)}</td>
-					<td>
-						{/* <Link to={`/block/${info.last_block_index}`}> */}
-						{v.info.last_block_index}
-						{/* </Link> */}
-					</td>
+					<td>{v.info.last_block_index}</td>
 					<td>{v.info.last_consensus_round}</td>
 					<td>{v.info.min_gas_price}</td>
 					<td className="mono">
-						{valVersions[v.public_key] || 'none'}
+						{v.version.monetd && 'v'}
+						{v.version.monetd}
 					</td>
 				</tr>
 			);
@@ -162,7 +138,7 @@ const Validators: React.FC<Props> = props => {
 				<thead>
 					<tr>
 						<th>Profile</th>
-						{!props.hideStatus && <th>Status</th>}
+						{!props.hideStatus && <th>Service</th>}
 						<th>Moniker</th>
 						<th>Address</th>
 						<th>State</th>

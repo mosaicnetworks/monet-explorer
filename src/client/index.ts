@@ -10,6 +10,14 @@ export type Network = {
 	port: number;
 };
 
+export type Version = {
+	monetd: string;
+	babble: string;
+	evm_lite: string;
+	solc: string;
+	solc_os: string;
+};
+
 export type Validator = {
 	moniker: string;
 	host: string;
@@ -17,6 +25,7 @@ export type Validator = {
 	network: Network;
 	reachable: boolean;
 	info: Info;
+	version: Version;
 };
 
 export type Info = {
@@ -85,13 +94,44 @@ export type Application = {
 	description: string;
 };
 
+export type WhitelistEntry = {
+	address: string;
+	moniker: string;
+};
+
+export type NomineeEntry = {
+	address: string;
+	moniker: string;
+	upVotes: number;
+	downVotes: number;
+};
+
+export type EvicteeEntry = {
+	address: string;
+	moniker: string;
+	upVotes: number;
+	downVotes: number;
+};
+
 class ExplorerAPIClient extends AbstractClient {
 	constructor() {
-		super('dashboard.monet.network', 80);
+		super('dashboard.monet.network', 443);
 	}
 
 	public async getNetworks(): Promise<Network[]> {
 		return JSON.parse(await this.get('/api/networks/')).results;
+	}
+
+	public async getWhitelist(network: string): Promise<WhitelistEntry[]> {
+		return JSON.parse(
+			await this.get(`/api/whitelist/?network=${network.toLowerCase()}`)
+		);
+	}
+
+	public async getNominees(network: string): Promise<NomineeEntry[]> {
+		return JSON.parse(
+			await this.get(`/api/nominees/?network=${network.toLowerCase()}`)
+		);
 	}
 
 	public async getValidators(
@@ -104,30 +144,12 @@ class ExplorerAPIClient extends AbstractClient {
 			url += `&round=${round}`;
 		}
 
-		console.log(url);
 		return JSON.parse(await this.get(url)).results;
 	}
 
 	public async getInfos(network: string): Promise<Info[]> {
 		return JSON.parse(await this.get(`/api/infos/?network=${network}`))
 			.results;
-	}
-
-	public async submitFaucetTx(address: string): Promise<IReceipt> {
-		return new Promise<IReceipt>((resolve, reject) => {
-			request.post(
-				`http://${this.host}:${this.port}/api/faucet/`,
-				{ json: { address } },
-				(error, response, body) => {
-					if (error) {
-						return reject(error);
-					}
-					if (!error && response.statusCode === 200) {
-						resolve(body);
-					}
-				}
-			);
-		});
 	}
 
 	public async getBlocks(network: string, offset?: number): Promise<Block[]> {
@@ -151,10 +173,34 @@ class ExplorerAPIClient extends AbstractClient {
 		return JSON.parse(await this.get(`/api/stats/?network=${network}`));
 	}
 
+	public async getApplications(): Promise<Application[]> {
+		return JSON.parse(await this.get(`/api/downloads/applications/`))
+			.results;
+	}
+
+	public async submitFaucetTx(address: string): Promise<IReceipt> {
+		return new Promise<IReceipt>((resolve, reject) => {
+			request.post(
+				`http://${this.host}:${this.port}/api/faucet/`,
+				{ json: { address } },
+				(error, response, body) => {
+					if (error) {
+						return reject(error);
+					}
+					if (!error && response.statusCode === 200) {
+						resolve(body);
+					}
+				}
+			);
+		});
+	}
+
+	// misc
+
 	public async getHashgraph(): Promise<any> {
 		return new Promise<any>((resolve, reject) => {
 			request.get(
-				`http://localhost:8080/graph`,
+				`http://172.77.5.10:8080/graph`,
 				(error, response, body) => {
 					if (error) {
 						return reject(error);
@@ -165,57 +211,6 @@ class ExplorerAPIClient extends AbstractClient {
 				}
 			);
 		});
-	}
-
-	public async getLatestRelease(owner: string, repo: string): Promise<any> {
-		return new Promise<any>((resolve, reject) => {
-			request.get(
-				`https://api.github.com/repos/${owner}/${repo}/releases/latest`,
-				(error, response, body) => {
-					if (error) {
-						return reject(error);
-					}
-					if (!error && response.statusCode === 200) {
-						resolve(JSON.parse(body));
-					}
-				}
-			);
-		});
-	}
-
-	public async getVersion(
-		host: string
-	): Promise<{
-		babble: string;
-		'evm-lite': string;
-		monetd: string;
-		solc: string;
-		'solc-os': string;
-	}> {
-		return new Promise<any>((resolve, reject) => {
-			request.get(
-				`http://${host}:8080/version`,
-				(error, response, body) => {
-					if (error) {
-						return reject(error);
-					}
-					if (!error && response.statusCode === 200) {
-						resolve(JSON.parse(body));
-					}
-				}
-			);
-		});
-	}
-
-	public async transactions(network: string): Promise<any> {
-		return JSON.parse(
-			await this.get(`/api/transactions/?network=${network}`)
-		).results;
-	}
-
-	public async applications(): Promise<Application[]> {
-		return JSON.parse(await this.get(`/api/downloads/applications/`))
-			.results;
 	}
 }
 

@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 import styled, { ThemeProvider } from 'styled-components';
 
-import Badge from 'react-bootstrap/Badge';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
@@ -16,11 +15,7 @@ import {
 	fetchAll,
 	selectNetwork as selectNetworkAction
 } from '../modules/dashboard';
-import {
-	selectAllNetworks,
-	selectNetwork,
-	selectShowFaucetAlert
-} from '../selectors';
+import { selectAllNetworks, selectNetwork } from '../selectors';
 
 const SNavbar = styled(Navbar)`
 	transition: background 0.2s cubic-bezier(1, 1, 1, 1);
@@ -45,7 +40,7 @@ const SNavbar = styled(Navbar)`
 const SNetwork = styled.div`
 	color: #000;
 	text-transform: capitalize;
-	font-weight: 300 !important;
+	font-weight: 500 !important;
 	font-size: 18px;
 
 	small {
@@ -109,7 +104,6 @@ const Header: React.FC<{}> = () => {
 
 	const networks = useSelector(selectAllNetworks);
 	const selected = useSelector(selectNetwork);
-	const showFaucet = useSelector(selectShowFaucetAlert);
 
 	const fetchAllData = () => dispatch(fetchAll());
 
@@ -155,7 +149,7 @@ const Header: React.FC<{}> = () => {
 				className="justify-content-between"
 				sticky={stickyHeader ? 'top' : undefined}
 			>
-				<Container>
+				<Container fluid={false}>
 					<SBrand>
 						<Link to={'/'}>
 							<span className="monetfont">Monet</span>{' '}
@@ -168,7 +162,7 @@ const Header: React.FC<{}> = () => {
 							{selected && selected.name.split('-')[0]} v
 							{selected && selected.name.split('-')[1]}
 						</b>{' '}
-						<Badge variant="danger">test</Badge>
+						{/* <Badge variant="danger">test</Badge> */}
 					</SNetwork>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse
@@ -218,20 +212,6 @@ const Header: React.FC<{}> = () => {
 								className="mr-sm-2"
 							/>
 						</SSearch>
-						{!showFaucet && (
-							<Nav.Item>
-								<Nav.Link as="span" eventKey="link-2">
-									<Link to={'/faucet'}>
-										<Image
-											src={
-												'https://monet.network/app/images/products/tenom.svg'
-											}
-											width={30}
-										/>
-									</Link>
-								</Nav.Link>
-							</Nav.Item>
-						)}
 					</Navbar.Collapse>
 				</Container>
 			</SNavbar>

@@ -1,7 +1,6 @@
 """ Core models for Monet Explorer """
 import datetime
 
-from django.utils.functional import cached_property
 from django.utils.timezone import now
 
 from django.db import models
@@ -16,6 +15,10 @@ class Network(models.Model):
     name = models.CharField(max_length=40)
     host = models.CharField(max_length=100)
     port = models.IntegerField()
+
+    whitelist = models.TextField(default="[]")
+    nominees = models.TextField(default="[]")
+    evictees = models.TextField(default="[]")
 
     active = models.BooleanField(default=True)
 
@@ -42,17 +45,17 @@ class Block(models.Model):
     def __str__(self):
         return f'{self.network.name} - {self.index}'
 
-    @cached_property
+    @property
     def transactions(self):
         """ Block Transactions """
         return Transaction.objects.filter(block=self)
 
-    @cached_property
+    @property
     def internal_transactions(self):
         """ Block Internal Transactions """
         return InternalTransaction.objects.filter(block=self)
 
-    @cached_property
+    @property
     def internal_transaction_receipts(self):
         """ Block Internal Transaction Receipts """
         return InternalTransactionReceipt.objects.filter(block=self)
@@ -76,7 +79,7 @@ class ValidatorHistory(models.Model):
     def __str__(self):
         return f'{self.network.name} - {self.consensus_round}'
 
-    @cached_property
+    @property
     def validators(self):
         return Validator.objects.filter(history=self)
 
@@ -101,7 +104,7 @@ class Validator(models.Model):
     def __str__(self):
         return f'{self.moniker} - {self.history.consensus_round}'
 
-    @cached_property
+    @property
     def info(self):
         try:
             info = Info.objects.get(validator=self)
@@ -109,6 +112,34 @@ class Validator(models.Model):
             info = None
 
         return info
+
+    @property
+    def version(self):
+        try:
+            version = Version.objects.get(validator=self)
+        except Version.DoesNotExist:
+            version = None
+
+        return version
+
+
+class Version(models.Model):
+    """ Version data about validator node """
+
+    class Meta:
+        unique_together = ['validator']
+
+    validator = models.ForeignKey(Validator, on_delete=models.CASCADE)
+
+    babble = models.CharField(max_length=50)
+    evm_lite = models.CharField(max_length=50)
+    monetd = models.CharField(max_length=50)
+
+    solc = models.CharField(max_length=100)
+    solc_os = models.TextField()
+
+    def __str__(self):
+        return self.monetd
 
 
 class Info(models.Model):

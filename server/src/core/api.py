@@ -1,4 +1,5 @@
 """ API endpoints for Monet Explorer """
+
 import requests
 import json
 
@@ -127,6 +128,8 @@ class FaucetAPIHandler(generics.CreateAPIView):
     Handles all faucet related api queries
     """
 
+    permission_classes = []
+
     def post(self, request, *args, **kwargs):
         f_tx = FaucetTransaction.objects.create(
             address=request.data['address'],
@@ -235,3 +238,60 @@ class TransactionAPIHandler(generics.ListAPIView):
             ).order_by('-id')
 
         return queryset
+
+
+class WhitelistAPIHandler(APIView):
+    """ Whitelist api handler """
+
+    def get(self, request, *args, **kwargs):
+        """ GET request handelr """
+        network = self.request.query_params.get('network', None)
+
+        if not network:
+            return Response(dict(error="No network specified"))
+
+        if not Network.objects.filter(name=network.lower()).count():
+            return Response(dict(error="Network does not exist"))
+
+        model = Network.objects.get(name=network.lower())
+
+        return Response(json.loads(model.whitelist))
+
+
+class NomineesAPIHandler(APIView):
+    """ Nominees api handler """
+
+    def get(self, request, *args, **kwargs):
+        """ GET request handelr """
+        network = self.request.query_params.get('network', None)
+
+        if not network:
+            return Response(dict(error="No network specified"))
+
+        if not Network.objects.filter(name=network.lower()).count():
+            return Response(dict(error="Network does not exist"))
+
+        model = Network.objects.get(name=network.lower())
+
+        return Response(json.loads(model.nominees))
+
+
+class AddressAPIHandler(APIView):
+    """ Nominees api handler """
+
+    def get(self, request, address, *args, **kwargs):
+        """ GET request handelr """
+        network = self.request.query_params.get('network', None)
+
+        if not network:
+            return Response(dict(error="No network specified"))
+
+        if not Network.objects.filter(name=network.lower()).count():
+            return Response(dict(error="Network does not exist"))
+
+        model = Network.objects.get(name=network.lower())
+
+        data = requests.get(
+            f'http://{model.host}:{model.port}/account/' + address).json()
+
+        return data

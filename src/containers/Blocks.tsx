@@ -12,13 +12,13 @@ import Loader from '../components/Loader';
 import { SContent } from '../components/styles';
 
 import { fetchNetworkBlocks } from '../modules/dashboard';
-import { selectBlocksLoading, selectNetworkBlocks } from '../selectors';
+import { selectBlocksLoading, selectBlocks } from '../selectors';
 
 const Blocks: React.FC<{}> = props => {
 	const dispatch = useDispatch();
 
 	const loading = useSelector(selectBlocksLoading);
-	const blocks = useSelector(selectNetworkBlocks);
+	const blocks = useSelector(selectBlocks);
 
 	const fetchBlocks = () => dispatch(fetchNetworkBlocks());
 
