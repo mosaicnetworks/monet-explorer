@@ -24,8 +24,8 @@ class Extractor:
         """ Run extractor """
         self.extract_validator_history()
         self.extract_validator_info()
-        # self.extract_blocks()
-        # self.extract_poa()
+        self.extract_blocks()
+        self.extract_poa()
 
     def extract_poa(self):
         """ Pulls all required POA data """
