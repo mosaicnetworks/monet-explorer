@@ -96,9 +96,9 @@ const Validators: React.FC<Props> = props => {
 					{!props.hideStatus && (
 						<td>
 							{v.reachable ? (
-								<Image src={GreenDot} width="15" />
+								<Image src={GreenDot} width="12" />
 							) : (
-								<Image src={RedDot} width="15" />
+								<Image src={RedDot} width="12" />
 							)}
 						</td>
 					)}
