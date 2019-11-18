@@ -40,7 +40,7 @@ const SNavbar = styled(Navbar)`
 const SNetwork = styled.div`
 	color: #000;
 	text-transform: capitalize;
-	font-weight: 300 !important;
+	font-weight: 500 !important;
 	font-size: 18px;
 
 	small {
