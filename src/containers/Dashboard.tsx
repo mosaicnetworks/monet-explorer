@@ -227,7 +227,9 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 										<Loader loading={statLoading} />
 									)}
 								</h1>
-								<div>Block Height</div>
+								<div style={{ fontWeight: 600 }}>
+									Block Height
+								</div>
 							</SContentPadded>
 						</Col>
 						<Col xs={6} md={3}>
@@ -241,19 +243,25 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 										<small>({intTxCount})</small>
 									)}
 								</h1>
-								<div>Total Transactions (Internal)</div>
+								<div style={{ fontWeight: 600 }}>
+									Total Transactions (Internal)
+								</div>
 							</SContentPadded>
 						</Col>
 						<Col xs={6} md={3}>
 							<SContentPadded>
 								<h1>{validators.length}</h1>
-								<div>Validators</div>
+								<div style={{ fontWeight: 600 }}>
+									Validators
+								</div>
 							</SContentPadded>
 						</Col>
 						<Col xs={6} md={3}>
 							<SContentPadded>
 								<h1>{nominees.length}</h1>
-								<div>Current Nominees</div>
+								<div style={{ fontWeight: 600 }}>
+									Current Nominees
+								</div>
 							</SContentPadded>
 						</Col>
 					</Row>

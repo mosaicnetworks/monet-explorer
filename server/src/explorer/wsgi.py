@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 from pathlib import Path
 
 ENV_PATH = Path('../../') / '.env.development'
-load_dotenv(dotenv_path=ENV_PATH)
+# load_dotenv(dotenv_path=ENV_PATH)
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'explorer.settings')
 

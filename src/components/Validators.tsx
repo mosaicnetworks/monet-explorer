@@ -94,7 +94,7 @@ const Validators: React.FC<Props> = props => {
 						</Link>
 					</td>
 					{!props.hideStatus && (
-						<td>
+						<td className="text-center">
 							{v.reachable ? (
 								<Image src={GreenDot} width="12" />
 							) : (
