@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '$k0-#o#^!$jfn$(q$418pclze89kg3i28v9!)$@sjuy=(pdozr'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get('REACT_APP_DEBUG', False)
 
 ALLOWED_HOSTS = ['*']
 

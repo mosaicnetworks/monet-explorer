@@ -115,7 +115,12 @@ export type EvicteeEntry = {
 
 class ExplorerAPIClient extends AbstractClient {
 	constructor() {
-		super('dashboard.monet.network', 443);
+		console.log(process.env.DEBUG);
+		if (process.env.DEBUG) {
+			super('localhost', 8000);
+		} else {
+			super('dashboard.monet.network', 443);
+		}
 	}
 
 	public async getNetworks(): Promise<Network[]> {
