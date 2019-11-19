@@ -33,6 +33,7 @@ const SBlockAvatar = styled.div`
 	border-radius: 5px !important;
 	color: black !important;
 	text-decoration: none !important;
+	border: 1px solid #ddd;
 
 	p {
 		margin: 0 !important;

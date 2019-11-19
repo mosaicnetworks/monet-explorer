@@ -65,7 +65,7 @@ const SContentPadded = styled.div`
 	font-size: 14px !important;
 	/* box-shadow: 0 1px 30px rgba(0, 0, 0, 0.08); */
 	/* box-shadow: 0 1px 20px rgba(0, 0, 0, 0.03); */
-	box-shadow: 0 1px 20px rgba(31, 66, 146, 0.07);
+	box-shadow: 0 1px 20px rgba(31, 66, 146, 0.02);
 	border: 1px solid #f3f3f3 !important;
 `;
 

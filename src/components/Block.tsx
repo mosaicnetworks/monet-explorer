@@ -31,6 +31,7 @@ const SBlockAvatar = styled.div`
 	transition: background 0.2s ease-out;
 	font-size: 20px;
 	background: #eee;
+	border: 1px solid #ddd !important;
 	padding: 15px;
 	border-radius: 5px !important;
 	color: black !important;

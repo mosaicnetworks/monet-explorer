@@ -39,17 +39,9 @@ const SNavbar = styled(Navbar)`
 `;
 
 const SBrand = styled(Navbar.Brand)`
-	transition: color 1s ease-out;
-
 	font-size: 18px !important;
 	font-family: MonetFont !important;
 	letter-spacing: 4px;
-
-	${props =>
-		props.theme.enable &&
-		`
-		color: #000 !important;
-		`}
 
 	a {
 		color: #000 !important;
@@ -60,7 +52,7 @@ const SBrand = styled(Navbar.Brand)`
 	}
 `;
 
-const SNetwork = styled.div`
+const SNetwork = styled.span`
 	color: #000;
 	text-transform: capitalize;
 	font-weight: 500 !important;
@@ -168,16 +160,11 @@ const Header: React.FC<{}> = () => {
 					<SBrand>
 						<Link to={'/'}>
 							<span>MONET</span>
-							{/* <span className="monetfont2 ">Testnet</span> */}
-							{/* <span className="monetfont">Explorer</span> */}
 						</Link>
 					</SBrand>
 					<SNetwork>
-						<b>
-							{selected && selected.name.split('-')[0]} v
-							{selected && selected.name.split('-')[1]}
-						</b>{' '}
-						{/* <Badge variant="danger">test</Badge> */}
+						{selected && selected.name.split('-')[0]} v
+						{selected && selected.name.split('-')[1]}
 					</SNetwork>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse

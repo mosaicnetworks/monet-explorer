@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
+import Media from 'react-bootstrap/Media';
+import Badge from 'react-bootstrap/Badge';
 import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 
@@ -17,6 +19,8 @@ import ExplorerAPIClient, { Application } from '../client';
 
 import Background from '../assets/bg.svg';
 import Logo from '../assets/monet.svg';
+import Button from 'react-bootstrap/Button';
+import { capitalize } from '../utils';
 
 const SContainer = styled.div`
 	.card {
@@ -46,12 +50,13 @@ const SBlue = styled.div`
 	background: url(${Background});
 	padding: 40px 15px;
 	color: white;
+	height: 100px;
 `;
 
 const Transactions: React.FC<{}> = () => {
 	const c = new ExplorerAPIClient();
 
-	const [os, setOS] = useState(['linux', 'mac']);
+	const [os, setOS] = useState(['linux', 'mac', 'windows']);
 	const [applications, setApplications] = useState<Application[]>([]);
 
 	const fetchApps = async () => {
@@ -78,50 +83,72 @@ const Transactions: React.FC<{}> = () => {
 	return (
 		<SContainer>
 			<Container>
-				<SContent>
-					<SBlue>
-						<Row>
-							<Col md={10}>
-								<img src={Logo} />
-							</Col>
-						</Row>
-					</SBlue>
-					<div className="padding">
-						{applications.map(app => (
-							<Card key={app.repository_name}>
-								<Card.Body>
-									<Card.Title>
-										{parseAppName(app.repository_name)}
-									</Card.Title>
-
-									<Card.Text
-										dangerouslySetInnerHTML={{
-											__html: app.description
-										}}
-									>
-										{}
-									</Card.Text>
-									<br />
-									{os.map((o: any, i: any) => {
-										ReactTooltip.rebuild();
-
-										return (
-											<Card.Link
-												data-tip={`Download ${parseAppName(
+				<Row>
+					<Col>
+						<SContent>
+							<SBlue>
+								<Row>
+									<Col md={10}>
+										<img src={Logo} />
+									</Col>
+									<Col>
+										<h4>Downloads</h4>
+									</Col>
+								</Row>
+							</SBlue>
+						</SContent>
+					</Col>
+				</Row>
+				<Row>
+					{applications.map((app, i) => (
+						<Col md={6} key={i}>
+							<SContent>
+								<span>{parseAppName(app.repository_name)}</span>
+								<div className="padding">
+									<Media>
+										<img
+											src="https://image.flaticon.com/icons/svg/919/919847.svg"
+											width={54}
+											height={54}
+											className="text-center mr-4"
+										/>
+										<Media.Body>
+											<h5 className="mr-4">
+												{parseAppName(
 													app.repository_name
-												)}`}
-												key={`${app.repository_name}/asset/${o}/`}
-												href={`https://dashboard.monet.network/api/downloads/applications/${app.repository_name}/?os=${o}`}
-											>
-												{o}
-											</Card.Link>
-										);
-									})}
-								</Card.Body>
-							</Card>
-						))}
-					</div>
-				</SContent>
+												)}{' '}
+												<Badge
+													as="div"
+													variant="warning"
+												>
+													Latest
+												</Badge>
+											</h5>
+											<p
+												dangerouslySetInnerHTML={{
+													__html: app.description
+												}}
+											/>
+											<hr />
+											<p>
+												{os.map((o, i) => (
+													<Button
+														href={`https://dashboard.monet.network/api/downloads/applications/${app.repository_name}/?os=${o}`}
+														key={`${o}/${i}`}
+														className="mr-1"
+														variant="primary"
+													>
+														{capitalize(o)}
+													</Button>
+												))}
+											</p>
+										</Media.Body>
+									</Media>
+								</div>
+							</SContent>
+						</Col>
+					))}
+				</Row>
 			</Container>
 		</SContainer>
 	);

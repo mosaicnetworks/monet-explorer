@@ -117,16 +117,83 @@ code {
 	border-radius: 5px !important;
 }
 
+.btn {
+	/* font-family: 'Titillium Web', sans-serif; */
+	font-weight: 700;
+}
+
 .btn-warning {
-	background: #f26630 !important;
+	background: var(--orange);
+	color: white;
 	border: none !important;
-	color: white !important;
+	outline: none !important;
 }
 
 .btn-warning:hover {
-	background: #e55e2b !important;
+	background: #d35a1e;
+	color: white;
+}
+
+.btn-warning:active {
+	box-shadow: none !important;
+	outline: none !important;
 	border: none !important;
+}
+
+.btn-primary {
+	background: var(--blue);
 	color: white !important;
+	border: none !important;
+	outline: none !important;
+}
+
+.btn-outline-primary {
+	border-color: var(--blue);
+	color: var(--blue);
+}
+
+.btn-outline-primary:hover {
+	background: #1e3383;
+	color: white;
+}
+
+.btn-outline-primary:active {
+	background: #1e3383;
+	box-shadow: none !important;
+	outline: none !important;
+}
+
+.btn-primary:hover {
+	background: #1e3383;
+	color: white;
+}
+
+.btn-primary:disabled {
+	background: #1e3383;
+}
+
+.btn-primary:active {
+	box-shadow: none !important;
+	outline: none !important;
+	border: none !important;
+}
+
+.btn-success {
+	background: var(--green);
+	color: white;
+	border: none !important;
+	outline: none !important;
+}
+
+.btn-success:hover {
+	background: #02642e;
+	color: white;
+}
+
+.btn-success:active {
+	box-shadow: none !important;
+	outline: none !important;
+	border: none !important;
 }
 
 label {
@@ -168,7 +235,7 @@ input {
 }
 
 .badge {
-	padding: 5px 10px !important;
+	margin-left: 7px;
 	font-size: 13px;
 	/* border-radius: 0px !important; */
 }
