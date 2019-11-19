@@ -18,7 +18,7 @@ const SError = styled.div`
 `;
 
 const SSuccess = styled.div`
-	color: darkgreen;
+	color: white;
 	font-size: 35px;
 	text-align: center;
 `;

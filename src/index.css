@@ -163,19 +163,17 @@ code {
 	outline: none !important;
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary:active {
 	background: #1e3383;
 	color: white;
+	box-shadow: none !important;
+	outline: none !important;
+	border: none !important;
 }
 
 .btn-primary:disabled {
 	background: #1e3383;
-}
-
-.btn-primary:active {
-	box-shadow: none !important;
-	outline: none !important;
-	border: none !important;
 }
 
 .btn-success {
@@ -185,12 +183,10 @@ code {
 	outline: none !important;
 }
 
-.btn-success:hover {
+.btn-success:hover,
+.btn-success:active {
 	background: #02642e;
 	color: white;
-}
-
-.btn-success:active {
 	box-shadow: none !important;
 	outline: none !important;
 	border: none !important;
