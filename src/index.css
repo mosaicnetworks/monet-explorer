@@ -256,6 +256,11 @@ input {
 	color: white;
 }
 
+.badge-secondary {
+	background-color: var(--purple) !important;
+	color: white;
+}
+
 .monetfont {
 	font-family: MonetFont !important;
 	letter-spacing: 4px;
@@ -275,4 +280,11 @@ pre {
 
 canvas {
 	border: none !important;
+}
+
+code {
+	background-color: #fafafa;
+	border: 1px solid #eee;
+	display: block;
+	padding: 10px;
 }

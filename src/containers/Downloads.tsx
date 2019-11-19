@@ -1,26 +1,22 @@
 import React, { useEffect, useState } from 'react';
 
-import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
 
-import Card from 'react-bootstrap/Card';
+import Badge from 'react-bootstrap/Badge';
+import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Media from 'react-bootstrap/Media';
-import Badge from 'react-bootstrap/Badge';
 import Row from 'react-bootstrap/Row';
-import Table from 'react-bootstrap/Table';
-
 import Loader from '../components/Loader';
 
 import { SContent } from '../components/styles';
 
 import ExplorerAPIClient, { Application } from '../client';
+import { capitalize } from '../utils';
 
 import Background from '../assets/bg.svg';
 import Logo from '../assets/monet.svg';
-import Button from 'react-bootstrap/Button';
-import { capitalize } from '../utils';
 
 const SContainer = styled.div`
 	.card {
@@ -49,7 +45,7 @@ const SContainer = styled.div`
 const SBlue = styled.div`
 	background: url(${Background});
 	padding: 40px 15px;
-	color: white;
+	color: var(--orange);
 	height: 100px;
 `;
 
@@ -96,6 +92,18 @@ const Transactions: React.FC<{}> = () => {
 									</Col>
 								</Row>
 							</SBlue>
+							<div className="padding">
+								If you need direct links to the downloads:
+								<br />
+								<br />
+								<p>
+									<pre>
+										<code>
+											https://dashboard.monet.network/api/downloads/applications/[REPO_NAME]/os=['linux'|'mac'|'windows']
+										</code>
+									</pre>
+								</p>
+							</div>
 						</SContent>
 					</Col>
 				</Row>
@@ -119,11 +127,14 @@ const Transactions: React.FC<{}> = () => {
 												)}{' '}
 												<Badge
 													as="div"
-													variant="warning"
+													variant="secondary"
 												>
 													Latest
 												</Badge>
 											</h5>
+											<p className="text-muted mono">
+												{app.repository_name}
+											</p>
 											<p
 												dangerouslySetInnerHTML={{
 													__html: app.description
