@@ -99,7 +99,7 @@ const Transactions: React.FC<{}> = () => {
 								<p>
 									<pre>
 										<code>
-											https://dashboard.monet.network/api/downloads/applications/[REPO_NAME]/os=['linux'|'mac'|'windows']
+											https://dashboard.monet.network/api/downloads/[REPO_NAME]/?os=['linux'|'mac'|'windows']
 										</code>
 									</pre>
 								</p>
@@ -144,7 +144,7 @@ const Transactions: React.FC<{}> = () => {
 											<p>
 												{os.map((o, i) => (
 													<Button
-														href={`https://dashboard.monet.network/api/downloads/applications/${app.repository_name}/?os=${o}`}
+														href={`https://dashboard.monet.network/api/downloads/${app.repository_name}/?os=${o}`}
 														key={`${o}/${i}`}
 														className="mr-1"
 														variant="primary"

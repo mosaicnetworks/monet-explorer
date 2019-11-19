@@ -8,7 +8,7 @@ app_name = 'core'
 
 urlpatterns = [
     path('applications/', api.ApplicationListAPIHandler.as_view()),
-    path('applications/<str:app>/', api.DownlaoadApplicationView.as_view()),
+    path('<str:app>/', api.DownlaoadApplicationView.as_view()),
 ]
 
 # Example path for downloading latest executables
