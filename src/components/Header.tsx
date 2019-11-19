@@ -11,22 +11,22 @@ import Image from 'react-bootstrap/Image';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
+import { DEV } from '../const';
 import {
 	fetchAll,
 	selectNetwork as selectNetworkAction
 } from '../modules/dashboard';
 import { selectAllNetworks, selectNetwork } from '../selectors';
-import { DEV } from '../const';
 
 const SNavbar = styled(Navbar)`
-	transition: background 0.2s cubic-bezier(1, 1, 1, 1);
+	transition: background 0.5s cubic-bezier(1, 1, 1, 1);
+
 	${props =>
 		props.theme.enable &&
-		`box-shadow: 0 1px 50px rgba(151, 164, 175, 0.3) !important;`}
-
-	${props =>
-		!props.theme.enable && `border-bottom: 1px solid #f3f3f3;`}
-
+		`
+		background: #FFF !important;
+		box-shadow: 0 1px 50px rgba(151, 164, 175, 0.3) !important;
+		`}
 
 	#dropdownn {
 		color: #333 !important;
@@ -35,6 +35,28 @@ const SNavbar = styled(Navbar)`
 	.c {
 		font-family: monospace !important;
 		color: #333 !important;
+	}
+`;
+
+const SBrand = styled(Navbar.Brand)`
+	transition: color 1s ease-out;
+
+	font-size: 18px !important;
+	font-family: MonetFont !important;
+	letter-spacing: 4px;
+
+	${props =>
+		props.theme.enable &&
+		`
+		color: #000 !important;
+		`}
+
+	a {
+		color: #000 !important;
+	}
+
+	a:hover {
+		text-decoration: none !important;
 	}
 `;
 
@@ -82,16 +104,6 @@ const SSearch = styled.div`
 
 	& input::placeholder {
 		color: #666;
-	}
-`;
-
-const SBrand = styled(Navbar.Brand)`
-	a {
-		color: #000 !important;
-	}
-
-	a:hover {
-		text-decoration: none !important;
 	}
 `;
 
@@ -155,7 +167,7 @@ const Header: React.FC<{}> = () => {
 				<Container fluid={false}>
 					<SBrand>
 						<Link to={'/'}>
-							<span className="monetfont">Monet</span>{' '}
+							<span>MONET</span>
 							{/* <span className="monetfont2 ">Testnet</span> */}
 							{/* <span className="monetfont">Explorer</span> */}
 						</Link>

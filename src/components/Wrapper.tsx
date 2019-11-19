@@ -7,7 +7,7 @@ import Header from './Header';
 import ScrollTop from './ScrollTop';
 
 const SWrapper = styled.div`
-	min-height: 100vh;
+	min-height: 90vh;
 `;
 
 const Wrapper: React.FC<{}> = props => {

@@ -17,10 +17,10 @@ const persistConfig: PersistConfig<any> = {
 	whitelist: [
 		'networks',
 		'selectedNetwork',
-		'networkValidators',
-		'networkInfos',
-		'networkWhitelist',
-		'networkNominees'
+		'validators',
+		'whitelist',
+		'nominees',
+		'blocks'
 	]
 };
 

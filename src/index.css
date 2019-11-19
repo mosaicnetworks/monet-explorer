@@ -20,13 +20,12 @@ body {
 	/* font-family: 'Open Sans', sans-serif !important; */
 	-webkit-font-smoothing: antialiased;
 	/* background: rgb(240, 247, 250) !important; */
-	background: #fff url('./assets/square.png') !important;
+	background: #f8f8f8 !important;
 	font-size: 14px;
 }
 
 .bg-light {
 	/* background: rgba(31, 66, 146, 1) !important; */
-	background: white !important;
 	margin-bottom: 30px !important;
 	font-size: 14px;
 }
@@ -193,7 +192,6 @@ input {
 .monetfont {
 	font-family: MonetFont !important;
 	letter-spacing: 4px;
-	font-size: 18px;
 	color: #000 !important;
 }
 
@@ -205,7 +203,7 @@ input {
 }
 
 pre {
-	font-size: 15px;
+	font-size: 14px;
 }
 
 canvas {
