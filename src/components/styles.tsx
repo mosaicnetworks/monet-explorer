@@ -6,6 +6,7 @@ export const SContent = styled.div`
 	margin-bottom: 30px !important;
 	box-shadow: 0 1px 20px rgba(31, 66, 146, 0.07);
 	border: 1px solid #f3f3f3 !important;
+	word-wrap: break-word !important;
 
 	span {
 		background: #f9f9f9 !important;
@@ -21,7 +22,6 @@ export const SContent = styled.div`
 	}
 
 	div {
-		word-wrap: break-word !important;
 		/* overflow: auto !important; */
 	}
 

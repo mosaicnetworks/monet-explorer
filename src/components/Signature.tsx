@@ -27,7 +27,7 @@ const Signature: React.FC<Props> = props => {
 				data-tip={`View Validator`}
 				to={`/validator/${props.validator.public_key}`}
 			>
-				<Avatar address={address} size={40} />
+				<Avatar address={address} size={30} />
 			</Link>
 			<Media.Body>
 				<h6>
@@ -35,14 +35,10 @@ const Signature: React.FC<Props> = props => {
 					<code style={{ marginLeft: '10px' }}>
 						{props.validator.host}
 					</code>
-					{'  '}
-					{/* {props.validator.reachable ? (
-						<Image src={GreenDot} width="10" />
-					) : (
-						<Image src={RedDot} width="10" />
-					)} */}
 				</h6>
-				<div className="mono">{props.signature}</div>
+				<div className="mono" style={{ wordWrap: 'break-word' }}>
+					{props.signature}
+				</div>
 			</Media.Body>
 		</Media>
 	);

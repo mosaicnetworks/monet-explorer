@@ -36,7 +36,7 @@
 		"redux-thunk": "^2.3.0",
 		"request": "^2.88.0",
 		"reselect": "^4.0.0",
-		"rlp": "^2.2.3",
+		"rlp": "^2.2.4",
 		"styled-components": "^4.4.0"
 	},
 	"devDependencies": {
@@ -52,6 +52,7 @@
 		"@types/redux-logger": "^3.0.7",
 		"@types/styled-components": "^4.1.19",
 		"concurrently": "^4.1.1",
+		"dotenv": "^8.2.0",
 		"ts-node": "^8.4.1",
 		"tslint": "^5.20.0",
 		"tslint-config-prettier": "^1.18.0",

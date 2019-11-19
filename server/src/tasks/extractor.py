@@ -66,7 +66,7 @@ class Extractor:
                 start = 0
 
             while start <= end:
-                print("Fetching blocks: ", start, "/", end)
+                print("[-] Fetching blocks ", start, "/", end)
 
                 new_blocks = requests.get(
                     url=f'http://{network.host}:8080/blocks/{start}?count=50').json()
@@ -111,7 +111,7 @@ class Extractor:
 
                     for pub_key, sig in block['Signatures'].items():
                         if not history:
-                            print("something wrong!")
+                            print("[x] Something went wrong")
                             return
 
                         validator = Validator.objects.get(
@@ -133,11 +133,12 @@ class Extractor:
                 path=f'http://{network.host}:{network.port}/history')
 
             if len(history) == ValidatorHistory.objects.filter(network=network).count():
-                print("Validator History - Up to Date!")
+                print("[-] Validator history is up to date")
                 return
 
             for cns_rnd, validators in history.items():
-                print(f'Network: {network.name}@{cns_rnd} - {len(validators)}')
+                print(
+                    f'[-] Network {network.name}@{cns_rnd} - {len(validators)}')
 
                 history, _ = ValidatorHistory.objects.get_or_create(
                     network=network,
@@ -152,7 +153,7 @@ class Extractor:
                     public_key = validator['PubKeyHex']
                     moniker = validator['Moniker']
 
-                    print(f'Create/Save Validator: {moniker}@{cns_rnd}')
+                    print(f'[-] Create/Save Validator {moniker}@{cns_rnd}')
 
                     v_model, created = Validator.objects.get_or_create(
                         public_key=public_key,
@@ -184,7 +185,7 @@ class Extractor:
 
             for validator in Validator.objects.filter(history=history, network=network):
                 print(
-                    f'{validator.moniker}@{history.consensus_round} - {validator.host}:8080')
+                    f'[-] Fetching {validator.moniker}@{history.consensus_round} with {validator.host}:8080')
 
                 try:
                     info = self.__get(
@@ -249,7 +250,7 @@ class Extractor:
                     validator.save()
 
                     print(
-                        f'Could not connect to {validator.moniker} - {validator.host}:8080')
+                        f'[x] Could not connect to {validator.moniker} - {validator.host}:8080')
 
                 self.__fetch_version(validator)
 

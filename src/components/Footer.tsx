@@ -110,24 +110,26 @@ const Footer: React.FC<{}> = props => {
 						<SLinks className="nav-list">
 							<dl className="contact-list">
 								<dd>
-									<dt>Email</dt>
-									<a
-										target="_top"
-										href="mailto:ping@monet.network"
-									>
-										ping@monet.network
-									</a>
+									<b>Email</b>
+									<div>
+										<a
+											target="_top"
+											href="mailto:ping@monet.network"
+										>
+											ping@monet.network
+										</a>
+									</div>
 								</dd>
 								<dd>
-									<dt>Other</dt>
-									<dd>
+									<b>Other</b>
+									<div>
 										<a
 											target="_blank"
 											href="https://babbleio.slack.com"
 										>
 											Slack
 										</a>
-									</dd>
+									</div>
 								</dd>
 							</dl>
 						</SLinks>
