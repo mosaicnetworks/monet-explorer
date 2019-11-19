@@ -10,6 +10,9 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
+import Fade from 'react-reveal/Fade';
+import Flip from 'react-reveal/Flip';
+import Pulse from 'react-reveal/Pulse';
 
 import Faucet from '../components/Faucet';
 import Loader from '../components/Loader';
@@ -191,136 +194,151 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 		<>
 			<SIndex>
 				<Container>
-					<SAlert variant="info">
-						<Row className="align-items-center">
-							<Col xs={12} md={5}>
-								<SIcon src={Icon} width={'100'} />
-								<Alert.Heading as="h2">
-									Interested in Participating?
-								</Alert.Heading>
-								<p>
-									Use our{' '}
-									<Link to={'/downloads'}>wallet</Link> to
-									generate a key and fill the form to
-									automatically receive 100 Tenom on the
-									testnet.
-								</p>
-							</Col>
-							<Col xs={12} md={5}>
-								<Faucet />
-							</Col>
-							<Col
-								md={2}
-								className="d-none d-sm-block text-center"
-							>
-								<Image
-									src="https://monet.network/app/images/illustrations/pages/token_sale.svg"
-									width={130}
-								/>
+					<Pulse>
+						{' '}
+						<SAlert variant="info">
+							<Row className="align-items-center">
+								<Col xs={12} md={5}>
+									<SIcon src={Icon} width={'100'} />
+									<Alert.Heading as="h2">
+										Interested in Participating?
+									</Alert.Heading>
+									<p>
+										Use our{' '}
+										<Link to={'/downloads'}>wallet</Link> to
+										generate a key and fill the form to
+										automatically receive 100 Tenom on the
+										testnet.
+									</p>
+								</Col>
+								<Col xs={12} md={5}>
+									<Faucet />
+								</Col>
+								<Col
+									md={2}
+									className="d-none d-sm-block text-center"
+								>
+									<Image
+										src="https://monet.network/app/images/illustrations/pages/token_sale.svg"
+										width={130}
+									/>
+								</Col>
+							</Row>
+						</SAlert>
+					</Pulse>
+				</Container>
+				<Container fluid={false}>
+					<Row>
+						<Col xs={6} md={3}>
+							<Flip left={true}>
+								<SContentPadded>
+									<h1>
+										{blockHeight ||
+											(!statLoading && '-') || (
+												<Loader loading={statLoading} />
+											)}
+									</h1>
+									<div style={{ fontWeight: 600 }}>
+										Block Height
+									</div>
+								</SContentPadded>
+							</Flip>
+						</Col>
+						<Col xs={6} md={3}>
+							<Flip left={true}>
+								<SContentPadded>
+									<h1>
+										{txCount + intTxCount ||
+											(!statLoading && '-') || (
+												<Loader loading={statLoading} />
+											)}
+										{intTxCount > 0 && (
+											<small>({intTxCount})</small>
+										)}
+									</h1>
+									<div style={{ fontWeight: 600 }}>
+										Total Transactions (Internal)
+									</div>
+								</SContentPadded>
+							</Flip>
+						</Col>
+						<Col xs={6} md={3}>
+							<Flip left={true}>
+								<SContentPadded>
+									<h1>{validators.length}</h1>
+									<div style={{ fontWeight: 600 }}>
+										Validators
+									</div>
+								</SContentPadded>
+							</Flip>
+						</Col>
+						<Col xs={6} md={3}>
+							<Flip left={true}>
+								<SContentPadded>
+									<h1>{nominees.length}</h1>
+									<div style={{ fontWeight: 600 }}>
+										Current Nominees
+									</div>
+								</SContentPadded>
+							</Flip>
+						</Col>
+					</Row>
+				</Container>
+				<Fade>
+					<Container fluid={false}>
+						<Row>
+							<Col xs={12}>
+								<SContent>
+									<span>
+										<Row>
+											<Col xs={6}>
+												Current Validators -{' '}
+												{getNetworkIntegrity()} (
+												<STolerance data-tip="Network Tolerance">
+													{Math.floor(
+														(1 / 3) *
+															validators.length
+													)}
+												</STolerance>
+												)
+											</Col>
+											<Col
+												className="align-content-end"
+												xs={6}
+											>
+												<div
+													data-tip={`View Entire History`}
+													className="float-right"
+												>
+													<Link to="/history">
+														View History
+													</Link>
+												</div>
+											</Col>
+										</Row>
+									</span>
+									<Validators validators={validators} />
+								</SContent>
 							</Col>
 						</Row>
-					</SAlert>
-				</Container>
-				<Container fluid={false}>
-					<Row>
-						<Col xs={6} md={3}>
-							<SContentPadded>
-								<h1>
-									{blockHeight || (!statLoading && '-') || (
-										<Loader loading={statLoading} />
-									)}
-								</h1>
-								<div style={{ fontWeight: 600 }}>
-									Block Height
-								</div>
-							</SContentPadded>
-						</Col>
-						<Col xs={6} md={3}>
-							<SContentPadded>
-								<h1>
-									{txCount + intTxCount ||
-										(!statLoading && '-') || (
-											<Loader loading={statLoading} />
-										)}
-									{intTxCount > 0 && (
-										<small>({intTxCount})</small>
-									)}
-								</h1>
-								<div style={{ fontWeight: 600 }}>
-									Total Transactions (Internal)
-								</div>
-							</SContentPadded>
-						</Col>
-						<Col xs={6} md={3}>
-							<SContentPadded>
-								<h1>{validators.length}</h1>
-								<div style={{ fontWeight: 600 }}>
-									Validators
-								</div>
-							</SContentPadded>
-						</Col>
-						<Col xs={6} md={3}>
-							<SContentPadded>
-								<h1>{nominees.length}</h1>
-								<div style={{ fontWeight: 600 }}>
-									Current Nominees
-								</div>
-							</SContentPadded>
-						</Col>
-					</Row>
-				</Container>
-				<Container fluid={false}>
-					<Row>
-						<Col xs={12}>
-							<SContent>
-								<span>
-									<Row>
-										<Col xs={6}>
-											Current Validators -{' '}
-											{getNetworkIntegrity()} (
-											<STolerance data-tip="Network Tolerance">
-												{Math.floor(
-													(1 / 3) * validators.length
-												)}
-											</STolerance>
-											)
-										</Col>
-										<Col
-											className="align-content-end"
-											xs={6}
-										>
-											<div
-												data-tip={`View Entire History`}
-												className="float-right"
-											>
-												<Link to="/history">
-													View History
-												</Link>
-											</div>
-										</Col>
-									</Row>
-								</span>
-								<Validators validators={validators} />
-							</SContent>
-						</Col>
-					</Row>
-				</Container>
-				<Container fluid={false}>
-					<Row>
-						<Col xs={12} md={12} lg={12} xl={6}>
-							<SContent>
-								<span>Whitelist</span>
-								<Whitelist whitelist={whitelist} />
-							</SContent>
-						</Col>
-						<Col xs={12} md={12} lg={12} xl={6}>
-							<SContent>
-								<span>Nominees</span>
-								<Nominees nominees={nominees} />
-							</SContent>
-						</Col>
-					</Row>
-				</Container>
+					</Container>
+					<Container fluid={false}>
+						<Row>
+							<Col xs={12} md={12} lg={12} xl={6}>
+								<SContent>
+									<span>Whitelist</span>
+									<Whitelist whitelist={whitelist} />
+								</SContent>
+							</Col>
+							<Col xs={12} md={12} lg={12} xl={6}>
+								<SContent>
+									<span>Nominees</span>
+									<Nominees nominees={nominees} />
+								</SContent>
+							</Col>
+						</Row>
+					</Container>
+				</Fade>
 			</SIndex>
 		</>
 	);
