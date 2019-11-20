@@ -13,7 +13,7 @@ import { Block as TBlock } from '../client';
 
 const SBlock = styled.div`
 	/* border-bottom: 1px solid #eee; */
-	padding-bottom: 20px;
+	padding-bottom: 5px;
 	display: inline-block;
 
 	a:hover {
@@ -29,10 +29,10 @@ const SBlock = styled.div`
 
 const SBlockAvatar = styled.div`
 	transition: background 0.2s ease-out;
-	font-size: 20px;
+	font-size: 15px;
 	background: #eee;
 	border: 1px solid #ddd !important;
-	padding: 15px;
+	padding: 10px;
 	border-radius: 5px !important;
 	color: black !important;
 	text-decoration: none !important;

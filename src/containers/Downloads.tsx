@@ -115,7 +115,12 @@ const Transactions: React.FC<{}> = () => {
 								<div className="padding">
 									<Media>
 										<img
-											src="https://image.flaticon.com/icons/svg/919/919847.svg"
+											src={
+												app.repository_name ===
+												'monet-wallet'
+													? 'https://monet.network/app/images/products/tenom.svg'
+													: 'https://image.flaticon.com/icons/svg/919/919847.svg'
+											}
 											width={54}
 											height={54}
 											className="text-center mr-4"

@@ -5,7 +5,8 @@ import Client, {
 	Network,
 	NomineeEntry,
 	Validator,
-	WhitelistEntry
+	WhitelistEntry,
+	Transaction
 } from '../client';
 
 const FETCH_NETWORKS_INIT = '@monet/dashboard/network/FETCH/INIT';
@@ -24,6 +25,11 @@ const FETCH_POA_INIT = '@monet/dashboard/POA/FETCH/INIT';
 const FETCH_POA_SUCCESS = '@monet/dashboard/POA/FETCH/SUCCESS';
 const FETCH_POA_ERROR = '@monet/dashboard/POA/FETCH/ERROR';
 
+const FETCH_TRANSACTIONS_INIT = '@monet/dashboard/TRANSACTIONS/FETCH/INIT';
+const FETCH_TRANSACTIONS_SUCCESS =
+	'@monet/dashboard/TRANSACTIONS/FETCH/SUCCESS';
+const FETCH_TRANSACTIONS_ERROR = '@monet/dashboard/TRANSACTIONS/FETCH/ERROR';
+
 const SELECT_NETWORK = '@monet/dashboard/network/SELECT';
 
 export type DashboardState = {
@@ -33,6 +39,7 @@ export type DashboardState = {
 
 	validators: Validator[];
 	blocks: Block[];
+	transactions: Transaction[];
 
 	whitelist: WhitelistEntry[];
 	nominees: NomineeEntry[];
@@ -40,6 +47,7 @@ export type DashboardState = {
 	error?: string;
 
 	loading: {
+		transactions: boolean;
 		networks: boolean;
 		validators: boolean;
 		infos: boolean;
@@ -52,11 +60,13 @@ const initial: DashboardState = {
 	networks: [],
 	validators: [],
 	blocks: [],
+	transactions: [],
 
 	whitelist: [],
 	nominees: [],
 
 	loading: {
+		transactions: false,
 		networks: false,
 		validators: false,
 		infos: false,
@@ -205,6 +215,38 @@ export default (
 				}
 			};
 
+		case FETCH_TRANSACTIONS_INIT:
+			return {
+				...state,
+				error: undefined,
+				loading: {
+					...state.loading,
+					transactions: true
+				}
+			};
+
+		case FETCH_TRANSACTIONS_SUCCESS:
+			return {
+				...state,
+				transactions: action.payload,
+				error: undefined,
+				loading: {
+					...state.loading,
+					transactions: false
+				}
+			};
+
+		case FETCH_TRANSACTIONS_ERROR:
+			return {
+				...state,
+				error: action.payload,
+				whitelist: [],
+				loading: {
+					...state.loading,
+					transactions: false
+				}
+			};
+
 		default:
 			return state;
 	}
@@ -343,6 +385,33 @@ export function fetchPOA(): Result<Promise<void>> {
 		} catch (e) {
 			dispatch({
 				type: FETCH_POA_ERROR,
+				payload: e.toString()
+			});
+		}
+	};
+}
+
+export function fetchTransactions(): Result<Promise<void>> {
+	return async (dispatch, getState) => {
+		const state = getState();
+		const network = state.selectedNetwork;
+
+		dispatch({
+			type: FETCH_TRANSACTIONS_INIT
+		});
+
+		try {
+			const transactions = await c.getTransactions(
+				network!.name.toLowerCase()
+			);
+
+			dispatch({
+				type: FETCH_TRANSACTIONS_SUCCESS,
+				payload: transactions
+			});
+		} catch (e) {
+			dispatch({
+				type: FETCH_TRANSACTIONS_ERROR,
 				payload: e.toString()
 			});
 		}

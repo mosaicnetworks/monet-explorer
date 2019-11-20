@@ -184,6 +184,12 @@ class ExplorerAPIClient extends AbstractClient {
 			.results;
 	}
 
+	public async getTransactions(network: string): Promise<Transaction[]> {
+		return JSON.parse(
+			await this.get(`/api/transactions/?network=${network}`)
+		).results;
+	}
+
 	public async submitFaucetTx(address: string): Promise<IReceipt> {
 		return new Promise<IReceipt>((resolve, reject) => {
 			request.post(
