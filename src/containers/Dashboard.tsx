@@ -68,8 +68,9 @@ const SContentPadded = styled.div`
 	font-size: 14px !important;
 	/* box-shadow: 0 1px 30px rgba(0, 0, 0, 0.08); */
 	/* box-shadow: 0 1px 20px rgba(0, 0, 0, 0.03); */
-	box-shadow: 0 1px 20px rgba(31, 66, 146, 0.02);
+	box-shadow: 0 4px 10px rgba(31, 66, 146, 0.04);
 	border: 1px solid #f3f3f3 !important;
+	/* border-bottom: 1px solid var(--blue) !important; */
 `;
 
 const SAlert = styled(Alert)`

@@ -25,7 +25,8 @@ body {
 }
 
 .bg-light {
-	/* background: rgba(31, 66, 146, 1) !important; */
+	background: #fff !important;
+	border-bottom: 1px solid #f4f4f4;
 	margin-bottom: 30px !important;
 	font-size: 14px;
 }
@@ -190,6 +191,13 @@ code {
 	box-shadow: none !important;
 	outline: none !important;
 	border: none !important;
+}
+
+.btn-secondary {
+	background: var(--purple);
+	color: white;
+	border: none !important;
+	outline: none !important;
 }
 
 label {

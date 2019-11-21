@@ -32,13 +32,18 @@ const Signature: React.FC<Props> = props => {
 			<Media.Body>
 				<h6>
 					{props.validator.moniker} {'  '}
-					<code style={{ marginLeft: '10px' }}>
+					<div
+						className="mono"
+						style={{ marginLeft: '10px', display: 'inline-block' }}
+					>
 						{props.validator.host}
-					</code>
+					</div>
 				</h6>
 				<div className="mono" style={{ wordWrap: 'break-word' }}>
-					{props.signature}
+					<code>{props.signature}</code>
 				</div>
+
+				<br />
 			</Media.Body>
 		</Media>
 	);

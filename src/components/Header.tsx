@@ -10,6 +10,7 @@ import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
 
 import { DEV } from '../const';
 import {
@@ -18,9 +19,11 @@ import {
 } from '../modules/dashboard';
 import { selectAllNetworks, selectNetwork } from '../selectors';
 
+import Icon from '../assets/icon.png';
+
 const SNavbar = styled(Navbar)`
 	transition: background 0.5s cubic-bezier(1, 1, 1, 1);
-
+	background: #fff !important;
 	${props =>
 		props.theme.enable &&
 		`
@@ -179,11 +182,6 @@ const Header: React.FC<{}> = () => {
 							</Nav.Item>
 							<Nav.Item>
 								<Nav.Link as="span">
-									<Link to={'/blocks'}>Blocks</Link>
-								</Nav.Link>
-							</Nav.Item>
-							<Nav.Item>
-								<Nav.Link as="span">
 									<Link to={'/downloads'}>Downloads</Link>
 								</Nav.Link>
 							</Nav.Item>
@@ -199,8 +197,9 @@ const Header: React.FC<{}> = () => {
 								))}
 							</NavDropdown> */}
 						</SNav>
+
 						<SSearch className="justify-content-end">
-							<Form.Control
+							{/* <Form.Control
 								type="text"
 								placeholder="Search"
 								onChange={(e: any) => setSearch(e.target.value)}
@@ -212,7 +211,12 @@ const Header: React.FC<{}> = () => {
 									}
 								}}
 								className="mr-sm-2"
-							/>
+							/> */}
+							<Link to={'/blocks'}>
+								<Button variant="primary" className="">
+									Explore
+								</Button>
+							</Link>
 						</SSearch>
 					</Navbar.Collapse>
 				</Container>
