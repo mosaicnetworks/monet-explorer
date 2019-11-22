@@ -52,7 +52,7 @@ export type Transaction = {
 	data: string;
 	sender: string;
 	to: string;
-	amount: number;
+	amount: string;
 	gas: number;
 	gas_price: number;
 	nonce: number;

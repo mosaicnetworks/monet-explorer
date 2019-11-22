@@ -182,7 +182,9 @@ const Explore: React.FC<{}> = props => {
 												</td>
 												<td>
 													{new Currency(
-														t.amount
+														t.amount === '0'
+															? 0
+															: t.amount + 'a'
 													).format('T')}
 												</td>
 												<td>{t.gas}</td>
