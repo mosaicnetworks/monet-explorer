@@ -13,7 +13,7 @@ from ethereum import transactions
 from core.models import *
 
 
-poa_api = "localhost"
+poa_api = "172.31.0.243"
 
 
 class Extractor:
