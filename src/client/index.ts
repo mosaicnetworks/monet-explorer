@@ -50,6 +50,13 @@ export type Info = {
 
 export type Transaction = {
 	data: string;
+	sender: string;
+	to: string;
+	amount: number;
+	gas: number;
+	gas_price: number;
+	nonce: number;
+	payload: string;
 };
 
 export type InternalTransaction = {
@@ -182,6 +189,12 @@ class ExplorerAPIClient extends AbstractClient {
 	public async getApplications(): Promise<Application[]> {
 		return JSON.parse(await this.get(`/api/downloads/applications/`))
 			.results;
+	}
+
+	public async getTransactions(network: string): Promise<Transaction[]> {
+		return JSON.parse(
+			await this.get(`/api/transactions/?network=${network}`)
+		).results;
 	}
 
 	public async submitFaucetTx(address: string): Promise<IReceipt> {
