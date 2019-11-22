@@ -182,7 +182,7 @@ class Transaction(models.Model):
     sender = models.CharField(max_length=42, blank=True, null=True)
     to = models.CharField(max_length=42, blank=True, null=True)
     amount = models.TextField(blank=True, null=True)
-    gas = models.IntegerField(default=0, blank=True, null=True)
+    gas = models.TextField(blank=True, null=True)
     gas_price = models.IntegerField(default=0, blank=True, null=True)
     nonce = models.IntegerField(default=0, blank=True, null=True)
     payload = models.TextField(blank=True, null=True)
