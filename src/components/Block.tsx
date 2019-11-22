@@ -116,9 +116,8 @@ const Block: React.FC<Props> = ({ block }) => {
 					{/* <p className="mono">{block.state_hash}</p> */}
 					<div className="mono">
 						{block.signatures.map(s => (
-							<SAvatar>
+							<SAvatar key={s.signature}>
 								<Avatar
-									key={s.signature}
 									address={pubKeyToAddress(
 										s.validator.public_key
 									)}

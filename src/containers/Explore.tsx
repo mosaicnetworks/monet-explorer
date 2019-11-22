@@ -166,40 +166,38 @@ const Explore: React.FC<{}> = props => {
 								</thead>
 								<tbody>
 									{transactions.map(t => (
-										<>
-											<tr key={t.data}>
-												<td>
-													<Avatar
-														address={t.sender}
-														size={35}
+										<tr key={t.data}>
+											<td>
+												<Avatar
+													address={t.sender}
+													size={35}
+												/>
+											</td>
+											<td>
+												<Avatar
+													address={t.to}
+													size={35}
+												/>
+											</td>
+											<td>
+												{new Currency(
+													t.amount === '0'
+														? 0
+														: t.amount + 'a'
+												).format('T')}
+											</td>
+											<td>{t.gas}</td>
+											<td>{t.gas_price}</td>
+											<td className="text-center">
+												{(t.payload.length > 0 && (
+													<img
+														src="https://image.flaticon.com/icons/svg/1828/1828640.svg"
+														width={20}
 													/>
-												</td>
-												<td>
-													<Avatar
-														address={t.to}
-														size={35}
-													/>
-												</td>
-												<td>
-													{new Currency(
-														t.amount === '0'
-															? 0
-															: t.amount + 'a'
-													).format('T')}
-												</td>
-												<td>{t.gas}</td>
-												<td>{t.gas_price}</td>
-												<td className="text-center">
-													{(t.payload.length > 0 && (
-														<img
-															src="https://image.flaticon.com/icons/svg/1828/1828640.svg"
-															width={20}
-														/>
-													)) ||
-														'-'}
-												</td>
-											</tr>
-										</>
+												)) ||
+													'-'}
+											</td>
+										</tr>
 									))}
 								</tbody>
 							</STable>
