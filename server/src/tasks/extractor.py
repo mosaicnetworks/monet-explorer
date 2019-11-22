@@ -105,7 +105,7 @@ class Extractor:
                             to=tx_obj.to.hex(),
                             value=tx_obj.value,
                             data=tx_obj.data.hex(),
-                            gas=tx_obj.intrinsic_gas_used,
+                            gas=tx_obj.startgas,
                             gas_price=tx_obj.gasprice,
                             nonce=tx_obj.nonce,
                         )
