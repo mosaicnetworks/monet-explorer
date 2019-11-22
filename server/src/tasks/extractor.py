@@ -113,13 +113,15 @@ class Extractor:
                         _, _ = Transaction.objects.get_or_create(
                             block=m_block,
                             data=tx_string,
-                            sender=tx['sender'],
-                            to=tx['to'],
-                            amount=tx['value'],
-                            gas=tx['gas'],
-                            gas_price=tx['gas_price'],
-                            nonce=tx['nonce'],
-                            payload=tx['data']
+                            defaults={
+                                "sender": tx['sender'],
+                                "to": tx['to'],
+                                "amount": tx['value'],
+                                "gas": tx['gas'],
+                                "gas_price": tx['gas_price'],
+                                "nonce": tx['nonce'],
+                                "payload": tx['data']
+                            }
                         )
 
                     for itx_string in block['Body']['InternalTransactions']:
