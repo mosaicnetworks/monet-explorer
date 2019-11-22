@@ -132,7 +132,11 @@ const Block: React.FC<RouteComponentProps<Props>> = props => {
 																	</td>
 																	<td>
 																		{new Currency(
-																			t.amount
+																			t.amount ===
+																			'0'
+																				? 0
+																				: t.amount +
+																				  'a'
 																		).format(
 																			'T'
 																		)}
