@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 
-import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
 
-import Card from 'react-bootstrap/Card';
+import Badge from 'react-bootstrap/Badge';
+import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
+import Media from 'react-bootstrap/Media';
 import Row from 'react-bootstrap/Row';
-import Table from 'react-bootstrap/Table';
-
 import Loader from '../components/Loader';
 
 import { SContent } from '../components/styles';
 
 import ExplorerAPIClient, { Application } from '../client';
+import { capitalize } from '../utils';
 
 import Background from '../assets/bg.svg';
 import Logo from '../assets/monet.svg';
@@ -45,13 +45,14 @@ const SContainer = styled.div`
 const SBlue = styled.div`
 	background: url(${Background});
 	padding: 40px 15px;
-	color: white;
+	color: var(--orange);
+	height: 100px;
 `;
 
 const Transactions: React.FC<{}> = () => {
 	const c = new ExplorerAPIClient();
 
-	const [os, setOS] = useState(['linux', 'mac']);
+	const [os, setOS] = useState(['linux', 'mac', 'windows']);
 	const [applications, setApplications] = useState<Application[]>([]);
 
 	const fetchApps = async () => {
@@ -78,50 +79,96 @@ const Transactions: React.FC<{}> = () => {
 	return (
 		<SContainer>
 			<Container>
-				<SContent>
-					<SBlue>
-						<Row>
-							<Col md={10}>
-								<img src={Logo} />
-							</Col>
-						</Row>
-					</SBlue>
-					<div className="padding">
-						{applications.map(app => (
-							<Card key={app.repository_name}>
-								<Card.Body>
-									<Card.Title>
-										{parseAppName(app.repository_name)}
-									</Card.Title>
-
-									<Card.Text
-										dangerouslySetInnerHTML={{
-											__html: app.description
-										}}
-									>
-										{}
-									</Card.Text>
-									<br />
-									{os.map((o: any, i: any) => {
-										ReactTooltip.rebuild();
-
-										return (
-											<Card.Link
-												data-tip={`Download ${parseAppName(
+				<Row>
+					<Col>
+						<SContent>
+							<SBlue>
+								<Row>
+									<Col md={10}>
+										<img src={Logo} />
+									</Col>
+									<Col>
+										<h4>Downloads</h4>
+									</Col>
+								</Row>
+							</SBlue>
+							<div className="padding">
+								If you need direct links to the downloads:
+								<br />
+								<br />
+								<p>
+									<pre>
+										<code>
+											https://dashboard.monet.network/api/downloads/[REPO_NAME]/?os=['linux'|'mac'|'windows']
+										</code>
+									</pre>
+								</p>
+							</div>
+						</SContent>
+					</Col>
+				</Row>
+				<Row>
+					{applications.map((app, i) => (
+						<Col md={6} key={i}>
+							<SContent>
+								<span>{parseAppName(app.repository_name)}</span>
+								<div className="padding">
+									<Media>
+										<a
+											href={`https://github.com/mosaicnetworks/${app.repository_name}/`}
+										>
+											<img
+												src={
+													app.repository_name ===
+													'monet-wallet'
+														? 'https://monet.network/app/images/products/tenom.svg'
+														: 'https://image.flaticon.com/icons/svg/919/919847.svg'
+												}
+												width={54}
+												height={54}
+												className="text-center mr-4"
+											/>
+										</a>
+										<Media.Body>
+											<h5 className="mr-4">
+												{parseAppName(
 													app.repository_name
-												)}`}
-												key={`${app.repository_name}/asset/${o}/`}
-												href={`https://dashboard.monet.network/api/downloads/applications/${app.repository_name}/?os=${o}`}
-											>
-												{o}
-											</Card.Link>
-										);
-									})}
-								</Card.Body>
-							</Card>
-						))}
-					</div>
-				</SContent>
+												)}{' '}
+												<Badge
+													as="div"
+													variant="secondary"
+												>
+													Latest
+												</Badge>
+											</h5>
+											<p className="text-muted mono">
+												{app.repository_name}
+											</p>
+											<p
+												dangerouslySetInnerHTML={{
+													__html: app.description
+												}}
+											/>
+											<hr />
+											<p>
+												{os.map((o, i) => (
+													<Button
+														href={`https://dashboard.monet.network/api/downloads/${app.repository_name}/?os=${o}`}
+														key={`${o}/${i}`}
+														className="mr-1"
+														variant="primary"
+													>
+														{capitalize(o)}
+													</Button>
+												))}
+											</p>
+										</Media.Body>
+									</Media>
+								</div>
+							</SContent>
+						</Col>
+					))}
+				</Row>
 			</Container>
 		</SContainer>
 	);

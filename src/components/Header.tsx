@@ -10,6 +10,7 @@ import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
 
 import { DEV } from '../const';
 import {
@@ -18,9 +19,11 @@ import {
 } from '../modules/dashboard';
 import { selectAllNetworks, selectNetwork } from '../selectors';
 
+import Icon from '../assets/icon.png';
+
 const SNavbar = styled(Navbar)`
 	transition: background 0.5s cubic-bezier(1, 1, 1, 1);
-
+	background: #fff !important;
 	${props =>
 		props.theme.enable &&
 		`
@@ -39,17 +42,9 @@ const SNavbar = styled(Navbar)`
 `;
 
 const SBrand = styled(Navbar.Brand)`
-	transition: color 1s ease-out;
-
 	font-size: 18px !important;
 	font-family: MonetFont !important;
 	letter-spacing: 4px;
-
-	${props =>
-		props.theme.enable &&
-		`
-		color: #000 !important;
-		`}
 
 	a {
 		color: #000 !important;
@@ -60,7 +55,7 @@ const SBrand = styled(Navbar.Brand)`
 	}
 `;
 
-const SNetwork = styled.div`
+const SNetwork = styled.span`
 	color: #000;
 	text-transform: capitalize;
 	font-weight: 500 !important;
@@ -168,16 +163,11 @@ const Header: React.FC<{}> = () => {
 					<SBrand>
 						<Link to={'/'}>
 							<span>MONET</span>
-							{/* <span className="monetfont2 ">Testnet</span> */}
-							{/* <span className="monetfont">Explorer</span> */}
 						</Link>
 					</SBrand>
 					<SNetwork>
-						<b>
-							{selected && selected.name.split('-')[0]} v
-							{selected && selected.name.split('-')[1]}
-						</b>{' '}
-						{/* <Badge variant="danger">test</Badge> */}
+						{selected && selected.name.split('-')[0]} v
+						{selected && selected.name.split('-')[1]}
 					</SNetwork>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse
@@ -188,11 +178,6 @@ const Header: React.FC<{}> = () => {
 							<Nav.Item>
 								<Nav.Link as="span" eventKey="link-2">
 									<Link to={'/'}>Dashboard</Link>
-								</Nav.Link>
-							</Nav.Item>
-							<Nav.Item>
-								<Nav.Link as="span">
-									<Link to={'/blocks'}>Blocks</Link>
 								</Nav.Link>
 							</Nav.Item>
 							<Nav.Item>
@@ -212,8 +197,9 @@ const Header: React.FC<{}> = () => {
 								))}
 							</NavDropdown> */}
 						</SNav>
+
 						<SSearch className="justify-content-end">
-							<Form.Control
+							{/* <Form.Control
 								type="text"
 								placeholder="Search"
 								onChange={(e: any) => setSearch(e.target.value)}
@@ -225,7 +211,12 @@ const Header: React.FC<{}> = () => {
 									}
 								}}
 								className="mr-sm-2"
-							/>
+							/> */}
+							<Link to={'/blocks'}>
+								<Button variant="primary" className="">
+									Explore
+								</Button>
+							</Link>
 						</SSearch>
 					</Navbar.Collapse>
 				</Container>

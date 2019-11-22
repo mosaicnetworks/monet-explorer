@@ -18,6 +18,7 @@ type Props = {
 const Avatar: React.FC<Props> = props => {
 	return (
 		<SAvatar
+			data-tip={utils.cleanAddress(props.address)}
 			src={`https://s.gravatar.com/avatar/${utils.trimHex(
 				props.address
 			)}?size=100&default=retro`}

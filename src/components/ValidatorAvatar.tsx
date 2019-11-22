@@ -31,9 +31,12 @@ const ValidatorAvatar: React.FC<Props> = props => {
 			<Media.Body>
 				<h6>
 					{props.validator.moniker} {'  '}
-					<code style={{ marginLeft: '10px' }}>
+					<div
+						className="mono"
+						style={{ marginLeft: '10px', display: 'inline-block' }}
+					>
 						{props.validator.host}
-					</code>
+					</div>
 					{'  '}
 					{props.validator.reachable ? (
 						<Image src={GreenDot} width="10" />
@@ -41,7 +44,7 @@ const ValidatorAvatar: React.FC<Props> = props => {
 						<Image src={RedDot} width="10" />
 					)}
 				</h6>
-				<code className="mono">{utils.cleanAddress(address)}</code>
+				<div className="mono">{utils.cleanAddress(address)}</div>
 			</Media.Body>
 		</Media>
 	);
