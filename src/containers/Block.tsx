@@ -8,34 +8,28 @@ import { RouteComponentProps } from 'react-router-dom';
 
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
 import Media from 'react-bootstrap/Media';
+import Row from 'react-bootstrap/Row';
+import Table from 'react-bootstrap/Table';
 
 import Avatar from '../components/Avatar';
 import Signature from '../components/Signature';
 
 import { SContent } from '../components/styles';
 
-import { fetchNetworkBlocks } from '../modules/dashboard';
 import { selectBlock } from '../selectors';
-import { selectBlocks, selectBlocksLoading } from '../selectors';
-import { commaSeperate, pubKeyToAddress } from '../utils';
-
-const RLP = require('rlp');
 
 type Props = {
 	index: string;
 };
 
-function convertStringToUTF8ByteArray(str: string) {
-	const binaryArray = new Uint8Array(str.length);
+const STable = styled(Table)`
+	margin-bottom: 0 !important;
 
-	Array.prototype.forEach.call(binaryArray, (el, idx, arr) => {
-		arr[idx] = str.charCodeAt(idx);
-	});
-
-	return binaryArray;
-}
+	td {
+		font-size: 14px;
+	}
+`;
 
 const SBlockAvatar = styled.div`
 	transition: background 0.2s ease-out;
@@ -96,75 +90,81 @@ const Block: React.FC<RouteComponentProps<Props>> = props => {
 									<SContent>
 										<span>Transactions</span>
 										<div className="padding">
-											{block.transactions.map(t => {
-												const b64decoded = atob(t.data);
-												const array = convertStringToUTF8ByteArray(
-													b64decoded
-												);
-												const rlpDecoded = RLP.decode(
-													array
-												);
-
-												return (
-													<>
-														<code key={t.data}>
-															To:{' '}
-															<Avatar
-																address={Utils.cleanAddress(
-																	rlpDecoded[3].toString(
-																		'hex'
-																	)
-																)}
-																size={25}
-															/>
-															{Utils.cleanAddress(
-																rlpDecoded[3].toString(
-																	'hex'
-																)
-															)}
-															<br />
-															Value:{' '}
-															{commaSeperate(
-																new Currency(
-																	parseInt(
-																		rlpDecoded[4].toString(
-																			'hex'
-																		),
-																		16
-																	) || 0
-																)
-																	.format('T')
-																	.slice(
-																		0,
-																		-1
-																	)
-															)}
-															T
-															<br />
-															Gas:{' '}
-															{commaSeperate(
-																parseInt(
-																	rlpDecoded[2].toString(
-																		'hex'
-																	),
-																	16
-																)
-															)}
-															<br />
-															Gas Price:{' '}
-															{(
-																parseInt(
-																	rlpDecoded[1].toString(
-																		'hex'
-																	),
-																	16
-																) || 0
-															).toString()}{' '}
-															Attoms
-														</code>
-													</>
-												);
-											})}
+											<STable>
+												<thead>
+													<tr>
+														<th>From</th>
+														<th>To</th>
+														<th>Value</th>
+														<th>Gas</th>
+														<th>Gas Price</th>
+														<th className="text-center">
+															Contract Call?
+														</th>
+													</tr>
+												</thead>
+												<tbody>
+													{block.transactions.map(
+														t => (
+															<>
+																<tr
+																	key={t.data}
+																>
+																	<td>
+																		<Avatar
+																			address={
+																				t.sender
+																			}
+																			size={
+																				35
+																			}
+																		/>
+																	</td>
+																	<td>
+																		<Avatar
+																			address={
+																				t.to
+																			}
+																			size={
+																				35
+																			}
+																		/>
+																	</td>
+																	<td>
+																		{new Currency(
+																			t.amount
+																		).format(
+																			'T'
+																		)}
+																	</td>
+																	<td>
+																		{t.gas}
+																	</td>
+																	<td>
+																		{
+																			t.gas_price
+																		}
+																	</td>
+																	<td className="text-center">
+																		{(t
+																			.payload
+																			.length >
+																			0 && (
+																			<img
+																				src="https://image.flaticon.com/icons/svg/1828/1828640.svg"
+																				width={
+																					20
+																				}
+																			/>
+																		)) ||
+																			'-'}
+																	</td>
+																</tr>
+															</>
+														)
+													)}
+												</tbody>
+											</STable>
 										</div>
 									</SContent>
 								</Col>

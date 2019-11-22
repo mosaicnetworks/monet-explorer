@@ -114,17 +114,21 @@ const Transactions: React.FC<{}> = () => {
 								<span>{parseAppName(app.repository_name)}</span>
 								<div className="padding">
 									<Media>
-										<img
-											src={
-												app.repository_name ===
-												'monet-wallet'
-													? 'https://monet.network/app/images/products/tenom.svg'
-													: 'https://image.flaticon.com/icons/svg/919/919847.svg'
-											}
-											width={54}
-											height={54}
-											className="text-center mr-4"
-										/>
+										<a
+											href={`https://github.com/mosaicnetworks/${app.repository_name}/`}
+										>
+											<img
+												src={
+													app.repository_name ===
+													'monet-wallet'
+														? 'https://monet.network/app/images/products/tenom.svg'
+														: 'https://image.flaticon.com/icons/svg/919/919847.svg'
+												}
+												width={54}
+												height={54}
+												className="text-center mr-4"
+											/>
+										</a>
 										<Media.Body>
 											<h5 className="mr-4">
 												{parseAppName(

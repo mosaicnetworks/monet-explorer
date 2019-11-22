@@ -287,8 +287,9 @@ canvas {
 }
 
 code {
-	background-color: #fafafa;
-	border: 1px solid #eee;
+	/* background-color: #fafafa; */
+	/* border: 1px solid #eee; */
 	display: block;
-	padding: 10px;
+	font-size: 15px;
+	/* padding: 10px; */
 }

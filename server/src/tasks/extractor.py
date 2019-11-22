@@ -5,11 +5,15 @@ monetd: 0.3.3
 
 import json
 import requests
+import base64
+
+from rlp import decode
+from ethereum import transactions
 
 from core.models import *
 
 
-poa_api = "172.31.0.243"
+poa_api = "localhost"
 
 
 class Extractor:
@@ -92,9 +96,30 @@ class Extractor:
                     #       m_block.index, " @ ", m_block.round_received)
 
                     for tx_string in block['Body']['Transactions']:
+                        b64_raw_tx = tx_string
+                        raw_tx = base64.b64decode(b64_raw_tx)
+
+                        tx_obj = decode(raw_tx, transactions.Transaction)
+                        tx = dict(
+                            sender=tx_obj.sender.hex(),
+                            to=tx_obj.to.hex(),
+                            value=tx_obj.value,
+                            data=tx_obj.data.hex(),
+                            gas=tx_obj.intrinsic_gas_used,
+                            gas_price=tx_obj.gasprice,
+                            nonce=tx_obj.nonce,
+                        )
+
                         _, _ = Transaction.objects.get_or_create(
                             block=m_block,
-                            data=tx_string
+                            data=tx_string,
+                            sender=tx['sender'],
+                            to=tx['to'],
+                            amount=tx['value'],
+                            gas=tx['gas'],
+                            gas_price=tx['gas_price'],
+                            nonce=tx['nonce'],
+                            payload=tx['data']
                         )
 
                     for itx_string in block['Body']['InternalTransactions']:

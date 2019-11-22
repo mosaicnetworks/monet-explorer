@@ -122,17 +122,19 @@ const Explore: React.FC<{}> = props => {
 
 	return (
 		<Container fluid={false}>
-			<SSearchContainer>
+			{/* <SSearchContainer>
 				<h5>Search Monet Explorer</h5>
 				<Form.Control
 					type="text"
 					placeholder="Transaction Hash, Address, Public Key"
 				/>
-			</SSearchContainer>
+			</SSearchContainer> */}
 			<Row>
 				<Col md={12} lg={7}>
 					<SContent>
-						<span>Recent Blocks</span>
+						<span>
+							Recent Blocks <Loader loading={loading} size={20} />
+						</span>
 						<div>
 							{blocks.map(b => (
 								<SLink key={b.index} to={`block/${b.index}/`}>
@@ -142,9 +144,12 @@ const Explore: React.FC<{}> = props => {
 						</div>
 					</SContent>
 				</Col>
-				{/* <Col md={12} lg={5}>
+				<Col md={12} lg={5}>
 					<SContent>
-						<span>Recent Transactions</span>
+						<span>
+							Recent Transactions{' '}
+							<Loader loading={txLoading} size={20} />
+						</span>
 						<div>
 							<STable>
 								<thead>
@@ -152,7 +157,8 @@ const Explore: React.FC<{}> = props => {
 										<th>From</th>
 										<th>To</th>
 										<th>Value</th>
-										<th>Fee</th>
+										<th>Gas</th>
+										<th>Gas Price</th>
 										<th className="text-center">
 											Contract Call?
 										</th>
@@ -164,27 +170,31 @@ const Explore: React.FC<{}> = props => {
 											<tr key={t.data}>
 												<td>
 													<Avatar
-														address={
-															'0xda37bd41430c3242423d155bbd9b0e535067bbb3'
-														}
+														address={t.sender}
 														size={35}
 													/>
 												</td>
 												<td>
 													<Avatar
-														address={
-															'0xb7f0d947278c3a49db3da85214716a61b5ca41ee'
-														}
+														address={t.to}
 														size={35}
 													/>
 												</td>
-												<td>12T</td>
-												<td>0.12T</td>
+												<td>
+													{new Currency(
+														t.amount
+													).format('T')}
+												</td>
+												<td>{t.gas}</td>
+												<td>{t.gas_price}</td>
 												<td className="text-center">
-													<img
-														src="https://image.flaticon.com/icons/svg/1828/1828640.svg"
-														width={20}
-													/>
+													{(t.payload.length > 0 && (
+														<img
+															src="https://image.flaticon.com/icons/svg/1828/1828640.svg"
+															width={20}
+														/>
+													)) ||
+														'-'}
 												</td>
 											</tr>
 										</>
@@ -193,7 +203,7 @@ const Explore: React.FC<{}> = props => {
 							</STable>
 						</div>
 					</SContent>
-				</Col> */}
+				</Col>
 			</Row>
 		</Container>
 	);
