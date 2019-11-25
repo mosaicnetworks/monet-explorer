@@ -20,6 +20,9 @@ import Nominees from '../components/Nominees';
 import Validators from '../components/Validators';
 import Whitelist from '../components/Whitelist';
 
+// util components
+import Await from '../components/utils/Await';
+
 import ExplorerAPIClient from '../client';
 
 import { SContent } from '../components/styles';
@@ -233,12 +236,16 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 						<Col xs={6} md={3}>
 							<Flip left={true}>
 								<SContentPadded>
-									<h1>
-										{blockHeight ||
-											(!statLoading && '-') || (
+									<Await
+										loading={statLoading}
+										fallback={
+											<h1>
 												<Loader loading={statLoading} />
-											)}
-									</h1>
+											</h1>
+										}
+									>
+										<h1>{blockHeight}</h1>
+									</Await>
 									<div style={{ fontWeight: 600 }}>
 										Block Height
 									</div>
@@ -248,15 +255,19 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 						<Col xs={6} md={3}>
 							<Flip left={true}>
 								<SContentPadded>
-									<h1>
-										{txCount + intTxCount ||
-											(!statLoading && '-') || (
+									<Await
+										loading={statLoading}
+										fallback={
+											<h1>
 												<Loader loading={statLoading} />
-											)}
-										{intTxCount > 0 && (
+											</h1>
+										}
+									>
+										<h1>
+											{txCount + intTxCount}
 											<small>({intTxCount})</small>
-										)}
-									</h1>
+										</h1>
+									</Await>
 									<div style={{ fontWeight: 600 }}>
 										Total Transactions (Internal)
 									</div>

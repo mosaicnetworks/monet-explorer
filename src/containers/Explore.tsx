@@ -180,13 +180,18 @@ const Explore: React.FC<{}> = props => {
 												/>
 											</td>
 											<td>
-												{new Currency(
-													t.amount === '0'
-														? 0
-														: t.amount + 'a'
-												).format('T')}
+												{commaSeperate(
+													new Currency(
+														t.amount === '0'
+															? 0
+															: t.amount + 'a'
+													)
+														.format('T')
+														.slice(0, 1)
+												)}
+												T
 											</td>
-											<td>{t.gas}</td>
+											<td>{commaSeperate(t.gas)}</td>
 											<td>{t.gas_price}</td>
 											<td className="text-center">
 												{(t.payload.length > 0 && (

@@ -4,7 +4,9 @@ import styled from 'styled-components';
 
 import Footer from './Footer';
 import Header from './Header';
-import ScrollTop from './ScrollTop';
+
+// scroll to top after react-dom Link
+import Top from './utils/Top';
 
 const SWrapper = styled.div`
 	min-height: 90vh;
@@ -13,7 +15,7 @@ const SWrapper = styled.div`
 const Wrapper: React.FC<{}> = props => {
 	return (
 		<>
-			<ScrollTop />
+			<Top />
 			<SWrapper>
 				<Header />
 				{props.children}
