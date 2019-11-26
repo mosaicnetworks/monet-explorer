@@ -5,15 +5,15 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import Image from 'react-bootstrap/Image';
-import Table from 'react-bootstrap/Table';
 
 import Avatar from './Avatar';
 
 import { Validator } from '../client';
+import { STable } from '../components/styles';
 import { pubKeyToAddress } from '../utils';
 
-import GreenDot from '../assets/green-dot.png';
-import RedDot from '../assets/red-dot.png';
+import GREEN from '../assets/green-dot.png';
+import RED from '../assets/red-dot.png';
 
 const Green = styled.div`
 	color: var(--green) !important;
@@ -35,41 +35,6 @@ const stateStyling = (state: string) => {
 			return state;
 	}
 };
-
-const STable = styled(Table)`
-	margin-bottom: 0px !important;
-
-	transition: background 0.3s cubic-bezier(1, 1, 1, 1);
-
-	td {
-		font-size: 14px;
-		a {
-			color: #444 !important;
-			text-decoration: none !important;
-		}
-
-		a:hover {
-			color: #000 !important;
-		}
-	}
-
-	tr {
-		transition: background 0.2s ease-in;
-	}
-
-	tbody tr:nth-of-type(odd) {
-		/* background-color: rgba(0, 0, 0, 0.02); */
-	}
-
-	tbody tr:nth-of-type(odd):hover {
-		/* background: rgba(226, 110, 64, 0.1) !important; */
-	}
-
-	tbody tr:hover {
-		/* cursor: pointer; */
-		/* background: rgba(226, 110, 64, 0.1) !important; */
-	}
-`;
 
 type Props = {
 	validators: Validator[];
@@ -96,9 +61,9 @@ const Validators: React.FC<Props> = props => {
 					{!props.hideStatus && (
 						<td className="text-center">
 							{v.reachable ? (
-								<Image src={GreenDot} width="12" />
+								<Image src={GREEN} width="12" />
 							) : (
-								<Image src={RedDot} width="12" />
+								<Image src={RED} width="12" />
 							)}
 						</td>
 					)}

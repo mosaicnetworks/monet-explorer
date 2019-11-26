@@ -13,7 +13,7 @@ import Background from '../assets/bg.svg';
 import Logo from '../assets/monet.svg';
 
 const SFooter = styled.div`
-	background: url(${Background});
+	background: var(--blue);
 	background-size: cover;
 	/* background: rgba(31, 66, 146, 1); */
 	color: #fff;

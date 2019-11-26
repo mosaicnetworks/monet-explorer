@@ -1,30 +1,16 @@
 import React from 'react';
 
-import styled from 'styled-components';
-
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
-import Table from 'react-bootstrap/Table';
 
 import Avatar from '../components/Avatar';
 
 import { NomineeEntry } from '../client';
+import { STable } from '../components/styles';
 
 import GreenUp from '../assets/green-up.png';
 import RedDown from '../assets/red-down.png';
-
-const STable = styled(Table)`
-	margin-bottom: 0 !important;
-
-	td {
-		font-size: 14px;
-	}
-
-	tbody tr:nth-of-type(odd) {
-		background-color: rgba(0, 0, 0, 0.02);
-	}
-`;
 
 type Props = {
 	nominees: NomineeEntry[];
