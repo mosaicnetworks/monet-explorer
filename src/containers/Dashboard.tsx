@@ -1,9 +1,7 @@
 import React from 'react';
 
-import styled from 'styled-components';
-
 import { useSelector } from 'react-redux';
-import { RouteComponentProps, Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -53,7 +51,6 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 										</div>
 									</Col>
 								</Row>
-
 								<Validators validators={validators} />
 							</SContent>
 						</Col>

@@ -71,7 +71,7 @@ const Jumbotron: React.FC<{}> = () => {
 						<Col md={2} className="d-none d-sm-block text-center">
 							<Image
 								src="https://monet.network/app/images/illustrations/pages/token_sale.svg"
-								width={130}
+								width={150}
 							/>
 						</Col>
 					</Row>
