@@ -77,7 +77,7 @@ const History: React.FC<{}> = () => {
 				<Container>
 					<Row className="align-items-center">
 						<Col>
-							<h1>Validator Hisoty</h1>
+							<h1>Validator History</h1>
 							<p>Browse historic statsitics of validators</p>
 						</Col>
 					</Row>

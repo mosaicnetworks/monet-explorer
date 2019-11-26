@@ -25,6 +25,7 @@ import {
 	selectTxsLoading
 } from '../selectors';
 import { commaSeperate } from '../utils';
+import Loader from '../components/Loader';
 
 const SLink = styled(Link)`
 	text-decoration: none !important;
@@ -76,7 +77,9 @@ const Explore: React.FC<{}> = props => {
 					<Row>
 						<Col md={12} lg={7}>
 							<SContent>
-								<h3>Recent Blocks</h3>
+								<h3>
+									Recent Blocks <Loader loading={loading} />
+								</h3>
 								<div className="padding">
 									{blocks.map(b => (
 										<SLink
@@ -91,7 +94,10 @@ const Explore: React.FC<{}> = props => {
 						</Col>
 						<Col md={12} lg={5}>
 							<SContent>
-								<h3>Recent Transactions</h3>
+								<h3>
+									Recent Transactions{' '}
+									<Loader loading={txLoading} />
+								</h3>
 								<div className="padding">
 									<STable>
 										<thead>
