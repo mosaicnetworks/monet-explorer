@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 
 import styled, { ThemeProvider } from 'styled-components';
 
+import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Button from 'react-bootstrap/Button';
 
 import { DEV } from '../const';
 import {
@@ -22,32 +22,53 @@ import { selectAllNetworks, selectNetwork } from '../selectors';
 import Icon from '../assets/icon.png';
 
 const SNavbar = styled(Navbar)`
-	transition: background 0.5s cubic-bezier(1, 1, 1, 1);
-	background: #fff !important;
+	transition: background 0.3s cubic-bezier(1, 1, 1, 1);
+
+	&.bg-dark {
+		background: var(--blue) !important;
+		color: white !important;
+		/* border-bottom: 1px solid #f4f4f4; */
+		/* margin-bottom: 30px !important; */
+	}
+
 	${props =>
 		props.theme.enable &&
 		`
-		background: #FFF !important;
-		box-shadow: 0 1px 50px rgba(151, 164, 175, 0.3) !important;
+		&.bg-dark {
+			background: rgba(255, 255, 255, 0.9) !important;
+			color: black !important;
+		}
+	`}
+
+	${props =>
+		props.theme.enable &&
+		`
+		border-bottom: 1px solid rgba(0, 0, 0 , 0.05) !important;
+		box-shadow: 0 1px 50px rgba(0, 0, 0, 0.05) !important;
 		`}
 
 	#dropdownn {
-		color: #333 !important;
+		color: #fff !important;
 	}
 
 	.c {
 		font-family: monospace !important;
-		color: #333 !important;
+		color: #ccc !important;
 	}
 `;
 
 const SBrand = styled(Navbar.Brand)`
-	font-size: 18px !important;
+	font-size: 20px !important;
 	font-family: MonetFont !important;
 	letter-spacing: 4px;
 
 	a {
-		color: #000 !important;
+		color: #fff !important;
+		${props =>
+			props.theme.enable &&
+			`
+	color: #000 !important;
+	`}
 	}
 
 	a:hover {
@@ -56,10 +77,15 @@ const SBrand = styled(Navbar.Brand)`
 `;
 
 const SNetwork = styled.span`
-	color: #000;
+	color: #fff;
 	text-transform: capitalize;
-	font-weight: 500 !important;
+	font-weight: 700 !important;
 	font-size: 18px;
+	${props =>
+		props.theme.enable &&
+		`
+	color: #000 !important;
+	`}
 
 	small {
 		text-transform: none !important;
@@ -68,15 +94,21 @@ const SNetwork = styled.span`
 
 const SNav = styled(Nav)`
 	.nav-link a {
-		color: #666 !important;
-		font-weight: 500 !important;
+		color: #eee !important;
+
+		${props =>
+			props.theme.enable &&
+			`
+	color: #222 !important;
+	`}
+		font-weight: 600 !important;
 	}
 	.nav-link {
 		color: #222 !important;
 	}
 
 	.nav-link a:hover {
-		color: #000 !important;
+		color: var(--orange) !important;
 		text-decoration: none;
 	}
 `;
@@ -153,9 +185,9 @@ const Header: React.FC<{}> = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<SNavbar
-				bg={'light'}
+				bg={'dark'}
 				expand="lg"
-				variant="light"
+				variant="dark"
 				className="justify-content-between"
 				sticky={stickyHeader ? 'top' : undefined}
 			>
@@ -213,7 +245,7 @@ const Header: React.FC<{}> = () => {
 								className="mr-sm-2"
 							/> */}
 							<Link to={'/blocks'}>
-								<Button variant="primary" className="">
+								<Button variant="warning" className="">
 									Explore
 								</Button>
 							</Link>

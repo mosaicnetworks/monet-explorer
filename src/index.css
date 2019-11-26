@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web:300,400,600,700&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Fira+Code&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 
@@ -15,20 +16,22 @@
 	--yellow: #ffe014;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+	/* font-family: 'Titillium Web', sans-serif; */
+	font-weight: 700;
+}
+
 body {
 	margin: 0;
 	/* font-family: 'Open Sans', sans-serif !important; */
 	-webkit-font-smoothing: antialiased;
 	/* background: rgb(240, 247, 250) !important; */
-	background: #f8f8f8 !important;
-	font-size: 14px;
-}
-
-.bg-light {
-	background: #fff !important;
-	border-bottom: 1px solid #f4f4f4;
-	margin-bottom: 30px !important;
-	font-size: 14px;
+	background: #f9f9f9 !important;
+	/* font-family: 'Poppins', sans-serif; */
 }
 
 .jumbotron {
@@ -115,13 +118,14 @@ code {
 }
 
 .btn {
-	font-size: 14px;
-	border-radius: 5px !important;
+	font-size: 15px;
+	border-radius: 3px !important;
+	padding: 5px 15px;
 }
 
 .btn {
 	/* font-family: 'Titillium Web', sans-serif; */
-	font-weight: 700;
+	font-weight: 500;
 }
 
 .btn-warning {

@@ -1,24 +1,9 @@
 import React from 'react';
 
-import styled from 'styled-components';
-
-import Table from 'react-bootstrap/Table';
-
 import Avatar from '../components/Avatar';
 
 import { WhitelistEntry } from '../client';
-
-const STable = styled(Table)`
-	margin-bottom: 0px !important;
-
-	td {
-		font-size: 14px;
-	}
-
-	tbody tr:nth-of-type(odd) {
-		background-color: rgba(0, 0, 0, 0.02);
-	}
-`;
+import { STable } from '../components/styles';
 
 type Props = {
 	whitelist: WhitelistEntry[];
