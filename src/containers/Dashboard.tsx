@@ -15,16 +15,12 @@ import Stats from '../components/Stats';
 import Validators from '../components/Validators';
 import Whitelist from '../components/Whitelist';
 
-import { SContent } from '../components/styles';
+import { SContent, SSection } from '../components/styles';
 import {
 	selectNominees,
 	selectValidators,
 	selectWhitelist
 } from '../selectors';
-
-const STables = styled.div`
-	margin-top: 50px;
-`;
 
 const Index: React.FC<RouteComponentProps<{}>> = props => {
 	const validators = useSelector(selectValidators);
@@ -35,7 +31,7 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 		<>
 			<Jumbotron />
 			<Stats />
-			<STables>
+			<SSection>
 				<Container fluid={false}>
 					<Row>
 						<Col xs={12}>
@@ -46,8 +42,8 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 						</Col>
 					</Row>
 				</Container>
-			</STables>
-			<STables>
+			</SSection>
+			<SSection>
 				<Container fluid={false}>
 					<Row>
 						<Col xs={12} md={12} lg={12} xl={6}>
@@ -64,7 +60,7 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 						</Col>
 					</Row>
 				</Container>
-			</STables>
+			</SSection>
 		</>
 	);
 };

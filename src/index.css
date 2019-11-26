@@ -99,6 +99,7 @@ code {
 
 .badge {
 	text-shadow: none !important;
+	border-radius: 3px !important;
 }
 
 .mono {

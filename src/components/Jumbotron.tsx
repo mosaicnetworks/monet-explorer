@@ -18,25 +18,17 @@ const SIcon = styled(Image)`
 `;
 
 const SAlert = styled(Alert)`
-	/* display: none; */
 	padding: 70px 0px !important;
-	/* background: rgba(31, 66, 146, 1) !important; */
 	background: var(--blue) !important;
 	background-size: cover;
-	/* background-position-x: -10px; */
 	color: white !important;
 	border: none !important;
 	box-shadow: none !important;
 	margin-bottom: 0px !important;
 	border-radius: 0 !important;
 
-	.close:hover {
-		color: #fff;
-	}
-
 	.alert-heading {
 		margin-top: 0px !important;
-		/* padding-top: 10px !important; */
 	}
 
 	& input {
@@ -50,17 +42,9 @@ const SAlert = styled(Alert)`
 		color: #888;
 	}
 
-	hr {
-		border-color: transparent !important;
-	}
-
 	a {
 		color: #f26630 !important;
 		font-weight: bold;
-	}
-
-	ul {
-		margin-top: 7px;
 	}
 `;
 
