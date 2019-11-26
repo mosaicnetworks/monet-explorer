@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Link } from 'react-router-dom';
 
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -36,7 +36,24 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 					<Row>
 						<Col xs={12}>
 							<SContent>
-								<h3>Current Validators</h3>
+								<Row>
+									<Col xs={6}>
+										<h3>Current Validators</h3>
+									</Col>
+									<Col className="align-content-end" xs={6}>
+										<div
+											data-tip={`View Entire History`}
+											className="float-right"
+										>
+											<Link to="/history">
+												<small>
+													<b>View History</b>
+												</small>
+											</Link>
+										</div>
+									</Col>
+								</Row>
+
 								<Validators validators={validators} />
 							</SContent>
 						</Col>

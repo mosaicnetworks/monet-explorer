@@ -15,21 +15,13 @@ import Table from 'react-bootstrap/Table';
 import Avatar from '../components/Avatar';
 import Signature from '../components/Signature';
 
-import { SContent } from '../components/styles';
+import { SContent, STable, SJumbotron, SSection } from '../components/styles';
 
 import { selectBlock } from '../selectors';
 
 type Props = {
 	index: string;
 };
-
-const STable = styled(Table)`
-	margin-bottom: 0 !important;
-
-	td {
-		font-size: 14px;
-	}
-`;
 
 const SBlockAvatar = styled.div`
 	transition: background 0.2s ease-out;
@@ -54,42 +46,24 @@ const Block: React.FC<RouteComponentProps<Props>> = props => {
 	return (
 		(block && (
 			<>
-				<Container>
-					<Row>
-						<Col>
-							<Row>
-								<Col md={12}>
-									<SContent>
-										<span>
-											Block {block && block.index}
-										</span>
-										<div className="padding">
-											<Media>
-												<SBlockAvatar className="mr-2 align-items-center">
-													#{block.index}
-												</SBlockAvatar>
-												<Media.Body>
-													<p>
-														<b>State Hash: </b>
-														<div className="mono">
-															{block.state_hash}
-														</div>
-													</p>
-													<p>
-														<b>Frame Hash: </b>
-														<div className="mono">
-															{block.frame_hash}
-														</div>
-													</p>
-												</Media.Body>
-											</Media>
-										</div>
-									</SContent>
-								</Col>
-								<Col md={12}>
-									<SContent>
-										<span>Transactions</span>
-										<div className="padding">
+				<SJumbotron>
+					<Container>
+						<Row className="align-items-center">
+							<Col>
+								<h1>Block #{block.index}</h1>
+								<p className="mono">{block.state_hash}</p>
+							</Col>
+						</Row>
+					</Container>
+				</SJumbotron>
+				<SSection>
+					<Container>
+						<Row>
+							<Col>
+								<Row>
+									<Col md={12}>
+										<SContent>
+											<h3>Transactions</h3>
 											<STable>
 												<thead>
 													<tr>
@@ -169,27 +143,27 @@ const Block: React.FC<RouteComponentProps<Props>> = props => {
 													)}
 												</tbody>
 											</STable>
-										</div>
-									</SContent>
-								</Col>
-							</Row>
-						</Col>
-						<Col md={6}>
-							<SContent>
-								<span>Signatures</span>
-								<div className="padding">
-									{block.signatures.map(s => (
-										<Signature
-											key={s.signature}
-											validator={s.validator}
-											signature={s.signature}
-										/>
-									))}
-								</div>
-							</SContent>
-						</Col>
-					</Row>
-				</Container>
+										</SContent>
+									</Col>
+								</Row>
+							</Col>
+							<Col md={6}>
+								<SContent>
+									<h3>Signatures</h3>
+									<div className="padding pad">
+										{block.signatures.map(s => (
+											<Signature
+												key={s.signature}
+												validator={s.validator}
+												signature={s.signature}
+											/>
+										))}
+									</div>
+								</SContent>
+							</Col>
+						</Row>
+					</Container>
+				</SSection>
 			</>
 		)) || <></>
 	);

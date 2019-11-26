@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Image from 'react-bootstrap/Image';
 
 const SAvatar = styled(Image)`
-	border-radius: 5px !important;
+	border-radius: 3px !important;
 	margin-right: 10px;
 `;
 

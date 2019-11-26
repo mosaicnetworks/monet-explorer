@@ -4,17 +4,25 @@ import Table from 'react-bootstrap/Table';
 
 export const SContent = styled.div`
 	div.padding {
-		border-radius: 5px !important;
+		border-radius: 3px !important;
 		margin-bottom: 30px !important;
-		border: 1px solid #eee !important;
 		word-wrap: break-word !important;
-	}
-
-	table {
+		border: 1px solid #f9f9f9;
 		background: white;
 	}
 
+	div.pad {
+		padding: 15px;
+	}
+
+	table {
+		border-radius: 3px !important;
+		background: white;
+		border: 1px solid #f9f9f9;
+	}
+
 	h3 {
+		font-size: 24px;
 		margin-bottom: 30px;
 	}
 `;
