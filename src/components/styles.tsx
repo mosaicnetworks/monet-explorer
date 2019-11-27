@@ -23,7 +23,7 @@ export const SContent = styled.div`
 
 	h3 {
 		font-size: 24px;
-		margin-bottom: 30px;
+		margin-bottom: 20px;
 	}
 `;
 
@@ -31,6 +31,8 @@ export const STable = styled(Table)`
 	font-size: 15px;
 
 	td {
+		padding: 15px 10px !important;
+
 		a {
 			color: #444 !important;
 			text-decoration: none !important;

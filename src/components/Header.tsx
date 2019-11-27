@@ -137,7 +137,7 @@ const SSearch = styled.div`
 const Header: React.FC<{}> = () => {
 	const dispatch = useDispatch();
 
-	const scrollToggleHeight = 0;
+	const scrollToggleHeight = 350;
 	const [stickyHeader, setStickyHeader] = useState(false);
 
 	const [search, setSearch] = useState('');
@@ -189,7 +189,7 @@ const Header: React.FC<{}> = () => {
 				expand="lg"
 				variant="dark"
 				className="justify-content-between"
-				sticky={stickyHeader ? 'top' : undefined}
+				sticky={'top'}
 			>
 				<Container fluid={false}>
 					<SBrand>

@@ -60,7 +60,10 @@ const Explore: React.FC<{}> = props => {
 						<Col>
 							<h1>Explore</h1>
 							<p className="">
-								Browse blocks, transactions and <a>Babble</a>{' '}
+								Browse blocks, transactions and the{' '}
+								<a href="https://github.com/mosaicnetworks/babble">
+									Babble
+								</a>{' '}
 								hashgraph
 							</p>
 							<Form.Control

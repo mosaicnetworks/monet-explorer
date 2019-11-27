@@ -96,7 +96,6 @@ const Transactions: React.FC<{}> = () => {
 									</>
 								)}
 								<SContent>
-									<h3>{parseAppName(app.repository_name)}</h3>
 									<SBox>
 										<Media>
 											<a

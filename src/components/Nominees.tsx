@@ -38,7 +38,7 @@ const Nominees: React.FC<Props> = props => {
 					{props.nominees.map(n => (
 						<tr key={n.address}>
 							<td>
-								<Avatar address={n.address} size={30} />
+								<Avatar address={n.address} size={33} />
 							</td>
 							<td style={{ padding: '0 !important' }}>
 								<Row noGutters={true}>

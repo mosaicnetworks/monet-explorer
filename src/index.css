@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Code&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web:300,400,600,700&display=swap');
 
 @font-face {
 	font-family: 'MonetFont';
@@ -22,6 +23,7 @@ h4,
 h5 {
 	/* font-family: 'Titillium Web', sans-serif; */
 	/* font-family: 'Roboto', sans-serif !important; */
+	font-family: 'Titillium Web', sans-serif;
 	font-weight: 700;
 }
 

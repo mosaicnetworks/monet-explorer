@@ -55,7 +55,7 @@ const Validators: React.FC<Props> = props => {
 							}`}
 							to={`/validator/${v.public_key}`}
 						>
-							<Avatar address={address} size={30} />
+							<Avatar address={address} size={33} />
 						</Link>
 					</td>
 					{!props.hideStatus && (

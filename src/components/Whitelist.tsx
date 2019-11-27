@@ -30,7 +30,7 @@ const Whitelist: React.FC<Props> = props => {
 					{props.whitelist.map(wle => (
 						<tr key={wle.address}>
 							<td>
-								<Avatar address={wle.address} size={30} />
+								<Avatar address={wle.address} size={33} />
 							</td>
 							<td>{wle.moniker}</td>
 							<td className="mono">{wle.address}</td>
