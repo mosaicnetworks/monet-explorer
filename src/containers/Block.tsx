@@ -15,7 +15,7 @@ import Table from 'react-bootstrap/Table';
 import Avatar from '../components/Avatar';
 import Signature from '../components/Signature';
 
-import { SContent, STable, SJumbotron, SSection } from '../components/styles';
+import { SContent, SJumbotron, SSection, STable } from '../components/styles';
 
 import { selectBlock } from '../selectors';
 
@@ -59,7 +59,7 @@ const Block: React.FC<RouteComponentProps<Props>> = props => {
 				<SSection>
 					<Container>
 						<Row>
-							<Col>
+							<Col md={6}>
 								<Row>
 									<Col md={12}>
 										<SContent>
@@ -143,6 +143,36 @@ const Block: React.FC<RouteComponentProps<Props>> = props => {
 													)}
 												</tbody>
 											</STable>
+										</SContent>
+									</Col>
+								</Row>
+								<br />
+								<Row>
+									<Col md={12}>
+										<SContent>
+											<h3>Internal Transactions</h3>
+											<div className="padding pad mono">
+												{block.internal_transactions.map(
+													t => (
+														<>
+															<code>
+																<pre>
+																	{JSON.stringify(
+																		JSON.parse(
+																			t.data.replace(
+																				/'/g,
+																				'"'
+																			)
+																		),
+																		null,
+																		4
+																	)}
+																</pre>
+															</code>
+														</>
+													)
+												)}
+											</div>
 										</SContent>
 									</Col>
 								</Row>
