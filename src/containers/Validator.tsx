@@ -47,7 +47,13 @@ const Validator: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 										alt="Generic placeholder"
 									/>
 									<Media.Body>
-										<h1>{capitalize(validator.moniker)}</h1>
+										<h1>
+											{capitalize(validator.moniker)}
+											<small className="mono">
+												{' '}
+												{validator.host}
+											</small>
+										</h1>
 										<p className="mono">
 											{Utils.cleanAddress(
 												pubKeyToAddress(
