@@ -34,23 +34,7 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 					<Row>
 						<Col xs={12}>
 							<SContent>
-								<Row>
-									<Col xs={6}>
-										<h3>Current Validators</h3>
-									</Col>
-									<Col className="align-content-end" xs={6}>
-										<div
-											data-tip={`View Entire History`}
-											className="float-right"
-										>
-											<Link to="/history">
-												<small>
-													<b>View History</b>
-												</small>
-											</Link>
-										</div>
-									</Col>
-								</Row>
+								<h3>Current Validators</h3>
 								<Validators validators={validators} />
 							</SContent>
 						</Col>

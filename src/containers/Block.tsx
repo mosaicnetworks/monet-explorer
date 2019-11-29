@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import Utils, { Currency } from 'evm-lite-utils';
+import { Currency } from 'evm-lite-utils';
 import { useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
@@ -10,12 +10,12 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Media from 'react-bootstrap/Media';
 import Row from 'react-bootstrap/Row';
-import Table from 'react-bootstrap/Table';
 
 import Avatar from '../components/Avatar';
 import Signature from '../components/Signature';
+import Table from '../components/Table';
 
-import { SContent, SJumbotron, SSection, STable } from '../components/styles';
+import { SContent, SJumbotron, SSection } from '../components/styles';
 
 import { selectBlock } from '../selectors';
 
@@ -64,7 +64,7 @@ const Block: React.FC<RouteComponentProps<Props>> = props => {
 									<Col md={12}>
 										<SContent>
 											<h3>Transactions</h3>
-											<STable>
+											<Table>
 												<thead>
 													<tr>
 														<th>From</th>
@@ -142,7 +142,7 @@ const Block: React.FC<RouteComponentProps<Props>> = props => {
 														)
 													)}
 												</tbody>
-											</STable>
+											</Table>
 										</SContent>
 									</Col>
 								</Row>

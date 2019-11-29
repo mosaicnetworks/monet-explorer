@@ -19,7 +19,7 @@ import {
 } from '../modules/dashboard';
 import { selectAllNetworks, selectNetwork } from '../selectors';
 
-import Icon from '../assets/icon.png';
+import LOGO from '../assets/monet.svg';
 
 const SNavbar = styled(Navbar)`
 	transition: background 0.3s cubic-bezier(1, 1, 1, 1);
@@ -193,9 +193,11 @@ const Header: React.FC<{}> = () => {
 			>
 				<Container fluid={false}>
 					<SBrand>
-						<Link to={'/'}>
-							<span>MONET</span>
-						</Link>
+						{
+							<Link to={'/'}>
+								<span>MONET</span>
+							</Link>
+						}
 					</SBrand>
 					<SNetwork>
 						{selected && selected.name.split('-')[0]} v

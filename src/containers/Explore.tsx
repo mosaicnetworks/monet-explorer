@@ -9,13 +9,15 @@ import styled from 'styled-components';
 
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
-import Form from 'react-bootstrap/Form';
 import Avatar from '../components/Avatar';
 import Block from '../components/Block';
+import Loader from '../components/Loader';
+import Table from '../components/Table';
 
-import { SContent, SJumbotron, SSection, STable } from '../components/styles';
+import { SContent, SJumbotron, SSection } from '../components/styles';
 
 import { fetchNetworkBlocks, fetchTransactions } from '../modules/dashboard';
 import {
@@ -25,13 +27,12 @@ import {
 	selectTxsLoading
 } from '../selectors';
 import { commaSeperate } from '../utils';
-import Loader from '../components/Loader';
 
 const SLink = styled(Link)`
 	text-decoration: none !important;
 `;
 
-const Explore: React.FC<{}> = props => {
+const Explore: React.FC<{}> = () => {
 	const dispatch = useDispatch();
 
 	const loading = useSelector(selectBlocksLoading);
@@ -83,7 +84,7 @@ const Explore: React.FC<{}> = props => {
 								<h3>
 									Recent Blocks <Loader loading={loading} />
 								</h3>
-								<div className="padding">
+								<div>
 									{blocks.map(b => (
 										<SLink
 											key={b.index}
@@ -102,7 +103,7 @@ const Explore: React.FC<{}> = props => {
 									<Loader loading={txLoading} />
 								</h3>
 								<div className="padding">
-									<STable>
+									<Table>
 										<thead>
 											<tr>
 												<th>From</th>
@@ -160,7 +161,7 @@ const Explore: React.FC<{}> = props => {
 												</tr>
 											))}
 										</tbody>
-									</STable>
+									</Table>
 								</div>
 							</SContent>
 						</Col>

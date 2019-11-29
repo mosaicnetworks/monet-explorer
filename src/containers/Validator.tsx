@@ -9,10 +9,10 @@ import { RouteComponentProps } from 'react-router-dom';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Table from 'react-bootstrap/Table';
 import Media from 'react-bootstrap/Media';
 
 import ValidatorAvatar from '../components/ValidatorAvatar';
+import Table from '../components/Table';
 
 import { SContent, SJumbotron, SSection } from '../components/styles';
 
@@ -36,8 +36,8 @@ const Validator: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 								<Media>
 									<img
 										style={{ borderRadius: '3px' }}
-										width={75}
-										height={75}
+										width={60}
+										height={60}
 										className="mr-3"
 										src={`https://s.gravatar.com/avatar/${Utils.trimHex(
 											pubKeyToAddress(
@@ -47,13 +47,19 @@ const Validator: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 										alt="Generic placeholder"
 									/>
 									<Media.Body>
-										<h1>
+										<h3>
 											{capitalize(validator.moniker)}
 											<small className="mono">
 												{' '}
-												{validator.host}
+												<a
+													data-tip={`http://${validator.host}:8080/info`}
+													target="_blank"
+													href={`http://${validator.host}:8080/info`}
+												>
+													<b>{validator.host}</b>
+												</a>
 											</small>
-										</h1>
+										</h3>
 										<p className="mono">
 											{Utils.cleanAddress(
 												pubKeyToAddress(
@@ -81,6 +87,8 @@ const Validator: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 										</SContent>
 									</Col>
 								</Row>
+								<br />
+								<br />
 								<Row>
 									<Col>
 										<SContent>

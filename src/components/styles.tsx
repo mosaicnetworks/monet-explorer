@@ -3,35 +3,35 @@ import styled from 'styled-components';
 import Table from 'react-bootstrap/Table';
 
 export const SContent = styled.div`
-	div.padding {
-		border-radius: 3px !important;
-		margin-bottom: 30px !important;
-		word-wrap: break-word !important;
-		border: 1px solid #f9f9f9;
-		background: white;
-	}
-
-	div.pad {
-		padding: 15px;
-	}
-
-	table {
-		border-radius: 3px !important;
-		background: white;
-		border: 1px solid #f9f9f9;
-	}
-
 	h3 {
-		font-size: 24px;
+		font-size: 25px;
 		margin-bottom: 20px;
+	}
+
+	.v-center {
+		display: flex;
+		align-items: center;
 	}
 `;
 
 export const STable = styled(Table)`
-	font-size: 15px;
+	border-radius: 3px !important;
+
+	th {
+		padding: 10px 0 !important;
+	}
+
+	th + th {
+		padding: 10px !important;
+	}
+
+	td + td {
+		padding: 17px 10px !important;
+	}
 
 	td {
-		padding: 15px 10px !important;
+		padding: 17px 0 !important;
+		/* padding: 15px 10px !important; */
 
 		a {
 			color: #444 !important;
@@ -40,6 +40,19 @@ export const STable = styled(Table)`
 
 		a:hover {
 			color: #000 !important;
+		}
+	}
+
+	tfoot {
+		text-align: center;
+		font-weight: 700;
+		border-bottom: 1px solid #EEE;
+		background: #fafafa;
+		font-size: 13px;
+
+		td {
+			padding: 10px 0 !important;
+			border-radius: 3px !important;
 		}
 	}
 `;

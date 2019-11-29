@@ -3,50 +3,26 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
 
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
-import Jumbotron from '../components/Jumbotron';
 import Loader from '../components/Loader';
-import Nominees from '../components/Nominees';
-import Validators from '../components/Validators';
-import Whitelist from '../components/Whitelist';
-
-// util components
 import Await from '../components/utils/Await';
 
 import ExplorerAPIClient from '../client';
 
-import { SContent } from '../components/styles';
 import { DEV } from '../const';
-import {
-	selectNetwork,
-	selectNominees,
-	selectValidators,
-	selectWhitelist
-} from '../selectors';
-
-const SGreen = styled.div`
-	color: darkgreen !important;
-	display: inline-block;
-`;
-
-const SRed = styled.div`
-	color: darkred !important;
-	display: inline-block;
-`;
+import { selectNetwork, selectNominees, selectValidators } from '../selectors';
 
 const SContentPadded = styled.div`
-	padding: 7px;
-	background: #fff;
+	padding: 10px 7px;
 	text-align: center;
 `;
 
 const SStats = styled.div`
-	background: #fff;
+	background: #f9f9f9;
 	margin-bottom: 60px !important;
 `;
 

@@ -21,7 +21,7 @@ const SBlock = styled.div`
 	border-bottom: 1px solid #eee;
 	/* padding-bottom: 5px; */
 	display: block;
-	padding: 15px;
+	padding: 15px 0;
 	cursor: pointer;
 	text-decoration: none !important;
 
