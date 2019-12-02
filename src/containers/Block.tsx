@@ -19,25 +19,26 @@ import { SContent, SJumbotron, SSection } from '../components/styles';
 
 import { selectBlock } from '../selectors';
 
+import Grid, { Section, Quadrant } from '../ui';
+
 type Props = {
 	index: string;
 };
 
-const SBlockAvatar = styled.div`
-	transition: background 0.2s ease-out;
-	/* font-size: 15px; */
-	background: #eee;
-	padding: 20px 15px;
-	border-radius: 5px !important;
-	color: black !important;
-	text-decoration: none !important;
-	font-weight: 700;
-	display: flex !important;
-	text-align: center !important;
-	height: 100%;
-	font-size: 17px;
-	font-family: Monet;
-	align-items: center;
+const SBlock = styled.div`
+	display: block;
+	padding-top: 10px;
+	padding-bottom: 15px;
+
+	& + & {
+		padding: 15px 0;
+		border-top: 1px solid #eee;
+	}
+`;
+
+const SWhite = styled.div`
+	background: white;
+	border-top: 1px solid #eee;
 `;
 
 const Block: React.FC<RouteComponentProps<Props>> = props => {
@@ -47,153 +48,127 @@ const Block: React.FC<RouteComponentProps<Props>> = props => {
 		(block && (
 			<>
 				<SJumbotron>
-					<Container>
-						<Row className="align-items-center">
-							<Col>
-								<h1>Block #{block.index}</h1>
-								<p className="mono">{block.state_hash}</p>
-							</Col>
-						</Row>
-					</Container>
+					<Section padding={30}>
+						<Container>
+							<h1>Block #{block.index}</h1>
+							<p className="mono">{block.state_hash}</p>
+						</Container>
+					</Section>
 				</SJumbotron>
-				<SSection>
-					<Container>
-						<Row>
-							<Col md={6}>
-								<Row>
-									<Col md={12}>
-										<SContent>
-											<h3>Transactions</h3>
-											<Table>
-												<thead>
-													<tr>
-														<th>From</th>
-														<th>To</th>
-														<th>Value</th>
-														<th>Gas</th>
-														<th>Gas Price</th>
-														<th className="text-center">
-															Contract Call?
-														</th>
+				<SWhite>
+					<Section padding={30}>
+						<Grid verticalAlign={false}>
+							<Quadrant pos={[1, 1]}>
+								<SContent>
+									<h3>Transactions</h3>
+									<Table>
+										<thead>
+											<tr>
+												<th>From</th>
+												<th>To</th>
+												<th>Value</th>
+												<th>Gas</th>
+												<th>Gas Price</th>
+												<th className="text-center">
+													Contract Call?
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											{block.transactions.map(t => (
+												<>
+													<tr key={t.data}>
+														<td>
+															<Avatar
+																address={
+																	t.sender
+																}
+																size={35}
+															/>
+														</td>
+														<td>
+															<Avatar
+																address={t.to}
+																size={35}
+															/>
+														</td>
+														<td>
+															{new Currency(
+																t.amount === '0'
+																	? 0
+																	: t.amount +
+																	  'a'
+															).format('T')}
+														</td>
+														<td>{t.gas}</td>
+														<td>{t.gas_price}</td>
+														<td className="text-center">
+															{(t.payload.length >
+																0 && (
+																<img
+																	src="https://image.flaticon.com/icons/svg/1828/1828640.svg"
+																	width={20}
+																/>
+															)) ||
+																'-'}
+														</td>
 													</tr>
-												</thead>
-												<tbody>
-													{block.transactions.map(
-														t => (
-															<>
-																<tr
-																	key={t.data}
-																>
-																	<td>
-																		<Avatar
-																			address={
-																				t.sender
-																			}
-																			size={
-																				35
-																			}
-																		/>
-																	</td>
-																	<td>
-																		<Avatar
-																			address={
-																				t.to
-																			}
-																			size={
-																				35
-																			}
-																		/>
-																	</td>
-																	<td>
-																		{new Currency(
-																			t.amount ===
-																			'0'
-																				? 0
-																				: t.amount +
-																				  'a'
-																		).format(
-																			'T'
-																		)}
-																	</td>
-																	<td>
-																		{t.gas}
-																	</td>
-																	<td>
-																		{
-																			t.gas_price
-																		}
-																	</td>
-																	<td className="text-center">
-																		{(t
-																			.payload
-																			.length >
-																			0 && (
-																			<img
-																				src="https://image.flaticon.com/icons/svg/1828/1828640.svg"
-																				width={
-																					20
-																				}
-																			/>
-																		)) ||
-																			'-'}
-																	</td>
-																</tr>
-															</>
-														)
-													)}
-												</tbody>
-											</Table>
-										</SContent>
-									</Col>
-								</Row>
-								<br />
-								<Row>
-									<Col md={12}>
-										<SContent>
-											<h3>Internal Transactions</h3>
-											<div className="padding pad mono">
-												{block.internal_transactions.map(
-													t => (
-														<>
-															<code>
-																<pre>
-																	{JSON.stringify(
-																		JSON.parse(
-																			t.data.replace(
-																				/'/g,
-																				'"'
-																			)
-																		),
-																		null,
-																		4
-																	)}
-																</pre>
-															</code>
-														</>
-													)
-												)}
-											</div>
-										</SContent>
-									</Col>
-								</Row>
-							</Col>
-							<Col md={6}>
+												</>
+											))}
+										</tbody>
+									</Table>
+								</SContent>
+							</Quadrant>
+							<Quadrant pos={[1, 2]}>
 								<SContent>
 									<h3>Signatures</h3>
-									<div className="padding pad">
+									<div className="padding pad white">
 										{block.signatures.map(s => (
-											<Signature
-												key={s.signature}
-												validator={s.validator}
-												signature={s.signature}
-											/>
+											<SBlock key={s.signature}>
+												<Signature
+													key={s.signature}
+													validator={s.validator}
+													signature={s.signature}
+												/>
+											</SBlock>
 										))}
 									</div>
 								</SContent>
-							</Col>
-						</Row>
-					</Container>
-				</SSection>
+							</Quadrant>
+						</Grid>
+					</Section>
+				</SWhite>
+				<SWhite>
+					<Section padding={30}>
+						<Grid>
+							<Quadrant pos={[1, 1]}>
+								<SContent>
+									<h3>Internal Transactions</h3>
+									<div className="padding pad mono">
+										{block.internal_transactions.map(t => (
+											<>
+												<code>
+													<pre>
+														{JSON.stringify(
+															JSON.parse(
+																t.data.replace(
+																	/'/g,
+																	'"'
+																)
+															),
+															null,
+															4
+														)}
+													</pre>
+												</code>
+											</>
+										))}
+									</div>
+								</SContent>
+							</Quadrant>
+						</Grid>
+					</Section>
+				</SWhite>
 			</>
 		)) || <></>
 	);

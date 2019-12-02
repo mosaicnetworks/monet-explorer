@@ -22,8 +22,10 @@ const SContentPadded = styled.div`
 `;
 
 const SStats = styled.div`
-	background: #f9f9f9;
-	margin-bottom: 60px !important;
+	h1 {
+		font-size: 35px;
+	}
+	background: #fff;
 `;
 
 const Stats: React.FC<{}> = props => {

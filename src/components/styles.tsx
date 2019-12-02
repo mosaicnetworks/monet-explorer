@@ -2,35 +2,32 @@ import styled from 'styled-components';
 
 import Table from 'react-bootstrap/Table';
 
+import BG from '../assets/bg.png';
+
 export const SContent = styled.div`
 	h3 {
-		font-size: 25px;
-		margin-bottom: 20px;
+		font-size: 16px;
+		margin-bottom: 10px;
+		font-weight: 800;
+		text-transform: uppercase;
 	}
 
 	.v-center {
 		display: flex;
 		align-items: center;
 	}
+
+	.white {
+		background: white !important;
+		padding: 10px;
+	}
 `;
 
 export const STable = styled(Table)`
+	background: white !important;
 	border-radius: 3px !important;
 
-	th {
-		padding: 10px 0 !important;
-	}
-
-	th + th {
-		padding: 10px !important;
-	}
-
-	td + td {
-		padding: 17px 10px !important;
-	}
-
 	td {
-		padding: 17px 0 !important;
 		/* padding: 15px 10px !important; */
 
 		a {
@@ -58,10 +55,11 @@ export const STable = styled(Table)`
 `;
 
 export const SJumbotron = styled.div`
-	padding: 30px 0px !important;
-	background: var(--blue) !important;
-	background-size: cover;
-	color: white !important;
+	padding: 0px 0px !important;
+	background: url(${BG}) !important;
+	background-size: cover !important;
+	background-position-y: -10px !important;
+	color: #eee !important;
 	border: none !important;
 	box-shadow: none !important;
 	margin-bottom: 0px !important;

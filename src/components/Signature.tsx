@@ -26,8 +26,9 @@ const Signature: React.FC<Props> = props => {
 			<Link
 				data-tip={`View Validator`}
 				to={`/validator/${props.validator.public_key}`}
+				className={'align-self-center mr-3'}
 			>
-				<Avatar address={address} size={30} />
+				<Avatar address={address} size={40} />
 			</Link>
 			<Media.Body>
 				<h6>
@@ -42,8 +43,6 @@ const Signature: React.FC<Props> = props => {
 				<div className="mono" style={{ wordWrap: 'break-word' }}>
 					<code>{props.signature}</code>
 				</div>
-
-				<br />
 			</Media.Body>
 		</Media>
 	);

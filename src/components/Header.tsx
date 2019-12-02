@@ -23,9 +23,10 @@ import LOGO from '../assets/monet.svg';
 
 const SNavbar = styled(Navbar)`
 	transition: background 0.3s cubic-bezier(1, 1, 1, 1);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
 
 	&.bg-dark {
-		background: var(--blue) !important;
+		background: linear-gradient(93deg, #1c3f94, #152c60) !important;
 		color: white !important;
 		/* border-bottom: 1px solid #f4f4f4; */
 		/* margin-bottom: 30px !important; */
@@ -58,7 +59,7 @@ const SNavbar = styled(Navbar)`
 `;
 
 const SBrand = styled(Navbar.Brand)`
-	font-size: 20px !important;
+	font-size: 18px !important;
 	font-family: MonetFont !important;
 	letter-spacing: 4px;
 
@@ -137,7 +138,7 @@ const SSearch = styled.div`
 const Header: React.FC<{}> = () => {
 	const dispatch = useDispatch();
 
-	const scrollToggleHeight = 350;
+	const scrollToggleHeight = 10;
 	const [stickyHeader, setStickyHeader] = useState(false);
 
 	const [search, setSearch] = useState('');
@@ -247,7 +248,12 @@ const Header: React.FC<{}> = () => {
 								className="mr-sm-2"
 							/> */}
 							<Link to={'/blocks'}>
-								<Button variant="warning" className="">
+								<Button
+									variant={
+										stickyHeader ? 'primary' : 'warning'
+									}
+									className=""
+								>
 									Explore
 								</Button>
 							</Link>

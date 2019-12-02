@@ -28,6 +28,8 @@ import {
 } from '../selectors';
 import { commaSeperate } from '../utils';
 
+import Grid, { Quadrant, Section } from '../ui';
+
 const SLink = styled(Link)`
 	text-decoration: none !important;
 `;
@@ -56,9 +58,9 @@ const Explore: React.FC<{}> = () => {
 	return (
 		<>
 			<SJumbotron>
-				<Container>
-					<Row className="align-items-center">
-						<Col>
+				<Section padding={30}>
+					<Grid>
+						<Quadrant pos={[1, 1]}>
 							<h1>Explore</h1>
 							<p className="">
 								Browse blocks, transactions and the{' '}
@@ -68,13 +70,12 @@ const Explore: React.FC<{}> = () => {
 								hashgraph
 							</p>
 							<Form.Control
-								disabled={true}
 								type="text"
 								placeholder="Search Transaction Hash, Address, Public Key"
 							/>
-						</Col>
-					</Row>
-				</Container>
+						</Quadrant>
+					</Grid>
+				</Section>
 			</SJumbotron>
 			<SSection>
 				<Container fluid={false}>
@@ -84,7 +85,12 @@ const Explore: React.FC<{}> = () => {
 								<h3>
 									Recent Blocks <Loader loading={loading} />
 								</h3>
-								<div>
+								<div
+									style={{
+										background: 'white',
+										padding: '10px'
+									}}
+								>
 									{blocks.map(b => (
 										<SLink
 											key={b.index}
@@ -95,6 +101,10 @@ const Explore: React.FC<{}> = () => {
 									))}
 								</div>
 							</SContent>
+							<div className="d-xs-block d-md-none">
+								<hr />
+								<br />
+							</div>
 						</Col>
 						<Col md={12} lg={5}>
 							<SContent>

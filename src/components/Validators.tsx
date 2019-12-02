@@ -119,7 +119,7 @@ const Validators: React.FC<Props> = props => {
 					</tr>
 				</thead>
 				<tbody>{rendervalidators()}</tbody>
-				{!props.hideStatus && (
+				{/* {!props.hideStatus && (
 					<tfoot>
 						<tr>
 							<td colSpan={9}>
@@ -127,7 +127,7 @@ const Validators: React.FC<Props> = props => {
 							</td>
 						</tr>
 					</tfoot>
-				)}
+				)} */}
 			</Table>
 		</SValidators>
 	);

@@ -76,6 +76,7 @@ const Footer: React.FC<{}> = props => {
 							{/* <b>All Rights Reserved.</b> */}
 						</p>
 					</Col>
+					<Col xs={1} />
 					<Col md={3}>
 						<h5>Links</h5>
 						<dl className="contact-list">

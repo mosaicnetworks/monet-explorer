@@ -1,11 +1,8 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
+import { RouteComponentProps } from 'react-router-dom';
 
 import Jumbotron from '../components/Jumbotron';
 import Nominees from '../components/Nominees';
@@ -13,12 +10,24 @@ import Stats from '../components/Stats';
 import Validators from '../components/Validators';
 import Whitelist from '../components/Whitelist';
 
-import { SContent, SSection } from '../components/styles';
+import { SContent } from '../components/styles';
 import {
 	selectNominees,
 	selectValidators,
 	selectWhitelist
 } from '../selectors';
+
+import Grid, { Quadrant, Section } from '../ui';
+
+const SValidators = styled.div`
+	background: #fff;
+	border-top: 1px solid #eee;
+`;
+
+const SWhitelist = styled.div`
+	background: #fff;
+	border-top: 1px solid #eee;
+`;
 
 const Index: React.FC<RouteComponentProps<{}>> = props => {
 	const validators = useSelector(selectValidators);
@@ -29,36 +38,40 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 		<>
 			<Jumbotron />
 			<Stats />
-			<SSection>
-				<Container fluid={false}>
-					<Row>
-						<Col xs={12}>
+			<SValidators>
+				<Section padding={50}>
+					<Grid>
+						<Quadrant pos={[1, 1]} xs={12}>
 							<SContent>
 								<h3>Current Validators</h3>
 								<Validators validators={validators} />
 							</SContent>
-						</Col>
-					</Row>
-				</Container>
-			</SSection>
-			<SSection>
-				<Container fluid={false}>
-					<Row>
-						<Col xs={12} md={12} lg={12} xl={6}>
+						</Quadrant>
+					</Grid>
+				</Section>
+			</SValidators>
+			<SWhitelist>
+				<Section padding={50}>
+					<Grid verticalAlign={false}>
+						<Quadrant pos={[1, 1]} xs={12} md={12} lg={6} xl={6}>
 							<SContent>
 								<h3>Whitelist</h3>
 								<Whitelist whitelist={whitelist} />
 							</SContent>
-						</Col>
-						<Col xs={12} md={12} lg={12} xl={6}>
+							<div className="d-xs-block d-md-none">
+								<hr />
+								<br />
+							</div>
+						</Quadrant>
+						<Quadrant pos={[1, 2]} xs={12} md={12} lg={6} xl={6}>
 							<SContent>
 								<h3>Nominees</h3>
 								<Nominees nominees={nominees} />
 							</SContent>
-						</Col>
-					</Row>
-				</Container>
-			</SSection>
+						</Quadrant>
+					</Grid>
+				</Section>
+			</SWhitelist>
 		</>
 	);
 };
