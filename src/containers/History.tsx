@@ -93,13 +93,13 @@ const History: React.FC<{}> = () => {
 							</div>
 						)}
 						<Tabs
-							variant="pills"
+							variant="tabs"
 							onSelect={onClickRound}
 							defaultActiveKey={0}
 							transition={false}
 							id="noanim-tab-example"
 						>
-							{history.map((h, i) => {
+							{history.slice(0, 10).map((h, i) => {
 								return (
 									<Tab
 										key={i}

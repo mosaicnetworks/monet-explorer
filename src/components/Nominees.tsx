@@ -5,9 +5,9 @@ import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 
 import Avatar from '../components/Avatar';
+import Table from '../components/Table';
 
 import { NomineeEntry } from '../client';
-import { STable } from '../components/styles';
 
 import GreenUp from '../assets/green-up.png';
 import RedDown from '../assets/red-down.png';
@@ -19,16 +19,10 @@ type Props = {
 const Nominees: React.FC<Props> = props => {
 	return (
 		<>
-			<STable
-				id="blocksTable"
-				bordered={false}
-				responsive={true}
-				striped={true}
-				cellPadding={'1px'}
-			>
+			<Table>
 				<thead>
 					<tr>
-						<th>Profile</th>
+						<th></th>
 						<th>Votes</th>
 						<th>Moniker</th>
 						<th>Address</th>
@@ -38,7 +32,7 @@ const Nominees: React.FC<Props> = props => {
 					{props.nominees.map(n => (
 						<tr key={n.address}>
 							<td>
-								<Avatar address={n.address} size={30} />
+								<Avatar address={n.address} size={33} />
 							</td>
 							<td style={{ padding: '0 !important' }}>
 								<Row noGutters={true}>
@@ -52,12 +46,14 @@ const Nominees: React.FC<Props> = props => {
 									</Col>
 								</Row>
 							</td>
-							<td>{n.moniker}</td>
+							<td>
+								<b>{n.moniker}</b>
+							</td>
 							<td className="mono">{n.address}</td>
 						</tr>
 					))}
 				</tbody>
-			</STable>
+			</Table>
 		</>
 	);
 };

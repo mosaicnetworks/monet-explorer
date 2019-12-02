@@ -2,35 +2,34 @@ import styled from 'styled-components';
 
 import Table from 'react-bootstrap/Table';
 
+import BG from '../assets/bg.png';
+
 export const SContent = styled.div`
-	div.padding {
-		border-radius: 3px !important;
-		margin-bottom: 30px !important;
-		word-wrap: break-word !important;
-		border: 1px solid #f9f9f9;
-		background: white;
-	}
-
-	div.pad {
-		padding: 15px;
-	}
-
-	table {
-		border-radius: 3px !important;
-		background: white;
-		border: 1px solid #f9f9f9;
-	}
-
 	h3 {
-		font-size: 24px;
-		margin-bottom: 30px;
+		font-size: 16px;
+		margin-bottom: 10px;
+		font-weight: 800;
+		text-transform: uppercase;
+	}
+
+	.v-center {
+		display: flex;
+		align-items: center;
+	}
+
+	.white {
+		background: white !important;
+		padding: 10px;
 	}
 `;
 
 export const STable = styled(Table)`
-	font-size: 15px;
+	background: white !important;
+	border-radius: 3px !important;
 
 	td {
+		/* padding: 15px 10px !important; */
+
 		a {
 			color: #444 !important;
 			text-decoration: none !important;
@@ -40,13 +39,27 @@ export const STable = styled(Table)`
 			color: #000 !important;
 		}
 	}
+
+	tfoot {
+		text-align: center;
+		font-weight: 700;
+		border-bottom: 1px solid #EEE;
+		background: #fafafa;
+		font-size: 13px;
+
+		td {
+			padding: 10px 0 !important;
+			border-radius: 3px !important;
+		}
+	}
 `;
 
 export const SJumbotron = styled.div`
-	padding: 30px 0px !important;
-	background: var(--blue) !important;
-	background-size: cover;
-	color: white !important;
+	padding: 0px 0px !important;
+	background: url(${BG}) !important;
+	background-size: cover !important;
+	background-position-y: -10px !important;
+	color: #eee !important;
 	border: none !important;
 	box-shadow: none !important;
 	margin-bottom: 0px !important;

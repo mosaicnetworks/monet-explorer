@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Code&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web:300,400,600,700&display=swap');
+
+@font-face {
+	font-family: 'MonetFont';
+	src: local('MonetFont'), url(./assets/fonts/monet.ttf);
+}
+
+* {
+	--blue: #253c99;
+	--orange: #f16622;
+	--green: #02a24b;
+	--red: #ec1c24;
+	--purple: #7f3b97;
+	--yellow: #ffe014;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+	font-weight: 600;
+}
+
+body {
+	margin: 0;
+	-webkit-font-smoothing: antialiased;
+	/* background: rgb(240, 247, 250) !important; */
+	background: #fff !important;
+}
+
+pre,
+code {
+	font-family: 'Fira Code', monospace !important;
+	/* color: rgba(91, 54, 108, 1); */
+	word-wrap: break-word;
+}
+
+label {
+	font-weight: 500 !important;
+}
+
+a {
+	color: rgba(31, 66, 146, 1) !important;
+}
+
+input {
+	font-size: 14px !important;
+}
+
+.bigger {
+	padding: 7px 20px !important;
+}

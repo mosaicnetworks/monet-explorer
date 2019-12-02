@@ -2,20 +2,10 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { Link } from 'react-router-dom';
-
-import Badge from 'react-bootstrap/Badge';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import Table from 'react-bootstrap/Table';
-import Media from 'react-bootstrap/Media';
-import Row from 'react-bootstrap/Row';
-
 import Avatar from './Avatar';
-import Signature from './Signature';
+import Table from './Table';
 
-import { Block as TBlock, Transaction as TTx } from '../client';
-import { pubKeyToAddress } from '../utils';
+import { Transaction as TTx } from '../client';
 
 const SBlock = styled.div`
 	transition: background 0.2s ease-out;
@@ -57,30 +47,6 @@ const SBlock = styled.div`
 	}
 `;
 
-const SBlockAvatar = styled.div`
-	transition: background 0.2s ease-out;
-	/* font-size: 15px; */
-	color: black !important;
-	text-decoration: none !important;
-	cursor: pointer;
-	font-weight: 700;
-	display: inline-flex !important;
-	text-align: center !important;
-	height: 100%;
-	font-size: 17px;
-	font-family: Monet;
-	align-items: center;
-	margin-left: 5px !important;
-`;
-
-const STable = styled(Table)`
-	margin-bottom: 0 !important;
-
-	td {
-		font-size: 14px;
-	}
-`;
-
 type Props = {
 	transaction: TTx;
 };
@@ -88,7 +54,7 @@ type Props = {
 const Transaction: React.FC<Props> = ({ transaction }) => {
 	return (
 		<SBlock>
-			<STable>
+			<Table>
 				<thead>
 					<tr>
 						<th>From</th>
@@ -126,7 +92,7 @@ const Transaction: React.FC<Props> = ({ transaction }) => {
 						</td>
 					</tr>
 				</tbody>
-			</STable>
+			</Table>
 		</SBlock>
 	);
 };

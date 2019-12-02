@@ -9,13 +9,15 @@ import styled from 'styled-components';
 
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
-import Form from 'react-bootstrap/Form';
 import Avatar from '../components/Avatar';
 import Block from '../components/Block';
+import Loader from '../components/Loader';
+import Table from '../components/Table';
 
-import { SContent, SJumbotron, SSection, STable } from '../components/styles';
+import { SContent, SJumbotron, SSection } from '../components/styles';
 
 import { fetchNetworkBlocks, fetchTransactions } from '../modules/dashboard';
 import {
@@ -25,13 +27,14 @@ import {
 	selectTxsLoading
 } from '../selectors';
 import { commaSeperate } from '../utils';
-import Loader from '../components/Loader';
+
+import Grid, { Quadrant, Section } from '../ui';
 
 const SLink = styled(Link)`
 	text-decoration: none !important;
 `;
 
-const Explore: React.FC<{}> = props => {
+const Explore: React.FC<{}> = () => {
 	const dispatch = useDispatch();
 
 	const loading = useSelector(selectBlocksLoading);
@@ -55,22 +58,24 @@ const Explore: React.FC<{}> = props => {
 	return (
 		<>
 			<SJumbotron>
-				<Container>
-					<Row className="align-items-center">
-						<Col>
+				<Section padding={30}>
+					<Grid>
+						<Quadrant pos={[1, 1]}>
 							<h1>Explore</h1>
 							<p className="">
-								Browse blocks, transactions and <a>Babble</a>{' '}
+								Browse blocks, transactions and the{' '}
+								<a href="https://github.com/mosaicnetworks/babble">
+									Babble
+								</a>{' '}
 								hashgraph
 							</p>
 							<Form.Control
-								disabled={true}
 								type="text"
 								placeholder="Search Transaction Hash, Address, Public Key"
 							/>
-						</Col>
-					</Row>
-				</Container>
+						</Quadrant>
+					</Grid>
+				</Section>
 			</SJumbotron>
 			<SSection>
 				<Container fluid={false}>
@@ -80,7 +85,12 @@ const Explore: React.FC<{}> = props => {
 								<h3>
 									Recent Blocks <Loader loading={loading} />
 								</h3>
-								<div className="padding">
+								<div
+									style={{
+										background: 'white',
+										padding: '10px'
+									}}
+								>
 									{blocks.map(b => (
 										<SLink
 											key={b.index}
@@ -91,6 +101,10 @@ const Explore: React.FC<{}> = props => {
 									))}
 								</div>
 							</SContent>
+							<div className="d-xs-block d-md-none">
+								<hr />
+								<br />
+							</div>
 						</Col>
 						<Col md={12} lg={5}>
 							<SContent>
@@ -99,7 +113,7 @@ const Explore: React.FC<{}> = props => {
 									<Loader loading={txLoading} />
 								</h3>
 								<div className="padding">
-									<STable>
+									<Table>
 										<thead>
 											<tr>
 												<th>From</th>
@@ -157,7 +171,7 @@ const Explore: React.FC<{}> = props => {
 												</tr>
 											))}
 										</tbody>
-									</STable>
+									</Table>
 								</div>
 							</SContent>
 						</Col>

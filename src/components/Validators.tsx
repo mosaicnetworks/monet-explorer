@@ -7,9 +7,9 @@ import { Link } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 
 import Avatar from './Avatar';
+import Table from './Table';
 
 import { Validator } from '../client';
-import { STable } from '../components/styles';
 import { pubKeyToAddress } from '../utils';
 
 import GREEN from '../assets/green-dot.png';
@@ -24,6 +24,8 @@ const Orange = styled.div`
 	color: var(--orange) !important;
 	font-weight: bold !important;
 `;
+
+const SValidators = styled.div``;
 
 const stateStyling = (state: string) => {
 	switch (state) {
@@ -55,11 +57,11 @@ const Validators: React.FC<Props> = props => {
 							}`}
 							to={`/validator/${v.public_key}`}
 						>
-							<Avatar address={address} size={30} />
+							<Avatar address={address} size={33} />
 						</Link>
 					</td>
 					{!props.hideStatus && (
-						<td className="text-center">
+						<td>
 							{v.reachable ? (
 								<Image src={GREEN} width="12" />
 							) : (
@@ -68,10 +70,19 @@ const Validators: React.FC<Props> = props => {
 						</td>
 					)}
 
-					<td>{v.moniker}</td>
+					<td>
+						<b>{v.moniker}</b>
+						<a
+							data-tip={`http://${v.host}:8080/info`}
+							target="_blank"
+							href={`http://${v.host}:8080/info`}
+						>
+							<small className="mono d-block">{v.host}</small>
+						</a>
+					</td>
 					<td className="mono">
 						<Link
-							data-tip={'View Address Details'}
+							data-tip={'View Address'}
 							to={`/search/0x${address}`}
 						>
 							0x
@@ -92,17 +103,11 @@ const Validators: React.FC<Props> = props => {
 	};
 
 	return (
-		<>
-			<STable
-				id="blocksTable"
-				bordered={false}
-				responsive={true}
-				striped={true}
-				cellPadding={'1px'}
-			>
+		<SValidators>
+			<Table>
 				<thead>
 					<tr>
-						<th>Profile</th>
+						<th></th>
 						{!props.hideStatus && <th>Service</th>}
 						<th>Moniker</th>
 						<th>Address</th>
@@ -114,8 +119,17 @@ const Validators: React.FC<Props> = props => {
 					</tr>
 				</thead>
 				<tbody>{rendervalidators()}</tbody>
-			</STable>
-		</>
+				{/* {!props.hideStatus && (
+					<tfoot>
+						<tr>
+							<td colSpan={9}>
+								<Link to="/history">View History</Link>
+							</td>
+						</tr>
+					</tfoot>
+				)} */}
+			</Table>
+		</SValidators>
 	);
 };
 

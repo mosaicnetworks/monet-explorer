@@ -1,9 +1,9 @@
 import React from 'react';
 
 import Avatar from '../components/Avatar';
+import Table from '../components/Table';
 
 import { WhitelistEntry } from '../client';
-import { STable } from '../components/styles';
 
 type Props = {
 	whitelist: WhitelistEntry[];
@@ -12,16 +12,10 @@ type Props = {
 const Whitelist: React.FC<Props> = props => {
 	return (
 		<>
-			<STable
-				id="blocksTable"
-				bordered={false}
-				responsive={true}
-				striped={true}
-				cellPadding={'1px'}
-			>
+			<Table>
 				<thead>
 					<tr>
-						<th>Profile</th>
+						<th></th>
 						<th>Moniker</th>
 						<th>Address</th>
 					</tr>
@@ -30,14 +24,16 @@ const Whitelist: React.FC<Props> = props => {
 					{props.whitelist.map(wle => (
 						<tr key={wle.address}>
 							<td>
-								<Avatar address={wle.address} size={30} />
+								<Avatar address={wle.address} size={33} />
 							</td>
-							<td>{wle.moniker}</td>
+							<td>
+								<b>{wle.moniker}</b>
+							</td>
 							<td className="mono">{wle.address}</td>
 						</tr>
 					))}
 				</tbody>
-			</STable>
+			</Table>
 		</>
 	);
 };

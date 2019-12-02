@@ -9,15 +9,16 @@ import { RouteComponentProps } from 'react-router-dom';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Table from 'react-bootstrap/Table';
 import Media from 'react-bootstrap/Media';
 
 import ValidatorAvatar from '../components/ValidatorAvatar';
+import Table from '../components/Table';
 
 import { SContent, SJumbotron, SSection } from '../components/styles';
 
 import { selectValidator } from '../selectors';
 import { capitalize, pubKeyToAddress } from '../utils';
+import { Section } from '../ui';
 
 type ReactRouterProps = {
 	id: string;
@@ -30,36 +31,50 @@ const Validator: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 		(validator && (
 			<>
 				<SJumbotron>
-					<Container>
-						<Row className="align-items-center">
-							<Col>
-								<Media>
-									<img
-										style={{ borderRadius: '3px' }}
-										width={75}
-										height={75}
-										className="mr-3"
-										src={`https://s.gravatar.com/avatar/${Utils.trimHex(
-											pubKeyToAddress(
-												validator.public_key
-											)
-										)}?size=100&default=retro`}
-										alt="Generic placeholder"
-									/>
-									<Media.Body>
-										<h1>{capitalize(validator.moniker)}</h1>
-										<p className="mono">
-											{Utils.cleanAddress(
+					<Section padding={30}>
+						<Container>
+							<Row className="align-items-center">
+								<Col>
+									<Media>
+										<img
+											style={{ borderRadius: '3px' }}
+											width={60}
+											height={60}
+											className="mr-3"
+											src={`https://s.gravatar.com/avatar/${Utils.trimHex(
 												pubKeyToAddress(
 													validator.public_key
 												)
-											)}
-										</p>
-									</Media.Body>
-								</Media>
-							</Col>
-						</Row>
-					</Container>
+											)}?size=100&default=retro`}
+											alt="Generic placeholder"
+										/>
+										<Media.Body>
+											<h3>
+												{capitalize(validator.moniker)}
+												<small className="mono">
+													{' '}
+													<a
+														data-tip={`http://${validator.host}:8080/info`}
+														target="_blank"
+														href={`http://${validator.host}:8080/info`}
+													>
+														<b>{validator.host}</b>
+													</a>
+												</small>
+											</h3>
+											<p className="mono">
+												{Utils.cleanAddress(
+													pubKeyToAddress(
+														validator.public_key
+													)
+												)}
+											</p>
+										</Media.Body>
+									</Media>
+								</Col>
+							</Row>
+						</Container>
+					</Section>
 				</SJumbotron>
 				<SSection>
 					<Container fluid={false}>
@@ -75,6 +90,8 @@ const Validator: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 										</SContent>
 									</Col>
 								</Row>
+								<br />
+								<br />
 								<Row>
 									<Col>
 										<SContent>

@@ -13,13 +13,13 @@ import { SContent, SJumbotron, SSection } from '../components/styles';
 
 import ExplorerAPIClient, { Application } from '../client';
 import { capitalize } from '../utils';
+import { Section } from '../ui';
 
 const SContainer = styled.div`
 	.card {
 		margin-bottom: 20px !important;
 		padding: 20px !important;
 	}
-
 	a.card-link {
 		background: var(--orange) !important;
 		color: white !important;
@@ -28,11 +28,9 @@ const SContainer = styled.div`
 		padding: 6px 10px;
 		border-radius: 5px;
 	}
-
 	.card-link + .card-link {
 		margin-left: 10px;
 	}
-
 	.card-title {
 		font-size: 25px;
 		margin-bottom: 20px !important;
@@ -43,6 +41,7 @@ const SBox = styled.div`
 	background: #fff !important;
 	padding: 20px;
 	border-radius: 3px;
+	/* border: 1px solid #eee; */
 `;
 
 const Transactions: React.FC<{}> = () => {
@@ -75,14 +74,19 @@ const Transactions: React.FC<{}> = () => {
 	return (
 		<SContainer>
 			<SJumbotron>
-				<Container>
-					<Row className="align-items-center">
-						<Col>
-							<h1>Downloads</h1>
-							<p>Browse latest versions of the MONET Toolchain</p>
-						</Col>
-					</Row>
-				</Container>
+				<Section padding={30}>
+					<Container>
+						<Row className="align-items-center">
+							<Col>
+								<h1>Downloads</h1>
+								<p>
+									Browse latest versions of the MONET
+									Toolchain
+								</p>
+							</Col>
+						</Row>
+					</Container>
+				</Section>
 			</SJumbotron>
 			<SSection>
 				<Container>
@@ -150,6 +154,10 @@ const Transactions: React.FC<{}> = () => {
 											</Media.Body>
 										</Media>
 									</SBox>
+									<div className="d-xs-block d-md-none">
+										<hr />
+										<br />
+									</div>
 								</SContent>
 							</Col>
 						))}
