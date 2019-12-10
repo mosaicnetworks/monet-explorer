@@ -280,7 +280,8 @@ class AddressAPIHandler(APIView):
     """ Nominees api handler """
 
     def get(self, request, address, *args, **kwargs):
-        """ GET request handelr """
+        """ GET request handler """
+
         network = self.request.query_params.get('network', None)
 
         if not network:
@@ -294,4 +295,4 @@ class AddressAPIHandler(APIView):
         data = requests.get(
             f'http://{model.host}:{model.port}/account/' + address).json()
 
-        return data
+        return Response(data)
