@@ -11,9 +11,9 @@ import Row from 'react-bootstrap/Row';
 
 import { SContent, SJumbotron, SSection } from '../components/styles';
 
-import ExplorerAPIClient, { Application } from '../client';
-import { capitalize } from '../utils';
+import { Application, DownloadsAPI } from '../client';
 import { Section } from '../ui';
+import { capitalize } from '../utils';
 
 const SContainer = styled.div`
 	.card {
@@ -45,7 +45,7 @@ const SBox = styled.div`
 `;
 
 const Transactions: React.FC<{}> = () => {
-	const c = new ExplorerAPIClient();
+	const c = new DownloadsAPI();
 
 	const [os] = useState(['linux', 'mac', 'windows']);
 	const [applications, setApplications] = useState<Application[]>([]);

@@ -39,7 +39,7 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 			<Jumbotron />
 			<Stats />
 			<SValidators>
-				<Section padding={50}>
+				<Section>
 					<Grid>
 						<Quadrant pos={[1, 1]} xs={12}>
 							<SContent>

@@ -31,7 +31,7 @@ const Grid: React.FC<Props> = props => {
 
 	React.Children.forEach(
 		props.children as React.ReactElement<QuadrantProps>,
-		child => {
+		(child, i) => {
 			const row = child.props.pos[0] - 1;
 			const col = child.props.pos[1] - 1;
 
@@ -47,6 +47,7 @@ const Grid: React.FC<Props> = props => {
 
 			matrix[row][col] = (
 				<Col
+					key={`col${i}`}
 					xs={child.props.xs}
 					sm={child.props.sm}
 					md={child.props.md}

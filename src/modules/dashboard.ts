@@ -1,12 +1,12 @@
 import { BaseAction, Result } from '.';
 
-import Client, {
+import CoreAPI, {
 	Block,
 	Network,
 	NomineeEntry,
+	Transaction,
 	Validator,
-	WhitelistEntry,
-	Transaction
+	WhitelistEntry
 } from '../client';
 
 const FETCH_NETWORKS_INIT = '@monet/dashboard/network/FETCH/INIT';
@@ -75,7 +75,7 @@ const initial: DashboardState = {
 	}
 };
 
-const c = new Client();
+const c = new CoreAPI();
 
 export default (
 	state: DashboardState = initial,
@@ -259,7 +259,7 @@ export function fetchNetworks(): Result<Promise<Network[]>> {
 		});
 
 		try {
-			const networks = await c.getNetworks();
+			const networks = await c.fetchNetworks();
 
 			dispatch({
 				type: FETCH_NETWORKS_SUCCESS,
@@ -313,7 +313,7 @@ export function fetchValidators(): Result<Promise<Validator[]>> {
 		});
 
 		try {
-			const validators = await c.getValidators(
+			const validators = await c.fetchValidators(
 				state.selectedNetwork!.name
 			);
 
@@ -343,7 +343,7 @@ export function fetchNetworkBlocks(): Result<Promise<Block[]>> {
 		});
 
 		try {
-			const blocks = await c.getBlocks(state.selectedNetwork!.name);
+			const blocks = await c.fetchBlocks(state.selectedNetwork!.name);
 
 			dispatch({
 				type: FETCH_BLOCKS_SUCCESS,
@@ -372,8 +372,10 @@ export function fetchPOA(): Result<Promise<void>> {
 		});
 
 		try {
-			const whitelist = await c.getWhitelist(network!.name.toLowerCase());
-			const nominees = await c.getNominees(network!.name.toLowerCase());
+			const whitelist = await c.fetchWhitelist(
+				network!.name.toLowerCase()
+			);
+			const nominees = await c.fetchNominees(network!.name.toLowerCase());
 
 			dispatch({
 				type: FETCH_POA_SUCCESS,
@@ -401,9 +403,7 @@ export function fetchTransactions(): Result<Promise<void>> {
 		});
 
 		try {
-			const transactions = await c.getTransactions(
-				network!.name.toLowerCase()
-			);
+			const transactions = await c.fetchTxs(network!.name.toLowerCase());
 
 			dispatch({
 				type: FETCH_TRANSACTIONS_SUCCESS,

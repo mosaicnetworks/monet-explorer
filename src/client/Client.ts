@@ -1,6 +1,6 @@
 import * as http from 'http';
 
-import * as request from 'request';
+import { DEV, DEV_HOST, DEV_PORT, PROD_HOST, PROD_PORT } from '../const';
 
 interface IOptions {
 	host: string;
@@ -10,11 +10,22 @@ interface IOptions {
 	headers: any;
 }
 
+let host: string = PROD_HOST;
+let port: number = PROD_PORT;
+
+if (DEV) {
+	host = DEV_HOST;
+	port = DEV_PORT;
+}
+
 export default abstract class AbstractClient {
-	protected constructor(
-		public readonly host: string,
-		public readonly port: number
-	) {}
+	public readonly host: string;
+	public readonly port: number;
+
+	protected constructor() {
+		this.host = host;
+		this.port = port;
+	}
 
 	protected response<T>(res: string): Promise<T> {
 		try {
