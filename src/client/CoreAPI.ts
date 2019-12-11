@@ -1,6 +1,6 @@
 import request from 'request';
 
-import { IReceipt } from 'evm-lite-client';
+import { IBaseAccount, IReceipt } from 'evm-lite-client';
 
 import * as types from './types';
 
@@ -44,6 +44,18 @@ class CoreAPI extends Client {
 				}
 			);
 		});
+	}
+
+	/**
+	 * Search capabilities
+	 */
+	public async fetchAddress(
+		network: string,
+		address: string
+	): Promise<IBaseAccount> {
+		return JSON.parse(
+			await this.get(`/api/account/${address}/?network=${network}`)
+		);
 	}
 
 	/**

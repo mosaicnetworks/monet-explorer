@@ -1,20 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
 
 import Faucet from '../components/Faucet';
 
-import MONET_ICOn from '../assets/icon.png';
+import { selectNetwork } from '../selectors';
+import { capitalize } from '../utils';
+
 import BG from '../assets/bg.png';
-import GITHUB from '../assets/github-white.png';
+import MONET_ICON from '../assets/icon.png';
 
 const SIcon = styled(Image)`
 	margin-bottom: 20px;
@@ -58,15 +61,22 @@ const SAlert = styled(Alert)`
 `;
 
 const Jumbotron: React.FC<{}> = () => {
+	const selected = useSelector(selectNetwork);
+
 	return (
 		<>
 			<SAlert variant="info">
 				<Container>
 					<Row className="align-items-center">
 						<Col xs={12} md={5}>
-							<SIcon src={MONET_ICOn} width={'100'} />
+							<SIcon src={MONET_ICON} width={'100'} />
 							<Alert.Heading as="h1">
-								Testnet Camille v6
+								Testnet{' '}
+								{capitalize(
+									(selected && selected.name.split('-')[0]) ||
+										'None'
+								)}{' '}
+								v{selected && selected.name.split('-')[1]}
 							</Alert.Heading>
 							<p>
 								Use our <Link to={'/downloads'}>wallet</Link> to
@@ -92,7 +102,7 @@ const Jumbotron: React.FC<{}> = () => {
 						</Col>
 						<Col md={2} className="d-none d-sm-block text-center">
 							<Image
-								src="https://monet.network/app/images/illustrations/pages/token_sale.svg"
+								src="https://monet.network/app/images/products/tenom.svg"
 								width={150}
 							/>
 						</Col>

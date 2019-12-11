@@ -18,14 +18,13 @@ import { selectNetwork, selectNominees, selectValidators } from '../selectors';
 
 const SContentPadded = styled.div`
 	padding: 20px 7px;
-	text-align: center;
 `;
 
 const SStats = styled.div`
 	h1 {
 		font-size: 35px;
 	}
-	background: #fff;
+	background: var(--light-grey);
 `;
 
 const Stats: React.FC<{}> = props => {

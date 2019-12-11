@@ -14,6 +14,13 @@
 	--red: #ec1c24;
 	--purple: #7f3b97;
 	--yellow: #ffe014;
+	--black: #1d2124;
+
+	/* Other */
+	--light-blue: #d6e5f5;
+	--light-orange: #feaf9a;
+	--light-green: #8deeb1;
+	--light-grey: rgba(242, 245, 248, 0.75);
 }
 
 h1,

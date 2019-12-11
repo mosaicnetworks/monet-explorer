@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 
 import { Currency } from 'evm-lite-utils';
 import ReactTooltip from 'react-tooltip';
@@ -15,6 +15,7 @@ import Row from 'react-bootstrap/Row';
 import Avatar from '../components/Avatar';
 import Block from '../components/Block';
 import Loader from '../components/Loader';
+import Stats from '../components/Stats';
 import Table from '../components/Table';
 
 import { SContent, SJumbotron, SSection } from '../components/styles';
@@ -34,7 +35,7 @@ const SLink = styled(Link)`
 	text-decoration: none !important;
 `;
 
-const Explore: React.FC<{}> = () => {
+const Explore: React.FC<RouteComponentProps<{}>> = props => {
 	const dispatch = useDispatch();
 
 	const loading = useSelector(selectBlocksLoading);
@@ -55,6 +56,13 @@ const Explore: React.FC<{}> = () => {
 		ReactTooltip.rebuild();
 	}, [blocks]);
 
+	const [search, setSearch] = useState('');
+	const onSearchEnter = (event: any) => {
+		if (event.keyCode === 13) {
+			props.history.push(`/search/${search}`);
+		}
+	};
+
 	return (
 		<>
 			<SJumbotron>
@@ -70,13 +78,16 @@ const Explore: React.FC<{}> = () => {
 								hashgraph
 							</p>
 							<Form.Control
+								onChange={(e: any) => setSearch(e.target.value)}
+								onKeyUp={onSearchEnter}
 								type="text"
-								placeholder="Search Transaction Hash, Address, Public Key"
+								placeholder="Search Address"
 							/>
 						</Quadrant>
 					</Grid>
 				</Section>
 			</SJumbotron>
+			<Stats />
 			<SSection>
 				<Container fluid={false}>
 					<Row>

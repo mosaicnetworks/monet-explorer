@@ -250,7 +250,9 @@ const Header: React.FC<{}> = () => {
 							<Link to={'/blocks'}>
 								<Button
 									variant={
-										stickyHeader ? 'primary' : 'warning'
+										stickyHeader
+											? 'primary'
+											: 'outline-light'
 									}
 									className="bigger"
 								>
