@@ -11,21 +11,20 @@ import Row from 'react-bootstrap/Row';
 import Loader from '../components/Loader';
 import Await from '../components/utils/Await';
 
-import ExplorerAPIClient from '../client';
+import CoreAPI from '../client';
 
 import { DEV } from '../const';
 import { selectNetwork, selectNominees, selectValidators } from '../selectors';
 
 const SContentPadded = styled.div`
-	padding: 10px 7px;
-	text-align: center;
+	padding: 20px 7px;
 `;
 
 const SStats = styled.div`
 	h1 {
 		font-size: 35px;
 	}
-	background: #fff;
+	background: var(--light-grey);
 `;
 
 const Stats: React.FC<{}> = props => {
@@ -38,12 +37,12 @@ const Stats: React.FC<{}> = props => {
 	const [txCount, setTxCount] = useState(0);
 	const [intTxCount, setIntTxCount] = useState(0);
 
-	const c = new ExplorerAPIClient();
+	const c = new CoreAPI();
 
 	const setStats = async () => {
 		if (network) {
 			setStatLoading(true);
-			const stats = await c.getStats(network.name.toLowerCase());
+			const stats = await c.fetchStats(network.name.toLowerCase());
 
 			setBlockHeight(stats.block_height);
 			setTxCount(stats.tx_count);

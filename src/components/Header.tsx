@@ -59,7 +59,7 @@ const SNavbar = styled(Navbar)`
 `;
 
 const SBrand = styled(Navbar.Brand)`
-	font-size: 18px !important;
+	font-size: 20px !important;
 	font-family: MonetFont !important;
 	letter-spacing: 4px;
 
@@ -250,9 +250,11 @@ const Header: React.FC<{}> = () => {
 							<Link to={'/blocks'}>
 								<Button
 									variant={
-										stickyHeader ? 'primary' : 'warning'
+										stickyHeader
+											? 'primary'
+											: 'outline-light'
 									}
-									className=""
+									className="bigger"
 								>
 									Explore
 								</Button>

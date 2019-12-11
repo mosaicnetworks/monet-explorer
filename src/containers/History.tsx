@@ -50,7 +50,7 @@ const History: React.FC<{}> = () => {
 		if (network) {
 			setLoading(true);
 
-			const h = await c.getValidatorHistory(network.name);
+			const h = await c.fetchValidatorHistory(network.name);
 			setHistory(h);
 
 			if (h[0]) {

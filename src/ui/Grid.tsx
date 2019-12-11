@@ -17,6 +17,7 @@ export const Quadrant: React.FC<QuadrantProps> = props => {
 type Props = {
 	fluid?: boolean;
 	verticalAlign?: boolean;
+	noGutters?: boolean;
 };
 
 const Grid: React.FC<Props> = props => {
@@ -30,7 +31,7 @@ const Grid: React.FC<Props> = props => {
 
 	React.Children.forEach(
 		props.children as React.ReactElement<QuadrantProps>,
-		child => {
+		(child, i) => {
 			const row = child.props.pos[0] - 1;
 			const col = child.props.pos[1] - 1;
 
@@ -46,6 +47,7 @@ const Grid: React.FC<Props> = props => {
 
 			matrix[row][col] = (
 				<Col
+					key={`col${i}`}
 					xs={child.props.xs}
 					sm={child.props.sm}
 					md={child.props.md}
@@ -61,8 +63,10 @@ const Grid: React.FC<Props> = props => {
 
 	return (
 		<Container fluid={props.fluid || false}>
-			{matrix.map(r => (
-				<Row className={align}>{r}</Row>
+			{matrix.map((r, i) => (
+				<Row noGutters={props.noGutters} key={i} className={align}>
+					{r}
+				</Row>
 			))}
 		</Container>
 	);

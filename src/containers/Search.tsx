@@ -1,89 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-import utils from 'evm-lite-utils';
-import styled from 'styled-components';
-
-import { IEVMAccount } from 'evm-lite-core';
-import { useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
-import monet from '../monet';
+import AddressSearch from '../components/search/AddressSearch';
 
-import { SContent } from '../components/styles';
-import { selectNetwork } from '../selectors';
+import { SContent, SJumbotron } from '../components/styles';
 
-const SSearch = styled(Container)``;
+import Grid, { Quadrant as Q, Section } from '../ui';
 
 type ReactRouterProps = {
 	data: string;
 };
 
 const Search: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
-	const network = useSelector(selectNetwork) || {
-		host: 'localhost',
-		port: 8080
-	};
-
 	const data = props.match.params.data;
 
-	const [account, setAccount] = useState<IEVMAccount>({} as IEVMAccount);
-	const [error, setError] = useState('');
-
-	const fetchDataResponses = async () => {
-		if (utils.cleanAddress(data).length === 42) {
-			const m = monet(network.host, network.port);
-			const a = await m.getAccount(utils.cleanAddress(data));
-
-			setAccount(a);
-		} else {
-			setError(
-				'Search param not recognized. Currently only addresses are supported.'
-			);
-		}
-	};
-
-	useEffect(() => {
-		fetchDataResponses();
-	}, []);
-
 	return (
-		<SSearch>
-			<SContent>
-				<span>Search: {props.match.params.data}</span>
-				{Object.keys(account).length > 0 && (
-					<div className="padding">
-						<Row>
+		<SContent>
+			<SJumbotron>
+				<Section padding={20}>
+					<Container>
+						<Row className="align-items-center">
 							<Col>
-								<b>Balance:</b>{' '}
-								<dt className="mono">
-									{account.balance.format('T')}
-								</dt>
+								<h1>Search</h1>
+								<p>{props.match.params.data}</p>
 							</Col>
 						</Row>
-						<br />
-						<Row>
-							<Col>
-								<b>Nonce:</b>{' '}
-								<dt className="mono">{account.nonce}</dt>
-							</Col>
-						</Row>
-						<br />
-						<Row>
-							<Col>
-								<b>Bytecode:</b>
-								<pre>
-									<code>{account.bytecode || 'n/a'}</code>
-								</pre>
-							</Col>
-						</Row>
-					</div>
-				)}
-			</SContent>
-		</SSearch>
+					</Container>
+				</Section>
+			</SJumbotron>
+			<AddressSearch address={data} />
+		</SContent>
 	);
 };
 

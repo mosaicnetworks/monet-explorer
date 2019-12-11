@@ -10,6 +10,7 @@ import Form from 'react-bootstrap/Form';
 import Loader from './Loader';
 
 import ExplorerAPIClient from '../client';
+import CoreAPI from '../client';
 
 const SError = styled.div`
 	color: #ff0000;
@@ -24,7 +25,7 @@ const SSuccess = styled.div`
 `;
 
 const Faucet: React.FC<{}> = () => {
-	const c = new ExplorerAPIClient();
+	const c = new CoreAPI();
 
 	const [loading, setLoading] = useState(false);
 	const [recaptcha, setRecaptcha] = useState(false);
@@ -96,6 +97,7 @@ const Faucet: React.FC<{}> = () => {
 							disabled={loading}
 							onClick={onSubmit}
 							variant="warning"
+							className="bigger"
 						>
 							Receive Tokens
 						</Button>{' '}
