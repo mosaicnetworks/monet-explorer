@@ -6,10 +6,12 @@ const SContainer = styled.div`
 	display: flex;
 	align-items: center;
 	overflow: hidden !important;
+
 	${({ theme }) => `
 		padding: ${theme.padding}px 0 !important;
 		min-height: ${theme.height};
 	`};
+
 	@media (max-width: 960px) {
 		padding: 70px 5px !important;
 	}

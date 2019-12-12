@@ -11,6 +11,7 @@ import Row from 'react-bootstrap/Row';
 
 import Background from '../assets/bg.svg';
 import Logo from '../assets/monet.svg';
+import Grid, { Section } from '../ui';
 
 const SFooter = styled.div`
 	background: linear-gradient(93deg, #1c3f94, #152c60);
@@ -25,8 +26,8 @@ const SFooter = styled.div`
 	display: flex;
 	align-items: center;
 
+	padding: 100px 20px !important;
 	@media (max-width: 575px) {
-		padding: 50px 20px;
 	}
 
 	.brand {

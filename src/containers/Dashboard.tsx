@@ -2,13 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Link } from 'react-router-dom';
 
 import Jumbotron from '../components/Jumbotron';
 import Nominees from '../components/Nominees';
 import Stats from '../components/Stats';
 import Validators from '../components/Validators';
 import Whitelist from '../components/Whitelist';
+
+import History from '../containers/History';
 
 import { SContent } from '../components/styles';
 import {
@@ -56,16 +58,14 @@ const Index: React.FC<RouteComponentProps<{}>> = props => {
 						<Quadrant pos={[1, 1]} xs={12} md={12} lg={6} xl={6}>
 							<SContent>
 								<h3>Whitelist</h3>
+								<br />
 								<Whitelist whitelist={whitelist} />
 							</SContent>
-							<div className="d-xs-block d-md-none">
-								<hr />
-								<br />
-							</div>
 						</Quadrant>
 						<Quadrant pos={[1, 2]} xs={12} md={12} lg={6} xl={6}>
 							<SContent>
 								<h3>Nominees</h3>
+								<br />
 								<Nominees nominees={nominees} />
 							</SContent>
 						</Quadrant>

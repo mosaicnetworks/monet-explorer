@@ -73,16 +73,6 @@ const History: React.FC<{}> = () => {
 
 	return (
 		<SContainer>
-			<SJumbotron>
-				<Container>
-					<Row className="align-items-center">
-						<Col>
-							<h1>Validator History</h1>
-							<p>Browse historic statsitics of validators</p>
-						</Col>
-					</Row>
-				</Container>
-			</SJumbotron>
 			<SSection>
 				<Container>
 					<SContent>

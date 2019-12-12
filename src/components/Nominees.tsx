@@ -22,7 +22,7 @@ const Nominees: React.FC<Props> = props => {
 			<Table>
 				<thead>
 					<tr>
-						<th></th>
+						<th>Nominee</th>
 						<th>Votes</th>
 						<th>Moniker</th>
 						<th>Address</th>
