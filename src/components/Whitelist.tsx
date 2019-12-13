@@ -7,8 +7,6 @@ import { useSelector } from 'react-redux';
 
 import Figure from 'react-bootstrap/Figure';
 
-import Avatar from '../components/Avatar';
-
 import { selectWhitelist } from '../selectors';
 
 type Props = {};

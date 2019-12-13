@@ -6,10 +6,9 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Image from 'react-bootstrap/Image';
+import Media from 'react-bootstrap/Media';
 
 import Avatar from './Avatar';
-import Media from 'react-bootstrap/Media';
-import Table from './Table';
 
 import { selectValidators } from '../selectors';
 import { pubKeyToAddress } from '../utils';
@@ -120,46 +119,6 @@ const Validators: React.FC<Props> = props => {
 						</div>
 					</SGasPrice>
 				</Media>
-				// <tr key={v.moniker}>
-				// 	<td>
-				// 		<Link
-				// 			data-tip={`${v.moniker} - ${
-				// 				v.reachable ? 'Online' : 'False'
-				// 			}`}
-				// 			to={`/validator/${v.public_key}`}
-				// 		>
-				// 			<Avatar address={address} size={38} />
-				// 		</Link>
-				// 	</td>
-				// 	{!props.hideStatus && (
-				// 		<td>
-				// 			{v.reachable ? (
-				// 				<Image src={GREEN} width="12" />
-				// 			) : (
-				// 				<Image src={RED} width="12" />
-				// 			)}
-				// 		</td>
-				// 	)}
-
-				// 	<td>
-				// 		<b>{v.moniker}</b>
-				// 		<a
-				// 			data-tip={`http://${v.host}:8080/info`}
-				// 			target="_blank"
-				// 			href={`http://${v.host}:8080/info`}
-				// 		>
-				// 			<small className="mono d-block">{v.host}</small>
-				// 		</a>
-				// 	</td>
-				// 	<td>{stateStyling(v.info.state)}</td>
-				// 	<td className="mono">{v.info.last_block_index}</td>
-				// 	<td className="mono">{v.info.last_consensus_round}</td>
-				// 	<td className="mono">{v.info.min_gas_price}</td>
-				// 	<td className="mono">
-				// 		{v.version.monetd && 'v'}
-				// 		{v.version.monetd}
-				// 	</td>
-				// </tr>
 			);
 		});
 	};
