@@ -52,11 +52,11 @@ const Index: React.FC<{}> = () => {
 			<Section>
 				<Grid verticalAlign={false} fluid={true}>
 					<Q pos={[1, 1]} md={6}>
-						<h4>Blocks</h4>
+						<h3 className="preheader">Blocks</h3>
 						<Blocks />
 					</Q>
 					<Q pos={[1, 2]} md={6}>
-						<h4>Transactions</h4>
+						<h3 className="preheader">Transactions</h3>
 						<br /> <Transactions />
 					</Q>
 				</Grid>

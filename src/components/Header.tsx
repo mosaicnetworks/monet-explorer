@@ -70,7 +70,7 @@ const Header: React.FC<{}> = () => {
 							<img src={LOGO} width={150} />
 						</Link>
 					</span>{' '}
-					<SNetworkName className="ml-3">Camille v6</SNetworkName>
+					<SNetworkName className="ml-3">Camille V6</SNetworkName>
 				</Navbar.Brand>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse

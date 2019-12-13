@@ -6,7 +6,9 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 
 import styled from 'styled-components';
 
-import Avatar from '../components/Avatar';
+import Media from 'react-bootstrap/Media';
+
+import Avatar from './Figure';
 import Table from '../components/Table';
 
 import { fetchNetworkBlocks, fetchTransactions } from '../modules/dashboard';
@@ -20,41 +22,32 @@ import { commaSeperate } from '../utils';
 
 import Section, { Grid, Q } from '../ui';
 
-const SBlock = styled.div`
-	transition: background 0.2s ease-out;
-	border-bottom: 1px solid #eee;
-	/* padding-bottom: 5px; */
-	display: block;
-	/* padding: 15px; */
-	cursor: pointer;
+const STransactions = styled.div`
+	.media {
+		background: #fff;
+		padding: 15px 20px;
+		border: 1px solid #eee;
+		margin-bottom: 5px;
+		border-radius: 3px !important;
 
-	a:hover {
-		text-decoration: none !important;
+		p {
+			margin-bottom: 0 !important;
+		}
 	}
 
-	:hover {
-		background: #f9f9f9 !important;
+	.media-body {
+		min-width: 200px;
 	}
+`;
 
-	.active {
-		background: var(--blue) !important;
-		color: white !important;
-		text-decoration: none !important;
-	}
+const STransferText = styled.div`
+	color: var(--green);
+	font-weight: 600 !important;
+`;
 
-	.badge {
-		/* background: var(--blue); */
-		/* display: block !important; */
-		/* margin: 5px; */
-		/* border-radius: 0; */
-		margin: 0;
-		font-size: 12px;
-		padding: 5px 7px;
-	}
-
-	.badge + .badge {
-		margin: 5px;
-	}
+const SContractText = styled.div`
+	color: var(--purple);
+	font-weight: 600 !important;
 `;
 
 type Props = {};
@@ -70,48 +63,52 @@ const Transaction: React.FC<Props> = props => {
 	}, []);
 
 	return (
-		<SBlock>
-			<Table>
-				<thead>
-					<tr>
-						<th>From</th>
-						<th>To</th>
-						<th>Value</th>
-						<th>Gas</th>
-						<th>Gas Price</th>
-						<th className="text-center">Contract Call?</th>
-					</tr>
-				</thead>
-				<tbody>
-					{transactions.map(t => (
-						<tr key={t.data}>
-							<td>
-								<Avatar address={t.sender} size={35} />
-							</td>
-							<td>
-								<Avatar address={t.to} size={35} />
-							</td>
-							<td className="mono">
-								{new Currency(
-									t.amount === '0' ? 0 : t.amount + 'a'
-								).format('T')}
-							</td>
-							<td className="mono">{commaSeperate(t.gas)}</td>
-							<td className="mono"> {t.gas_price}</td>
-							<td className="text-center">
-								{(t.payload.length > 0 && (
-									<img
-										src="https://image.flaticon.com/icons/svg/1828/1828640.svg"
-										width={20}
-									/>
-								)) ||
-									'-'}
-							</td>
-						</tr>
-					))}
-				</tbody>
-			</Table>
-		</SBlock>
+		<STransactions>
+			{transactions.map((t, i) => (
+				<Media key={`transaction-${i}`}>
+					<Avatar
+						className="mr-5"
+						address={t.sender}
+						size={40}
+						caption={'From'}
+					/>
+					<Avatar
+						className="mr-5"
+						address={t.sender}
+						size={40}
+						caption={'To'}
+					/>
+					<div className="d-none d-md-block align-self-center mr-5">
+						{new Currency(
+							t.amount === '0' ? 0 : t.amount + 'a'
+						).format('T')}
+						<div className="small">Tenom</div>
+					</div>
+					<div className="d-none d-md-block align-self-center mr-5">
+						{commaSeperate(t.gas)}
+						<div className="small">Gas</div>
+					</div>
+					<div className="d-none d-md-block align-self-center mr-5">
+						{t.gas_price}
+						<div className="small">Gas Price</div>
+					</div>
+					<div className="d-none d-md-block align-self-center mr-5" />
+					<div className="d-none d-md-block align-text-end align-self-center mr-2">
+						{(t.payload.length > 0 && (
+							<>
+								<SContractText className="small">
+									Contract Call
+								</SContractText>
+							</>
+						)) || (
+							<STransferText className="small">
+								Transfer
+							</STransferText>
+						)}
+					</div>
+				</Media>
+			))}
+		</STransactions>
 	);
 };
 

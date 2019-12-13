@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 
+import ReactTooltip from 'react-tooltip';
+
 import { useDispatch } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
 
@@ -19,6 +21,7 @@ const App: React.FC = () => {
 
 	return (
 		<>
+			<ReactTooltip type="dark" />
 			<BrowserRouter>
 				<Wrapper>
 					<Route exact={true} path="/" component={Index} />

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import Media from 'react-bootstrap/Media';
 
-import Avatar from '../components/Avatar';
+import Avatar from './Figure';
 
 import { Validator } from '../client';
 import { pubKeyToAddress } from '../utils';

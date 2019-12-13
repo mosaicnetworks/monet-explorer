@@ -35,6 +35,7 @@ const SValidators = styled.div`
 		padding: 15px 20px;
 		border: 1px solid #eee;
 		margin-bottom: 5px;
+		border-radius: 3px !important;
 
 		p {
 			margin-bottom: 0 !important;

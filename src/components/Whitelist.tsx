@@ -5,15 +5,29 @@ import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
 
-import Figure from 'react-bootstrap/Figure';
+import Media from 'react-bootstrap/Media';
+
+import Avatar from './Avatar';
 
 import { selectWhitelist } from '../selectors';
 
 type Props = {};
 
 const SWhitelist = styled.div`
-	.figure {
-		margin-right: 20px;
+	.media {
+		background: #fff;
+		padding: 15px 20px;
+		border: 1px solid #eee;
+		margin-bottom: 5px;
+		border-radius: 3px !important;
+
+		p {
+			margin-bottom: 0 !important;
+		}
+	}
+
+	.media-body {
+		min-width: 200px;
 	}
 `;
 
@@ -23,15 +37,19 @@ const Whitelist: React.FC<Props> = props => {
 	return (
 		<SWhitelist>
 			{whitelist.map(wle => (
-				<Figure key={wle.moniker}>
-					<Figure.Image
-						height={44}
-						width={44}
-						src={`https://s.gravatar.com/avatar/${utils.trimHex(
-							wle.address
-						)}?size=100&default=retro`}
+				<Media key={wle.address}>
+					<Avatar
+						address={wle.address}
+						size={40}
+						className="mr-3 "
+						key={wle.address}
 					/>
-				</Figure>
+
+					<Media.Body>
+						<b> {wle.moniker}</b>
+						<p className="small mono">{wle.address}</p>
+					</Media.Body>
+				</Media>
 			))}
 		</SWhitelist>
 	);

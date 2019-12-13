@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 
-import Avatar from '../components/Avatar';
+import Avatar from './Figure';
 import Table from '../components/Table';
 
 import GreenUp from '../assets/green-up.png';
