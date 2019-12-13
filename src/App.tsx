@@ -16,6 +16,7 @@ import History from './containers/History';
 import Search from './containers/Search';
 import Transactions from './containers/Transactions';
 import Validator from './containers/Validator';
+import Hashgraph from './containers/Hashgraph';
 
 import { fetchNetworks } from './modules/dashboard';
 
@@ -36,7 +37,7 @@ const App: React.FC = () => {
 				<Route exact={true} path="/block/:index" component={Block} />
 				<Route exact={true} path="/downloads" component={Downloads} />
 				<Route exact={true} path="/history" component={History} />
-				{/* <Route exact={true} path="/hashgraph" component={Hashgraph} /> */}
+				<Route exact={true} path="/hashgraph" component={Hashgraph} />
 				<Route
 					exact={true}
 					path="/transactions"

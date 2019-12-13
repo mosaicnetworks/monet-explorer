@@ -71,11 +71,12 @@ const Explore: React.FC<RouteComponentProps<{}>> = props => {
 						<Quadrant pos={[1, 1]}>
 							<h1>Explore</h1>
 							<p className="">
-								Browse blocks, transactions and the{' '}
+								Browse blocks and transactions
+								{/* and the{' '}
 								<a href="https://github.com/mosaicnetworks/babble">
 									Babble
 								</a>{' '}
-								hashgraph
+								hashgraph */}
 							</p>
 							<Form.Control
 								onChange={(e: any) => setSearch(e.target.value)}
@@ -153,17 +154,11 @@ const Explore: React.FC<RouteComponentProps<{}>> = props => {
 														/>
 													</td>
 													<td>
-														{commaSeperate(
-															new Currency(
-																t.amount === '0'
-																	? 0
-																	: t.amount +
-																	  'a'
-															)
-																.format('T')
-																.slice(0, 1)
-														)}
-														T
+														{new Currency(
+															t.amount === '0'
+																? 0
+																: t.amount + 'a'
+														).format('T')}
 													</td>
 													<td>
 														{commaSeperate(t.gas)}

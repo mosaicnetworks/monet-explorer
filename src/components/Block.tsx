@@ -109,7 +109,7 @@ const Block: React.FC<Props> = ({ block }) => {
 		<SBlock>
 			<Media>
 				<SBlockAvatar className="align-self-center mr-3">
-					{block.index}
+					Bk
 				</SBlockAvatar>
 				<Media.Body>
 					<h5>Block {block.index}</h5>

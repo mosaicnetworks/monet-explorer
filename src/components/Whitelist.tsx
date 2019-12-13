@@ -15,7 +15,7 @@ const Whitelist: React.FC<Props> = props => {
 			<Table>
 				<thead>
 					<tr>
-						<th></th>
+						<th>Avatar</th>
 						<th>Moniker</th>
 						<th>Address</th>
 					</tr>

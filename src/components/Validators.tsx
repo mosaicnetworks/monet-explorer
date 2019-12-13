@@ -107,7 +107,7 @@ const Validators: React.FC<Props> = props => {
 			<Table>
 				<thead>
 					<tr>
-						<th></th>
+						<th>Validator</th>
 						{!props.hideStatus && <th>Service</th>}
 						<th>Moniker</th>
 						<th>Address</th>

@@ -15,7 +15,7 @@ class CoreAPI extends Client {
 	public async getHashgraph(): Promise<any> {
 		return new Promise<any>((resolve, reject) => {
 			request.get(
-				`http://172.77.5.10:8080/graph`,
+				`http://monet.appmaven.io:8080/graph`,
 				(error, response, body) => {
 					if (error) {
 						return reject(error);
