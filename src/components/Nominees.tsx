@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useSelector } from 'react-redux';
+
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
@@ -7,16 +9,16 @@ import Row from 'react-bootstrap/Row';
 import Avatar from '../components/Avatar';
 import Table from '../components/Table';
 
-import { NomineeEntry } from '../client';
-
 import GreenUp from '../assets/green-up.png';
 import RedDown from '../assets/red-down.png';
 
-type Props = {
-	nominees: NomineeEntry[];
-};
+import { selectNominees } from '../selectors';
+
+type Props = {};
 
 const Nominees: React.FC<Props> = props => {
+	const nominees = useSelector(selectNominees);
+
 	return (
 		<>
 			<Table>
@@ -29,7 +31,7 @@ const Nominees: React.FC<Props> = props => {
 					</tr>
 				</thead>
 				<tbody>
-					{props.nominees.map(n => (
+					{nominees.map(n => (
 						<tr key={n.address}>
 							<td>
 								<Avatar address={n.address} size={33} />

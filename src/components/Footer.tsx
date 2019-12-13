@@ -11,23 +11,20 @@ import Row from 'react-bootstrap/Row';
 
 import Background from '../assets/bg.svg';
 import Logo from '../assets/monet.svg';
-import Grid, { Section } from '../ui';
+
+import Section, { Grid, Q } from '../ui';
 
 const SFooter = styled.div`
-	background: linear-gradient(93deg, #1c3f94, #152c60);
+	background: var(--black);
 	background-size: cover;
-	/* background: rgba(31, 66, 146, 1); */
+	background: rgba(31, 66, 146, 1);
 	color: #fff;
 	/* border-top: 1px solid #333; */
 	margin-top: 100px;
 	box-shadow: 0 -1px 20px rgba(0, 0, 0, 0.2) !important;
 
-	min-height: 35vh;
-	display: flex;
-	align-items: center;
-
-	padding: 100px 20px !important;
 	@media (max-width: 575px) {
+		padding: 50px 20px;
 	}
 
 	.brand {
@@ -49,9 +46,9 @@ const SLinks = styled.ul`
 const Footer: React.FC<{}> = props => {
 	return (
 		<SFooter>
-			<Container>
-				<Row>
-					<Col xs={12} md={4} xl={5}>
+			<Section>
+				<Grid fluid={true}>
+					<Q pos={[1, 1]} md={4}>
 						<a className="brand" href="index.html">
 							<Image src={Logo} width={200} />
 						</a>
@@ -76,9 +73,8 @@ const Footer: React.FC<{}> = props => {
 							{/* <span>. </span> */}
 							{/* <b>All Rights Reserved.</b> */}
 						</p>
-					</Col>
-					<Col xs={1} />
-					<Col md={3}>
+					</Q>
+					<Q pos={[1, 2]} md={3}>
 						<h5>Links</h5>
 						<dl className="contact-list">
 							<dd>
@@ -100,14 +96,8 @@ const Footer: React.FC<{}> = props => {
 								</a>
 							</dd>
 						</dl>
-						{/* <dl className="contact-list">
-							<dt>Telegram:</dt>
-							<dd>
-								<a href="mailto:#">info@appmaven.io</a>
-							</dd>
-						</dl> */}
-					</Col>
-					<Col md={4} xl={3}>
+					</Q>
+					<Q pos={[1, 3]} md={3}>
 						<h5>Contact</h5>
 						<SLinks className="nav-list">
 							<dl className="contact-list">
@@ -135,9 +125,15 @@ const Footer: React.FC<{}> = props => {
 								</dd>
 							</dl>
 						</SLinks>
-					</Col>
-				</Row>
-			</Container>
+					</Q>
+					<Q pos={[1, 4]} md={2}>
+						<img
+							width={160}
+							src="https://monet.network/app/images/products/tenom.svg"
+						/>
+					</Q>
+				</Grid>
+			</Section>
 		</SFooter>
 	);
 };

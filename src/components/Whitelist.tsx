@@ -1,40 +1,41 @@
 import React from 'react';
 
+import utils from 'evm-lite-utils';
+import styled from 'styled-components';
+
+import { useSelector } from 'react-redux';
+
+import Figure from 'react-bootstrap/Figure';
+
 import Avatar from '../components/Avatar';
-import Table from '../components/Table';
 
-import { WhitelistEntry } from '../client';
+import { selectWhitelist } from '../selectors';
 
-type Props = {
-	whitelist: WhitelistEntry[];
-};
+type Props = {};
+
+const SWhitelist = styled.div`
+	.figure {
+		margin-right: 20px;
+	}
+`;
 
 const Whitelist: React.FC<Props> = props => {
+	const whitelist = useSelector(selectWhitelist);
+
 	return (
-		<>
-			<Table>
-				<thead>
-					<tr>
-						<th>Avatar</th>
-						<th>Moniker</th>
-						<th>Address</th>
-					</tr>
-				</thead>
-				<tbody>
-					{props.whitelist.map(wle => (
-						<tr key={wle.address}>
-							<td>
-								<Avatar address={wle.address} size={33} />
-							</td>
-							<td>
-								<b>{wle.moniker}</b>
-							</td>
-							<td className="mono">{wle.address}</td>
-						</tr>
-					))}
-				</tbody>
-			</Table>
-		</>
+		<SWhitelist>
+			{whitelist.map(wle => (
+				<Figure key={wle.moniker}>
+					<Figure.Image
+						height={44}
+						width={44}
+						src={`https://s.gravatar.com/avatar/${utils.trimHex(
+							wle.address
+						)}?size=100&default=retro`}
+					/>
+				</Figure>
+			))}
+		</SWhitelist>
 	);
 };
 

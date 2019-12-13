@@ -1,4 +1,4 @@
-export const DEV: boolean = false;
+export const DEV: boolean = true;
 
 export const DEV_HOST: string = 'localhost';
 export const DEV_PORT: number = 8000;

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Image from 'react-bootstrap/Image';
 
-import LoaderGif from '../assets/loader.svg';
+import LoaderGif from '../../assets/loader.svg';
 
 type Props = {
 	loading: boolean;

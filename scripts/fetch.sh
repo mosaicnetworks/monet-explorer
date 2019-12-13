@@ -1,1 +1,0 @@
-while true; do docker exec -it monet-explorer_django_1  python3 src/manage.py crontab run 7c2559ac4bdb6ddf59317837d9c30dbc; sleep 5; done

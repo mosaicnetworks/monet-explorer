@@ -1,6 +1,6 @@
 import request from 'request';
 
-import { IBaseAccount, IReceipt } from 'evm-lite-client';
+import { IReceipt } from 'evm-lite-client';
 
 import * as types from './types';
 
@@ -15,7 +15,7 @@ class CoreAPI extends Client {
 	public async getHashgraph(): Promise<any> {
 		return new Promise<any>((resolve, reject) => {
 			request.get(
-				`http://monet.appmaven.io:8080/graph`,
+				`http://172.77.5.10:8080/graph`,
 				(error, response, body) => {
 					if (error) {
 						return reject(error);
@@ -44,18 +44,6 @@ class CoreAPI extends Client {
 				}
 			);
 		});
-	}
-
-	/**
-	 * Search capabilities
-	 */
-	public async fetchAddress(
-		network: string,
-		address: string
-	): Promise<IBaseAccount> {
-		return JSON.parse(
-			await this.get(`/api/account/${address}/?network=${network}`)
-		);
 	}
 
 	/**

@@ -72,17 +72,15 @@ const SBlockAvatar = styled.div`
 	text-align: center !important;
 	height: 100%;
 	font-size: 17px;
-	font-family: Monet;
 	align-items: center;
 `;
 
 const SStat = styled.div`
 	transition: background 0.2s ease-out;
 	/* font-size: 15px; */
-	background: #fafafa;
-	padding: 10px 10px;
-	border: 1px solid #eee;
-	border-radius: 5px !important;
+	background: var(--light-blue);
+	padding: 10px 20px;
+	border-radius: 3px !important;
 	color: black !important;
 	text-decoration: none !important;
 	cursor: pointer;
@@ -109,7 +107,7 @@ const Block: React.FC<Props> = ({ block }) => {
 		<SBlock>
 			<Media>
 				<SBlockAvatar className="align-self-center mr-3">
-					Bk
+					{block.index}
 				</SBlockAvatar>
 				<Media.Body>
 					<h5>Block {block.index}</h5>

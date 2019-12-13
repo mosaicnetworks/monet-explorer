@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+@font-face {
+	font-family: 'Monet Main';
+	src: local('Monet Main'), url(./assets/fonts/Light.otf);
+	font-weight: 300;
+}
+
+@font-face {
+	font-family: 'Monet Main';
+	src: local('Monet Main'), url(./assets/fonts/Book.otf);
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: 'Monet Main';
+	src: local('Monet Main'), url(./assets/fonts/Medium.otf);
+	font-weight: 500;
+}
+
+@font-face {
+	font-family: 'Monet Main';
+	src: local('Monet Main'), url(./assets/fonts/Bold.otf);
+	font-weight: 600;
+}
+
+@font-face {
+	font-family: 'Monet Main';
+	src: local('Monet Main'), url(./assets/fonts/Black.otf);
+	font-weight: 700;
+}

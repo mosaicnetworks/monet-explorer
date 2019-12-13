@@ -13,11 +13,13 @@ const SAvatar = styled(Image)`
 type Props = {
 	address: string;
 	size?: number;
+	className?: string;
 };
 
 const Avatar: React.FC<Props> = props => {
 	return (
 		<SAvatar
+			className={props.className}
 			data-tip={utils.cleanAddress(props.address)}
 			src={`https://s.gravatar.com/avatar/${utils.trimHex(
 				props.address

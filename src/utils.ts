@@ -44,3 +44,15 @@ export const pubKeyToAddress = (pubkey: string) => {
 		.slice(-20)
 		.toString('hex');
 };
+
+export const parseNetworkName = (fullname: string) => {
+	const l = fullname.split('-');
+
+	const name = capitalize(l[0]);
+
+	if (l[1]) {
+		return `${name} v${l[1]}`;
+	}
+
+	return `${name}`;
+};

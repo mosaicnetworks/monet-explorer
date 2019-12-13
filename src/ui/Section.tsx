@@ -7,6 +7,8 @@ const SContainer = styled.div`
 	align-items: center;
 	overflow: hidden !important;
 
+	padding: 40px 0 !important;
+
 	${({ theme }) => `
 		padding: ${theme.padding}px 0 !important;
 		min-height: ${theme.height};
@@ -15,6 +17,7 @@ const SContainer = styled.div`
 	@media (max-width: 960px) {
 		padding: 70px 5px !important;
 	}
+
 	@media (max-width: 575px) {
 		padding: 30px 5px !important;
 	}

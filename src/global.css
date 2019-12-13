@@ -1,13 +1,16 @@
-@import url('https://fonts.googleapis.com/css?family=Fira+Code&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Titillium+Web:300,400,600,700&display=swap');
-
 @font-face {
-	font-family: 'MonetFont';
-	src: local('MonetFont'), url(./assets/fonts/monet.ttf);
+	font-family: 'Monet';
+	src: local('Monet'), url(./assets/fonts/monet.ttf);
 }
 
 * {
+	/* Newer MONET Colors */
+	--light-blue: #d6e5f5;
+	--light-orange: #feaf9a;
+	--light-green: #8deeb1;
+	--light-grey: rgba(242, 245, 248, 0.75);
+
+	/* Older MONET Colors */
 	--blue: #253c99;
 	--orange: #f16622;
 	--green: #02a24b;
@@ -16,11 +19,22 @@
 	--yellow: #ffe014;
 	--black: #1d2124;
 
-	/* Other */
-	--light-blue: #d6e5f5;
-	--light-orange: #feaf9a;
-	--light-green: #8deeb1;
-	--light-grey: rgba(242, 245, 248, 0.75);
+	/* Breakpoints */
+	--breakpoint-xs: 0;
+	--breakpoint-sm: 576px;
+	--breakpoint-md: 768px;
+	--breakpoint-lg: 992px;
+	--breakpoint-xl: 1200px;
+}
+
+body {
+	margin: 0;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	background: #f8f8f8;
+	font-family: 'Monet Main', sans-serif !important;
+	font-size: 17px !important;
 }
 
 h1,
@@ -28,35 +42,12 @@ h2,
 h3,
 h4,
 h5 {
-	font-weight: 600;
 }
 
-body {
-	margin: 0;
-	-webkit-font-smoothing: antialiased;
-	/* background: rgb(240, 247, 250) !important; */
-	background: #fff !important;
-}
-
-pre,
-code {
-	font-family: 'Fira Code', monospace !important;
-	/* color: rgba(91, 54, 108, 1); */
-	word-wrap: break-word;
-}
-
-label {
-	font-weight: 500 !important;
+b {
+	font-weight: 500;
 }
 
 a {
-	color: rgba(31, 66, 146, 1) !important;
-}
-
-input {
-	font-size: 14px !important;
-}
-
-.bigger {
-	padding: 7px 20px !important;
+	color: var(--blue);
 }
