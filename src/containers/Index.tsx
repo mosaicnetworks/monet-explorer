@@ -13,6 +13,7 @@ import Loader from '../components/utils/Loader';
 import Nominees from '../components/Nominees';
 import Blocks from '../components/Blocks';
 import Statistics from '../components/Statistics';
+import Jumbotron from '../components/Jumbotron';
 import Transactions from '../components/Transactions';
 import Validators from '../components/Validators';
 import Whitelist from '../components/Whitelist';
@@ -34,6 +35,7 @@ const SContent = styled.div`
 const Index: React.FC<{}> = () => {
 	return (
 		<>
+			<Jumbotron />
 			<Stats />
 			<br />
 			<Section padding={30}>

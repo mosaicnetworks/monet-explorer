@@ -127,8 +127,8 @@ const Footer: React.FC<{}> = props => {
 					</Q>
 					<Q pos={[1, 4]} md={2}>
 						<img
-							width={160}
-							src="https://monet.network/app/images/products/tenom.svg"
+							width={250}
+							src="https://monet.network/app/images/illustrations/other/jobs.svg"
 						/>
 					</Q>
 				</Grid>

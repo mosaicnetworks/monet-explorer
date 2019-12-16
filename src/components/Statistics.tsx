@@ -24,7 +24,11 @@ const SContentPadded = styled.div`
 `;
 
 const SStats = styled.div`
-	background: var(--light-grey);
+	background: var(--light-blue);
+
+	h1 {
+		font-size: 35px;
+	}
 
 	p {
 		margin-bottom: 0 !important;

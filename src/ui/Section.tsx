@@ -24,7 +24,7 @@ const SContainer = styled.div`
 
 	.col {
 		img {
-			max-width: 100%;
+			max-width: 150%;
 			object-fit: cover;
 		}
 	}

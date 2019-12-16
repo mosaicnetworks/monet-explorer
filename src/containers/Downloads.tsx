@@ -95,7 +95,7 @@ const Downloads: React.FC<{}> = () => {
 			</SMonet>
 			<Section>
 				<Grid fluid={true}>
-					<Q pos={[1, 2]}>
+					<Q pos={[1, 1]} className="mr-5">
 						<h3>Monet Wallet</h3>
 						<div>
 							Monetd is the daemon component of the Monet
@@ -113,7 +113,7 @@ const Downloads: React.FC<{}> = () => {
 							<Button className="mr-2">Windows</Button>
 						</div>
 					</Q>
-					<Q pos={[1, 1]} className="text-center zero-padding mr-5">
+					<Q pos={[1, 2]} className="text-center zero-padding mr-5">
 						<img src={WALLET} />
 					</Q>
 				</Grid>
