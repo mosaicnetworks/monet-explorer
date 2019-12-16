@@ -6,9 +6,10 @@ import styled from 'styled-components';
 
 import Media from 'react-bootstrap/Media';
 
+import Avatar from './Avatar';
+
 import { fetchNetworkBlocks } from '../modules/dashboard';
 import { selectBlocks } from '../selectors';
-import Avatar from './Avatar';
 import { pubKeyToAddress } from '../utils';
 
 const SBlocks = styled.div`
@@ -29,6 +30,22 @@ const SBlocks = styled.div`
 	}
 `;
 
+const SBlockAvatar = styled.div`
+	transition: background 0.2s ease-out;
+	/* font-size: 15px; */
+	background: #eee;
+	padding: 18px 15px;
+	border-radius: 5px !important;
+	color: black !important;
+	text-decoration: none !important;
+	cursor: pointer;
+	font-weight: 700;
+	text-align: center !important;
+	height: 100%;
+	font-size: 14px;
+	align-items: center;
+`;
+
 const Explore: React.FC<{}> = () => {
 	const dispatch = useDispatch();
 	const fetchBlocks = () => dispatch(fetchNetworkBlocks());
@@ -41,8 +58,11 @@ const Explore: React.FC<{}> = () => {
 
 	return (
 		<SBlocks>
-			{blocks.slice(0, 7).map(b => (
+			{blocks.map(b => (
 				<Media key={b.index}>
+					<SBlockAvatar className="align-self-center mr-3">
+						#{b.index}
+					</SBlockAvatar>
 					<Media.Body>
 						<p className="small">Signatures</p>
 						<p className="">
@@ -59,11 +79,11 @@ const Explore: React.FC<{}> = () => {
 					</Media.Body>
 					<div className="d-none d-md-block align-self-center mr-5">
 						<b>{b.transactions.length}</b>
-						<div className="small">Tx Count</div>
+						<div className="small">Transactions</div>
 					</div>
-					<div className="d-none d-md-block align-self-center mr-5">
+					<div className="d-none d-md-block align-self-center mr-2">
 						<b>{b.internal_transactions.length}</b>
-						<div className="small">Internal Tx Count</div>
+						<div className="small">Internal Tx</div>
 					</div>
 				</Media>
 			))}

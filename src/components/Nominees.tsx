@@ -1,62 +1,73 @@
 import React from 'react';
 
+import styled from 'styled-components';
+
 import { useSelector } from 'react-redux';
 
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
+import Media from 'react-bootstrap/Media';
 
 import Avatar from './Figure';
-import Table from '../components/Table';
 
 import GreenUp from '../assets/green-up.png';
 import RedDown from '../assets/red-down.png';
 
 import { selectNominees } from '../selectors';
+import { capitalize } from '../utils';
 
 type Props = {};
 
+const SNominees = styled.div`
+	.media {
+		background: #fff;
+		padding: 15px 20px;
+		border: 1px solid #eee;
+		margin-bottom: 5px;
+		border-radius: 3px !important;
+
+		p {
+			margin-bottom: 0 !important;
+		}
+	}
+
+	.media-body {
+		min-width: 200px;
+	}
+`;
 const Nominees: React.FC<Props> = props => {
 	const nominees = useSelector(selectNominees);
 
 	return (
-		<>
-			<Table>
-				<thead>
-					<tr>
-						<th>Nominee</th>
-						<th>Votes</th>
-						<th>Moniker</th>
-						<th>Address</th>
-					</tr>
-				</thead>
-				<tbody>
-					{nominees.map(n => (
-						<tr key={n.address}>
-							<td>
-								<Avatar address={n.address} size={33} />
-							</td>
-							<td style={{ padding: '0 !important' }}>
-								<Row noGutters={true}>
-									<Col md={6}>
-										<Image width={10} src={GreenUp} />
-										{n.upVotes}
-									</Col>
-									<Col md={6}>
-										<Image width={10} src={RedDown} />
-										{n.downVotes}
-									</Col>
-								</Row>
-							</td>
-							<td>
-								<b>{n.moniker}</b>
-							</td>
-							<td className="mono">{n.address}</td>
-						</tr>
-					))}
-				</tbody>
-			</Table>
-		</>
+		<SNominees>
+			{nominees.map(n => (
+				<Media key={n.address}>
+					<Avatar
+						address={n.address}
+						size={40}
+						className="mr-3 "
+						key={n.address}
+					/>
+					<Media.Body>
+						<b>{capitalize(n.moniker)}</b>
+						<p className="small mono">{n.address}</p>
+					</Media.Body>
+					<div className="d-none d-md-block align-self-center mr-5">
+						<b>{n.upVotes}</b>
+						<div className="small">
+							<Image width={10} src={GreenUp} />
+						</div>
+					</div>
+					<div className="d-none d-md-block align-self-center mr-5">
+						<b>{n.downVotes}</b>
+						<div className="small">
+							<Image width={10} src={RedDown} />
+						</div>
+					</div>
+				</Media>
+			))}
+		</SNominees>
 	);
 };
 

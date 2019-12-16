@@ -18,11 +18,11 @@ import {
 	selectNetwork as selectNetworkAction
 } from '../modules/dashboard';
 import { selectAllNetworks } from '../selectors';
-import { parseNetworkName } from '../utils';
+import { capitalize, parseNetworkName } from '../utils';
 
 const SNavbar = styled(Navbar)`
 	box-shadow: rgba(0, 0, 0, 0.0392157) 0px 0px 1px 0px !important;
-	border-bottom: 1px solid #f3f3f3;
+	/* border-bottom: 1px solid #f3f3f3; */
 `;
 
 const SNav = styled(Nav)`
@@ -57,12 +57,7 @@ const Header: React.FC<{}> = () => {
 	}, [networks]);
 
 	return (
-		<SNavbar
-			bg={'dark'}
-			expand="lg"
-			variant="dark"
-			className="justify-content-between"
-		>
+		<SNavbar bg={'dark'} expand="lg" variant="dark">
 			<Container fluid={true} className="">
 				<Navbar.Brand>
 					<span className="monet">
@@ -78,10 +73,15 @@ const Header: React.FC<{}> = () => {
 					className="justify-content-end"
 				>
 					<SNav activeKey="/">
-						{/* <Nav.Item>
-							<Nav.Link as="span">POA</Nav.Link>
-						</Nav.Item> */}
-						<NavDropdown title="Networks" id="nav-dropdown">
+						<Nav.Item>
+							<Link to={'/downloads'}>
+								<Nav.Link as="span">Downloads</Nav.Link>
+							</Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Nav.Link as="span">Hashgraph</Nav.Link>
+						</Nav.Item>
+						<NavDropdown title={'Camille V6'} id="nav-dropdown">
 							{networks.map((n, i) => (
 								<NavDropdown.Item key={`${n.name}-${i}`}>
 									{parseNetworkName(n.name)}
@@ -100,13 +100,13 @@ const Header: React.FC<{}> = () => {
 							</Button>
 						</Link>
 					</SExplore> */}
-					{/* <SExplore>
+					<SExplore>
 						<Link to={'/'}>
 							<Button variant={'warning'} className="bigger">
-								Hashgraph
+								Faucet
 							</Button>
 						</Link>
-					</SExplore> */}
+					</SExplore>
 				</Navbar.Collapse>
 			</Container>
 		</SNavbar>

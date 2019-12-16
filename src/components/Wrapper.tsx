@@ -24,7 +24,7 @@ const Wrapper: React.FC<{}> = props => {
 			<ScrollTop />
 			<Header />
 			<SWrapper>{props.children}</SWrapper>
-			{/* <Footer /> */}
+			<Footer />
 		</>
 	);
 };

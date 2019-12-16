@@ -2,6 +2,9 @@ import React from 'react';
 
 import styled from 'styled-components';
 
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 
 import Await from '../components/utils/Await';
@@ -17,50 +20,50 @@ import Section, { Grid, Q } from '../ui';
 
 import Image from 'react-bootstrap/Image';
 import TENOM from '../assets/tenom.svg';
+import Stats from '../components/Statistics';
 
-const SJumbotron = styled.div``;
-
-const SValidators = styled.div`
-	background: #fff;
-`;
-
-const SPOA = styled.div`
-	background: #fff;
-`;
-
-const SUnderHeader = styled.div`
-	background: #fff;
+const SContent = styled.div`
+	margin-bottom: 70px;
 `;
 
 const Index: React.FC<{}> = () => {
 	return (
 		<>
-			<SJumbotron>
-				<Section padding={30}>
-					<Grid verticalAlign={false} fluid={true}>
-						<Q pos={[1, 1]} md={7}>
-							<h3 className="preheader">Validators</h3>
-							<Validators />
-						</Q>
-						<Q pos={[1, 2]} md={5}>
-							<h3 className="preheader">Whitelist</h3>
-							<Whitelist />
-						</Q>
-					</Grid>
-				</Section>
-			</SJumbotron>
-			<Section>
-				<Grid verticalAlign={false} fluid={true}>
-					<Q pos={[1, 1]} md={6}>
-						<h3 className="preheader">Blocks</h3>
-						<Blocks />
-					</Q>
-					<Q pos={[1, 2]} md={6}>
-						<h3 className="preheader">Transactions</h3>
-						<br /> <Transactions />
-					</Q>
-				</Grid>
-			</Section>{' '}
+			<Stats />
+			<Section padding={30}>
+				<Container fluid={true}>
+					<Row>
+						<Col md={7}>
+							<SContent>
+								<h3 className="preheader">
+									Current Validators
+								</h3>
+								<Validators />
+							</SContent>
+							<SContent>
+								<h3 className="preheader">Latest Blocks</h3>
+								<Blocks />
+							</SContent>
+						</Col>
+						<Col md={5}>
+							<SContent>
+								<h3 className="preheader">Whitelist</h3>
+								<Whitelist />
+							</SContent>
+							<SContent>
+								<h3 className="preheader">Nominees</h3>
+								<Nominees />
+							</SContent>
+							<SContent>
+								<h3 className="preheader">
+									Latest Transactions
+								</h3>
+								<Transactions />
+							</SContent>
+						</Col>
+					</Row>
+				</Container>
+			</Section>
 		</>
 	);
 };

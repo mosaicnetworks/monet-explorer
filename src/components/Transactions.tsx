@@ -38,16 +38,35 @@ const STransactions = styled.div`
 	.media-body {
 		min-width: 200px;
 	}
+
+	.purpleasd {
+	}
 `;
 
-const STransferText = styled.div`
-	color: var(--green);
-	font-weight: 600 !important;
+const SCallType = styled.div`
+	transition: background 0.2s ease-out;
+	padding: 18px 15px;
+	min-width: 50px;
+	border-radius: 5px !important;
+	text-decoration: none !important;
+	cursor: pointer;
+	text-align: center !important;
+	height: 100%;
+	font-size: 13px;
+	align-items: center;
+	min-width: 60px;
 `;
 
-const SContractText = styled.div`
-	color: var(--purple);
+const SPOA = styled(SCallType)`
+	background: var(--purple) !important;
 	font-weight: 600 !important;
+	color: white !important;
+`;
+
+const STransfer = styled(SCallType)`
+	background: var(--green) !important;
+	font-weight: 600 !important;
+	color: white !important;
 `;
 
 type Props = {};
@@ -64,26 +83,30 @@ const Transaction: React.FC<Props> = props => {
 
 	return (
 		<STransactions>
-			{transactions.map((t, i) => (
+			{transactions.slice(0, 15).map((t, i) => (
 				<Media key={`transaction-${i}`}>
+					{t.payload.length > 0 ? (
+						<SPOA className="purpleasd d-none d-md-block align-text-end align-self-center mr-4">
+							<div>POA</div>
+						</SPOA>
+					) : (
+						<STransfer className="purpleasd d-none d-md-block align-text-end align-self-center mr-4">
+							<div>TX</div>
+						</STransfer>
+					)}
+
 					<Avatar
 						className="mr-5"
 						address={t.sender}
-						size={40}
+						size={35}
 						caption={'From'}
 					/>
 					<Avatar
 						className="mr-5"
-						address={t.sender}
-						size={40}
+						address={t.to}
+						size={35}
 						caption={'To'}
 					/>
-					<div className="d-none d-md-block align-self-center mr-5">
-						{new Currency(
-							t.amount === '0' ? 0 : t.amount + 'a'
-						).format('T')}
-						<div className="small">Tenom</div>
-					</div>
 					<div className="d-none d-md-block align-self-center mr-5">
 						{commaSeperate(t.gas)}
 						<div className="small">Gas</div>
@@ -92,19 +115,11 @@ const Transaction: React.FC<Props> = props => {
 						{t.gas_price}
 						<div className="small">Gas Price</div>
 					</div>
-					<div className="d-none d-md-block align-self-center mr-5" />
-					<div className="d-none d-md-block align-text-end align-self-center mr-2">
-						{(t.payload.length > 0 && (
-							<>
-								<SContractText className="small">
-									Contract Call
-								</SContractText>
-							</>
-						)) || (
-							<STransferText className="small">
-								Transfer
-							</STransferText>
-						)}
+					<div className="d-none d-md-block align-self-center mr-2">
+						{new Currency(
+							t.amount === '0' ? 0 : t.amount + 'a'
+						).format('T')}
+						<div className="small">Tenom</div>
 					</div>
 				</Media>
 			))}

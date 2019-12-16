@@ -21,18 +21,18 @@ import Section, { Grid, Q } from '../ui';
 
 const SContentPadded = styled.div`
 	text-align: center;
-	padding: 20px 0 !important;
 `;
 
 const SStats = styled.div`
-	/* background: var(--blue); */
-	/* color: white; */
+	background: var(--light-blue);
+	margin-bottom: 30px;
 
 	h1 {
 		font-size: 35px;
 	}
 
 	p {
+		margin-bottom: 0 !important;
 	}
 `;
 
@@ -81,8 +81,8 @@ const Stats: React.FC<{}> = props => {
 
 	return (
 		<SStats>
-			<Section padding={15}>
-				<Grid fluid={true}>
+			<Section padding={20}>
+				<Grid verticalAlign={true} fluid={true}>
 					<Q pos={[1, 1]}>
 						<SContentPadded>
 							<Media>

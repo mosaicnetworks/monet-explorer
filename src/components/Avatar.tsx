@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
+import ReactTooltip from 'react-tooltip';
 
 import utils from 'evm-lite-utils';
 import styled from 'styled-components';
@@ -17,6 +19,10 @@ type Props = {
 };
 
 const Avatar: React.FC<Props> = props => {
+	useEffect(() => {
+		ReactTooltip.rebuild();
+	}, []);
+
 	return (
 		<SAvatar
 			className={props.className}

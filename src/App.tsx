@@ -8,6 +8,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import Wrapper from './components/Wrapper';
 
 import Index from './containers/Index';
+import Downloads from './containers/Downloads';
 
 import { fetchNetworks } from './modules/dashboard';
 
@@ -25,6 +26,11 @@ const App: React.FC = () => {
 			<BrowserRouter>
 				<Wrapper>
 					<Route exact={true} path="/" component={Index} />
+					<Route
+						exact={true}
+						path="/downloads"
+						component={Downloads}
+					/>
 				</Wrapper>
 			</BrowserRouter>
 		</>
