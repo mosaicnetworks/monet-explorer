@@ -15,7 +15,7 @@ type Props = {};
 
 const SWhitelist = styled.div`
 	.media {
-		background: #fff;
+		background: var(--light-grey);
 		padding: 15px 20px;
 		border: 1px solid #eee;
 		margin-bottom: 5px;

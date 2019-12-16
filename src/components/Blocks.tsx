@@ -14,7 +14,7 @@ import { pubKeyToAddress } from '../utils';
 
 const SBlocks = styled.div`
 	.media {
-		background: #fff;
+		background: var(--light-grey);
 		padding: 15px 20px;
 		border: 1px solid #eee;
 		margin-bottom: 5px;
@@ -46,7 +46,7 @@ const SBlockAvatar = styled.div`
 	align-items: center;
 `;
 
-const Explore: React.FC<{}> = () => {
+const Blocks: React.FC<{}> = () => {
 	const dispatch = useDispatch();
 	const fetchBlocks = () => dispatch(fetchNetworkBlocks());
 
@@ -91,4 +91,4 @@ const Explore: React.FC<{}> = () => {
 	);
 };
 
-export default Explore;
+export default Blocks;

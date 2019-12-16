@@ -78,9 +78,14 @@ const Header: React.FC<{}> = () => {
 								<Nav.Link as="span">Downloads</Nav.Link>
 							</Link>
 						</Nav.Item>
-						<Nav.Item>
+						{/* <Nav.Item>
 							<Nav.Link as="span">Hashgraph</Nav.Link>
 						</Nav.Item>
+						<Nav.Item>
+							<Link to={'/faucet'}>
+								<Nav.Link as="span">Faucet</Nav.Link>
+							</Link>
+						</Nav.Item> */}
 						<NavDropdown title={'Camille V6'} id="nav-dropdown">
 							{networks.map((n, i) => (
 								<NavDropdown.Item key={`${n.name}-${i}`}>
@@ -101,9 +106,9 @@ const Header: React.FC<{}> = () => {
 						</Link>
 					</SExplore> */}
 					<SExplore>
-						<Link to={'/'}>
+						<Link to={'/explore'}>
 							<Button variant={'warning'} className="bigger">
-								Faucet
+								Explore
 							</Button>
 						</Link>
 					</SExplore>

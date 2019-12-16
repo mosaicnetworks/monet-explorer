@@ -21,6 +21,17 @@ const SContainer = styled.div`
 	@media (max-width: 575px) {
 		padding: 30px 5px !important;
 	}
+
+	.col {
+		img {
+			max-width: 100%;
+			object-fit: cover;
+		}
+	}
+
+	.zero-padding {
+		padding: 0 !important;
+	}
 `;
 
 type Props = {

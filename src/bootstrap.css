@@ -75,8 +75,9 @@
 
 .btn-warning:hover,
 .btn-warning:active {
-	color: white;
-	background: #d35a1e;
+	color: white !important;
+	background: #d35a1e !important;
+	border-color: #d35a1e !important;
 }
 
 .btn-outline-warning {

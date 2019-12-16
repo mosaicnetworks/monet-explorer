@@ -2,7 +2,6 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import Alert from 'react-bootstrap/Alert';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -24,7 +23,7 @@ import TENOM from '../assets/tenom.svg';
 import Stats from '../components/Statistics';
 
 const SContent = styled.div`
-	margin-bottom: 50px;
+	margin-bottom: 70px;
 
 	@media (max-width: 575px) {
 		margin-bottom: 30px;
@@ -34,31 +33,19 @@ const SContent = styled.div`
 const Index: React.FC<{}> = () => {
 	return (
 		<>
-			<Stats />
-			<br />
 			<Section padding={30}>
 				<Container fluid={true}>
 					<Row>
-						<Col md={7}>
+						<Col md={6}>
 							<SContent>
-								<h3 className="preheader">
-									Current Validators
-								</h3>
-								<Validators />
-							</SContent>
-							<SContent>
-								<h3 className="preheader">Nominees</h3>
-								<Nominees />
+								<h3 className="preheader">Latest Blocks</h3>
+								<Blocks />
 							</SContent>
 						</Col>
-						<Col md={5}>
+						<Col md={6}>
 							<SContent>
-								<h3 className="preheader">Whitelist</h3>
-								<Whitelist />
-							</SContent>
-							<SContent>
-								<h3 className="preheader">Evictees</h3>
-								<Nominees />
+								<h3 className="preheader">Transactions</h3>
+								<Transactions />
 							</SContent>
 						</Col>
 					</Row>

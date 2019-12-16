@@ -24,12 +24,7 @@ const SContentPadded = styled.div`
 `;
 
 const SStats = styled.div`
-	background: var(--light-blue);
-	margin-bottom: 30px;
-
-	h1 {
-		font-size: 35px;
-	}
+	background: var(--light-grey);
 
 	p {
 		margin-bottom: 0 !important;
@@ -80,9 +75,9 @@ const Stats: React.FC<{}> = props => {
 	}, [network]);
 
 	return (
-		<SStats>
+		<SStats className="d-none d-md-block">
 			<Section padding={20}>
-				<Grid verticalAlign={true} fluid={true}>
+				<Grid fluid={true} verticalAlign={true}>
 					<Q pos={[1, 1]}>
 						<SContentPadded>
 							<Media>

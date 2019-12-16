@@ -21,7 +21,7 @@ type Props = {};
 
 const SNominees = styled.div`
 	.media {
-		background: #fff;
+		background: var(--light-grey);
 		padding: 15px 20px;
 		border: 1px solid #eee;
 		margin-bottom: 5px;
@@ -41,6 +41,11 @@ const Nominees: React.FC<Props> = props => {
 
 	return (
 		<SNominees>
+			{nominees.length === 0 && (
+				<div style={{ color: 'var(--orange)' }}>
+					There currently no nominees
+				</div>
+			)}
 			{nominees.map(n => (
 				<Media key={n.address}>
 					<Avatar

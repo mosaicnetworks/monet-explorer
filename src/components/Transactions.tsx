@@ -18,13 +18,13 @@ import {
 	selectTransactions,
 	selectTxsLoading
 } from '../selectors';
-import { commaSeperate } from '../utils';
+import { commaSeperate, parseBalance } from '../utils';
 
 import Section, { Grid, Q } from '../ui';
 
 const STransactions = styled.div`
 	.media {
-		background: #fff;
+		background: var(--light-grey);
 		padding: 15px 20px;
 		border: 1px solid #eee;
 		margin-bottom: 5px;
@@ -45,9 +45,9 @@ const STransactions = styled.div`
 
 const SCallType = styled.div`
 	transition: background 0.2s ease-out;
-	padding: 18px 15px;
+	padding: 15px 7px;
 	min-width: 50px;
-	border-radius: 5px !important;
+	border-radius: 3px !important;
 	text-decoration: none !important;
 	cursor: pointer;
 	text-align: center !important;
@@ -58,15 +58,14 @@ const SCallType = styled.div`
 `;
 
 const SPOA = styled(SCallType)`
-	background: var(--purple) !important;
+	background: var(--light-orange) !important;
 	font-weight: 600 !important;
 	color: white !important;
 `;
 
 const STransfer = styled(SCallType)`
-	background: var(--green) !important;
+	background: var(--light-green) !important;
 	font-weight: 600 !important;
-	color: white !important;
 `;
 
 type Props = {};
@@ -83,7 +82,7 @@ const Transaction: React.FC<Props> = props => {
 
 	return (
 		<STransactions>
-			{transactions.slice(0, 15).map((t, i) => (
+			{transactions.map((t, i) => (
 				<Media key={`transaction-${i}`}>
 					{t.payload.length > 0 ? (
 						<SPOA className="purpleasd d-none d-md-block align-text-end align-self-center mr-4">
@@ -116,9 +115,9 @@ const Transaction: React.FC<Props> = props => {
 						<div className="small">Gas Price</div>
 					</div>
 					<div className="d-none d-md-block align-self-center mr-2">
-						{new Currency(
-							t.amount === '0' ? 0 : t.amount + 'a'
-						).format('T')}
+						{parseBalance(
+							new Currency(t.amount === '0' ? 0 : t.amount + 'a')
+						)}
 						<div className="small">Tenom</div>
 					</div>
 				</Media>

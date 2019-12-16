@@ -8,7 +8,9 @@
 	--light-blue: #d6e5f5;
 	--light-orange: #feaf9a;
 	--light-green: #8deeb1;
-	--light-grey: rgba(242, 245, 248, 0.75);
+	--light-grey: rgba(242, 245, 248, 0.3);
+
+	--lighter-orange: #fba58a;
 
 	/* Older MONET Colors */
 	--blue: #253c99;
@@ -32,7 +34,7 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
-	background: #f8f8f8;
+	background: #fff;
 	font-family: 'Monet Main', sans-serif !important;
 	font-size: 17px !important;
 }

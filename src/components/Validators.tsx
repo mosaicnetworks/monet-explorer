@@ -31,7 +31,7 @@ const Orange = styled.div`
 
 const SValidators = styled.div`
 	.media {
-		background: #fff;
+		background: var(--light-grey);
 		padding: 15px 20px;
 		border: 1px solid #eee;
 		margin-bottom: 5px;
@@ -57,6 +57,21 @@ const SStatus = styled.div`
 	position: relative !important;
 	top: -13px !important;
 	left: -10px;
+`;
+
+const SBottom = styled.div`
+	margin-top: -5px;
+	background: #f8f8f8;
+	padding: 8px 20px;
+	font-size: 12px;
+	letter-spacing: 1px;
+	font-weight: 600;
+	text-transform: uppercase;
+	border: 1px solid #eee;
+
+	a {
+		color: var(--orange);
+	}
 `;
 
 const stateStyling = (state: string) => {
@@ -99,7 +114,7 @@ const Validators: React.FC<Props> = props => {
 						)}
 					</SStatus>
 					<Media.Body>
-						<b> {v.moniker}</b>
+						<b> {v.moniker || '-'}</b>
 						<p className="small mono">{v.host}</p>
 					</Media.Body>
 					<div className="d-none d-md-block align-self-center mr-5">
@@ -124,7 +139,14 @@ const Validators: React.FC<Props> = props => {
 		});
 	};
 
-	return <SValidators>{rendervalidators()}</SValidators>;
+	return (
+		<>
+			<SValidators>{rendervalidators()}</SValidators>
+			<SBottom>
+				<Link to={'/history'}>View History</Link>
+			</SBottom>
+		</>
+	);
 };
 
 export default Validators;

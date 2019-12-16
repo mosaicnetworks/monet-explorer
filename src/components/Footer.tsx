@@ -15,9 +15,8 @@ import Logo from '../assets/monet.svg';
 import Section, { Grid, Q } from '../ui';
 
 const SFooter = styled.div`
-	background: var(--black);
+	background: var(--blue);
 	background-size: cover;
-	background: rgba(31, 66, 146, 1);
 	color: #fff;
 	/* border-top: 1px solid #333; */
 	margin-top: 100px;
