@@ -14,7 +14,7 @@ import Loader from '../components/utils/Loader';
 
 import CoreAPI from '../client';
 
-import { DEV } from '../const';
+import { DEV } from '../CONST';
 import { selectNetwork, selectNominees, selectValidators } from '../selectors';
 
 import Section, { Grid, Q } from '../ui';
