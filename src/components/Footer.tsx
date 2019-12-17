@@ -46,7 +46,7 @@ const Footer: React.FC<{}> = props => {
 	return (
 		<SFooter>
 			<Section>
-				<Grid fluid={true}>
+				<Grid verticalAlign={false} fluid={true}>
 					<Q pos={[1, 1]} md={5} className="mr-4">
 						<a className="brand" href="index.html">
 							<Image src={Logo} width={200} />
