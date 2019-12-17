@@ -47,13 +47,13 @@ const Footer: React.FC<{}> = props => {
 		<SFooter>
 			<Section>
 				<Grid fluid={true}>
-					<Q pos={[1, 1]} md={4}>
+					<Q pos={[1, 1]} md={5} className="mr-4">
 						<a className="brand" href="index.html">
 							<Image src={Logo} width={200} />
 						</a>
 						<br />
 						<br />
-						<p>
+						<p className="pr-sm-2 pr-md-5">
 							Camille is a public test version of the{' '}
 							<a href="https://monet.network/faq.html">
 								MONET Hub
@@ -73,7 +73,7 @@ const Footer: React.FC<{}> = props => {
 							{/* <b>All Rights Reserved.</b> */}
 						</p>
 					</Q>
-					<Q pos={[1, 2]} md={3}>
+					<Q pos={[1, 2]} md={2}>
 						<h5>Links</h5>
 						<dl className="contact-list">
 							<dd>
@@ -96,7 +96,7 @@ const Footer: React.FC<{}> = props => {
 							</dd>
 						</dl>
 					</Q>
-					<Q pos={[1, 3]} md={3}>
+					<Q pos={[1, 3]} md={2}>
 						<h5>Contact</h5>
 						<SLinks className="nav-list">
 							<dl className="contact-list">
@@ -125,8 +125,9 @@ const Footer: React.FC<{}> = props => {
 							</dl>
 						</SLinks>
 					</Q>
-					<Q pos={[1, 4]} md={2}>
+					<Q pos={[1, 4]} className="text-center">
 						<img
+							className="mt-sm-5 mt-md-0"
 							width={250}
 							src="https://monet.network/app/images/illustrations/other/jobs.svg"
 						/>

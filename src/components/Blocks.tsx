@@ -67,6 +67,7 @@ const Blocks: React.FC<Props> = props => {
 
 	return (
 		<SBlocks>
+			{blocks.length === 0 && 'No blocks to display.'}
 			{blocks.map(b => (
 				<Media key={b.index}>
 					<SBlockAvatar className="align-self-center mr-3">

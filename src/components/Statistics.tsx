@@ -21,6 +21,7 @@ import Section, { Grid, Q } from '../ui';
 
 const SContentPadded = styled.div`
 	text-align: center;
+	padding: 15px 0;
 `;
 
 const SStats = styled.div`
@@ -80,22 +81,21 @@ const Stats: React.FC<{}> = props => {
 
 	return (
 		<SStats className="d-none d-md-block">
-			<Section padding={15}>
-				<Grid fluid={true} verticalAlign={true}>
-					<Q pos={[1, 1]}>
-						<SContentPadded>
-							<Media>
-								{/* <img
+			<Grid fluid={true} verticalAlign={true}>
+				<Q pos={[1, 1]}>
+					<SContentPadded>
+						<Media>
+							{/* <img
 									src="https://image.flaticon.com/icons/png/512/1835/1835982.png"
 									width="50"
 									className="align-self-center mr-4"
 								/> */}
-								<Media.Body>
-									<h1>{blockHeight}</h1>
-									<p className="preheader">Block Height</p>
-								</Media.Body>
-							</Media>
-							{/* <div style={{ fontWeight: 600 }}>Block Height</div>
+							<Media.Body>
+								<h1>{blockHeight}</h1>
+								<p className="preheader">Block Height</p>
+							</Media.Body>
+						</Media>
+						{/* <div style={{ fontWeight: 600 }}>Block Height</div>
 						<Await
 							loading={statLoading}
 							fallback={
@@ -106,25 +106,25 @@ const Stats: React.FC<{}> = props => {
 						>
 							<h1>{blockHeight}</h1>
 						</Await> */}
-						</SContentPadded>
-					</Q>
-					<Q pos={[1, 2]}>
-						<SContentPadded>
-							<Media>
-								{/* <img
+					</SContentPadded>
+				</Q>
+				<Q pos={[1, 2]}>
+					<SContentPadded>
+						<Media>
+							{/* <img
 									src="https://image.flaticon.com/icons/png/512/1573/1573856.png"
 									width="50"
 									className="align-self-center mr-4"
 								/> */}
-								<Media.Body>
-									<h1>
-										{txCount + intTxCount}
-										<small>({intTxCount})</small>
-									</h1>
-									<p className="preheader">Total Txs</p>
-								</Media.Body>
-							</Media>
-							{/* <div style={{ fontWeight: 600 }}>
+							<Media.Body>
+								<h1>
+									{txCount + intTxCount}
+									<small>({intTxCount})</small>
+								</h1>
+								<p className="preheader">Total Txs</p>
+							</Media.Body>
+						</Media>
+						{/* <div style={{ fontWeight: 600 }}>
 							Total Transactions (Internal)
 						</div>
 						<Await
@@ -140,46 +140,45 @@ const Stats: React.FC<{}> = props => {
 								<small>({intTxCount})</small>
 							</h1>
 						</Await> */}
-						</SContentPadded>
-					</Q>
-					<Q pos={[1, 3]}>
-						<SContentPadded>
-							<Media>
-								{/* <img
+					</SContentPadded>
+				</Q>
+				<Q pos={[1, 3]}>
+					<SContentPadded>
+						<Media>
+							{/* <img
 									src="https://image.flaticon.com/icons/png/512/626/premium/626827.png"
 									width="50"
 									className="align-self-center mr-4"
 								/> */}
-								<Media.Body>
-									<h1>{validators.length}</h1>
-									<p className="preheader">Validators</p>
-								</Media.Body>
-							</Media>
-							{/* <div style={{ fontWeight: 600 }}>Validators</div>{' '}
+							<Media.Body>
+								<h1>{validators.length}</h1>
+								<p className="preheader">Validators</p>
+							</Media.Body>
+						</Media>
+						{/* <div style={{ fontWeight: 600 }}>Validators</div>{' '}
 						<h1>{validators.length}</h1> */}
-						</SContentPadded>
-					</Q>
-					<Q pos={[1, 4]}>
-						<SContentPadded>
-							<Media>
-								{/* <img
+					</SContentPadded>
+				</Q>
+				<Q pos={[1, 4]}>
+					<SContentPadded>
+						<Media>
+							{/* <img
 									src="https://image.flaticon.com/icons/png/512/2116/premium/2116800.png"
 									width="50"
 									className="align-self-center mr-4"
 								/> */}
-								<Media.Body>
-									<h1>{nominees.length}</h1>
-									<p className="preheader">Nominees</p>
-								</Media.Body>
-							</Media>
-							{/* <div style={{ fontWeight: 600 }}>
+							<Media.Body>
+								<h1>{nominees.length}</h1>
+								<p className="preheader">Nominees</p>
+							</Media.Body>
+						</Media>
+						{/* <div style={{ fontWeight: 600 }}>
 								Current Nominees
 							</div>
 							<h1>{nominees.length}</h1> */}
-						</SContentPadded>
-					</Q>
-				</Grid>
-			</Section>
+					</SContentPadded>
+				</Q>
+			</Grid>
 		</SStats>
 	);
 };

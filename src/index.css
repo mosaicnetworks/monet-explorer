@@ -33,3 +33,25 @@
 	/* padding-bottom: 10px; */
 	/* border-bottom: 3px solid var(--blue); */
 }
+
+.aboveheader {
+	margin-top: 0;
+	font-size: 14px !important;
+	line-height: 20px;
+	text-transform: uppercase;
+	display: inline-block;
+	font-weight: 600;
+	letter-spacing: 2px;
+	margin-bottom: 25px;
+	padding-bottom: 10px;
+	border-bottom: 3px solid var(--purple);
+	color: var(--purple);
+}
+
+.purple {
+	color: var(--purple);
+}
+
+.orange {
+	color: var(--orange);
+}

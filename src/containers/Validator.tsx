@@ -55,6 +55,7 @@ const SStatus = styled.div`
 const SBody = styled.div`
 	padding: 10px 20px;
 	min-width: 210px;
+	border-radius: 3px;
 	display: inline-block;
 	margin: 10px;
 	margin-left: 0;
@@ -243,14 +244,15 @@ const Validator: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 														</b>
 														<br />
 														<p className="">
-															{capitalize(
+															{k}
+															{/* {capitalize(
 																k
 																	.split('_')
 																	.map(
 																		capitalize
 																	)
 																	.join(' ')
-															)}
+															)} */}
 														</p>
 													</Media.Body>
 												</Media>

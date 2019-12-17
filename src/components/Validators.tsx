@@ -10,11 +10,14 @@ import Media from 'react-bootstrap/Media';
 
 import Avatar from './Avatar';
 
+import ValidatorHistory from './modals/ValidatorHistory';
+
 import { selectValidators } from '../selectors';
 import { pubKeyToAddress, capitalize } from '../utils';
 
 import GREEN from '../assets/green-dot.png';
 import RED from '../assets/red-dot.png';
+import { Validator } from '../client';
 
 const Green = styled.div`
 	color: var(--green) !important;
@@ -88,10 +91,15 @@ const stateStyling = (state: string) => {
 
 type Props = {
 	hideStatus?: boolean;
+	validators?: Validator[];
 };
 
 const Validators: React.FC<Props> = props => {
-	const validators = useSelector(selectValidators);
+	let validators = useSelector(selectValidators);
+
+	if (props.validators) {
+		validators = props.validators;
+	}
 
 	const rendervalidators = () => {
 		return validators.map(v => {
@@ -119,14 +127,14 @@ const Validators: React.FC<Props> = props => {
 						<b> {capitalize(v.moniker || '-')}</b>
 						<p className="small mono">{v.host}</p>
 					</Media.Body>
-					<div className="d-none d-md-block align-self-center mr-5">
+					<div className="d-none d-xl-block align-self-center mr-5">
 						<b>{stateStyling(v.info.state)}</b>
 					</div>
-					<div className="d-none d-md-block align-self-center mr-5">
+					<div className="d-none d-xl-block align-self-center mr-5">
 						<b>{v.info.last_block_index}</b>
 						<div className="small">Block Index</div>
 					</div>
-					<div className="d-none d-md-block align-self-center mr-5">
+					<div className="d-none d-xl-block align-self-center mr-5">
 						<b>{vList[0]}</b>
 						<div className="small">{vList[1] || 'Version'}</div>
 					</div>
@@ -144,9 +152,11 @@ const Validators: React.FC<Props> = props => {
 	return (
 		<>
 			<SValidators>{rendervalidators()}</SValidators>
-			<SBottom>
-				<Link to={'/history'}>View History</Link>
-			</SBottom>
+			{!props.validators && (
+				<SBottom>
+					<ValidatorHistory />
+				</SBottom>
+			)}
 		</>
 	);
 };

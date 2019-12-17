@@ -7,6 +7,7 @@ const SBody = styled.div`
 	display: block;
 	border: 1px solid #eee;
 	background: var(--light-grey);
+	border-radius: 3px;
 
 	p {
 		margin-bottom: 0;

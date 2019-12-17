@@ -22,13 +22,6 @@ const SContainer = styled.div`
 		padding: 30px 5px !important;
 	}
 
-	.col {
-		img {
-			max-width: 150%;
-			object-fit: cover;
-		}
-	}
-
 	.zero-padding {
 		padding: 0 !important;
 	}

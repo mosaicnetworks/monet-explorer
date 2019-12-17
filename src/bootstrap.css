@@ -103,3 +103,17 @@
 	border-radius: 3px !important;
 	border-color: var(--light-grey);
 }
+
+.modal-content {
+	border: 1px solid #eee !important;
+	border-radius: 3px !important;
+}
+
+.nav-pills {
+	font-size: 14px;
+	margin-bottom: 30px;
+}
+
+.nav-pills .active {
+	background: var(--blue) !important;
+}

@@ -76,7 +76,10 @@ const Faucet: React.FC<{}> = () => {
 				</Form.Group>
 			) : (
 				<>
-					<Form.Group controlId="exampleForm.ControlInput1">
+					<Form.Group
+						className="pr-md-5"
+						controlId="exampleForm.ControlInput1"
+					>
 						<Form.Label>Address</Form.Label>
 						<Form.Control
 							onChange={(e: any) => setAddress(e.target.value)}
