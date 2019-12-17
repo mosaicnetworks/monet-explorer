@@ -27,7 +27,7 @@ const SStats = styled.div`
 	background: var(--light-blue);
 
 	h1 {
-		font-size: 35px;
+		font-size: 30px;
 	}
 
 	p {
@@ -80,7 +80,7 @@ const Stats: React.FC<{}> = props => {
 
 	return (
 		<SStats className="d-none d-md-block">
-			<Section padding={20}>
+			<Section padding={15}>
 				<Grid fluid={true} verticalAlign={true}>
 					<Q pos={[1, 1]}>
 						<SContentPadded>

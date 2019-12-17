@@ -86,7 +86,7 @@ const Header: React.FC<{}> = () => {
 								<Nav.Link as="span">Faucet</Nav.Link>
 							</Link>
 						</Nav.Item> */}
-						<NavDropdown title={'Camille V6'} id="nav-dropdown">
+						{/* <NavDropdown title={'Camille V6'} id="nav-dropdown">
 							{networks.map((n, i) => (
 								<NavDropdown.Item key={`${n.name}-${i}`}>
 									{parseNetworkName(n.name)}
@@ -96,7 +96,7 @@ const Header: React.FC<{}> = () => {
 							<NavDropdown.Item eventKey="4.4">
 								Separated link
 							</NavDropdown.Item>
-						</NavDropdown>
+						</NavDropdown> */}
 					</SNav>
 					{/* <SExplore>
 						<Link to={'/'}>

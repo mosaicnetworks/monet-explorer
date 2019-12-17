@@ -11,7 +11,7 @@ import Media from 'react-bootstrap/Media';
 import Avatar from './Avatar';
 
 import { selectValidators } from '../selectors';
-import { pubKeyToAddress } from '../utils';
+import { pubKeyToAddress, capitalize } from '../utils';
 
 import GREEN from '../assets/green-dot.png';
 import RED from '../assets/red-dot.png';
@@ -34,7 +34,7 @@ const SValidators = styled.div`
 		background: var(--light-grey);
 		padding: 15px 20px;
 		border: 1px solid #eee;
-		margin-bottom: 5px;
+		margin-bottom: 10px;
 		border-radius: 3px !important;
 
 		p {
@@ -60,7 +60,7 @@ const SStatus = styled.div`
 `;
 
 const SBottom = styled.div`
-	margin-top: -5px;
+	margin-top: -10px;
 	background: #f8f8f8;
 	padding: 8px 20px;
 	font-size: 12px;
@@ -68,6 +68,7 @@ const SBottom = styled.div`
 	font-weight: 600;
 	text-transform: uppercase;
 	border: 1px solid #eee;
+	border-top: none;
 
 	a {
 		color: var(--orange);
@@ -95,6 +96,7 @@ const Validators: React.FC<Props> = props => {
 	const rendervalidators = () => {
 		return validators.map(v => {
 			const address = pubKeyToAddress(v.public_key);
+			const vList = v.version.monetd.split('-');
 
 			return (
 				<Media key={v.public_key}>
@@ -114,7 +116,7 @@ const Validators: React.FC<Props> = props => {
 						)}
 					</SStatus>
 					<Media.Body>
-						<b> {v.moniker || '-'}</b>
+						<b> {capitalize(v.moniker || '-')}</b>
 						<p className="small mono">{v.host}</p>
 					</Media.Body>
 					<div className="d-none d-md-block align-self-center mr-5">
@@ -125,8 +127,8 @@ const Validators: React.FC<Props> = props => {
 						<div className="small">Block Index</div>
 					</div>
 					<div className="d-none d-md-block align-self-center mr-5">
-						<b>{v.version.monetd}</b>
-						<div className="small">Version</div>
+						<b>{vList[0]}</b>
+						<div className="small">{vList[1] || 'Version'}</div>
 					</div>
 					<SGasPrice className="align-self-center mr-2">
 						<h4>{v.info.min_gas_price}</h4>

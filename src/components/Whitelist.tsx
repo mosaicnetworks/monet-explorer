@@ -18,7 +18,7 @@ const SWhitelist = styled.div`
 		background: var(--light-grey);
 		padding: 15px 20px;
 		border: 1px solid #eee;
-		margin-bottom: 5px;
+		margin-bottom: 10px;
 		border-radius: 3px !important;
 
 		p {

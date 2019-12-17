@@ -1,36 +1,19 @@
 import React from 'react';
 
-import styled from 'styled-components';
-
-import Alert from 'react-bootstrap/Alert';
-import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
 
-import Await from '../components/utils/Await';
-import Loader from '../components/utils/Loader';
-import Nominees from '../components/Nominees';
-import Blocks from '../components/Blocks';
-import Statistics from '../components/Statistics';
+import Evictees from '../components/Evictees';
 import Jumbotron from '../components/Jumbotron';
-import Transactions from '../components/Transactions';
+import Nominees from '../components/Nominees';
+import Stats from '../components/Statistics';
 import Validators from '../components/Validators';
 import Whitelist from '../components/Whitelist';
 
-import Section, { Grid, Q } from '../ui';
-
-import Image from 'react-bootstrap/Image';
-import TENOM from '../assets/tenom.svg';
-import Stats from '../components/Statistics';
-
-const SContent = styled.div`
-	margin-bottom: 50px;
-
-	@media (max-width: 575px) {
-		margin-bottom: 30px;
-	}
-`;
+import Section from '../ui';
+import Content from '../ui/content/Content';
+import Heading from '../ui/content/Heading';
 
 const Index: React.FC<{}> = () => {
 	return (
@@ -42,26 +25,24 @@ const Index: React.FC<{}> = () => {
 				<Container fluid={true}>
 					<Row>
 						<Col md={7}>
-							<SContent>
-								<h3 className="preheader">
-									Current Validators
-								</h3>
+							<Content>
+								<Heading>Current Validators</Heading>
 								<Validators />
-							</SContent>
-							<SContent>
-								<h3 className="preheader">Nominees</h3>
+							</Content>
+							<Content>
+								<Heading>Nominees</Heading>
 								<Nominees />
-							</SContent>
+							</Content>
 						</Col>
 						<Col md={5}>
-							<SContent>
-								<h3 className="preheader">Whitelist</h3>
+							<Content>
+								<Heading>Whitelist</Heading>
 								<Whitelist />
-							</SContent>
-							<SContent>
-								<h3 className="preheader">Evictees</h3>
-								<Nominees />
-							</SContent>
+							</Content>
+							<Content>
+								<Heading>Evictees</Heading>
+								<Evictees />
+							</Content>
 						</Col>
 					</Row>
 				</Container>

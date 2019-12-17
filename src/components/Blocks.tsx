@@ -11,13 +11,14 @@ import Avatar from './Avatar';
 import { fetchNetworkBlocks } from '../modules/dashboard';
 import { selectBlocks } from '../selectors';
 import { pubKeyToAddress } from '../utils';
+import { Block } from '../client';
 
 const SBlocks = styled.div`
 	.media {
 		background: var(--light-grey);
 		padding: 15px 20px;
 		border: 1px solid #eee;
-		margin-bottom: 5px;
+		margin-bottom: 10px;
 		border-radius: 3px !important;
 
 		p {
@@ -46,11 +47,19 @@ const SBlockAvatar = styled.div`
 	align-items: center;
 `;
 
-const Blocks: React.FC<{}> = () => {
+type Props = {
+	blocks?: Block[];
+};
+
+const Blocks: React.FC<Props> = props => {
 	const dispatch = useDispatch();
 	const fetchBlocks = () => dispatch(fetchNetworkBlocks());
 
-	const blocks = useSelector(selectBlocks);
+	let blocks = useSelector(selectBlocks);
+
+	if (props.blocks) {
+		blocks = props.blocks;
+	}
 
 	useEffect(() => {
 		fetchBlocks();
