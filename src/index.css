@@ -75,3 +75,7 @@
 .red {
 	color: var(--red);
 }
+
+.bold {
+	font-weight: bold !important;
+}

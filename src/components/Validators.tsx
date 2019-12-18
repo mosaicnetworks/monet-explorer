@@ -82,7 +82,14 @@ const SBottom = styled.div`
 const stateStyling = (state: string, extra: string = '') => {
 	switch (state) {
 		case 'Babbling':
-			return <Green>BABBLING</Green>;
+			return (
+				<div data-tip={'Undetermined Events'}>
+					<Green>BABBLING</Green>
+					<br />
+					<p className="text-center small mono bold green">{extra}</p>
+				</div>
+			);
+
 		case 'Suspended':
 			return (
 				<div data-tip={'Undetermined Events'}>
