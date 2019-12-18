@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import utils from 'evm-lite-utils';
 import ReCAPTCHA from 'react-google-recaptcha';
@@ -7,15 +7,22 @@ import styled from 'styled-components';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
+import Account from './Account';
 import Loader from './utils/Loader';
 
 import ExplorerAPIClient from '../client';
 import CoreAPI from '../client';
 
+import { IEVMAccount, Monet } from 'evm-lite-core';
+import { useSelector } from 'react-redux';
+import { selectNetwork } from '../selectors';
+import Await from './utils/Await';
+import Avatar from './Avatar';
+
 const SError = styled.div`
-	color: #ff0000;
+	color: var(--light-orange);
 	display: inline-block;
-	margin-left: 5px;
+	font-weight: 600;
 `;
 
 const SSuccess = styled.div`
@@ -28,88 +35,94 @@ const Faucet: React.FC<{}> = () => {
 	const c = new CoreAPI();
 
 	const [loading, setLoading] = useState(false);
-	const [recaptcha, setRecaptcha] = useState(false);
 	const [error, setError] = useState('');
 	const [success, setSuccess] = useState('');
 	const [address, setAddress] = useState('');
 
-	function onChange() {
-		setRecaptcha(true);
-	}
-
-	const onSubmit = async () => {
+	const onSubmit = useCallback(async () => {
 		setError('');
 		setLoading(true);
 
 		if (utils.cleanAddress(address).length !== 42) {
-			setError('Invalid address');
+			setError('Monet addresses are 42 characters long (inc 0x)');
 			setLoading(false);
+
 			return;
 		}
 
-		if (recaptcha) {
-			try {
-				const data = await c.submitFaucetTx(
-					utils.cleanAddress(address)
-				);
+		try {
+			console.log(address);
+			const data = await c.submitFaucetTx(utils.cleanAddress(address));
 
-				if (data.status === 1) {
-					setSuccess(`We've transferred you 100 Tenom!`);
-				} else {
-					setError('Something went wrong. Please try again later.');
-				}
-			} catch (e) {
-				throw e;
+			if (data.status === 1) {
+				setSuccess(`We've transferred you 100 Tenom!`);
+			} else {
+				setError('Something went wrong. Please try again later.');
 			}
-		} else {
-			setError('Must complete the ReCAPTCHA!');
+		} catch (e) {
+			setError(e.toString());
 		}
 
 		setLoading(false);
-	};
+	}, [address]);
+
+	useEffect(() => {
+		if (address.length === 0) {
+			setError('');
+		}
+
+		if (address.length > 0 && utils.cleanAddress(address).length !== 42) {
+			setError('Monet addresses are 42 characters long (inc 0x)');
+		}
+	}, [address]);
 
 	return (
-		<Form>
-			{success.length ? (
-				<Form.Group>
-					<SSuccess>{success}</SSuccess>
-				</Form.Group>
-			) : (
-				<>
+		<>
+			{!error && <div className="preheader">Faucet</div>}
+			{error && <SError className="mb-4">{error}</SError>}
+			{address.length === 42 && <Account address={address} />}
+
+			{address.length === 42 && (
+				<div className="mt-4 mb-4">
+					{!success && (
+						<a href="#" onClick={(e: any) => setAddress('')}>
+							Change Account
+						</a>
+					)}
+					{!success && (
+						<p className="no-padding">
+							Make sure the above account is correct!
+						</p>
+					)}
+				</div>
+			)}
+
+			<Form>
+				{address.length !== 42 && (
 					<Form.Group
 						className="pr-md-5"
 						controlId="exampleForm.ControlInput1"
 					>
-						<Form.Label>Address</Form.Label>
 						<Form.Control
 							onChange={(e: any) => setAddress(e.target.value)}
 							type="text"
 							placeholder="Enter your address"
 						/>
 					</Form.Group>
-					<Form.Group>
-						<ReCAPTCHA
-							type="image"
-							onChange={onChange}
-							theme={'light'}
-							sitekey="6LdoMh4UAAAAAMSK7FUAUtfmkkLuLfyjC-5mxuNE"
-						/>
-					</Form.Group>
-					<Form.Group>
-						<Button
-							disabled={loading}
-							onClick={onSubmit}
-							variant="warning"
-							className="bigger"
-						>
-							Receive Tokens
-						</Button>{' '}
-						<SError>{error}</SError>{' '}
-						<Loader loading={loading} size={50} />
-					</Form.Group>
-				</>
-			)}
-		</Form>
+				)}
+				<Form.Group>
+					<Button
+						disabled={loading}
+						variant="warning"
+						className="bigger"
+						onClick={onSubmit}
+					>
+						Receive Tokens
+					</Button>{' '}
+					<Loader loading={loading} />
+				</Form.Group>
+			</Form>
+		</>
 	);
 };
 

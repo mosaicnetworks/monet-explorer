@@ -63,7 +63,7 @@
 		"test": "react-scripts test",
 		"clean": "rm -rf node_modules build",
 		"dev": "concurrently --kill-others \"yarn dev:django\" \"yarn dev:react\"",
-		"dev:django": "cd server/src && python3 manage.py runserver 0.0.0.0:8000",
+		"dev:django": "cd server/src && python3 manage.py runserver",
 		"dev:react": "PORT=3002 react-scripts start"
 	},
 	"eslintConfig": {

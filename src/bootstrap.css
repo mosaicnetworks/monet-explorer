@@ -74,7 +74,8 @@
 }
 
 .btn-warning:hover,
-.btn-warning:active {
+.btn-warning:active,
+.btn-warning:disabled {
 	color: white !important;
 	background: #d35a1e !important;
 	border-color: #d35a1e !important;

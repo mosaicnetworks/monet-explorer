@@ -48,6 +48,10 @@ const SAlert = styled(Alert)`
 		padding: 10px 0;
 		font-weight: 500;
 	}
+
+	@media (max-width: 575px) {
+		padding: 50px 0 !important;
+	}
 `;
 
 const Jumbotron: React.FC<{}> = () => {
@@ -72,21 +76,20 @@ const Jumbotron: React.FC<{}> = () => {
 								generate a key and fill the faucet form to
 								automatically receive 100 Tenom on the testnet.
 							</p>
-							<p>
-								<a
-									href="https://github.com/mosaicnetworks/"
-									target="_blank"
+							<a
+								href="https://github.com/mosaicnetworks/"
+								target="_blank"
+							>
+								<Button
+									variant="outline-light"
+									className="bigger"
 								>
-									<Button
-										variant="outline-light"
-										className="bigger"
-									>
-										Github
-									</Button>
-								</a>
-							</p>
+									Github
+								</Button>
+							</a>
 						</Col>
 						<Col xs={12} md={true}>
+							<hr className={'d-sm-block d-md-none'} />
 							<Faucet />
 						</Col>
 						<Col md={2} className="d-none d-xl-block text-center">

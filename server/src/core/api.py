@@ -132,6 +132,8 @@ class FaucetAPIHandler(generics.CreateAPIView):
     permission_classes = []
 
     def post(self, request, *args, **kwargs):
+        print(request.data)
+
         f_tx = FaucetTransaction.objects.create(
             address=request.data['address'],
             amount=100
@@ -166,7 +168,7 @@ class FaucetAPIHandler(generics.CreateAPIView):
             data=str(signed['rawTransaction'].hex())
         )
 
-        return Response(k.json())
+        return Response(dict(success="Transaction success"))
 
 
 class StandardResultsSetPagination(PageNumberPagination):

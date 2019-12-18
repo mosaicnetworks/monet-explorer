@@ -52,3 +52,17 @@ b {
 a {
 	color: var(--blue);
 }
+
+input {
+	padding: 20px !important;
+	font-size: 16px !important;
+}
+
+hr {
+	border-color: #1b2d75 !important;
+	margin: 40px 0 !important;
+}
+
+hr.light {
+	border-color: var(--light-blue) !important;
+}

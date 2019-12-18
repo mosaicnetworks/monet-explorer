@@ -115,7 +115,9 @@ const Validator: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 											<Image src={RED} width="14" />
 										)}
 									</SStatus>
-									<h2>{capitalize(validator.moniker)}</h2>
+									<h2 className="blue">
+										{capitalize(validator.moniker)}
+									</h2>
 									<h5 className="mono">{validator.host}</h5>
 								</Body>
 							</Content>
@@ -262,25 +264,9 @@ const Validator: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 								</div>
 							</Content>
 							<Content>
-								<Heading>Recently Signed Blocks</Heading>
-								<Blocks
-									blocks={blocks.filter(b => {
-										let hasSig = false;
-										let sigs = b.signatures.filter(
-											s =>
-												s.validator.public_key ===
-												validator.public_key
-										);
-
-										if (sigs.length) {
-											hasSig = true;
-										}
-
-										if (hasSig) {
-											return b;
-										}
-									})}
-								/>
+								<Heading>Service Browser</Heading>
+								<br />
+								<b className="orange">Shortly on its way.</b>
 							</Content>
 						</Col>
 					</Row>
