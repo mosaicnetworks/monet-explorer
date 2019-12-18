@@ -18,6 +18,8 @@ import WALLET from '../assets/monet-wallet.png';
 import MONETD from '../assets/monetd.png';
 import MONETCLI from '../assets/monetcli.png';
 import HUB from '../assets/hub.png';
+import COMPS from '../assets/computers.png';
+import LIBRARY from '../assets/library.png';
 
 const SWrapper = styled.div`
 	img {
@@ -115,10 +117,7 @@ const Downloads: React.FC<{}> = () => {
 							</p>
 						</Q>
 						<Q pos={[1, 2]} className="d-none d-lg-block">
-							<img
-								width={'110%'}
-								src="http://localhost:1234/images/computers.png"
-							/>
+							<img width={'100%'} src={LIBRARY} />
 						</Q>
 					</Grid>
 				</Section>
