@@ -96,31 +96,37 @@ const Faucet: React.FC<{}> = () => {
 				</div>
 			)}
 
-			<Form>
-				{address.length !== 42 && (
-					<Form.Group
-						className="pr-md-5"
-						controlId="exampleForm.ControlInput1"
-					>
-						<Form.Control
-							onChange={(e: any) => setAddress(e.target.value)}
-							type="text"
-							placeholder="Enter your address"
-						/>
+			{success && <SSuccess className="preheader">{success}</SSuccess>}
+
+			{!success && (
+				<Form>
+					{address.length !== 42 && (
+						<Form.Group
+							className="pr-md-5"
+							controlId="exampleForm.ControlInput1"
+						>
+							<Form.Control
+								onChange={(e: any) =>
+									setAddress(e.target.value)
+								}
+								type="text"
+								placeholder="Enter your address"
+							/>
+						</Form.Group>
+					)}
+					<Form.Group>
+						<Button
+							disabled={loading}
+							variant="warning"
+							className="bigger"
+							onClick={onSubmit}
+						>
+							Receive Tokens
+						</Button>{' '}
+						<Loader loading={loading} />
 					</Form.Group>
-				)}
-				<Form.Group>
-					<Button
-						disabled={loading}
-						variant="warning"
-						className="bigger"
-						onClick={onSubmit}
-					>
-						Receive Tokens
-					</Button>{' '}
-					<Loader loading={loading} />
-				</Form.Group>
-			</Form>
+				</Form>
+			)}
 		</>
 	);
 };
