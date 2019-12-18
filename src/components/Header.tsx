@@ -20,6 +20,8 @@ import {
 import { selectAllNetworks } from '../selectors';
 import { capitalize, parseNetworkName } from '../utils';
 
+import { DEV } from '../CONST';
+
 const SNavbar = styled(Navbar)`
 	box-shadow: rgba(0, 0, 0, 0.0392157) 0px 0px 1px 0px !important;
 	/* border-bottom: 1px solid #f3f3f3; */
@@ -55,6 +57,21 @@ const Header: React.FC<{}> = () => {
 			// fetchAllData();
 		}
 	}, [networks]);
+
+	let interval: any;
+
+	useEffect(() => {
+		if (!DEV) {
+			interval = setInterval(() => {
+				fetchAllData();
+				console.log('(5s) Fetching data...');
+			}, 3000);
+		}
+
+		return () => {
+			clearInterval(interval);
+		};
+	}, []);
 
 	return (
 		<SNavbar bg={'dark'} expand="lg" variant="dark">

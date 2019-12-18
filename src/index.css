@@ -34,6 +34,14 @@
 	/* border-bottom: 3px solid var(--blue); */
 }
 
+.no-margin {
+	margin: 0 !important;
+}
+
+.no-padding {
+	padding: 0 !important;
+}
+
 .aboveheader {
 	margin-top: 0;
 	font-size: 14px !important;

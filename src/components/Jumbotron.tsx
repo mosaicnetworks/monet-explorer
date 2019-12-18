@@ -16,34 +16,47 @@ import Faucet from './Faucet';
 import { selectNetwork } from '../selectors';
 import { capitalize } from '../utils';
 
-const SIcon = styled(Image)`
-	margin-bottom: 20px;
+import SQUARES from '../assets/squares.svg';
+
+const SSquares = styled.div`
+	width: 88px;
+	height: 78px;
+	position: absolute;
+	background-image: url(${SQUARES});
+	background-size: contain;
+	top: 20px;
 `;
 
 const SAlert = styled(Alert)`
-	padding: 50px 0px !important;
-	background: var(--blue) !important;
+	padding: 60px 0px !important;
+	background: var(--blue) no-repeat !important;
+	background-size: contain !important;
 	color: #eee !important;
 	border: none !important;
 	box-shadow: none !important;
 	margin-bottom: 0px !important;
 	border-radius: 0 !important;
+
 	.alert-heading {
 		margin-top: 0px !important;
 	}
+
 	& input {
 		font-size: 14px;
 		border: none !important;
 		color: #fff !important;
 		background: rgba(60, 120, 208, 0.3) !important;
 	}
+
 	& input::placeholder {
 		color: #888;
 	}
+
 	a {
 		color: #f26630 !important;
 		font-weight: bold;
 	}
+
 	p {
 		padding: 10px 0;
 		font-weight: 500;
@@ -54,13 +67,16 @@ const SAlert = styled(Alert)`
 	}
 `;
 
+const SContainer = styled(Container)``;
+
 const Jumbotron: React.FC<{}> = () => {
 	const selected = useSelector(selectNetwork);
 
 	return (
 		<>
 			<SAlert variant="info">
-				<Container fluid={true}>
+				<SContainer fluid={true}>
+					<SSquares />
 					<Row className="align-items-center ml-md-5 mr-md-5">
 						<Col xs={12} md={5} className="">
 							<Alert.Heading as="h1">
@@ -99,7 +115,7 @@ const Jumbotron: React.FC<{}> = () => {
 							/>
 						</Col>
 					</Row>
-				</Container>
+				</SContainer>
 			</SAlert>
 		</>
 	);

@@ -118,3 +118,7 @@
 .nav-pills .active {
 	background: var(--blue) !important;
 }
+
+.navbar-toggler {
+	border: none;
+}

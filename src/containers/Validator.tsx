@@ -132,7 +132,7 @@ const Validator: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 											)
 										)}
 									</p>
-									<hr />
+									<hr className="light smaller" />
 									<h5>Public Key</h5>
 									<p className="mono">
 										{validator.public_key}
@@ -146,14 +146,14 @@ const Validator: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 									<p className="mono">
 										{validator.version.monetd}
 									</p>
-									<hr />
+									<hr className="light smaller" />
 									<h5>EVM-Lite</h5>
 									<p className="mono">
 										{validator.version.evm_lite
 											.split('-')
 											.join(' ')}
 									</p>
-									<hr />
+									<hr className="light smaller" />
 									<h5>Babble</h5>
 									<div className="mono">
 										{validator.version.babble

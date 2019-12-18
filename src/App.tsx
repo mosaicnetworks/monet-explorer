@@ -9,7 +9,6 @@ import Wrapper from './components/Wrapper';
 
 import Downloads from './containers/Downloads';
 import Explore from './containers/Explore';
-import Faucet from './containers/Faucet';
 import Index from './containers/Index';
 import Validator from './containers/Validator';
 
@@ -34,7 +33,6 @@ const App: React.FC = () => {
 						component={Validator}
 					/>
 					<Route exact={true} path="/" component={Index} />
-					<Route exact={true} path="/faucet" component={Faucet} />
 					<Route exact={true} path="/explore" component={Explore} />
 					<Route
 						exact={true}

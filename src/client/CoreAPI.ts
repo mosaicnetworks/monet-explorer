@@ -29,8 +29,8 @@ class CoreAPI extends Client {
 	}
 
 	// Faucet Transaction
-	public async submitFaucetTx(address: string): Promise<IReceipt> {
-		return new Promise<IReceipt>((resolve, reject) => {
+	public async submitFaucetTx(address: string): Promise<{ success: string }> {
+		return new Promise<{ success: string }>((resolve, reject) => {
 			request.post(
 				`http://${this.host}:${this.port}/api/faucet/`,
 				{ json: { address } },

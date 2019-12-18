@@ -4,20 +4,14 @@ import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
 
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
 import Media from 'react-bootstrap/Media';
-
-import Await from '../components/utils/Await';
-import Loader from '../components/utils/Loader';
 
 import CoreAPI from '../client';
 
 import { DEV } from '../CONST';
 import { selectNetwork, selectNominees, selectValidators } from '../selectors';
 
-import Section, { Grid, Q } from '../ui';
+import { Grid, Q } from '../ui';
 
 const SContentPadded = styled.div`
 	text-align: center;
@@ -67,7 +61,7 @@ const Stats: React.FC<{}> = props => {
 		if (!DEV) {
 			interval = setInterval(() => {
 				setStats();
-			}, 5000);
+			}, 3000);
 		}
 
 		return () => {
@@ -85,37 +79,16 @@ const Stats: React.FC<{}> = props => {
 				<Q pos={[1, 1]}>
 					<SContentPadded>
 						<Media>
-							{/* <img
-									src="https://image.flaticon.com/icons/png/512/1835/1835982.png"
-									width="50"
-									className="align-self-center mr-4"
-								/> */}
 							<Media.Body>
 								<h1>{blockHeight}</h1>
 								<p className="preheader">Block Height</p>
 							</Media.Body>
 						</Media>
-						{/* <div style={{ fontWeight: 600 }}>Block Height</div>
-						<Await
-							loading={statLoading}
-							fallback={
-								<h1>
-									<Loader loading={statLoading} />
-								</h1>
-							}
-						>
-							<h1>{blockHeight}</h1>
-						</Await> */}
 					</SContentPadded>
 				</Q>
 				<Q pos={[1, 2]}>
 					<SContentPadded>
 						<Media>
-							{/* <img
-									src="https://image.flaticon.com/icons/png/512/1573/1573856.png"
-									width="50"
-									className="align-self-center mr-4"
-								/> */}
 							<Media.Body>
 								<h1>
 									{txCount + intTxCount}
@@ -124,58 +97,26 @@ const Stats: React.FC<{}> = props => {
 								<p className="preheader">Total Txs</p>
 							</Media.Body>
 						</Media>
-						{/* <div style={{ fontWeight: 600 }}>
-							Total Transactions (Internal)
-						</div>
-						<Await
-							loading={statLoading}
-							fallback={
-								<h1>
-									<Loader loading={statLoading} />
-								</h1>
-							}
-						>
-							<h1>
-								{txCount + intTxCount}
-								<small>({intTxCount})</small>
-							</h1>
-						</Await> */}
 					</SContentPadded>
 				</Q>
 				<Q pos={[1, 3]}>
 					<SContentPadded>
 						<Media>
-							{/* <img
-									src="https://image.flaticon.com/icons/png/512/626/premium/626827.png"
-									width="50"
-									className="align-self-center mr-4"
-								/> */}
 							<Media.Body>
 								<h1>{validators.length}</h1>
 								<p className="preheader">Validators</p>
 							</Media.Body>
 						</Media>
-						{/* <div style={{ fontWeight: 600 }}>Validators</div>{' '}
-						<h1>{validators.length}</h1> */}
 					</SContentPadded>
 				</Q>
 				<Q pos={[1, 4]}>
 					<SContentPadded>
 						<Media>
-							{/* <img
-									src="https://image.flaticon.com/icons/png/512/2116/premium/2116800.png"
-									width="50"
-									className="align-self-center mr-4"
-								/> */}
 							<Media.Body>
 								<h1>{nominees.length}</h1>
 								<p className="preheader">Nominees</p>
 							</Media.Body>
 						</Media>
-						{/* <div style={{ fontWeight: 600 }}>
-								Current Nominees
-							</div>
-							<h1>{nominees.length}</h1> */}
 					</SContentPadded>
 				</Q>
 			</Grid>

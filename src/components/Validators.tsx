@@ -18,8 +18,9 @@ import { pubKeyToAddress, capitalize } from '../utils';
 import GREEN from '../assets/green-dot.png';
 import RED from '../assets/red-dot.png';
 import { Validator } from '../client';
+import Await from './utils/Await';
 
-const Green = styled.div`
+const Green = styled.b`
 	color: var(--green) !important;
 	font-size: 14px !important;
 	text-transform: uppercase;
@@ -27,7 +28,7 @@ const Green = styled.div`
 	letter-spacing: 1px;
 `;
 
-const Orange = styled.div`
+const Orange = styled.b`
 	color: var(--orange) !important;
 	font-weight: bold !important;
 `;
@@ -78,12 +79,20 @@ const SBottom = styled.div`
 	}
 `;
 
-const stateStyling = (state: string) => {
+const stateStyling = (state: string, extra: string = '') => {
 	switch (state) {
 		case 'Babbling':
-			return <Green>Babbling</Green>;
+			return <Green>BABBLING</Green>;
 		case 'Suspended':
-			return <Orange>Suspended</Orange>;
+			return (
+				<div data-tip={'Undetermined Events'}>
+					<Orange>Suspended</Orange>
+					<br />
+					<p className="text-center small mono bold orange">
+						{extra}
+					</p>
+				</div>
+			);
 		default:
 			return state;
 	}
@@ -101,57 +110,86 @@ const Validators: React.FC<Props> = props => {
 		validators = props.validators;
 	}
 
-	const rendervalidators = () => {
-		return validators.map(v => {
-			const address = pubKeyToAddress(v.public_key);
-			const vList = v.version.monetd.split('-');
+	const rendervalidators = (reachable: boolean) => {
+		const fallback = (
+			<SGasPrice className="align-self-center mr-2">
+				<b className="preheader red no-margin">Offline</b>
+			</SGasPrice>
+		);
+		return validators
+			.filter(v => v.reachable === reachable)
+			.map(v => {
+				const address = pubKeyToAddress(v.public_key);
+				const vList = v.version.monetd.split('-');
 
-			return (
-				<Media key={v.public_key}>
-					<Link
-						data-tip={`${v.moniker} - ${
-							v.reachable ? 'Online' : 'False'
-						}`}
-						to={`/validator/${v.public_key}`}
-					>
-						<Avatar className="mr-1" address={address} size={40} />
-					</Link>
-					<SStatus className="">
-						{v.reachable ? (
-							<Image className="mr-2" src={GREEN} width="12" />
-						) : (
-							<Image src={RED} width="12" />
+				return (
+					<Media key={v.public_key}>
+						<Link
+							data-tip={`${v.moniker} - ${
+								v.reachable ? 'Online' : 'False'
+							}`}
+							to={`/validator/${v.public_key}`}
+						>
+							<Avatar
+								className="mr-1"
+								address={address}
+								size={40}
+							/>
+						</Link>
+						<SStatus className="">
+							{v.reachable ? (
+								<Image
+									className="mr-2"
+									src={GREEN}
+									width="12"
+								/>
+							) : (
+								<Image src={RED} width="12" />
+							)}
+						</SStatus>
+						<Media.Body>
+							<b> {capitalize(v.moniker || '-')}</b>
+							<p className="small mono">{v.host}</p>
+						</Media.Body>
+						{v && v.info && (
+							<Await loading={!v.reachable} fallback={fallback}>
+								<div className="d-none d-xl-block align-self-center mr-5">
+									{stateStyling(
+										v.info.state,
+										(v.info.undetermined_events &&
+											v.info.undetermined_events.toString()) ||
+											''
+									)}
+								</div>
+								<div className="d-none d-xl-block align-self-center mr-5">
+									<b>{v.info.last_block_index}</b>
+									<div className="small">Block Index</div>
+								</div>
+								<div className="d-none d-xl-block align-self-center mr-5">
+									<b>{vList[0]}</b>
+									<div className="small">
+										{vList[1] || 'Version'}
+									</div>
+								</div>
+								<SGasPrice className="align-self-center mr-2">
+									<h4>{v.info.min_gas_price}</h4>
+									<div className="d-sm-none d-xs-block small">
+										Gas Price
+									</div>
+								</SGasPrice>
+							</Await>
 						)}
-					</SStatus>
-					<Media.Body>
-						<b> {capitalize(v.moniker || '-')}</b>
-						<p className="small mono">{v.host}</p>
-					</Media.Body>
-					<div className="d-none d-xl-block align-self-center mr-5">
-						<b>{stateStyling(v.info.state)}</b>
-					</div>
-					<div className="d-none d-xl-block align-self-center mr-5">
-						<b>{v.info.last_block_index}</b>
-						<div className="small">Block Index</div>
-					</div>
-					<div className="d-none d-xl-block align-self-center mr-5">
-						<b>{vList[0]}</b>
-						<div className="small">{vList[1] || 'Version'}</div>
-					</div>
-					<SGasPrice className="align-self-center mr-2">
-						<h4>{v.info.min_gas_price}</h4>
-						<div className="d-sm-none d-xs-block small">
-							Gas Price
-						</div>
-					</SGasPrice>
-				</Media>
-			);
-		});
+					</Media>
+				);
+			});
 	};
 
 	return (
 		<>
-			<SValidators>{rendervalidators()}</SValidators>
+			<SValidators>
+				{rendervalidators(true)}
+				{rendervalidators(false)}
+			</SValidators>
 			{!props.validators && (
 				<SBottom>
 					<ValidatorHistory />

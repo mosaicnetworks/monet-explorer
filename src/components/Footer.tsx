@@ -14,6 +14,17 @@ import Logo from '../assets/monet.svg';
 
 import Section, { Grid, Q } from '../ui';
 
+import SQUARES from '../assets/squares.svg';
+
+const SSquares = styled.div`
+	width: 88px;
+	height: 78px;
+	position: absolute;
+	background-image: url(${SQUARES});
+	background-size: contain;
+	bottom: 0px;
+`;
+
 const SFooter = styled.div`
 	background: var(--blue);
 	background-size: cover;
@@ -131,6 +142,7 @@ const Footer: React.FC<{}> = props => {
 							width={250}
 							src="https://monet.network/app/images/illustrations/other/jobs.svg"
 						/>
+						<SSquares />
 					</Q>
 				</Grid>
 			</Section>
