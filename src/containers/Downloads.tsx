@@ -92,7 +92,7 @@ const Downloads: React.FC<{}> = () => {
 						fluid={true}
 						className="align-items-center ml-md-5 mr-md-5"
 					>
-						<Q pos={[1, 1]}>
+						<Q pos={[1, 1]} xs={12} md={4}>
 							<h1 className="mt-3 mb-4">The Monet Toolchain</h1>
 							<p className="pr-5">
 								The software to run and interact with the Monet
@@ -114,13 +114,10 @@ const Downloads: React.FC<{}> = () => {
 								</Button>
 							</p>
 						</Q>
-						<Q
-							pos={[1, 2]}
-							className="d-none d-lg-block text-center"
-						>
+						<Q pos={[1, 2]} className="d-none d-lg-block">
 							<img
-								width={350}
-								src="https://monet.network/app/images/illustrations/ecosystem/Inter_blockchain.svg"
+								width={'110%'}
+								src="http://localhost:1234/images/computers.png"
 							/>
 						</Q>
 					</Grid>

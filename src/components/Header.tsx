@@ -17,7 +17,7 @@ import {
 	fetchAll,
 	selectNetwork as selectNetworkAction
 } from '../modules/dashboard';
-import { selectAllNetworks } from '../selectors';
+import { selectAllNetworks, selectNetwork } from '../selectors';
 import { capitalize, parseNetworkName } from '../utils';
 
 import { DEV } from '../CONSTANTS';
@@ -47,8 +47,10 @@ const SNetworkName = styled.span`
 
 const Header: React.FC<{}> = () => {
 	const dispatch = useDispatch();
+
 	const fetchAllData = () => dispatch(fetchAll());
 
+	const network = useSelector(selectNetwork);
 	const networks = useSelector(selectAllNetworks);
 
 	useEffect(() => {
@@ -82,7 +84,10 @@ const Header: React.FC<{}> = () => {
 							<img src={LOGO} width={150} />
 						</Link>
 					</span>{' '}
-					<SNetworkName className="ml-3">Camille V6</SNetworkName>
+					<SNetworkName className="ml-3">
+						{network && network.name.split('-')[0]} V
+						{network && network.name.split('-')[1]}
+					</SNetworkName>
 				</Navbar.Brand>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse
