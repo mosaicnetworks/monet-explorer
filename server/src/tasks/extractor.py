@@ -289,25 +289,29 @@ class Extractor:
         return requests.get(url=path, timeout=timeout).json()
 
     def __fetch_version(self, validator):
-        version_info = self.__get(
-            path=f'http://{validator.host}:8080/version')
+        try:
+            version_info = self.__get(
+                path=f'http://{validator.host}:8080/version')
 
-        version_model, created = Version.objects.get_or_create(validator=validator, defaults={
-            "monetd": version_info['monetd'],
-            "evm_lite": version_info['evm-lite'],
-            "babble": version_info['babble'],
-            "solc": version_info['solc'],
-            "solc_os": version_info['solc-os'],
-        })
+            version_model, created = Version.objects.get_or_create(validator=validator, defaults={
+                "monetd": version_info['monetd'],
+                "evm_lite": version_info['evm-lite'],
+                "babble": version_info['babble'],
+                "solc": version_info['solc'],
+                "solc_os": version_info['solc-os'],
+            })
 
-        if not created:
-            version_model.monetd = version_info['monetd']
-            version_model.babble = version_info['babble']
-            version_model.evm_lite = version_info['evm-lite']
-            version_model.solc = version_info['solc']
-            version_model.solc_os = version_info['solc-os']
+            if not created:
+                version_model.monetd = version_info['monetd']
+                version_model.babble = version_info['babble']
+                version_model.evm_lite = version_info['evm-lite']
+                version_model.solc = version_info['solc']
+                version_model.solc_os = version_info['solc-os']
 
-        version_model.save()
+            version_model.save()
+            
+        except Exception as err:
+            print(err)
 
 
 def run():
