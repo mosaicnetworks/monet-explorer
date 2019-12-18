@@ -42,12 +42,12 @@ const Account: React.FC<Props> = ({ address }) => {
 	}, [address, network]);
 
 	return (
-		(account.address && (
+		(Object.keys(account) && (
 			<SAccount>
 				<Media key={account.address}>
 					<Avatar
 						className="mr-3"
-						address={'0xbca3ec820659ff257c0cc134bce65b2c429017d9'}
+						address={account.address}
 						size={40}
 					/>
 					<Media.Body>
