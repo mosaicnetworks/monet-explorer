@@ -59,7 +59,7 @@ const Account: React.FC<Props> = ({ address }) => {
 					</Media.Body>
 				</Media>
 			</SAccount>
-		)) || <>asd</>
+		)) || <></>
 	);
 };
 
