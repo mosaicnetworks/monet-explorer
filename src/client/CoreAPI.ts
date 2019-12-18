@@ -1,6 +1,6 @@
 import request from 'request';
 
-import { IReceipt } from 'evm-lite-client';
+import { IReceipt, IBaseAccount } from 'evm-lite-client';
 
 import * as types from './types';
 
@@ -51,6 +51,15 @@ class CoreAPI extends Client {
 	 */
 	public async fetchNetworks(): Promise<types.Network[]> {
 		return JSON.parse(await this.get('/api/networks/')).results;
+	}
+
+	public async fetchAccount(
+		address: string,
+		network: string
+	): Promise<IBaseAccount> {
+		return JSON.parse(
+			await this.get(`/api/account/${address}/?network=${network}`)
+		);
 	}
 
 	public async fetchValidators(

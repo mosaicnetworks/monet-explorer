@@ -79,7 +79,7 @@ const Faucet: React.FC<{}> = () => {
 		<>
 			{!error && <div className="preheader">Faucet</div>}
 			{error && <SError className="mb-4">{error}</SError>}
-			{address.length === 42 && <Account address={address} />}
+			{<Account address={address} />}
 
 			{address.length === 42 && (
 				<div className="mt-4 mb-4">

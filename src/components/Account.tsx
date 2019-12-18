@@ -9,8 +9,12 @@ import Media from 'react-bootstrap/Media';
 
 import Avatar from './Avatar';
 
+import CoreAPI from '../client';
+
 import { selectNetwork } from '../selectors';
 import { capitalize, parseBalance } from '../utils';
+import { IBaseAccount } from 'evm-lite-client';
+import { Currency } from 'evm-lite-utils';
 
 type Props = {
 	address: string;
@@ -24,35 +28,38 @@ const SAccount = styled.div`
 `;
 
 const Account: React.FC<Props> = ({ address }) => {
+	const n = new CoreAPI();
 	const network = useSelector(selectNetwork);
 
-	const [account, setAccount] = useState({} as IEVMAccount);
+	const [account, setAccount] = useState({} as IBaseAccount);
 
 	useEffect(() => {
 		if (address.length === 42 && network) {
-			const n = new Monet(network.host, 8080);
-
-			n.getAccount(address)
+			n.fetchAccount(address, network.name.toLowerCase())
 				.then(setAccount)
 				.catch(() => console.log('Something went wrong.'));
 		}
 	}, [address, network]);
 
 	return (
-		(Object.keys(account).length > 0 && (
+		(account.address && (
 			<SAccount>
 				<Media key={account.address}>
-					<Avatar className="mr-3" address={address} size={40} />
+					<Avatar
+						className="mr-3"
+						address={'0xbca3ec820659ff257c0cc134bce65b2c429017d9'}
+						size={40}
+					/>
 					<Media.Body>
 						<b className="mono">
-							{parseBalance(account.balance)} +{' '}
+							{parseBalance(new Currency(account.balance))} +{' '}
 							<span className="orange">100T</span>
 						</b>
 						<p className="mono small">{account.address}</p>
 					</Media.Body>
 				</Media>
 			</SAccount>
-		)) || <></>
+		)) || <>asd</>
 	);
 };
 
