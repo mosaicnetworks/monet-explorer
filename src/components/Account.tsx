@@ -42,7 +42,7 @@ const Account: React.FC<Props> = ({ address }) => {
 	}, [address, network]);
 
 	return (
-		(Object.keys(account) && (
+		(Object.keys(account).length > 0 && (
 			<SAccount>
 				<Media key={account.address}>
 					<Avatar
