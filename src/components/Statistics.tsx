@@ -8,7 +8,7 @@ import Media from 'react-bootstrap/Media';
 
 import CoreAPI from '../client';
 
-import { DEV } from '../CONST';
+import { DEV } from '../CONSTANTS';
 import { selectNetwork, selectNominees, selectValidators } from '../selectors';
 
 import { Grid, Q } from '../ui';

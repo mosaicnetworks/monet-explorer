@@ -20,7 +20,7 @@ import {
 import { selectAllNetworks } from '../selectors';
 import { capitalize, parseNetworkName } from '../utils';
 
-import { DEV } from '../CONST';
+import { DEV } from '../CONSTANTS';
 
 const SNavbar = styled(Navbar)`
 	box-shadow: rgba(0, 0, 0, 0.0392157) 0px 0px 1px 0px !important;
