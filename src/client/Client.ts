@@ -1,6 +1,6 @@
 import * as http from 'http';
 
-import { DEV, DEV_HOST, DEV_PORT, PROD_HOST, PROD_PORT } from '../const';
+import { DEV, DEV_HOST, DEV_PORT, PROD_HOST, PROD_PORT } from '../CONST';
 
 interface IOptions {
 	host: string;

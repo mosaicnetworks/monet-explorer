@@ -2,134 +2,200 @@ import React from 'react';
 
 import styled from 'styled-components';
 
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Image from 'react-bootstrap/Image';
+import Media from 'react-bootstrap/Media';
 
 import Avatar from './Avatar';
-import Table from './Table';
 
-import { Validator } from '../client';
-import { pubKeyToAddress } from '../utils';
+import ValidatorHistory from './modals/ValidatorHistory';
+
+import { selectValidators } from '../selectors';
+import { pubKeyToAddress, capitalize } from '../utils';
 
 import GREEN from '../assets/green-dot.png';
 import RED from '../assets/red-dot.png';
+import { Validator } from '../client';
+import Await from './utils/Await';
 
-const Green = styled.div`
+const Green = styled.b`
 	color: var(--green) !important;
-	font-weight: bold !important;
+	font-size: 14px !important;
+	text-transform: uppercase;
+	font-weight: 600;
+	letter-spacing: 1px;
 `;
 
-const Orange = styled.div`
+const Orange = styled.b`
 	color: var(--orange) !important;
 	font-weight: bold !important;
 `;
 
-const SValidators = styled.div``;
+const SValidators = styled.div`
+	.media {
+		background: var(--light-grey);
+		padding: 15px 20px;
+		border: 1px solid #eee;
+		margin-bottom: 10px;
+		border-radius: 3px !important;
 
-const stateStyling = (state: string) => {
+		p {
+			margin-bottom: 0 !important;
+		}
+	}
+
+	.media-body {
+		min-width: 200px;
+	}
+`;
+
+const SGasPrice = styled.div`
+	min-width: 50px;
+	text-align: center;
+	color: var(--orange);
+`;
+
+const SStatus = styled.div`
+	position: relative !important;
+	top: -13px !important;
+	left: -10px;
+`;
+
+const SBottom = styled.div`
+	margin-top: -10px;
+	background: #f8f8f8;
+	padding: 8px 20px;
+	font-size: 12px;
+	letter-spacing: 1px;
+	font-weight: 600;
+	text-transform: uppercase;
+	border: 1px solid #eee;
+	border-top: none;
+
+	a {
+		color: var(--orange);
+	}
+`;
+
+const stateStyling = (state: string, extra: string = '') => {
 	switch (state) {
 		case 'Babbling':
-			return <Green>Babbling</Green>;
+			return <Green>BABBLING</Green>;
 		case 'Suspended':
-			return <Orange>Suspended</Orange>;
+			return (
+				<div data-tip={'Undetermined Events'}>
+					<Orange>Suspended</Orange>
+					<br />
+					<p className="text-center small mono bold orange">
+						{extra}
+					</p>
+				</div>
+			);
 		default:
 			return state;
 	}
 };
 
 type Props = {
-	validators: Validator[];
 	hideStatus?: boolean;
+	validators?: Validator[];
 };
 
 const Validators: React.FC<Props> = props => {
-	const rendervalidators = () => {
-		return props.validators.map(v => {
-			const address = pubKeyToAddress(v.public_key);
+	let validators = useSelector(selectValidators);
 
-			return (
-				<tr key={v.moniker}>
-					<td>
+	if (props.validators) {
+		validators = props.validators;
+	}
+
+	const rendervalidators = (reachable: boolean) => {
+		const fallback = (
+			<SGasPrice className="align-self-center mr-2">
+				<b className="preheader red no-margin">Offline</b>
+			</SGasPrice>
+		);
+		return validators
+			.filter(v => v.reachable === reachable)
+			.map(v => {
+				const address = pubKeyToAddress(v.public_key);
+				const vList = v.version.monetd.split('-');
+
+				return (
+					<Media key={v.public_key}>
 						<Link
 							data-tip={`${v.moniker} - ${
 								v.reachable ? 'Online' : 'False'
 							}`}
 							to={`/validator/${v.public_key}`}
 						>
-							<Avatar address={address} size={33} />
+							<Avatar
+								className="mr-1"
+								address={address}
+								size={40}
+							/>
 						</Link>
-					</td>
-					{!props.hideStatus && (
-						<td>
+						<SStatus className="">
 							{v.reachable ? (
-								<Image src={GREEN} width="12" />
+								<Image
+									className="mr-2"
+									src={GREEN}
+									width="12"
+								/>
 							) : (
 								<Image src={RED} width="12" />
 							)}
-						</td>
-					)}
-
-					<td>
-						<b>{v.moniker}</b>
-						<a
-							data-tip={`http://${v.host}:8080/info`}
-							target="_blank"
-							href={`http://${v.host}:8080/info`}
-						>
-							<small className="mono d-block">{v.host}</small>
-						</a>
-					</td>
-					<td className="mono">
-						<Link
-							data-tip={'View Address'}
-							to={`/search/0x${address}`}
-						>
-							0x
-							{address}
-						</Link>
-					</td>
-					<td>{stateStyling(v.info.state)}</td>
-					<td>{v.info.last_block_index}</td>
-					<td>{v.info.last_consensus_round}</td>
-					<td>{v.info.min_gas_price}</td>
-					<td className="mono">
-						{v.version.monetd && 'v'}
-						{v.version.monetd}
-					</td>
-				</tr>
-			);
-		});
+						</SStatus>
+						<Media.Body>
+							<b> {capitalize(v.moniker || '-')}</b>
+							<p className="small mono">{v.host}</p>
+						</Media.Body>
+						{v && v.info && (
+							<Await loading={!v.reachable} fallback={fallback}>
+								<div className="d-none d-xl-block align-self-center mr-5">
+									{stateStyling(
+										v.info.state,
+										(v.info.undetermined_events &&
+											v.info.undetermined_events.toString()) ||
+											''
+									)}
+								</div>
+								<div className="d-none d-xl-block align-self-center mr-5">
+									<b>{v.info.last_block_index}</b>
+									<div className="small">Block Index</div>
+								</div>
+								<div className="d-none d-xl-block align-self-center mr-5">
+									<b>{vList[0]}</b>
+									<div className="small">
+										{vList[1] || 'Version'}
+									</div>
+								</div>
+								<SGasPrice className="align-self-center mr-2">
+									<h4>{v.info.min_gas_price}</h4>
+									<div className="d-sm-none d-xs-block small">
+										Gas Price
+									</div>
+								</SGasPrice>
+							</Await>
+						)}
+					</Media>
+				);
+			});
 	};
 
 	return (
-		<SValidators>
-			<Table>
-				<thead>
-					<tr>
-						<th>Validator</th>
-						{!props.hideStatus && <th>Service</th>}
-						<th>Moniker</th>
-						<th>Address</th>
-						<th>State</th>
-						<th>Latest Block</th>
-						<th>Last Round</th>
-						<th>Min Gas Price</th>
-						<th>Version</th>
-					</tr>
-				</thead>
-				<tbody>{rendervalidators()}</tbody>
-				{/* {!props.hideStatus && (
-					<tfoot>
-						<tr>
-							<td colSpan={9}>
-								<Link to="/history">View History</Link>
-							</td>
-						</tr>
-					</tfoot>
-				)} */}
-			</Table>
-		</SValidators>
+		<>
+			<SValidators>
+				{rendervalidators(true)}
+				{rendervalidators(false)}
+			</SValidators>
+			{!props.validators && (
+				<SBottom>
+					<ValidatorHistory />
+				</SBottom>
+			)}
+		</>
 	);
 };
 

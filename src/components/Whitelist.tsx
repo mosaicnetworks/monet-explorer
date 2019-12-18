@@ -1,40 +1,57 @@
 import React from 'react';
 
-import Avatar from '../components/Avatar';
-import Table from '../components/Table';
+import utils from 'evm-lite-utils';
+import styled from 'styled-components';
 
-import { WhitelistEntry } from '../client';
+import { useSelector } from 'react-redux';
 
-type Props = {
-	whitelist: WhitelistEntry[];
-};
+import Media from 'react-bootstrap/Media';
+
+import Avatar from './Avatar';
+
+import { selectWhitelist } from '../selectors';
+
+type Props = {};
+
+const SWhitelist = styled.div`
+	.media {
+		background: var(--light-grey);
+		padding: 15px 20px;
+		border: 1px solid #eee;
+		margin-bottom: 10px;
+		border-radius: 3px !important;
+
+		p {
+			margin-bottom: 0 !important;
+		}
+	}
+
+	.media-body {
+		min-width: 200px;
+	}
+`;
 
 const Whitelist: React.FC<Props> = props => {
+	const whitelist = useSelector(selectWhitelist);
+
 	return (
-		<>
-			<Table>
-				<thead>
-					<tr>
-						<th>Avatar</th>
-						<th>Moniker</th>
-						<th>Address</th>
-					</tr>
-				</thead>
-				<tbody>
-					{props.whitelist.map(wle => (
-						<tr key={wle.address}>
-							<td>
-								<Avatar address={wle.address} size={33} />
-							</td>
-							<td>
-								<b>{wle.moniker}</b>
-							</td>
-							<td className="mono">{wle.address}</td>
-						</tr>
-					))}
-				</tbody>
-			</Table>
-		</>
+		<SWhitelist>
+			{whitelist.map(wle => (
+				<Media key={wle.address}>
+					<Avatar
+						address={wle.address}
+						size={40}
+						className="mr-3 "
+						key={wle.address}
+					/>
+
+					<Media.Body>
+						<b> {wle.moniker}</b>
+						<p className="small mono">{wle.address}</p>
+					</Media.Body>
+				</Media>
+			))}
+		</SWhitelist>
 	);
 };
 

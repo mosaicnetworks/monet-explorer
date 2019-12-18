@@ -18,6 +18,7 @@ type Props = {
 	fluid?: boolean;
 	verticalAlign?: boolean;
 	noGutters?: boolean;
+	className?: string;
 };
 
 const Grid: React.FC<Props> = props => {
@@ -62,7 +63,7 @@ const Grid: React.FC<Props> = props => {
 	);
 
 	return (
-		<Container fluid={props.fluid || false}>
+		<Container className={props.className} fluid={props.fluid || false}>
 			{matrix.map((r, i) => (
 				<Row noGutters={props.noGutters} key={i} className={align}>
 					{r}

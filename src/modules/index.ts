@@ -1,7 +1,5 @@
 import { ThunkAction } from 'redux-thunk';
 
-import { combineReducers } from 'redux';
-
 import { Store } from '../store';
 
 import dashboard from './dashboard';

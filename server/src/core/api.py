@@ -9,6 +9,7 @@ from django.views.decorators.cache import cache_page
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 
 from eth_account import Account
 
@@ -131,6 +132,8 @@ class FaucetAPIHandler(generics.CreateAPIView):
     permission_classes = []
 
     def post(self, request, *args, **kwargs):
+        print(request.data)
+
         f_tx = FaucetTransaction.objects.create(
             address=request.data['address'],
             amount=100
@@ -165,7 +168,13 @@ class FaucetAPIHandler(generics.CreateAPIView):
             data=str(signed['rawTransaction'].hex())
         )
 
-        return Response(k.json())
+        return Response(dict(success="Transaction success"))
+
+
+class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 100
+    page_size_query_param = 'page_size'
+    max_page_size = 1000
 
 
 class ValidatorHistoryAPIHandler(generics.ListAPIView):
@@ -174,6 +183,7 @@ class ValidatorHistoryAPIHandler(generics.ListAPIView):
     """
     queryset = ValidatorHistory.objects.all()
     serializer_class = ValidatorHistorySerializer
+    pagination_class = StandardResultsSetPagination
 
     # @method_decorator(cache_page(60*60*0.5))
     def get(self, request, *args, **kwargs):
@@ -188,6 +198,7 @@ class ValidatorHistoryAPIHandler(generics.ListAPIView):
         if network is not None:
             queryset = queryset.filter(
                 network__name=network.lower()).order_by('-consensus_round')
+
         return queryset
 
 

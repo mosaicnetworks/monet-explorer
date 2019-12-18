@@ -1,191 +1,58 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-
-import { Currency } from 'evm-lite-utils';
-import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
 
-import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
 
-import Avatar from '../components/Avatar';
-import Block from '../components/Block';
-import Loader from '../components/Loader';
-import Stats from '../components/Stats';
-import Table from '../components/Table';
+import Await from '../components/utils/Await';
+import Loader from '../components/utils/Loader';
+import Nominees from '../components/Nominees';
+import Blocks from '../components/Blocks';
+import Statistics from '../components/Statistics';
+import Transactions from '../components/Transactions';
+import Validators from '../components/Validators';
+import Whitelist from '../components/Whitelist';
 
-import { SContent, SJumbotron, SSection } from '../components/styles';
+import Section, { Grid, Q } from '../ui';
 
-import { fetchNetworkBlocks, fetchTransactions } from '../modules/dashboard';
-import {
-	selectBlocks,
-	selectBlocksLoading,
-	selectTransactions,
-	selectTxsLoading
-} from '../selectors';
-import { commaSeperate } from '../utils';
+import Image from 'react-bootstrap/Image';
+import TENOM from '../assets/tenom.svg';
+import Stats from '../components/Statistics';
 
-import Grid, { Quadrant, Section } from '../ui';
+const SContent = styled.div`
+	margin-bottom: 70px;
 
-const SLink = styled(Link)`
-	text-decoration: none !important;
+	@media (max-width: 575px) {
+		margin-bottom: 30px;
+	}
 `;
 
-const Explore: React.FC<RouteComponentProps<{}>> = props => {
-	const dispatch = useDispatch();
-
-	const loading = useSelector(selectBlocksLoading);
-	const txLoading = useSelector(selectTxsLoading);
-
-	const blocks = useSelector(selectBlocks);
-	const transactions = useSelector(selectTransactions);
-
-	const fetchBlocks = () => dispatch(fetchNetworkBlocks());
-	const fetchTxs = () => dispatch(fetchTransactions());
-
-	useEffect(() => {
-		fetchBlocks();
-		fetchTxs();
-	}, []);
-
-	useEffect(() => {
-		ReactTooltip.rebuild();
-	}, [blocks]);
-
-	const [search, setSearch] = useState('');
-	const onSearchEnter = (event: any) => {
-		if (event.keyCode === 13) {
-			props.history.push(`/search/${search}`);
-		}
-	};
-
+const Index: React.FC<{}> = () => {
 	return (
 		<>
-			<SJumbotron>
-				<Section padding={30}>
-					<Grid>
-						<Quadrant pos={[1, 1]}>
-							<h1>Explore</h1>
-							<p className="">
-								Browse blocks and transactions
-								{/* and the{' '}
-								<a href="https://github.com/mosaicnetworks/babble">
-									Babble
-								</a>{' '}
-								hashgraph */}
-							</p>
-							<Form.Control
-								onChange={(e: any) => setSearch(e.target.value)}
-								onKeyUp={onSearchEnter}
-								type="text"
-								placeholder="Search Address"
-							/>
-						</Quadrant>
-					</Grid>
-				</Section>
-			</SJumbotron>
-			<Stats />
-			<SSection>
-				<Container fluid={false}>
+			<Section padding={30}>
+				<Container fluid={true}>
 					<Row>
-						<Col md={12} lg={7}>
+						<Col md={6}>
 							<SContent>
-								<h3>
-									Recent Blocks <Loader loading={loading} />
-								</h3>
-								<div
-									style={{
-										background: 'white',
-										padding: '10px'
-									}}
-								>
-									{blocks.map(b => (
-										<SLink
-											key={b.index}
-											to={`block/${b.index}/`}
-										>
-											<Block block={b} />
-										</SLink>
-									))}
-								</div>
+								<h3 className="preheader">Latest Blocks</h3>
+								<Blocks />
 							</SContent>
-							<div className="d-xs-block d-md-none">
-								<hr />
-								<br />
-							</div>
 						</Col>
-						<Col md={12} lg={5}>
+						<Col md={6}>
 							<SContent>
-								<h3>
-									Recent Transactions{' '}
-									<Loader loading={txLoading} />
-								</h3>
-								<div className="padding">
-									<Table>
-										<thead>
-											<tr>
-												<th>From</th>
-												<th>To</th>
-												<th>Value</th>
-												<th>Gas</th>
-												<th>Gas Price</th>
-												<th className="text-center">
-													Contract Call?
-												</th>
-											</tr>
-										</thead>
-										<tbody>
-											{transactions.map(t => (
-												<tr key={t.data}>
-													<td>
-														<Avatar
-															address={t.sender}
-															size={35}
-														/>
-													</td>
-													<td>
-														<Avatar
-															address={t.to}
-															size={35}
-														/>
-													</td>
-													<td>
-														{new Currency(
-															t.amount === '0'
-																? 0
-																: t.amount + 'a'
-														).format('T')}
-													</td>
-													<td>
-														{commaSeperate(t.gas)}
-													</td>
-													<td>{t.gas_price}</td>
-													<td className="text-center">
-														{(t.payload.length >
-															0 && (
-															<img
-																src="https://image.flaticon.com/icons/svg/1828/1828640.svg"
-																width={20}
-															/>
-														)) ||
-															'-'}
-													</td>
-												</tr>
-											))}
-										</tbody>
-									</Table>
-								</div>
+								<h3 className="preheader">Transactions</h3>
+								<Transactions />
 							</SContent>
 						</Col>
 					</Row>
 				</Container>
-			</SSection>
+			</Section>
 		</>
 	);
 };
 
-export default Explore;
+export default Index;

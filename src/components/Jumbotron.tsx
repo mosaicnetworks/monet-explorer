@@ -11,23 +11,26 @@ import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 
-import Faucet from '../components/Faucet';
+import Faucet from './Faucet';
 
 import { selectNetwork } from '../selectors';
 import { capitalize } from '../utils';
 
-import BG from '../assets/bg.png';
-import MONET_ICON from '../assets/icon.png';
+import SQUARES from '../assets/squares.svg';
 
-const SIcon = styled(Image)`
-	margin-bottom: 20px;
+const SSquares = styled.div`
+	width: 88px;
+	height: 78px;
+	position: absolute;
+	background-image: url(${SQUARES});
+	background-size: contain;
+	top: 20px;
 `;
 
 const SAlert = styled(Alert)`
-	padding: 50px 0px !important;
-	background: url(${BG}) !important;
-	background-size: cover !important;
-	background-position-y: -10px !important;
+	padding: 60px 0px !important;
+	background: var(--blue) no-repeat !important;
+	background-size: contain !important;
 	color: #eee !important;
 	border: none !important;
 	box-shadow: none !important;
@@ -58,7 +61,13 @@ const SAlert = styled(Alert)`
 		padding: 10px 0;
 		font-weight: 500;
 	}
+
+	@media (max-width: 575px) {
+		padding: 50px 0 !important;
+	}
 `;
+
+const SContainer = styled(Container)``;
 
 const Jumbotron: React.FC<{}> = () => {
 	const selected = useSelector(selectNetwork);
@@ -66,10 +75,10 @@ const Jumbotron: React.FC<{}> = () => {
 	return (
 		<>
 			<SAlert variant="info">
-				<Container>
-					<Row className="align-items-center">
-						<Col xs={12} md={5}>
-							<SIcon src={MONET_ICON} width={'100'} />
+				<SContainer fluid={true}>
+					<SSquares />
+					<Row className="align-items-center ml-md-5 mr-md-5">
+						<Col xs={12} md={5} className="">
 							<Alert.Heading as="h1">
 								Testnet{' '}
 								{capitalize(
@@ -78,36 +87,35 @@ const Jumbotron: React.FC<{}> = () => {
 								)}{' '}
 								v{selected && selected.name.split('-')[1]}
 							</Alert.Heading>
-							<p>
+							<p className="pr-4">
 								Use our <Link to={'/downloads'}>wallet</Link> to
 								generate a key and fill the faucet form to
 								automatically receive 100 Tenom on the testnet.
 							</p>
-							<p>
-								<a
-									href="https://github.com/mosaicnetworks/"
-									target="_blank"
+							<a
+								href="https://github.com/mosaicnetworks/"
+								target="_blank"
+							>
+								<Button
+									variant="outline-light"
+									className="bigger"
 								>
-									<Button
-										variant="outline-light"
-										className="bigger"
-									>
-										Github
-									</Button>
-								</a>
-							</p>
+									Github
+								</Button>
+							</a>
 						</Col>
-						<Col xs={12} md={5}>
+						<Col xs={12} md={true}>
+							<hr className={'d-sm-block d-md-none'} />
 							<Faucet />
 						</Col>
-						<Col md={2} className="d-none d-sm-block text-center">
+						<Col md={2} className="d-none d-xl-block text-center">
 							<Image
-								src="https://monet.network/app/images/products/tenom.svg"
-								width={150}
+								src="https://monet.network/app/images/illustrations/pages/token_sale.svg"
+								width={170}
 							/>
 						</Col>
 					</Row>
-				</Container>
+				</SContainer>
 			</SAlert>
 		</>
 	);

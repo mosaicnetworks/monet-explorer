@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
+import ReactTooltip from 'react-tooltip';
 
 import utils from 'evm-lite-utils';
 import styled from 'styled-components';
@@ -13,11 +15,17 @@ const SAvatar = styled(Image)`
 type Props = {
 	address: string;
 	size?: number;
+	className?: string;
 };
 
 const Avatar: React.FC<Props> = props => {
+	useEffect(() => {
+		ReactTooltip.rebuild();
+	}, []);
+
 	return (
 		<SAvatar
+			className={props.className + ' align-self-center'}
 			data-tip={utils.cleanAddress(props.address)}
 			src={`https://s.gravatar.com/avatar/${utils.trimHex(
 				props.address

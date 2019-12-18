@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
 
@@ -9,42 +9,55 @@ import Container from 'react-bootstrap/Container';
 import Media from 'react-bootstrap/Media';
 import Row from 'react-bootstrap/Row';
 
-import { SContent, SJumbotron, SSection } from '../components/styles';
-
 import { Application, DownloadsAPI } from '../client';
-import { Section } from '../ui';
 import { capitalize } from '../utils';
 
-const SContainer = styled.div`
-	.card {
-		margin-bottom: 20px !important;
-		padding: 20px !important;
-	}
-	a.card-link {
-		background: var(--orange) !important;
-		color: white !important;
-		font-weight: 600 !important;
-		background: red;
-		padding: 6px 10px;
-		border-radius: 5px;
-	}
-	.card-link + .card-link {
-		margin-left: 10px;
-	}
-	.card-title {
-		font-size: 25px;
-		margin-bottom: 20px !important;
+import Section, { Grid, Q } from '../ui';
+
+import WALLET from '../assets/monet-wallet.png';
+import MONETD from '../assets/monetd.png';
+import MONETCLI from '../assets/monetcli.png';
+import HUB from '../assets/hub.png';
+
+const SWrapper = styled.div`
+	img {
+		border-radius: 3px;
 	}
 `;
 
-const SBox = styled.div`
-	background: #fff !important;
-	padding: 20px;
-	border-radius: 3px;
-	/* border: 1px solid #eee; */
+const SGrey = styled.div`
+	background: var(--light-grey);
+	@media (max-width: 575px) {
+		padding: 50px 0;
+	}
 `;
 
-const Transactions: React.FC<{}> = () => {
+const SBlue = styled.div`
+	background: var(--blue);
+	color: white;
+
+	@media (max-width: 575px) {
+		padding: 50px 0;
+	}
+`;
+
+const SLink = styled.a`
+	display: inline-block;
+	padding: 10px 20px;
+	border: 1px solid #eee;
+	padding-right: 30px;
+	background: var(--light-blue);
+	font-size: 16px;
+	font-weight: 600;
+	margin-right: 10px;
+	margin-bottom: 10px;
+
+	img {
+		margin-right: 10px;
+	}
+`;
+
+const Downloads: React.FC<{}> = () => {
 	const c = new DownloadsAPI();
 
 	const [os] = useState(['linux', 'mac', 'windows']);
@@ -72,100 +85,222 @@ const Transactions: React.FC<{}> = () => {
 	};
 
 	return (
-		<SContainer>
-			<SJumbotron>
-				<Section padding={30}>
-					<Container>
-						<Row className="align-items-center">
-							<Col>
-								<h1>Downloads</h1>
-								<p>
-									Browse latest versions of the MONET
-									Toolchain
-								</p>
-							</Col>
-						</Row>
-					</Container>
+		<SWrapper>
+			<SBlue>
+				<Section padding={60}>
+					<Grid
+						fluid={true}
+						className="align-items-center ml-md-5 mr-md-5"
+					>
+						<Q pos={[1, 1]}>
+							<h1 className="mt-3 mb-4">The Monet Toolchain</h1>
+							<p className="pr-5">
+								The software to run and interact with the Monet
+								distributed smart-contract platform
+							</p>
+							<p className="mt-4">
+								<Button
+									href="http://bit.ly/monet-whitepaper"
+									variant="outline-light"
+									className=" mr-2"
+								>
+									Whitepaper
+								</Button>
+								<Button
+									href="https://monetd.readthedocs.io/en/latest/"
+									variant="warning"
+								>
+									Docs
+								</Button>
+							</p>
+						</Q>
+						<Q
+							pos={[1, 2]}
+							className="d-none d-lg-block text-center"
+						>
+							<img
+								width={350}
+								src="https://monet.network/app/images/illustrations/ecosystem/Inter_blockchain.svg"
+							/>
+						</Q>
+					</Grid>
 				</Section>
-			</SJumbotron>
-			<SSection>
-				<Container>
-					<Row>
-						{applications.map((app, i) => (
-							<Col md={6} key={i}>
-								{app.repository_name === 'monet-wallet' && (
-									<>
-										<br />
-										<br />
-									</>
-								)}
-								<SContent>
-									<h3>{parseAppName(app.repository_name)}</h3>
-									<SBox>
-										<Media>
-											<a
-												href={`https://github.com/mosaicnetworks/${app.repository_name}/`}
-											>
-												<img
-													src={
-														app.repository_name ===
-														'monet-wallet'
-															? 'https://monet.network/app/images/products/tenom.svg'
-															: 'https://image.flaticon.com/icons/svg/919/919847.svg'
-													}
-													width={54}
-													height={54}
-													className="text-center mr-4"
-												/>
-											</a>
-											<Media.Body>
-												<h5 className="mr-4">
-													{parseAppName(
-														app.repository_name
-													)}{' '}
-													<Badge
-														as="div"
-														variant="secondary"
-													>
-														Latest
-													</Badge>
-												</h5>
-												<p className="text-muted mono">
-													{app.repository_name}
-												</p>
-												<p
-													dangerouslySetInnerHTML={{
-														__html: app.description
-													}}
-												/>
-												<hr />
-												<p>
-													{os.map((o, i) => (
-														<Button
-															href={`https://dashboard.monet.network/api/downloads/${app.repository_name}/?os=${o}`}
-															key={`${o}/${i}`}
-															className="mr-1"
-															variant="primary"
-														>
-															{capitalize(o)}
-														</Button>
-													))}
-												</p>
-											</Media.Body>
-										</Media>
-									</SBox>
-									<div className="d-xs-block d-md-none">
-										<hr />
-										<br />
-									</div>
-								</SContent>
-							</Col>
-						))}
-					</Row>
-				</Container>
-			</SSection>
-		</SContainer>
+			</SBlue>
+			<Section>
+				<Grid fluid={true}>
+					<Q pos={[1, 1]} className="mr-lg-2" md={4}>
+						<div className="aboveheader">Latest</div>
+						<h3 className="mb-2">Monet Daemon</h3>
+						<div className="mb-4">
+							<a
+								href="https://github.com/mosaicnetworks/monetd"
+								className="mr-2"
+							>
+								Github
+							</a>
+						</div>
+						<div>
+							Monetd is the daemon component of the Monet
+							Toolchain; a distributed smart-contract platform
+							based on EVM-Lite and Babble. The Monet Toolchain
+							underpins the MONET Hub, but it is also available
+							for use in other projects.
+							<br />
+							<br />
+							You can read more about MONET in the whitepaper.
+						</div>
+						<div className="mt-4">
+							<SLink href="https://dashboard.monet.network/api/downloads/monetd/?os=linux">
+								<img
+									width={25}
+									src="https://img.icons8.com/color/48/000000/linux.png"
+								/>
+								Linux
+							</SLink>
+							<SLink href="https://dashboard.monet.network/api/downloads/monetd/?os=mac">
+								<img
+									width={25}
+									src="https://img.icons8.com/color/48/000000/mac-os.png"
+								/>
+								Mac
+							</SLink>
+							<SLink href="https://dashboard.monet.network/api/downloads/monetd/?os=windows">
+								<img
+									width={25}
+									src="https://img.icons8.com/color/48/000000/windows-10.png"
+								/>
+								Windows
+							</SLink>
+						</div>
+					</Q>
+					<Q pos={[1, 2]} className="ml-lg-5 text-center">
+						<br />
+						<img className="mt-xs-5" width={'100%'} src={MONETD} />
+					</Q>
+				</Grid>
+			</Section>
+			<SGrey>
+				<Section>
+					<Grid fluid={true}>
+						<Q
+							pos={[1, 2]}
+							className="mr-5"
+							xs={{
+								span: 12,
+								order: 1
+							}}
+							md={{
+								span: 4,
+								order: 2
+							}}
+						>
+							<div className="aboveheader">Latest</div>
+							<h3 className="mb-2">Monet Wallet</h3>
+							<div className="mb-4">
+								<a
+									href="https://github.com/mosaicnetworks/monet-wallet"
+									className="mr-2"
+								>
+									Github
+								</a>
+							</div>
+							<div>A user interface to interact with Monet.</div>
+							<div className="mt-4">
+								<SLink href="https://dashboard.monet.network/api/downloads/monet-wallet/?os=linux">
+									<img
+										width={25}
+										src="https://img.icons8.com/color/48/000000/linux.png"
+									/>
+									Linux
+								</SLink>
+								<SLink href="https://dashboard.monet.network/api/downloads/monet-wallet/?os=mac">
+									<img
+										width={25}
+										src="https://img.icons8.com/color/48/000000/mac-os.png"
+									/>
+									Mac
+								</SLink>
+								{/* <SLink href="https://dashboard.monet.network/api/downloads/monet-wallet/?os=windows">
+									<img
+										width={25}
+										src="https://img.icons8.com/color/48/000000/windows-10.png"
+									/>
+									Windows
+								</SLink> */}
+							</div>
+						</Q>
+						<Q
+							pos={[1, 1]}
+							xs={{
+								span: 12,
+								order: 2
+							}}
+							md={{
+								span: true,
+								order: 1
+							}}
+							className="mr-lg-5 text-center"
+						>
+							<br />
+							<img
+								className="mt-xs-5"
+								width={'100%'}
+								src={WALLET}
+							/>
+						</Q>
+					</Grid>
+				</Section>
+			</SGrey>
+			<Section>
+				<Grid fluid={true}>
+					<Q pos={[1, 1]} className="mr-lg-2" md={4}>
+						<div className="aboveheader">Latest</div>
+						<h3 className="mb-2">Monet CLI</h3>
+						<div className="mb-4">
+							<a
+								href="https://github.com/mosaicnetworks/monetcli"
+								className="mr-2"
+							>
+								Github
+							</a>
+						</div>
+						<div>A CLI wallet to interact with the Monet Hub.</div>
+						<div className="mt-4">
+							<SLink href="https://dashboard.monet.network/api/downloads/monetcli/?os=linux">
+								<img
+									width={25}
+									src="https://img.icons8.com/color/48/000000/linux.png"
+								/>
+								Linux
+							</SLink>
+							<SLink href="https://dashboard.monet.network/api/downloads/monetcli/?os=mac">
+								<img
+									width={25}
+									src="https://img.icons8.com/color/48/000000/mac-os.png"
+								/>
+								Mac
+							</SLink>
+							<SLink href="https://dashboard.monet.network/api/downloads/monetcli/?os=windows">
+								<img
+									width={25}
+									src="https://img.icons8.com/color/48/000000/windows-10.png"
+								/>
+								Windows
+							</SLink>
+						</div>
+					</Q>
+					<Q pos={[1, 2]} className="ml-lg-5 text-center">
+						<br />
+						<img
+							className="mt-xs-5"
+							width={'100%'}
+							src={MONETCLI}
+						/>
+					</Q>
+				</Grid>
+			</Section>
+		</SWrapper>
 	);
 };
 
-export default Transactions;
+export default Downloads;

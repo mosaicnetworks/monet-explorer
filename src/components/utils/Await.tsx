@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Loader from '../Loader';
+import Loader from './Loader';
 
 type Props = {
 	loading: boolean;

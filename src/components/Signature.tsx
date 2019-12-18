@@ -2,16 +2,12 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import Image from 'react-bootstrap/Image';
 import Media from 'react-bootstrap/Media';
 
-import Avatar from '../components/Avatar';
+import Avatar from './Figure';
 
 import { Validator } from '../client';
 import { pubKeyToAddress } from '../utils';
-
-import GreenDot from '../assets/green-dot.png';
-import RedDot from '../assets/red-dot.png';
 
 type Props = {
 	validator: Validator;
