@@ -90,7 +90,7 @@ const Jumbotron: React.FC<{}> = () => {
 							<p className="pr-4">
 								Use our <Link to={'/downloads'}>wallet</Link> to
 								generate a key and fill the faucet form to
-								automatically receive 100 Tenom on the testnet.
+								automatically receive 100 Tenom on the test net.
 							</p>
 							<a
 								href="https://github.com/mosaicnetworks/"

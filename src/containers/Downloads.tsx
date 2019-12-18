@@ -200,7 +200,14 @@ const Downloads: React.FC<{}> = () => {
 									Github
 								</a>
 							</div>
-							<div>A user interface to interact with Monet.</div>
+							<div>
+								A user interface to interact with Monet.
+								<br />
+								<br />
+								Monet wallet provides a graphical user interface
+								to make payments, create & manage accounts and
+								interact with Proof of Authority governance.
+							</div>
 							<div className="mt-4">
 								<SLink href="https://dashboard.monet.network/api/downloads/monet-wallet/?os=linux">
 									<img
@@ -260,7 +267,15 @@ const Downloads: React.FC<{}> = () => {
 								Github
 							</a>
 						</div>
-						<div>A CLI wallet to interact with the Monet Hub.</div>
+						<div>
+							A CLI wallet to interact with the Monet Hub. Monet
+							CLI provides convenient commands to interact with a
+							Monet node.
+							<br />
+							<br />
+							For a list of available commands and documentation
+							on how to use them, visit the GitHub repository.
+						</div>
 						<div className="mt-4">
 							<SLink href="https://dashboard.monet.network/api/downloads/monetcli/?os=linux">
 								<img
