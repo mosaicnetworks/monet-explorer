@@ -22,6 +22,10 @@ import { DEV } from '../CONSTANTS';
 
 const SNavbar = styled(Navbar)`
 	box-shadow: rgba(0, 0, 0, 0.0392157) 0px 0px 1px 0px !important;
+
+	@media (min-width: 1190px) {
+		padding-left: 0 !important;
+	}
 `;
 
 const SNav = styled(Nav)`
