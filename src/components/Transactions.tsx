@@ -84,7 +84,7 @@ const Transaction: React.FC<Props> = props => {
 
 	const fetchTxs = () => dispatch(fetchTransactions());
 	useEffect(() => {
-		if (props.transactions !== undefined) {
+		if (props.transactions === undefined) {
 			fetchTxs();
 		}
 	}, []);

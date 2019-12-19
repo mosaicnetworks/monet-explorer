@@ -62,7 +62,7 @@ const Blocks: React.FC<Props> = props => {
 	}
 
 	useEffect(() => {
-		if (props.blocks !== undefined) {
+		if (props.blocks === undefined) {
 			fetchBlocks();
 		}
 	}, []);
