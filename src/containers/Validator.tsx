@@ -52,6 +52,12 @@ const SStatus = styled.div`
 	left: 23px;
 `;
 
+const SVal = styled.div`
+	background: var(--light-blue);
+	padding: 30px 20px;
+	border-radius: 3px;
+`;
+
 const SBody = styled.div`
 	padding: 10px 20px;
 	min-width: 210px;
@@ -98,28 +104,74 @@ const Validator: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 					<Row>
 						<Col md={4}>
 							<Content>
-								<Body className="text-center">
-									<Avatar
-										address={pubKeyToAddress(
-											validator.public_key
-										)}
-									/>
-									<SStatus className="">
-										{validator.reachable ? (
-											<Image
-												className="mr-1"
-												src={GREEN}
-												width="14"
+								<SVal className="text-center">
+									<Row className="align-items-center">
+										<Col className="mb-4">
+											<Avatar
+												address={pubKeyToAddress(
+													validator.public_key
+												)}
 											/>
-										) : (
-											<Image src={RED} width="14" />
-										)}
-									</SStatus>
-									<h2 className="blue">
-										{capitalize(validator.moniker)}
-									</h2>
-									<h5 className="mono">{validator.host}</h5>
-								</Body>
+											<SStatus className="">
+												{validator.reachable ? (
+													<Image
+														className="mr-1"
+														src={GREEN}
+														width="14"
+													/>
+												) : (
+													<Image
+														src={RED}
+														width="14"
+													/>
+												)}
+											</SStatus>
+											<h2 className="">
+												{capitalize(validator.moniker)}
+											</h2>
+											<h5 className="mono">
+												{validator.host}
+											</h5>
+										</Col>
+										<Col>
+											<Row>
+												<Col>
+													<Media>
+														<Media.Body>
+															<h3>
+																{stateStyling(
+																	validator
+																		.info
+																		.state
+																)}
+															</h3>
+															<p className="preheader">
+																State
+															</p>
+														</Media.Body>
+													</Media>
+												</Col>
+												<Col>
+													<Media>
+														<Media.Body>
+															<h3>
+																{
+																	validator
+																		.info
+																		.undetermined_events
+																}
+															</h3>
+															<p className="no-margin preheader">
+																Undetermined
+																Events
+															</p>
+														</Media.Body>
+													</Media>
+												</Col>
+											</Row>
+										</Col>
+									</Row>
+								</SVal>
 							</Content>
 							<Content>
 								<Heading>Details</Heading>
@@ -163,71 +215,7 @@ const Validator: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 								</Body>
 							</Content>
 						</Col>
-						<Col className="ml-4">
-							<Content>
-								<Row className="">
-									<Col>
-										<Media>
-											<Media.Body>
-												<h3>
-													{stateStyling(
-														validator.info.state
-													)}
-												</h3>
-												<p className="preheader">
-													State
-												</p>
-											</Media.Body>
-										</Media>
-									</Col>
-									<Col>
-										<Media>
-											<Media.Body>
-												<h3>
-													{validator.reachable ? (
-														<Green>Reachable</Green>
-													) : (
-														<Red>Offline</Red>
-													)}
-												</h3>
-												<p className="preheader">
-													Service
-												</p>
-											</Media.Body>
-										</Media>
-									</Col>
-									<Col>
-										<Media>
-											<Media.Body>
-												<h3>
-													{
-														validator.info
-															.last_block_index
-													}
-												</h3>
-												<p className="preheader">
-													Block Height
-												</p>
-											</Media.Body>
-										</Media>
-									</Col>
-									<Col>
-										<Media>
-											<Media.Body>
-												<h3>
-													{
-														validator.info
-															.min_gas_price
-													}
-												</h3>
-												<p className="preheader">
-													Gas Price
-												</p>
-											</Media.Body>
-										</Media>
-									</Col>
-								</Row>
-							</Content>
+						<Col className="ml-md-4">
 							<Content>
 								<Heading>Statistics</Heading>
 								<div>
@@ -262,11 +250,6 @@ const Validator: React.FC<RouteComponentProps<ReactRouterProps>> = props => {
 										);
 									})}
 								</div>
-							</Content>
-							<Content>
-								<Heading>Service Browser</Heading>
-								<br />
-								<b className="orange">Shortly on its way.</b>
 							</Content>
 						</Col>
 					</Row>
