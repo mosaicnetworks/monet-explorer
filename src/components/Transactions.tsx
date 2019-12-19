@@ -8,7 +8,7 @@ import styled from 'styled-components';
 
 import Media from 'react-bootstrap/Media';
 
-import Avatar from './Figure';
+import Figure from './Figure';
 import Table from '../components/Table';
 
 import { fetchNetworkBlocks, fetchTransactions } from '../modules/dashboard';
@@ -30,6 +30,7 @@ const STransactions = styled.div`
 		border: 1px solid #eee;
 		margin-bottom: 10px;
 		border-radius: 3px !important;
+		align-items: center;
 
 		p {
 			margin-bottom: 0 !important;
@@ -37,7 +38,7 @@ const STransactions = styled.div`
 	}
 
 	.media-body {
-		min-width: 200px;
+		min-width: 130px;
 	}
 
 	.purpleasd {
@@ -45,11 +46,12 @@ const STransactions = styled.div`
 `;
 
 const SCallType = styled.div`
-	transition: background 0.2s ease-out;
-	padding: 15px 7px;
+	transition: all 0.2s ease-out;
+	padding: 4px 0px;
 	min-width: 50px;
 	border-radius: 3px !important;
 	text-decoration: none !important;
+	border: 3px solid;
 	cursor: pointer;
 	text-align: center !important;
 	height: 100%;
@@ -59,13 +61,12 @@ const SCallType = styled.div`
 `;
 
 const SPOA = styled(SCallType)`
-	background: var(--light-orange) !important;
+	border-color: var(--purple) !important;
 	font-weight: 600 !important;
-	color: white !important;
 `;
 
 const STransfer = styled(SCallType)`
-	background: var(--light-green) !important;
+	border-color: var(--green) !important;
 	font-weight: 600 !important;
 `;
 
@@ -105,32 +106,32 @@ const Transaction: React.FC<Props> = props => {
 							<div>TX</div>
 						</STransfer>
 					)}
-
-					<Avatar
-						className="mr-5"
+					<Figure
+						className="align-items-center mr-5"
 						address={t.sender}
 						size={35}
-						caption={'From'}
+						caption={'Sender'}
 					/>
-					<Avatar
+					<Figure
 						className="mr-5"
 						address={t.to}
 						size={35}
-						caption={'To'}
+						caption={'Recipient'}
 					/>
-					<div className="d-none d-md-block align-self-center mr-5">
-						{commaSeperate(t.gas)}
-						<div className="small">Gas</div>
-					</div>
-					<div className="d-none d-md-block align-self-center mr-5">
-						{t.gas_price}
-						<div className="small">Gas Price</div>
-					</div>
-					<div className="d-none d-md-block align-self-center mr-2">
-						{parseBalance(
-							new Currency(t.amount === '0' ? 0 : t.amount + 'a')
-						)}
-						<div className="small">Tenom</div>
+					<Media.Body className="">
+						<b>
+							{commaSeperate(t.gas)} x {t.gas_price}a
+						</b>
+						<p className="small mono">Transaction Fee</p>
+					</Media.Body>
+					<div className="align-self-center mr-2">
+						<h5 className="">
+							{parseBalance(
+								new Currency(
+									t.amount === '0' ? 0 : t.amount + 'a'
+								)
+							)}
+						</h5>
 					</div>
 				</Media>
 			))}

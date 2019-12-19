@@ -13,7 +13,7 @@ export const parseBalance = (balance: Currency) => {
 	}
 
 	if (l[1]) {
-		l[1] = l[1].slice(0, 4);
+		l[1] = l[1].slice(0, 2);
 	}
 
 	return l.join('.') + 'T';

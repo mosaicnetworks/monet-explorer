@@ -7,7 +7,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
 import Block from '../components/Block';
-import Transactions from '../components/Transactions';
 import Blocks from '../components/Blocks';
 
 import Button from 'react-bootstrap/Button';
@@ -18,7 +17,6 @@ import Content from '../ui/content/Content';
 
 import { useSelector } from 'react-redux';
 import { selectBlocks } from '../selectors';
-import Stats from '../components/Statistics';
 
 const SUnderHeader = styled.div`
 	background: var(--blue);
@@ -101,19 +99,54 @@ const Index: React.FC<{}> = () => {
 					</Q>
 				</Grid>
 			</SUnderHeader>
-			{/* <Stats /> */}
 			<Section padding={50}>
 				<Container fluid={true}>
 					<Row>
-						<Col md={6} className="pr-md-5">
+						<Col md={7} className="pr-5">
 							<Content>
-								<h3 className="preheader">
-									Latest Transactions
-								</h3>
-								<Transactions />
+								<SBlue className="mb-5">
+									<h3 className="preheader">
+										Block Explorer
+									</h3>
+
+									<Row className="align-items-center">
+										<Col md={7}>
+											<Form.Control
+												onChange={(e: any) => {
+													setBlockIndex(
+														Number(e.target.value)
+													);
+												}}
+												type="number"
+												placeholder="Block Index"
+												value={blockIndex.toString()}
+											/>
+										</Col>
+										<Col className="text-center">
+											<Button
+												onClick={handleBack}
+												variant="outline-dark"
+												className="mr-2"
+											>
+												Back
+											</Button>
+											<Button
+												variant="outline-dark"
+												onClick={handleForward}
+											>
+												Next
+											</Button>
+										</Col>
+									</Row>
+								</SBlue>
+								<div className="mt-4">
+									<Suspense fallback={<>Loading block...</>}>
+										<Block blockIndex={blockIndex} />
+									</Suspense>
+								</div>
 							</Content>
 						</Col>
-						<Col md={6}>
+						<Col md={5}>
 							<Content>
 								<h3 className="preheader">Latest Blocks</h3>
 								<Blocks />
