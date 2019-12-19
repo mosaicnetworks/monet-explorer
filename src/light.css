@@ -1,0 +1,26 @@
+* {
+	/* Newer MONET Colors */
+	--light-blue: #d6e5f5;
+	--light-orange: #feaf9a;
+	--light-green: #8deeb1;
+	--light-grey: #fafbfc;
+
+	/* Inbetweens */
+	--lighter-orange: #fba58a;
+	--lighter-blue: #52abdc;
+
+	/* Older MONET Colors */
+	--blue: #253c99;
+	--orange: #f16622;
+	--green: #02a24b;
+	--red: #ec1c24;
+	--purple: #7f3b97;
+	--yellow: #ffe014;
+	--black: #1d2124;
+
+	/* Misc constants */
+	--border-color: #eee;
+	--border-radius: 3px;
+
+	--blue-divider: #1a2d7a6c;
+}

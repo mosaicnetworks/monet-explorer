@@ -11,14 +11,13 @@
 }
 
 .btn {
-	border-radius: 3px !important;
+	border-radius: var(--border-radius) !important;
 	font-size: 13px !important;
 	font-weight: 700;
 	text-transform: uppercase;
 
 	display: inline-block;
 	padding: 10px 35px;
-	border-radius: 3px;
 	letter-spacing: 2px;
 	margin: 5px 0;
 
@@ -101,13 +100,13 @@
 }
 
 .dropdown-menu {
-	border-radius: 3px !important;
+	border-radius: var(--border-radius) !important;
 	border-color: var(--light-grey);
 }
 
 .modal-content {
-	border: 1px solid #eee !important;
-	border-radius: 3px !important;
+	border: 1px solid var(--border-color) !important;
+	border-radius: var(--border-radius) !important;
 }
 
 .nav-pills {

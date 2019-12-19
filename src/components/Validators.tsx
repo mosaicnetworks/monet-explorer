@@ -11,14 +11,15 @@ import Media from 'react-bootstrap/Media';
 import Avatar from './Avatar';
 
 import ValidatorHistory from './modals/ValidatorHistory';
+import Await from './utils/Await';
 
 import { selectValidators } from '../selectors';
-import { pubKeyToAddress, capitalize } from '../utils';
+import { capitalize, pubKeyToAddress } from '../utils';
+
+import { Validator } from '../client';
 
 import GREEN from '../assets/green-dot.png';
 import RED from '../assets/red-dot.png';
-import { Validator } from '../client';
-import Await from './utils/Await';
 
 const Green = styled.b`
 	color: var(--green) !important;
@@ -37,9 +38,9 @@ const SValidators = styled.div`
 	.media {
 		background: var(--light-grey);
 		padding: 15px 20px;
-		border: 1px solid #eee;
+		border: 1px solid #f1f1f1;
 		margin-bottom: 10px;
-		border-radius: 3px !important;
+		border-radius: var(--border-radius) !important;
 
 		p {
 			margin-bottom: 0 !important;
@@ -71,7 +72,7 @@ const SBottom = styled.div`
 	letter-spacing: 1px;
 	font-weight: 600;
 	text-transform: uppercase;
-	border: 1px solid #eee;
+	border: 1px solid var(--border-color);
 	border-top: none;
 
 	a {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import utils from 'evm-lite-utils';
 import ReCAPTCHA from 'react-google-recaptcha';
@@ -8,16 +8,10 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import Account from './Account';
+
 import Loader from './utils/Loader';
 
-import ExplorerAPIClient from '../client';
 import CoreAPI from '../client';
-
-import { IEVMAccount, Monet } from 'evm-lite-core';
-import { useSelector } from 'react-redux';
-import { selectNetwork } from '../selectors';
-import Await from './utils/Await';
-import Avatar from './Avatar';
 
 const SError = styled.div`
 	color: var(--light-orange);

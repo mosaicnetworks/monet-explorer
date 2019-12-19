@@ -1,6 +1,6 @@
 import request from 'request';
 
-import { IReceipt, IBaseAccount } from 'evm-lite-client';
+import { IBaseAccount } from 'evm-lite-client';
 
 import * as types from './types';
 

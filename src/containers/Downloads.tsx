@@ -1,25 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
-import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import Media from 'react-bootstrap/Media';
-import Row from 'react-bootstrap/Row';
 
 import { Application, DownloadsAPI } from '../client';
-import { capitalize } from '../utils';
 
 import Section, { Grid, Q } from '../ui';
 
-import WALLET from '../assets/monet-wallet.png';
-import MONETD from '../assets/monetd.png';
-import MONETCLI from '../assets/monetcli.png';
-import HUB from '../assets/hub.png';
-import COMPS from '../assets/computers.png';
 import LIBRARY from '../assets/library.png';
+import WALLET from '../assets/monet-wallet.png';
+import MONETCLI from '../assets/monetcli.png';
+import MONETD from '../assets/monetd.png';
 import SQUARES from '../assets/squares.svg';
 
 const SSquares = styled.div`
@@ -33,7 +25,7 @@ const SSquares = styled.div`
 
 const SWrapper = styled.div`
 	img {
-		border-radius: 3px;
+		border-radius: var(--border-radius);
 	}
 `;
 
@@ -58,7 +50,7 @@ const SLink = styled.a`
 	padding: 10px 20px;
 	padding-right: 30px;
 	background: var(--blue);
-	border-radius: 3px;
+	border-radius: var(--border-radius);
 	color: white;
 	font-size: 16px;
 	font-weight: 600;

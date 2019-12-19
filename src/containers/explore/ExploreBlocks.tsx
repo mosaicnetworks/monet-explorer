@@ -1,4 +1,4 @@
-import React, { Suspense, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
@@ -20,9 +20,22 @@ import { useSelector } from 'react-redux';
 import { selectBlocks } from '../../selectors';
 
 const SBlue = styled.div`
-	background: var(--light-blue);
-	padding: 20px;
-	border-radius: 3px;
+	background: var(--blue);
+	padding: 20px 0;
+	color: white;
+	/* border-radius: var(--border-radius); */
+	border-top: 1px solid var(--blue-divider);
+
+	& input {
+		font-size: 14px;
+		border: none !important;
+		color: #fff !important;
+		background: rgba(60, 120, 208, 0.3) !important;
+	}
+
+	& input::placeholder {
+		color: #888;
+	}
 `;
 
 const Index: React.FC<{}> = () => {
@@ -53,60 +66,56 @@ const Index: React.FC<{}> = () => {
 		}
 	}, [blockIndex, blocks]);
 
+	const onRecentBlockClick = (index: number) => () => {
+		setBlockIndex(index);
+	};
+
 	return (
 		<>
 			<UnderHeader active={'blocks'} />
+			<SBlue className="">
+				<Container fluid={true}>
+					<Row className="align-items-center">
+						<Col md={2}>
+							<Form.Control
+								onChange={(e: any) => {
+									setBlockIndex(Number(e.target.value));
+								}}
+								type="number"
+								placeholder="Block Index"
+								value={blockIndex.toString()}
+							/>
+						</Col>
+						<Col className="">
+							<Button
+								onClick={handleBack}
+								variant="outline-light"
+								className="mr-2"
+							>
+								Back
+							</Button>
+							<Button
+								variant="outline-light"
+								onClick={handleForward}
+							>
+								Next
+							</Button>
+						</Col>
+					</Row>
+				</Container>
+			</SBlue>
 			<Section padding={50}>
 				<Container fluid={true}>
 					<Row>
-						<Col md={7} className="pr-5">
+						<Col md={7} className="pr-md-5">
 							<Content>
-								<SBlue className="mb-5">
-									<h3 className="preheader">
-										Block Explorer
-									</h3>
-
-									<Row className="align-items-center">
-										<Col md={7}>
-											<Form.Control
-												onChange={(e: any) => {
-													setBlockIndex(
-														Number(e.target.value)
-													);
-												}}
-												type="number"
-												placeholder="Block Index"
-												value={blockIndex.toString()}
-											/>
-										</Col>
-										<Col className="text-center">
-											<Button
-												onClick={handleBack}
-												variant="outline-dark"
-												className="mr-2"
-											>
-												Back
-											</Button>
-											<Button
-												variant="outline-dark"
-												onClick={handleForward}
-											>
-												Next
-											</Button>
-										</Col>
-									</Row>
-								</SBlue>
-								<div className="mt-4">
-									<Suspense fallback={<>Loading block...</>}>
-										<Block blockIndex={blockIndex} />
-									</Suspense>
-								</div>
+								<Block blockIndex={blockIndex} />
 							</Content>
 						</Col>
 						<Col md={5}>
 							<Content>
 								<h3 className="preheader">Latest Blocks</h3>
-								<Blocks />
+								<Blocks onClickHandler={onRecentBlockClick} />
 							</Content>
 						</Col>
 					</Row>

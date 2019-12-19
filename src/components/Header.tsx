@@ -9,7 +9,6 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import LOGO from '../assets/monet.svg';
 
@@ -18,13 +17,11 @@ import {
 	selectNetwork as selectNetworkAction
 } from '../modules/dashboard';
 import { selectAllNetworks, selectNetwork } from '../selectors';
-import { capitalize, parseNetworkName } from '../utils';
 
 import { DEV } from '../CONSTANTS';
 
 const SNavbar = styled(Navbar)`
 	box-shadow: rgba(0, 0, 0, 0.0392157) 0px 0px 1px 0px !important;
-	/* border-bottom: 1px solid #f3f3f3; */
 `;
 
 const SNav = styled(Nav)`
@@ -40,9 +37,6 @@ const SExplore = styled.div`
 const SNetworkName = styled.span`
 	font-weight: 600;
 	color: white;
-	/* text-transform: uppercase; */
-	/* font-size: 15px; */
-	/* letter-spacing: 2px; */
 `;
 
 const Header: React.FC<{}> = () => {
@@ -56,7 +50,6 @@ const Header: React.FC<{}> = () => {
 	useEffect(() => {
 		if (networks.length) {
 			dispatch(selectNetworkAction(networks[0].name));
-			// fetchAllData();
 		}
 	}, [networks]);
 
@@ -112,33 +105,7 @@ const Header: React.FC<{}> = () => {
 								<Nav.Link as="span">Downloads</Nav.Link>
 							</Link>
 						</Nav.Item>
-						{/* <Nav.Item>
-							<Nav.Link as="span">Hashgraph</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Link to={'/faucet'}>
-								<Nav.Link as="span">Faucet</Nav.Link>
-							</Link>
-						</Nav.Item> */}
-						{/* <NavDropdown title={'Camille V6'} id="nav-dropdown">
-							{networks.map((n, i) => (
-								<NavDropdown.Item key={`${n.name}-${i}`}>
-									{parseNetworkName(n.name)}
-								</NavDropdown.Item>
-							))}
-							<NavDropdown.Divider />
-							<NavDropdown.Item eventKey="4.4">
-								Separated link
-							</NavDropdown.Item>
-						</NavDropdown> */}
 					</SNav>
-					{/* <SExplore>
-						<Link to={'/'}>
-							<Button variant={'warning'} className="bigger">
-								POA
-							</Button>
-						</Link>
-					</SExplore> */}
 					<SExplore>
 						<Link to={'/explore'}>
 							<Button variant={'warning'} className="bigger">

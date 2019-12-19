@@ -2,34 +2,25 @@ import React, { useEffect } from 'react';
 
 import { Currency } from 'evm-lite-utils';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
 
 import styled from 'styled-components';
 
 import Media from 'react-bootstrap/Media';
 
 import Figure from './Figure';
-import Table from '../components/Table';
 
-import { fetchNetworkBlocks, fetchTransactions } from '../modules/dashboard';
-import {
-	selectBlocks,
-	selectBlocksLoading,
-	selectTransactions,
-	selectTxsLoading
-} from '../selectors';
-import { commaSeperate, parseBalance } from '../utils';
-
-import Section, { Grid, Q } from '../ui';
 import { Transaction as TTransaction } from '../client';
+import { fetchTransactions } from '../modules/dashboard';
+import { selectTransactions } from '../selectors';
+import { commaSeperate, parseBalance } from '../utils';
 
 const STransactions = styled.div`
 	.media {
 		background: var(--light-grey);
 		padding: 15px 20px;
-		border: 1px solid #eee;
+		border: 1px solid var(--border-color);
 		margin-bottom: 10px;
-		border-radius: 3px !important;
+		border-radius: var(--border-radius) !important;
 		align-items: center;
 
 		p {
@@ -49,9 +40,10 @@ const SCallType = styled.div`
 	transition: all 0.2s ease-out;
 	padding: 4px 0px;
 	min-width: 50px;
-	border-radius: 3px !important;
+	border-radius: var(--border-radius) !important;
 	text-decoration: none !important;
 	border: 3px solid;
+	border-color: transparent;
 	cursor: pointer;
 	text-align: center !important;
 	height: 100%;
@@ -66,8 +58,9 @@ const SPOA = styled(SCallType)`
 `;
 
 const STransfer = styled(SCallType)`
-	border-color: var(--green) !important;
+	background-color: var(--green) !important;
 	font-weight: 600 !important;
+	color: white;
 `;
 
 type Props = {
@@ -116,7 +109,7 @@ const Transaction: React.FC<Props> = props => {
 						className="mr-5"
 						address={t.to}
 						size={35}
-						caption={'Recipient'}
+						caption={'To'}
 					/>
 					<Media.Body className="">
 						<b>

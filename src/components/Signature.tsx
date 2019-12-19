@@ -1,7 +1,8 @@
 import React from 'react';
 
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+
+import styled from 'styled-components';
 
 import Media from 'react-bootstrap/Media';
 
@@ -17,8 +18,11 @@ type Props = {
 
 const SSignature = styled.div`
 	.media {
-		margin-bottom: 20px;
-		border-radius: 3px !important;
+		background: var(--light-grey);
+		padding: 15px 20px;
+		border: 1px solid #f1f1f1;
+		margin-bottom: 10px;
+		border-radius: var(--border-radius) !important;
 
 		p {
 			margin-bottom: 0 !important;
@@ -58,7 +62,7 @@ const Signature: React.FC<Props> = props => {
 					</h6>
 					<div
 						style={{ wordWrap: 'break-word' }}
-						className="small pr-5"
+						className="small pr-md-5"
 					>
 						<code>{props.signature}</code>
 					</div>

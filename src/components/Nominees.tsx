@@ -4,9 +4,7 @@ import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
 
-import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
-import Row from 'react-bootstrap/Row';
 import Media from 'react-bootstrap/Media';
 
 import Avatar from './Figure';
@@ -23,9 +21,9 @@ const SNominees = styled.div`
 	.media {
 		background: var(--light-grey);
 		padding: 15px 20px;
-		border: 1px solid #eee;
+		border: 1px solid var(--border-color);
 		margin-bottom: 5px;
-		border-radius: 3px !important;
+		border-radius: var(--border-radius) !important;
 
 		p {
 			margin-bottom: 0 !important;

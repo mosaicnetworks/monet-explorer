@@ -99,6 +99,7 @@ const Jumbotron: React.FC<{}> = () => {
 							<a
 								href="https://github.com/mosaicnetworks/"
 								target="_blank"
+								rel="noopener noreferrer"
 							>
 								<Button
 									variant="outline-light"

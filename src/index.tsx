@@ -11,10 +11,13 @@ import stores from './store';
 import * as serviceWorker from './serviceWorker';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import './bootstrap.css';
 import './fonts.css';
 import './global.css';
 import './index.css';
+
+import './light.css';
 
 const s = stores();
 

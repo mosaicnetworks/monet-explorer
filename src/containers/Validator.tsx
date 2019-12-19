@@ -3,35 +3,30 @@ import React from 'react';
 import Utils from 'evm-lite-utils';
 import styled from 'styled-components';
 
-import { JsonToTable } from 'react-json-to-table';
 import { useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
-import Media from 'react-bootstrap/Media';
 import Image from 'react-bootstrap/Image';
+import Media from 'react-bootstrap/Media';
 import Row from 'react-bootstrap/Row';
 
 import Avatar from '../components/Avatar';
 
-import { selectValidator, selectBlocks } from '../selectors';
+import { selectBlocks, selectValidator } from '../selectors';
 import { capitalize, pubKeyToAddress } from '../utils';
 
 import Section from '../ui';
 import Body from '../ui/content/Body';
 import Content from '../ui/content/Content';
 import Heading from '../ui/content/Heading';
-import Stats from '../components/Statistics';
 
 import GREEN from '../assets/green-dot.png';
 import RED from '../assets/red-dot.png';
-import Table from 'react-bootstrap/Table';
-import Blocks from '../components/Blocks';
 
 const Green = styled.div`
 	color: var(--green) !important;
-	/* text-transform: uppercase; */
 	font-weight: 600;
 	letter-spacing: 1px;
 `;
@@ -55,18 +50,18 @@ const SStatus = styled.div`
 const SVal = styled.div`
 	background: var(--light-blue);
 	padding: 30px 20px;
-	border-radius: 3px;
+	border-radius: var(--border-radius);
 `;
 
 const SBody = styled.div`
 	padding: 10px 20px;
 	min-width: 210px;
-	border-radius: 3px;
+	border-radius: var(--border-radius);
 	display: inline-block;
 	margin: 10px;
 	margin-left: 0;
 	margin-bottom: 0;
-	border: 1px solid #eee;
+	border: 1px solid var(--border-color);
 	background: var(--light-grey);
 
 	p {

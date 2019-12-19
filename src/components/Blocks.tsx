@@ -8,18 +8,19 @@ import Media from 'react-bootstrap/Media';
 
 import Avatar from './Avatar';
 
-import { fetchNetworkBlocks } from '../modules/dashboard';
+import { Block } from '../client';
 import { selectBlocks } from '../selectors';
 import { pubKeyToAddress } from '../utils';
-import { Block } from '../client';
+
+import { fetchNetworkBlocks } from '../modules/dashboard';
 
 const SBlocks = styled.div`
 	.media {
 		background: var(--light-grey);
 		padding: 15px 20px;
-		border: 1px solid #eee;
+		border: 1px solid var(--border-color);
 		margin-bottom: 10px;
-		border-radius: 3px !important;
+		border-radius: var(--border-radius) !important;
 
 		p {
 			margin-bottom: 0 !important;
@@ -32,11 +33,10 @@ const SBlocks = styled.div`
 `;
 
 const SBlockAvatar = styled.div`
-	transition: background 0.2s ease-out;
-	/* font-size: 15px; */
-	background: #eee;
+	transition: all 0.2s ease-out;
+	background: var(--border-color);
 	padding: 18px 15px;
-	border-radius: 5px !important;
+	border-radius: var(--border-radius) !important;
 	color: black !important;
 	text-decoration: none !important;
 	cursor: pointer;
@@ -49,6 +49,7 @@ const SBlockAvatar = styled.div`
 
 type Props = {
 	blocks?: Block[];
+	onClickHandler?: (index: number) => () => void;
 };
 
 const Blocks: React.FC<Props> = props => {
@@ -71,7 +72,12 @@ const Blocks: React.FC<Props> = props => {
 		<SBlocks>
 			{blocks.length === 0 && 'No blocks to display.'}
 			{blocks.map(b => (
-				<Media key={b.index}>
+				<Media
+					onClick={
+						props.onClickHandler && props.onClickHandler(b.index)
+					}
+					key={b.index}
+				>
 					<SBlockAvatar className="align-self-center mr-3">
 						#{b.index}
 					</SBlockAvatar>

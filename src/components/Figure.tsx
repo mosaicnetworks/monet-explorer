@@ -6,7 +6,6 @@ import utils from 'evm-lite-utils';
 import styled from 'styled-components';
 
 import BFigure from 'react-bootstrap/Figure';
-import Image from 'react-bootstrap/Image';
 
 const SAvatar = styled.div`
 	& .figure {
@@ -23,7 +22,7 @@ const SAvatar = styled.div`
 	}
 
 	img {
-		border-radius: 3px !important;
+		border-radius: var(--border-radius) !important;
 	}
 `;
 

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
-import { IEVMAccount, Monet } from 'evm-lite-core';
+import { IBaseAccount } from 'evm-lite-client';
+import { Currency } from 'evm-lite-utils';
 import { useSelector } from 'react-redux';
 
 import Media from 'react-bootstrap/Media';
@@ -12,9 +13,7 @@ import Avatar from './Avatar';
 import CoreAPI from '../client';
 
 import { selectNetwork } from '../selectors';
-import { capitalize, parseBalance } from '../utils';
-import { IBaseAccount } from 'evm-lite-client';
-import { Currency } from 'evm-lite-utils';
+import { parseBalance } from '../utils';
 
 type Props = {
 	address: string;

@@ -5,9 +5,9 @@ import styled from 'styled-components';
 const SBody = styled.div`
 	padding: 20px;
 	display: block;
-	border: 1px solid #eee;
+	border: 1px solid var(--border-color);
 	background: var(--light-grey);
-	border-radius: 3px;
+	border-radius: var(--border-radius);
 
 	p {
 		margin-bottom: 0;

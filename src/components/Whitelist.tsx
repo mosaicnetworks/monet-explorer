@@ -1,6 +1,5 @@
 import React from 'react';
 
-import utils from 'evm-lite-utils';
 import styled from 'styled-components';
 
 import { useSelector } from 'react-redux';
@@ -17,9 +16,9 @@ const SWhitelist = styled.div`
 	.media {
 		background: var(--light-grey);
 		padding: 15px 20px;
-		border: 1px solid #eee;
+		border: 1px solid var(--border-color);
 		margin-bottom: 10px;
-		border-radius: 3px !important;
+		border-radius: var(--border-radius) !important;
 
 		p {
 			margin-bottom: 0 !important;

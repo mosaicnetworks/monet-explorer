@@ -8,7 +8,7 @@ import { Grid, Q } from '../../ui';
 
 const SUnderHeader = styled.div`
 	background: var(--blue);
-	border-top: 1px solid #1a2d7a6c;
+	border-top: 1px solid var(--blue-divider);
 	padding: 15px 0;
 	color: white;
 `;

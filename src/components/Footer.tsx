@@ -2,14 +2,8 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { Link } from 'react-router-dom';
-
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
-import Row from 'react-bootstrap/Row';
 
-import Background from '../assets/bg.svg';
 import Logo from '../assets/monet.svg';
 
 import Section, { Grid, Q } from '../ui';

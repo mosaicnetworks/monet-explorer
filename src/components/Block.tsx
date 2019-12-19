@@ -1,24 +1,21 @@
 import React, { useEffect, useState } from 'react';
 
-import styled from 'styled-components';
-
 import { useSelector } from 'react-redux';
 
 import Transactions from './Transactions';
 
-import Avatar from './Avatar';
+import Signature from './Signature';
+
+import Await from './utils/Await';
 import Loader from './utils/Loader';
 
 import Body from '../ui/content/Body';
 import Content from '../ui/content/Content';
 import Heading from '../ui/content/Heading';
 
-import { pubKeyToAddress } from '../utils';
 import { selectNetwork } from '../selectors';
 
 import CoreAPI, { Block as TBlock } from '../client';
-import Await from './utils/Await';
-import Signature from './Signature';
 
 type Props = {
 	blockIndex: number;
@@ -74,12 +71,10 @@ const Block: React.FC<Props> = props => {
 			{!error && (
 				<Await loading={loading} fallback={fallback}>
 					<>
-						<h3>
+						<h3 className="mb-4">
 							Blocks #{props.blockIndex} @ {block.round_received}
 						</h3>
-						<br />
 						<Content>
-							<Heading>Details</Heading>
 							<Body>
 								<b>
 									State Hash:{' '}
