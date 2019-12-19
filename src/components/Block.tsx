@@ -82,11 +82,18 @@ const Block: React.FC<Props> = props => {
 										{block.state_hash}
 									</span>
 								</b>
-								<br />
+								<hr className="light smaller" />
 								<b>
 									Frame Hash:{' '}
 									<span className="mono">
 										{block.frame_hash}
+									</span>
+								</b>
+								<hr className="light smaller" />
+								<b>
+									Peers Hash:{' '}
+									<span className="mono">
+										{block.peers_hash}
 									</span>
 								</b>
 							</Body>
