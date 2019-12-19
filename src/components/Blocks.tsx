@@ -62,7 +62,9 @@ const Blocks: React.FC<Props> = props => {
 	}
 
 	useEffect(() => {
-		fetchBlocks();
+		if (props.blocks !== undefined) {
+			fetchBlocks();
+		}
 	}, []);
 
 	return (
@@ -76,7 +78,7 @@ const Blocks: React.FC<Props> = props => {
 					<Media.Body>
 						<p className="small">Signatures</p>
 						<p className="">
-							{b.signatures.map(s => (
+							{b.signatures.slice(0, 4).map(s => (
 								<Avatar
 									key={s.signature}
 									address={pubKeyToAddress(
@@ -84,7 +86,11 @@ const Blocks: React.FC<Props> = props => {
 									)}
 									size={35}
 								/>
-							))}
+							))}{' '}
+							<b className="orange bold">
+								{' '}
+								+ {b.signatures.length - 4}
+							</b>
 						</p>
 					</Media.Body>
 					<div className="d-none d-md-block align-self-center mr-5">

@@ -90,6 +90,15 @@ class CoreAPI extends Client {
 	/**
 	 * Statistics, Transactions & Blocks
 	 */
+	public async fetchBlock(
+		index: number,
+		network: string
+	): Promise<types.Block> {
+		const url = `/api/block/${index}/?network=${network}`;
+
+		return JSON.parse(await this.get(url));
+	}
+
 	public async fetchBlocks(
 		network: string,
 		offset?: number

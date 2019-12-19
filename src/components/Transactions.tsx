@@ -21,6 +21,7 @@ import {
 import { commaSeperate, parseBalance } from '../utils';
 
 import Section, { Grid, Q } from '../ui';
+import { Transaction as TTransaction } from '../client';
 
 const STransactions = styled.div`
 	.media {
@@ -68,20 +69,31 @@ const STransfer = styled(SCallType)`
 	font-weight: 600 !important;
 `;
 
-type Props = {};
+type Props = {
+	transactions?: TTransaction[];
+};
 
 const Transaction: React.FC<Props> = props => {
 	const dispatch = useDispatch();
 
-	const transactions = useSelector(selectTransactions);
+	let transactions = useSelector(selectTransactions);
+
+	if (props.transactions) {
+		transactions = props.transactions;
+	}
 
 	const fetchTxs = () => dispatch(fetchTransactions());
 	useEffect(() => {
-		fetchTxs();
+		if (props.transactions !== undefined) {
+			fetchTxs();
+		}
 	}, []);
 
 	return (
 		<STransactions>
+			{transactions.length === 0 && (
+				<div className="orange">No transactions.</div>
+			)}
 			{transactions.map((t, i) => (
 				<Media key={`transaction-${i}`}>
 					{t.payload.length > 0 ? (

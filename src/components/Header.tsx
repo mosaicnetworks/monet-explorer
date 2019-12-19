@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
@@ -61,8 +61,20 @@ const Header: React.FC<{}> = () => {
 	}, [networks]);
 
 	let interval: any;
+	const scrollToggleHeight = 10;
+	const [stickyHeader, setStickyHeader] = useState(false);
 
 	useEffect(() => {
+		window.addEventListener('scroll', () => {
+			if (window.scrollY > scrollToggleHeight) {
+				setStickyHeader(true);
+			}
+
+			if (window.scrollY <= scrollToggleHeight) {
+				setStickyHeader(false);
+			}
+		});
+
 		if (!DEV) {
 			interval = setInterval(() => {
 				fetchAllData();

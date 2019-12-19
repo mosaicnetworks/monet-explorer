@@ -65,7 +65,7 @@
 }
 
 .blue {
-	color: var(--blue);
+	color: var(--blue) !important;
 }
 
 .green {

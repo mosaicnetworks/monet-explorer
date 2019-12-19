@@ -124,6 +124,26 @@ class BlockListAPIHandler(generics.ListAPIView):
         return queryset
 
 
+class BlockDetailAPIHandler(APIView):
+
+    def get(self, request, pk, *args, **kwargs):
+        network = self.request.query_params.get('network', None)
+
+        if not network:
+            return Response(dict(error="No network specified"))
+
+        if not Network.objects.filter(name=network.lower()).count():
+            return Response(dict(error="Network does not exist"))
+
+        network = Network.objects.get(name=network.lower())
+
+        try:
+            block = Block.objects.get(index=pk, network=network)
+            return Response(BlockSerializer(block).data)
+        except Block.DoesNotExist:
+            return Response(dict(error=f"Block with index `{pk}` not found on network `{network.name}`"))
+
+
 class FaucetAPIHandler(generics.CreateAPIView):
     """
     Handles all faucet related api queries

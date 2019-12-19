@@ -14,6 +14,7 @@ import ExplorerAPIClient, {
 	ValidatorHistory as TValidatorHistory
 } from '../../client';
 import { selectNetwork } from '../../selectors';
+import Alert from 'react-bootstrap/Alert';
 
 const ValidatorHistory: React.FC<{}> = () => {
 	const network = useSelector(selectNetwork);
@@ -97,6 +98,15 @@ const ValidatorHistory: React.FC<{}> = () => {
 						})}
 					</Tabs>
 				</Modal.Body>
+				<Modal.Footer>
+					<Alert variant="info" className="small blue">
+						<Alert.Heading as="h5">Info</Alert.Heading>
+						The statistics displayed at each of the consensus rounds
+						represents the state of the node before the validator
+						set changed. In the case of the current validator set -
+						the data is live.
+					</Alert>
+				</Modal.Footer>
 			</Modal>
 			<a href="#" onClick={() => setLgShow(true)}>
 				Show History

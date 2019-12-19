@@ -1,5 +1,6 @@
 import React from 'react';
 
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import Media from 'react-bootstrap/Media';
@@ -14,33 +15,56 @@ type Props = {
 	signature: string;
 };
 
+const SSignature = styled.div`
+	.media {
+		margin-bottom: 20px;
+		border-radius: 3px !important;
+
+		p {
+			margin-bottom: 0 !important;
+		}
+	}
+
+	.media-body {
+		min-width: 150px;
+	}
+`;
+
 const Signature: React.FC<Props> = props => {
 	const address = pubKeyToAddress(props.validator.public_key || '');
 
 	return (
-		<Media>
-			<Link
-				data-tip={`View Validator`}
-				to={`/validator/${props.validator.public_key}`}
-				className={'align-self-center mr-3'}
-			>
-				<Avatar address={address} size={40} />
-			</Link>
-			<Media.Body>
-				<h6>
-					{props.validator.moniker} {'  '}
+		<SSignature>
+			<Media>
+				<Link
+					data-tip={`View Validator`}
+					to={`/validator/${props.validator.public_key}`}
+					className={'align-self-center mr-3'}
+				>
+					<Avatar address={address} size={40} />
+				</Link>
+				<Media.Body>
+					<h6>
+						{props.validator.moniker} {'  '}
+						<div
+							className="mono"
+							style={{
+								marginLeft: '10px',
+								display: 'inline-block'
+							}}
+						>
+							{props.validator.host}
+						</div>
+					</h6>
 					<div
-						className="mono"
-						style={{ marginLeft: '10px', display: 'inline-block' }}
+						style={{ wordWrap: 'break-word' }}
+						className="small pr-5"
 					>
-						{props.validator.host}
+						<code>{props.signature}</code>
 					</div>
-				</h6>
-				<div className="mono" style={{ wordWrap: 'break-word' }}>
-					<code>{props.signature}</code>
-				</div>
-			</Media.Body>
-		</Media>
+				</Media.Body>
+			</Media>
+		</SSignature>
 	);
 };
 

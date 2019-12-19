@@ -63,6 +63,10 @@ const SAlert = styled(Alert)`
 	}
 
 	@media (max-width: 575px) {
+		.alert-heading {
+			margin-top: 70px !important;
+		}
+
 		padding: 50px 0 !important;
 	}
 `;

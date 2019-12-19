@@ -20,6 +20,16 @@ import MONETCLI from '../assets/monetcli.png';
 import HUB from '../assets/hub.png';
 import COMPS from '../assets/computers.png';
 import LIBRARY from '../assets/library.png';
+import SQUARES from '../assets/squares.svg';
+
+const SSquares = styled.div`
+	width: 88px;
+	height: 78px;
+	position: absolute;
+	background-image: url(${SQUARES});
+	background-size: contain;
+	top: -70px;
+`;
 
 const SWrapper = styled.div`
 	img {
@@ -46,9 +56,10 @@ const SBlue = styled.div`
 const SLink = styled.a`
 	display: inline-block;
 	padding: 10px 20px;
-	border: 1px solid #eee;
 	padding-right: 30px;
-	background: var(--light-blue);
+	background: var(--blue);
+	border-radius: 3px;
+	color: white;
 	font-size: 16px;
 	font-weight: 600;
 	margin-right: 10px;
@@ -56,6 +67,11 @@ const SLink = styled.a`
 
 	img {
 		margin-right: 10px;
+	}
+
+	:hover {
+		color: white !important;
+		text-decoration: none;
 	}
 `;
 
@@ -95,6 +111,7 @@ const Downloads: React.FC<{}> = () => {
 						className="align-items-center ml-md-5 mr-md-5"
 					>
 						<Q pos={[1, 1]} xs={12} md={4}>
+							<SSquares />
 							<h1 className="mt-3 mb-4">The Monet Toolchain</h1>
 							<p className="pr-5">
 								The software to run and interact with the Monet
@@ -116,8 +133,11 @@ const Downloads: React.FC<{}> = () => {
 								</Button>
 							</p>
 						</Q>
-						<Q pos={[1, 2]} className="d-none d-lg-block">
-							<img width={'100%'} src={LIBRARY} />
+						<Q
+							pos={[1, 2]}
+							className="d-none d-lg-block text-right"
+						>
+							<img width={'90%'} src={LIBRARY} />
 						</Q>
 					</Grid>
 				</Section>
