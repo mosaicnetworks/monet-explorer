@@ -8,7 +8,8 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import Wrapper from './components/Wrapper';
 
 import Downloads from './containers/Downloads';
-import Explore from './containers/Explore';
+import Explore from './containers/explore/Explore';
+import ExploreBlocks from './containers/explore/ExploreBlocks';
 import Index from './containers/Index';
 import Validator from './containers/Validator';
 
@@ -34,6 +35,11 @@ const App: React.FC = () => {
 					/>
 					<Route exact={true} path="/" component={Index} />
 					<Route exact={true} path="/explore" component={Explore} />
+					<Route
+						exact={true}
+						path="/explore/blocks"
+						component={ExploreBlocks}
+					/>
 					<Route
 						exact={true}
 						path="/downloads"
